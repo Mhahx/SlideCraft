@@ -13,6 +13,7 @@ Installierbar gemacht, für die Ziele Claude (claude.ai), Claude for PowerPoint 
 | `SKILL.md`: Pfad zum Prüfskript auch für claude.ai und die Office-Add-ins (Skill-Ordner wird in die Sandbox kopiert, Pfad relativ zu `SKILL.md`) | bisher nur für Claude Code beschrieben |
 | `SKILL.md`: Pfade zu `research/`, `examples/`, `tests/` und BRIEF sind Herkunftsnachweise des Repos, nicht Teil des Skills | im Paket fehlen diese Dateien; ein Modell soll nicht danach suchen |
 | README: Abschnitt „Installieren“ mit Stand je Umgebung | Claude Design nutzt laut Anthropic Design-Systeme statt Skills; offiziell unterstützt sind claude.ai, die Office-Add-ins und Claude Code |
+| Beschreibung geschärft: lädt vor der ersten Rückfrage zum Deck; nennt Vortrag, Keynote, Vorlesung, Board-Update, Entscheidungsvorlage und das Prüfen einer bestehenden .pptx; schließt Zusammenfassen und Zählen aus. `SKILL.md` Schritt 1: bei schon gestellten Fragen nur die fehlenden Punkte aus Runde 1 nachfragen | Auslösetest (`tests/trigger/`, Claude Code headless, 20 Anfragen): vorher 15 von 20, das Modell stellte bei vier Deck-Anfragen eigene Rückfragen ohne die Frage nach dem Aussehen und lud den Skill nicht; danach in zwei Läufen je 20 von 20 |
 
 ## 0.16-draft (2026-09-25)
 
