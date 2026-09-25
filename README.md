@@ -63,7 +63,7 @@ Nur Python-Standardbibliothek; `--render` und `--render-dir` brauchen LibreOffic
 ```
 python3 -m unittest discover -s tests          # 88 Tests; Render-Tests laufen nur mit LibreOffice
 python3 tools/package.py                       # baut dist/slide-craft.zip
-skills-ref validate dist/slide-craft           # offizieller Validator (pip install skills-ref)
+agentskills validate dist/slide-craft          # offizieller Validator (pip install skills-ref==0.1.1)
 claude plugin validate . && claude plugin validate ./plugin
 bash tests/trigger/run.sh                      # Auslösetest, braucht die Claude-Code-Kommandozeile
 ```

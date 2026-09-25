@@ -22,9 +22,10 @@ jobs:
       - name: Build the package; the tag must match the plugin version
         run: python3 tools/package.py --tag "$GITHUB_REF_NAME"
       - name: Validate the skill
+        # skills-ref 0.1.1 from PyPI installs its command as `agentskills` (the git version names it `skills-ref`)
         run: |
-          pip install --quiet skills-ref
-          skills-ref validate dist/slide-craft
+          pip install --quiet skills-ref==0.1.1
+          agentskills validate dist/slide-craft
       - name: Create the release with the ZIP
         env:
           GH_TOKEN: ${{ github.token }}

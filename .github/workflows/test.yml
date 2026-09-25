@@ -18,9 +18,10 @@ jobs:
       - name: Build the skill package and check versions
         run: python3 tools/package.py
       - name: Validate the skill against the Agent Skills specification
+        # skills-ref 0.1.1 from PyPI installs its command as `agentskills` (the git version names it `skills-ref`)
         run: |
-          pip install --quiet skills-ref
-          skills-ref validate dist/slide-craft
+          pip install --quiet skills-ref==0.1.1
+          agentskills validate dist/slide-craft
       - name: Manifests are valid JSON
         run: |
           python3 -m json.tool .claude-plugin/marketplace.json > /dev/null
