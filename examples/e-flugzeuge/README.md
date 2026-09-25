@@ -1,6 +1,6 @@
 # Beispieldecks: E-Flugzeuge (alle Zahlen erfunden)
 
-Vier Decks zum selben Thema, je eines pro Profil, gebaut nach dem Ablauf von `slide-craft` (Brief, Profil, Richtung im Modus Quick, Story, Plan, Bau, Prüfung, Plan as built). Sie dienen dazu, das Prüfskript (`scripts/check_deck.py`) und den Planablauf an realistischen Decks zu erproben, solange keine echten Decks der Zielgruppe vorliegen. Alle Zahlen, die Firma Voltair und die Personen sind erfunden und in den Quellzeilen so markiert.
+Vier Decks zum selben Thema, je eines pro Profil, gebaut nach dem Ablauf von `slide-craft` (Brief, Profil, Richtung im Modus Quick, Story, Plan, Bau, Prüfung, Plan as built). Sie dienen dazu, das Prüfskript (`plugin/skills/slide-craft/scripts/check_deck.py`) und den Planablauf an realistischen Decks zu erproben, solange keine echten Decks der Zielgruppe vorliegen. Alle Zahlen, die Firma Voltair und die Personen sind erfunden und in den Quellzeilen so markiert.
 
 **Hinweis (0.11):** Die Decks sind vor 0.11 entstanden, im Modus Quick mit "Standing exit" als Ausweichoption. Beides gibt es nicht mehr: Der Look wird jetzt immer aus gerenderten Entwürfen gewählt (`references/direction.md`). Mit dem Detektor aus 0.11 bestehen alle vier Decks ohne Fail; `talk` erhält die Beobachtung `default-look` (violett-blauer Grund). Die Kritik aus `AUDIT.md` K2 (gleiche Titelfolien, leeres unteres Drittel) sieht der Detektor nicht, sie bleibt eine Beurteilung. `check.json` in den Ordnern ist mit dem Skript aus 0.13 neu erzeugt (`--plan --exempt 1 --render`), alle vier ohne Fail. Die Grafiken von `talk` (Reichweitenringe, Streckenkarte, Steigflugprofil) zeigen den Sachverhalt und gelten nach `refuse.md` nicht als Dekoration; das Flugzeug in der Fortschrittsleiste von `pitch` schon.
 
@@ -15,7 +15,7 @@ Vier Decks zum selben Thema, je eines pro Profil, gebaut nach dem Ablauf von `sl
 
 In jedem Ordner: `plan.md` (Deck-Plan mit Abschnitt 7 "as built"), `build.js` (pptxgenjs), `deck.pptx`, `check.json` (Bericht des Prüfskripts), `render/` (ein PNG je Folie). Gemeinsam: `lib.js` (Hilfen), `art.js` (erzeugt alle Illustrationen als SVG und PNG nach `assets/`, Rasterizer: sharp).
 
-Neu bauen (Bilder, dann Deck): `NODE_PATH=<Ordner mit node_modules, darin pptxgenjs und sharp> node examples/e-flugzeuge/art.js` und `... node examples/e-flugzeuge/read/build.js`. Prüfen: `python3 scripts/check_deck.py examples/e-flugzeuge/read/deck.pptx --plan examples/e-flugzeuge/read/plan.md --exempt 1 --render`.
+Neu bauen (Bilder, dann Deck): `NODE_PATH=<Ordner mit node_modules, darin pptxgenjs und sharp> node examples/e-flugzeuge/art.js` und `... node examples/e-flugzeuge/read/build.js`. Prüfen: `python3 plugin/skills/slide-craft/scripts/check_deck.py examples/e-flugzeuge/read/deck.pptx --plan examples/e-flugzeuge/read/plan.md --exempt 1 --render`.
 
 ## Zweite Runde: Rückmeldung und Umbau
 

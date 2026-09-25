@@ -1,16 +1,19 @@
 """Build the installable skill: dist/slide-craft/ and dist/slide-craft.zip.
 
-Only what the skill needs goes in: SKILL.md, references/, scripts/. Project documents (audits, brief,
-research, examples, tests) stay in the repository. The ZIP holds the skill folder as its top level,
-as claude.ai expects (<name>/SKILL.md). Usage: python3 tools/package.py
+The skill lives in plugin/skills/slide-craft/ (SKILL.md, references/, scripts/); the same folder is what the
+plugin marketplace installs. Project documents (docs/, examples/, tests/) stay in the repository. The ZIP holds the skill folder as its top level,
+as claude.ai expects (<name>/SKILL.md). Also checks that the versions of SKILL.md (0.19-draft), the plugin manifest
+(0.19.0) and, with --tag, the git tag (v0.19.0) agree. Usage: python3 tools/package.py [--tag v0.19.0]
 """
 import os
 import re
 import shutil
 import sys
 import zipfile
+import json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SKILL = os.path.join(ROOT, 'plugin', 'skills', 'slide-craft')
 DIST = os.path.join(ROOT, 'dist')
 PARTS = ['SKILL.md', 'references', 'scripts']
 SKIP = re.compile(r'(__pycache__|\.pyc$|\.DS_Store$)')
@@ -44,20 +47,38 @@ def check(skill_md):
         problems.append('SKILL.md has %d lines; keep it under 500' % lines)
     # every file SKILL.md names under references/ or scripts/ must exist
     for ref in sorted(set(re.findall(r'`((?:references|scripts)/[\w./-]+\.(?:md|py))`', text))):
-        if not os.path.exists(os.path.join(ROOT, ref)):
+        if not os.path.exists(os.path.join(SKILL, ref)):
             problems.append('SKILL.md names %s, which does not exist' % ref)
     return name, problems
 
 
+def versions(tag=None):
+    """Skill version 0.19-draft, plugin version 0.19.0 and tag v0.19.0 must name the same release."""
+    text = open(os.path.join(SKILL, 'SKILL.md'), encoding='utf-8').read()
+    m = re.search(r'^\s+version:\s*(\S+)', text, re.M)
+    skill_v = m.group(1) if m else ''
+    plugin_v = json.load(open(os.path.join(ROOT, 'plugin', '.claude-plugin', 'plugin.json'))).get('version', '')
+    problems = []
+    if not re.fullmatch(r'\d+\.\d+\.\d+', plugin_v):
+        problems.append('plugin.json version must be x.y.z: %r' % plugin_v)
+    if not plugin_v.startswith(skill_v.split('-')[0] + '.'):
+        problems.append('SKILL.md version %s and plugin.json version %s differ' % (skill_v, plugin_v))
+    if tag and tag != 'v' + plugin_v:
+        problems.append('tag %s does not match plugin.json version %s' % (tag, plugin_v))
+    return plugin_v, problems
+
+
 def main():
-    name, problems = check(os.path.join(ROOT, 'SKILL.md'))
+    tag = sys.argv[sys.argv.index('--tag') + 1] if '--tag' in sys.argv else None
+    name, problems = check(os.path.join(SKILL, 'SKILL.md'))
+    problems += versions(tag)[1]
     if problems:
         sys.exit('not packaged:\n- ' + '\n- '.join(problems))
     out = os.path.join(DIST, name)
     shutil.rmtree(out, ignore_errors=True)
     os.makedirs(out)
     for part in PARTS:
-        src = os.path.join(ROOT, part)
+        src = os.path.join(SKILL, part)
         if os.path.isdir(src):
             shutil.copytree(src, os.path.join(out, part), ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '.DS_Store'))
         else:

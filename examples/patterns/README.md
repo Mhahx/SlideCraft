@@ -1,6 +1,6 @@
 # Testbau der Folienmuster (0.12)
 
-Jedes Muster aus `references/patterns.md` als echte Folie, gebaut mit pptxgenjs, per LibreOffice gerendert und mit `scripts/check_deck.py` geprüft. Zweck: zeigen, dass die Muster baubar sind, keine KI-Muster auslösen und wo sie mit den heutigen Grenzwerten kollidieren. **Kein Look:** weiß, Tinte, ein blauer Akzent, Arial als neutrales Test-Rendering; im echten Einsatz kommt der Look aus den gerenderten Entwürfen (`references/direction.md`). Alle Zahlen sind erfunden und in sich stimmig (Werk Nord gegen Werk Süd).
+Jedes Muster aus `plugin/skills/slide-craft/references/patterns.md` als echte Folie, gebaut mit pptxgenjs, per LibreOffice gerendert und mit `plugin/skills/slide-craft/scripts/check_deck.py` geprüft. Zweck: zeigen, dass die Muster baubar sind, keine KI-Muster auslösen und wo sie mit den heutigen Grenzwerten kollidieren. **Kein Look:** weiß, Tinte, ein blauer Akzent, Arial als neutrales Test-Rendering; im echten Einsatz kommt der Look aus den gerenderten Entwürfen (`references/direction.md`). Alle Zahlen sind erfunden und in sich stimmig (Werk Nord gegen Werk Süd).
 
 | Datei | Inhalt |
 |---|---|
@@ -16,7 +16,7 @@ Jedes Muster aus `references/patterns.md` als echte Folie, gebaut mit pptxgenjs,
 
 **Rendering:** kein Text läuft über oder wird abgeschnitten; alle Titel passen in 1 bis 2 Zeilen.
 
-**Seit 0.13 keine Fails mehr:** Der Füllgrad ist bis zur Kalibrierung nur noch eine Beobachtung (Entscheidung Max, `AUDIT-4.md` H1). Bis 0.12 waren das die einzigen Fails (Boxen-Methode, 8-pt-Raster):
+**Seit 0.13 keine Fails mehr:** Der Füllgrad ist bis zur Kalibrierung nur noch eine Beobachtung (Entscheidung Max, `docs/audits/AUDIT-4.md` H1). Bis 0.12 waren das die einzigen Fails (Boxen-Methode, 8-pt-Raster):
 
 | Folie | Muster | Füllgrad | Limit |
 |---|---|---|---|

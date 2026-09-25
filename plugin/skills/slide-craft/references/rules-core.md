@@ -119,9 +119,9 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Title word ceilings, words per slide, fill limits, 60-second and 3-second rules | Starting value | Consulting rule of "about 15 words" is practitioner only; 3-second rule: Gallo / Forbes |
 | Text contrast 4.5:1 and 3:1 thresholds | Cited | W3C WCAG 2.2 SC 1.4.3 (pt sizes approximated for projection) |
 | Non-text contrast 3:1 | Cited | W3C WCAG 2.2 SC 1.4.11 |
-| Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (`research/beratungsdecks.md`) |
-| `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, `research/beratungsdecks.md`; 250 words decided by Max |
+| Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (`docs/research/beratungsdecks.md`) |
+| `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, `docs/research/beratungsdecks.md`; 250 words decided by Max |
 | Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
 | Refuse list, calibration against AI looks, direction flow, fresh review | Transferred | Impeccable (`craft-floor.md`, `new-work.md`), untested on slides |
-| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on `audit/slop-test.js`, `tests/fixtures/slop.pptx` and the four example decks only |
+| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on `docs/audits/slop-test/slop-test.js`, `tests/fixtures/slop.pptx` and the four example decks only |
 | Profile values | Starting value | `profiles.md` |

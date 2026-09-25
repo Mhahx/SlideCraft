@@ -15,7 +15,7 @@ Gebaut genau nach `SKILL.md` 0.14/0.15, mit Max als Nutzer:
 | 7 Prüfung | Prüfskript mit Plan und Rendering, Selbstprüfung | `check.json`, `render/` |
 | 8 As built | Plan nachgeführt | `plan.md` §7 |
 
-Neu bauen: `NODE_PATH=<node_modules mit pptxgenjs> node examples/nordmark/build.js` (Entwürfe: `drafts.js`). Prüfen: `python3 scripts/check_deck.py examples/nordmark/deck.pptx --plan examples/nordmark/plan.md --render-dir examples/nordmark/render`.
+Neu bauen: `NODE_PATH=<node_modules mit pptxgenjs> node examples/nordmark/build.js` (Entwürfe: `drafts.js`). Prüfen: `python3 plugin/skills/slide-craft/scripts/check_deck.py examples/nordmark/deck.pptx --plan examples/nordmark/plan.md --render-dir examples/nordmark/render`.
 
 Fotos: Wikimedia Commons, CC BY-SA 4.0, Nachweise in `assets/CREDITS.md` und auf den Folien.
 

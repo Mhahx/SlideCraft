@@ -2,13 +2,15 @@
 
 Stand: 2026-09-25, Entwurf. Dieses Dokument beschreibt Ziel, Umfang und Entscheidungen, damit die Arbeit auf einem anderen Gerät oder in einer neuen Claude-Session nahtlos weitergeht. Zum Einstieg: dieses Dokument lesen, dann `SKILL.md` und `references/`.
 
+**Pfade (seit 0.19):** Der Skill liegt in `plugin/skills/slide-craft/`. `SKILL.md`, `references/` und `scripts/` meinen in diesem Dokument diesen Ordner. Projektdokumente liegen in `docs/` (Audits in `docs/audits/`, Recherche in `docs/research/`).
+
 ## 1. Problem
 
 Claude erzeugt Präsentationsfolien, die sofort als KI-generiert erkennbar sind: gleiche Kartenraster mit Icon, Überschrift und Text, Verläufe, unbedachte Standardschriften, überladene Bullet-Listen, austauschbare Titel wie "Überblick", Buzzwords. Für Websites löst das Impeccable-Plugin dieses Problem (klare Designhaltung, Verbotsliste, Prüfschritte). Für Folien (.pptx) gibt es nichts Vergleichbares. Der vorhandene `pptx`-Skill regelt vor allem die Dateimechanik, enthält aber auch einen eigenen Abschnitt "Design Ideas", der teils das Gegenteil unserer Regeln empfiehlt (Icon-Zeilen, Kartenraster, große Kennzahl-Callouts, "jede Folie braucht ein Visual", Titel mit 36 bis 44 pt). Deshalb legt slide-craft ausdrücklich fest, dass für Gestaltung und Inhalt slide-craft gilt und aus dem pptx-Skill nur die Technik übernommen wird (Korrektur nach Audit K1).
 
 ## 2. Ziel
 
-Ein "Impeccable für Folien": ein Claude-Skill, mit dem Max gute Decks mit weniger Aufwand bekommt. Er vermeidet zuverlässig die typischen KI-Muster und gibt positive Gestaltung nach dem Vorbild professioneller Beratungsdecks vor (Ziel abgestimmt mit Max, 2026-09-25, siehe `AUDIT.md` §0). Konkret:
+Ein "Impeccable für Folien": ein Claude-Skill, mit dem Max gute Decks mit weniger Aufwand bekommt. Er vermeidet zuverlässig die typischen KI-Muster und gibt positive Gestaltung nach dem Vorbild professioneller Beratungsdecks vor (Ziel abgestimmt mit Max, 2026-09-25, siehe `docs/audits/AUDIT-3.md` §0). Konkret:
 
 1. **Der AI-Look verschwindet.** Keine Boxen in Boxen, keine Kartenraster mit Icons, keine Verläufe, keine austauschbaren Titel. Ein Detektor erkennt diese Muster in der Datei, wie Impeccable es für Websites tut.
 2. **Die Folien sehen gut aus.** Nicht nur "nicht schlecht": Komposition, Exhibits und Typografie auf dem Niveau guter Beratungsdecks, im Look, den Max mit Claude vorher ausgewählt hat.
@@ -70,13 +72,13 @@ Ein formales Evaluationsdesign mit Bewertergruppen und Wiederholungsläufen (Fas
 | Farbzählung: 1 Akzent + höchstens 1 Signalfarbe, Neutrale zählen nicht | Vorher dreifach unterschiedlich definiert und mit Statusampeln unvereinbar (Audit H5). |
 | Schriften: Nutzer-/Markenschrift, sonst Safe-Liste mit bewusster Paarung | Fremdrechner und verlässliche Überlaufprüfung (Audit H2). |
 | Prüfskript vor den Testdecks | Ohne Skript sind die Testdecks nicht messbar auszuwerten (Audit K2). |
-| Detektor für KI-Muster nach Impeccable-Vorbild | Audit 3 (`AUDIT.md`, K1): Ein absichtlich gebautes KI-Deck bestand die Vermeidungsprüfung. Impeccable setzt seine Verbotsliste mit deterministischen Detektorregeln durch; das wird auf OOXML übertragen (`scripts/detect.py`). |
+| Detektor für KI-Muster nach Impeccable-Vorbild | Audit 3 (`docs/audits/AUDIT-3.md`, K1): Ein absichtlich gebautes KI-Deck bestand die Vermeidungsprüfung. Impeccable setzt seine Verbotsliste mit deterministischen Detektorregeln durch; das wird auf OOXML übertragen (`scripts/detect.py`). |
 | Feature-Stopp aufgehoben | Entscheidung Max, 2026-09-25: Er blockierte genau die fehlenden Teile (Detektor, Komposition, Muster). Die Qualitätsregeln in §11 gelten weiter. |
 | Zielgruppe ist Max, nicht 600 Nutzer | Korrektur Max, 2026-09-25. Nachweis- und Verteilungsaufwand für viele Nutzer entfällt. |
 
 ## 7. Recherchestand und Quellen
 
-**Seit 0.12:** 9 echte Decks von McKinsey, BCG, Bain und Roland Berger selbst geladen, gemessen und angesehen (`research/beratungsdecks.md`). Sie sind die Grundlage der Musterbibliothek und ersetzen für Aufbau und Muster die Sekundärquellen unten; die Zahlenwerte der Profile sind daran noch nicht angepasst.
+**Seit 0.12:** 9 echte Decks von McKinsey, BCG, Bain und Roland Berger selbst geladen, gemessen und angesehen (`docs/research/beratungsdecks.md`). Sie sind die Grundlage der Musterbibliothek und ersetzen für Aufbau und Muster die Sekundärquellen unten; die Zahlenwerte der Profile sind daran noch nicht angepasst.
 
 Regeln der Consulting-Häuser (McKinsey, BCG, Bain) nach einer Praktiker-Quelle, [Deckary](https://deckary.com/blog/consulting-slide-standards). Das ist ein Blog des Anbieters eines KI-Folienwerkzeugs, keine offizielle Firmenrichtlinie und kein Konsens mehrerer Quellen. Bestätigt sind die Grundsätze (Aussagetitel, eine Botschaft pro Folie, Quellenzeile). Die Zahlenwerte (15 Wörter, 60 Sekunden) sind nicht unabhängig verifiziert. Als Primärliteratur ergänzen: Barbara Minto, "The Pyramid Principle" (Seitenzahlen noch offen). Aussagetitel bis 15 Wörter und 2 Zeilen, eine Aussage pro Folie, höchstens 2 Schriften, 3 bis 4 Farben, Quelle auf jeder Datenfolie, Titel oben, ein Exhibit, Quelle und Seitenzahl unten, 60-Sekunden-Regel. Unterschiede: McKinsey textlastiger und strukturierter, BCG visueller, Bain mit stärkerem Erzählbogen (Answer-first).
 
@@ -93,7 +95,7 @@ Weitere Fundstellen: Figma-Community "Top 50 Startup Pitch Decks" und "All Apple
 - Der Fallback ohne Subagents beim frischen Review ist eine **Selbstprüfung desselben Modells**, keine unabhängige Prüfung.
 - Jede Regelgruppe trägt eine Herkunftskennzeichnung (belegt, Praktiker, übertragen, Startwert), siehe Tabelle am Ende von `references/rules-core.md`.
 - Der **Detektor** (`scripts/detect.py`, seit 0.11) erkennt KI-Muster an Geometrie, Füllung, Rändern und Text in der Datei. Die Schwellen (gleiche Größe innerhalb 5 %, Abstände, Mindestgrößen) sind Startwerte, geprüft an einem absichtlichen KI-Deck und den vier Beispieldecks, nicht an echten Decks. Gerenderte Bilder, die als PNG eingebettet sind, sieht er nicht.
-- Audit 3 (`AUDIT.md`) verwendet eigene IDs (K1 bis K3, H1 bis H4, M1); im CHANGELOG mit dem Präfix "A3-".
+- Audit 3 (`docs/audits/AUDIT-3.md`) verwendet eigene IDs (K1 bis K3, H1 bis H4, M1); im CHANGELOG mit dem Präfix "A3-".
 - Die ersten beiden Audits verwenden dieselben IDs (K1, H1 usw.). Das erste ist im CHANGELOG als "A1-…" aufgelöst, das zweite dort als "A2-…". IDs mit dem Zusatz "Audit K1" in diesem Dokument beziehen sich auf das erste Audit (A1).
 - Die **Vorbild-Regeln stammen aus Sekundärquellen**. Für Apple gibt es keine offizielle Anleitung, für die Consulting-Häuser nur Blogs.
 
@@ -104,20 +106,27 @@ Beantwortet (2026-09-25): Corporate Design: nein, der Skill ist unabhängig anwe
 Offen:
 1. Sind die Einsatzfälle intern, Kunden, Vorträge oder gemischt? Passen die vier Profile?
 2. Reicht **.pptx** als Ausgabe, oder auch PDF und HTML? (Der Ablauf ist inzwischen werkzeugneutral formuliert, die pptx-Details stehen in einem eigenen Abschnitt.)
-3. Gilt der Skill auch in **Claude in PowerPoint** und **Claude Design**? Dort ist zu verifizieren, ob Code ausgeführt werden kann (bestimmt, woher die Messwerte kommen).
+3. Gilt der Skill auch in **Claude in PowerPoint** und **Claude Design**? Teilweise beantwortet (0.17, offizielle Doku): Skills aus den Claude-Einstellungen sind im PowerPoint-Add-in verfügbar; Claude Design nutzt Design-Systeme, keine Skills. Offen: ob das Add-in das Prüfskript ausführt, ob Claude Design hochgeladene Skills nutzt.
 4. Sollen später optionale **Stil-Themes** (Swiss, Editorial, Consulting/Daten, Tech, Poster) ergänzt werden?
-5. **Lizenz** und Verteilung an die Nutzer (Plugin, Skill-Upload, Repo).
+5. **Lizenz** (offen) und Verteilung (beantwortet in 0.19, Entscheidung Max: Plugin-Marketplace aus GitHub und Release-ZIP, siehe README, Abschnitt Installieren).
 
 ## 10. Nächste Schritte
 
-Reihenfolge nach `AUDIT.md` §5 (Audit 3, 2026-09-25):
+Reihenfolge nach `docs/audits/AUDIT-3.md` §5 (Audit 3, 2026-09-25):
 1. **Aufräumen** (erledigt in 0.11): 600-Nutzer-Annahme, Feature-Stopp, Evaluationsdesign, Standard-Look entfernt; gerenderte Entwürfe in der Richtungsrunde.
 2. **Folien-Detektor** (erste Fassung in 0.11, `scripts/detect.py`): KI-Muster aus der Datei erkennen. Weiter ausbauen, sobald neue Muster auffallen.
-3. **Musterbibliothek** (erste Fassung in 0.12, `references/patterns.md`): 14 Folienmuster aus 9 echten Beratungsdecks (`research/beratungsdecks.md`), jedes mit Zonen, Rasterposition und Textbudget je Zone, Testbau in `examples/patterns/`. Offen: Der Detektor prüft die Budgets je Zone noch nicht.
-4. **Regeln und Werte an Beratungspraxis anpassen** (0.14: `read` 250 Wörter nach Entscheidung Max, Titel `read`/`update` 20–28 pt, Fußnoten ab 8 pt, Fußzeile im unteren Rand, Farbrollen mit Signalpaar; Füllgrad seit 0.13 nur Beobachtung; offen: Werte für `talk`, `pitch`, `update` mangels passender Decks im Korpus) (`AUDIT.md` H1, Messwerte in `research/beratungsdecks.md`): Wörter je Folie (`read` 120 liegt unter dem Median jedes echten Lesedecks), Füllgrad (schlägt bei Diagrammen in voller Größe und bei allen `talk`-Mustern an, `examples/patterns/README.md`), Fußnoten ab 8 pt, Fußzeile unterhalb des 48-pt-Rands, Farbrollen, Deutungs-Box erlaubt, Unterzeile mit Maß und Einheit als Rolle.
+3. **Musterbibliothek** (erste Fassung in 0.12, `references/patterns.md`): 14 Folienmuster aus 9 echten Beratungsdecks (`docs/research/beratungsdecks.md`), jedes mit Zonen, Rasterposition und Textbudget je Zone, Testbau in `examples/patterns/`. Offen: Der Detektor prüft die Budgets je Zone noch nicht.
+4. **Regeln und Werte an Beratungspraxis anpassen** (0.14: `read` 250 Wörter nach Entscheidung Max, Titel `read`/`update` 20–28 pt, Fußnoten ab 8 pt, Fußzeile im unteren Rand, Farbrollen mit Signalpaar; Füllgrad seit 0.13 nur Beobachtung; offen: Werte für `talk`, `pitch`, `update` mangels passender Decks im Korpus) (`docs/audits/AUDIT-3.md` H1, Messwerte in `docs/research/beratungsdecks.md`): Wörter je Folie (`read` 120 liegt unter dem Median jedes echten Lesedecks), Füllgrad (schlägt bei Diagrammen in voller Größe und bei allen `talk`-Mustern an, `examples/patterns/README.md`), Fußnoten ab 8 pt, Fußzeile unterhalb des 48-pt-Rands, Farbrollen, Deutungs-Box erlaubt, Unterzeile mit Maß und Einheit als Rolle.
 5. **Werkzeugunabhängigkeit:** Eingang für .odp beschrieben und getestet (0.13, Konvertierung verliert Alt-Texte von Diagrammen); offen: Werkzeughinweise aus `SKILL.md` in eine eigene Referenz, Test im PowerPoint-Add-in (lädt der Skill, laufen Skripte).
 6. **Beispieldecks neu bauen** mit Entwürfen, Mustern und Detektor; Max urteilt. Erster Lauf in 0.15: `examples/nordmark/` (Lesedeck, fiktiv); offen: Urteil von Max, ein Vortragsdeck, Test im PowerPoint-Add-in.
-7. **Verpacken** mit `skill-creator` (`quick_validate.py`, `package_skill.py`). Nicht mit einem Windows-ZIP-Werkzeug packen: `Compress-Archive` erzeugt Pfade mit Backslashes.
+7. **Verpacken** (erledigt in 0.17 bis 0.19): `tools/package.py` baut `dist/slide-craft.zip`, `skills-ref validate` prüft gegen die Agent-Skills-Spezifikation, das Repo ist ein Plugin-Marketplace (`.claude-plugin/marketplace.json`, `plugin/`), GitHub-Workflows testen jeden PR und bauen bei jedem Versions-Tag ein Release mit ZIP. Nicht mit einem Windows-ZIP-Werkzeug packen: `Compress-Archive` erzeugt Pfade mit Backslashes.
+8. **Prüfen, ob der Skill trägt** (erledigt in 0.17/0.18): Auslösetest 20 von 20 (`tests/trigger/`), Blindtest mit frischem Agenten und anderem Modell (`examples/blindtest-baeume/`), Befunde behoben.
+
+**Stand 0.19, als Nächstes:**
+1. Test in claude.ai, im PowerPoint-Add-in und in Claude Design mit dem installierten Plugin (lädt der Skill, läuft das Prüfskript, erscheinen Plugin-Skills im Add-in).
+2. Urteil von Max zu den Testdecks; seine Befunde in Regeln übersetzen.
+3. Werte für `talk`, `pitch`, `update` an echten Decks kalibrieren; Budgets je Zone im Detektor prüfen.
+4. Lizenz festlegen.
 
 ## 11. Arbeitsregeln für dieses Projekt (verbindlich, Freigabe Max 2026-09-25)
 
@@ -134,10 +143,11 @@ Diese Regeln gelten für jede Claude-Session, die an slide-craft arbeitet, auch 
 9. **Sprache:** Skill-Dateien auf Englisch, Projektdokumente (BRIEF, README, CHANGELOG) auf Deutsch.
 10. **Fakten prüfen, bevor Aussagen über Abhängigkeiten gemacht werden:** Jede Datei oder jeden Skill, mit dem slide-craft zusammen läuft (zum Beispiel den pptx-Skill), vorher lesen.
 11. **Verpacken** nur mit `package_skill.py` und vorher `quick_validate.py` (auf dem Rechner mit Python), nicht mit einem Windows-ZIP-Werkzeug.
+    *Abweichung seit 0.17, Freigabe durch Max offen:* Das Paket wird mit `tools/package.py` gebaut und mit `skills-ref validate` geprüft, dem Validator der Agent-Skills-Spezifikation, auf die die offizielle Anleitung verweist. Grund: Das Werkzeug prüft zusätzlich die in `SKILL.md` genannten Dateien und die Versionen, und es läuft im Release-Workflow. Vorschlag: Regel 11 entsprechend ändern.
 
 ## 12. Weiterarbeiten auf einem anderen Gerät
 
-1. Repo klonen, dieses Dokument (besonders §11, die Arbeitsregeln) und `SKILL.md` lesen.
-2. In einer neuen Claude-Session als Kontext angeben: "Lies BRIEF.md und arbeite an Schritt 1 der nächsten Schritte."
+1. Repo klonen, dieses Dokument (besonders §11, die Arbeitsregeln) und `plugin/skills/slide-craft/SKILL.md` lesen.
+2. In einer neuen Claude-Session als Kontext angeben: "Lies docs/BRIEF.md und arbeite am nächsten Schritt aus §10."
 3. Für Recherche von Impeccable: Plugin `impeccable` installieren, dann liegen `craft-floor.md`, `typeset.md`, `critique.md` usw. unter dem Plugin-Ordner in `reference/`.
 4. Der pptx-Skill (`anthropic-skills:pptx`) muss vorhanden sein, damit Testdecks gebaut werden können.

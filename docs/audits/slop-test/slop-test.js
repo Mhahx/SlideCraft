@@ -1,6 +1,6 @@
 // Audit 2026-09-25: baut ein typisches KI-Deck (Karten in Karten, Icon-Kacheln, Kennzahl-Karten, 2x2-Kartenraster mit Seitenstreifen und 01/02-Nummern)
-// und prüft, ob scripts/check_deck.py die Muster erkennt. Aufruf: NODE_PATH=<node_modules mit pptxgenjs> node audit/slop-test.js
-// dann: python3 scripts/check_deck.py slop2.pptx --profile read
+// und prüft, ob plugin/skills/slide-craft/scripts/check_deck.py die Muster erkennt. Aufruf: NODE_PATH=<node_modules mit pptxgenjs> node docs/audits/slop-test/slop-test.js
+// dann: python3 plugin/skills/slide-craft/scripts/check_deck.py slop2.pptx --profile read
 const P = require('pptxgenjs');
 const p = new P(); p.layout = 'LAYOUT_WIDE'; p.defineSlideMaster({ title: 'M', objects: [{ placeholder: { options: { name: 'title', type: 'title', x: 0.667, y: 0.667, w: 12, h: 0.8, fontFace: 'Arial', fontSize: 28, bold: true, color: '1F2937' }, text: '' } }] });
 const F = 'Arial', INK = '1F2937', MUTED = '4B5563', ACC = '2563EB', CARD = 'F3F4F6', LINE='D1D5DB';

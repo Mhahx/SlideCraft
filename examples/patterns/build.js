@@ -1,4 +1,4 @@
-// Test build of the slide patterns in references/patterns.md (P01 to P14).
+// Test build of the slide patterns in plugin/skills/slide-craft/references/patterns.md (P01 to P14).
 // Two decks: read.pptx (reading patterns, profile read) and talk.pptx (P01 photo, P05, P13 single number, P14; profile talk).
 // The look here is a neutral test rendering (white, ink, one blue accent, Arial), not a direction; all figures are invented.
 // Usage: NODE_PATH=<dir with node_modules containing pptxgenjs> node examples/patterns/build.js

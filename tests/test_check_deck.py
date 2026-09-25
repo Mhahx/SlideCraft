@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for scripts/check_deck.py.
+"""Tests for plugin/skills/slide-craft/scripts/check_deck.py.
 
 Run from the repo root:  python3 tests/test_check_deck.py
 The fixture decks are built with pptxgenjs (tests/make_fixtures.js); the tests that need them are
@@ -13,7 +13,7 @@ import zipfile
 import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, os.path.join(ROOT, 'plugin', 'skills', 'slide-craft', 'scripts'))
 import check_deck as cd  # noqa: E402
 import plan as planmod  # noqa: E402
 import render as rendermod  # noqa: E402
@@ -956,7 +956,7 @@ class BlindTestFindings(unittest.TestCase):
 
 
 class Calibration(unittest.TestCase):
-    """Thresholds calibrated on the real decks in research/beratungsdecks.md (0.14)."""
+    """Thresholds calibrated on the real decks in docs/research/beratungsdecks.md (0.14)."""
     T = 'Pricing explains most of the 12 % gain'
 
     def test_read_allows_250_words_not_more(self):

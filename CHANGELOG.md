@@ -2,6 +2,21 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.19-draft (2026-09-25)
+
+Installierbar aus GitHub, Release per Workflow, Repo aufgeräumt (Entscheidung Max: „Weg 2 und Weg 3, außerdem räume das Repo auf“). Keine Regeländerung am Skill.
+
+**Pfade:** Einträge vor 0.19 nennen den alten Aufbau. `SKILL.md`, `references/` und `scripts/` liegen jetzt in `plugin/skills/slide-craft/`; `AUDIT.md` ist `docs/audits/AUDIT-3.md`, `AUDIT-4.md` ist `docs/audits/AUDIT-4.md`, `audit/` ist `docs/audits/slop-test/`, `research/` ist `docs/research/`, `BRIEF.md` ist `docs/BRIEF.md`.
+
+| Änderung | Warum |
+|---|---|
+| Das Repo ist ein Plugin-Marketplace: `.claude-plugin/marketplace.json` („slidecraft“) und das Plugin `plugin/` mit `.claude-plugin/plugin.json` (0.19.0) und dem Skill in `skills/slide-craft/` | Installation aus GitHub in Claude Code (`claude plugin marketplace add Mhahx/SlideCraft`) und in claude.ai (Customize > Plugins > Add marketplace); Updates über die Version. Installiert wird nur `plugin/` (rund 75 KB), nicht Beispiele und Projektdokumente |
+| Getestet: `claude plugin validate` für Plugin und Marketplace bestanden; lokal installiert, `claude plugin details` zeigt einen Skill (rund 320 Tokens dauerhaft); in einer Sitzung lud „Mach mir 6 Folien …“ den Skill als `slide-craft:slide-craft`, danach kam die Fragerunde. Testinstallation wieder entfernt | Nachweis vor dem Merge |
+| `.github/workflows/test.yml`: Unit-Tests, Paketbau, `skills-ref validate` und JSON-Prüfung bei jedem Push auf `main` und jedem PR. `.github/workflows/release.yml`: bei einem Tag `v*` testen, bauen, prüfen, dass Tag und Versionen übereinstimmen, und die ZIP an ein GitHub-Release hängen | Weg 3: herunterladbare ZIP für den Upload in claude.ai, ohne lokales Bauen |
+| `tools/package.py` liest den Skill aus `plugin/skills/slide-craft/` und prüft, dass `SKILL.md` (0.19-draft), `plugin.json` (0.19.0) und der Tag (`--tag v0.19.0`) übereinstimmen | ein Release mit falscher Nummer schlägt fehl, statt veröffentlicht zu werden |
+| Aufgeräumt: Projektdokumente nach `docs/`; README neu gegliedert (Installieren, Aufbau, Arbeitsweise, Prüfskript, Entwickeln), der widersprüchliche Stand („kalibriert“ und „nicht kalibriert“) bereinigt; `docs/BRIEF.md` mit Pfadhinweis, beantworteten Fragen (Verteilung) und aktuellen nächsten Schritten; Pfade in Tests, Beispielen und Skill-Herkunftsnotizen angepasst; Prüfberichte der fertigen Beispieldecks mit dem aktuellen Skript neu erzeugt (alle 0 Fail). Entwurfs-Berichte, Audits und der Blindtest-Bericht bleiben als Momentaufnahmen unverändert | Ordnung für neue Sessions und für Leser des Repos |
+| `docs/BRIEF.md` §11 Regel 11 (verpacken nur mit `package_skill.py`) mit einem Vermerk: seit 0.17 wird mit `tools/package.py` und `skills-ref validate` verpackt; die Änderung der Regel wartet auf die Freigabe von Max | Abweichung von einer freigegebenen Regel offen benannt statt still überschrieben |
+
 ## 0.18-draft (2026-09-25)
 
 Befunde aus dem Blindtest (`examples/blindtest-baeume/`): ein frischer Agent mit einem anderen Modell (Sonnet 5) baute nur mit dem Skill-Paket einen Vortrag (`talk`, 10 Folien, 0 Fail). Alle vier Befunde des Agenten am Code nachgeprüft und bestätigt; dazu drei eigene aus der Durchsicht der Renderings. 88 Tests (5 neu), alle grün; jede Änderung am Skript durch einen Mutationstest abgesichert.

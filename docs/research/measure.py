@@ -1,4 +1,4 @@
-# Messskript zu research/beratungsdecks.md: PDFs der Decks in dasselbe Verzeichnis legen (Links in beratungsdecks.md), dann python3 measure.py.
+# Messskript zu docs/research/beratungsdecks.md: PDFs der Decks in dasselbe Verzeichnis legen (Links in beratungsdecks.md), dann python3 measure.py.
 # Braucht PyMuPDF (pip install pymupdf). Schreibt measure.json und druckt die Tabelle je Deck.
 import pymupdf, glob, re, statistics as st, json, sys
 out={}

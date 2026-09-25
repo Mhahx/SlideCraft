@@ -1,0 +1,34 @@
+name: Release
+
+# Push a tag that matches the plugin version (plugin/.claude-plugin/plugin.json), for example v0.19.0.
+# The workflow tests, builds dist/slide-craft.zip and attaches it to a GitHub release of that tag.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests
+      - name: Build the package; the tag must match the plugin version
+        run: python3 tools/package.py --tag "$GITHUB_REF_NAME"
+      - name: Validate the skill
+        run: |
+          pip install --quiet skills-ref
+          skills-ref validate dist/slide-craft
+      - name: Create the release with the ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/slide-craft.zip \
+            --title "Slide Craft $GITHUB_REF_NAME" \
+            --notes "Skill package for claude.ai (Customize > Skills > Upload a skill). Changes: see CHANGELOG.md. Install from GitHub instead: see README.md, section Installieren."

@@ -219,7 +219,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -576,7 +576,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -854,6 +854,14 @@
           "evidence": "slide3.xml#4 \"Table 0\": margins are below 60 % of every cell width"
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "slide3.xml#4 \"Chart 0\": 0 visible gridline set(s)"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -866,7 +874,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1147,7 +1155,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1399,6 +1407,14 @@
           "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide5.xml#3 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -1411,7 +1427,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1802,7 +1818,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1911,6 +1927,13 @@
       "method": "judgement",
       "status": "not_measured",
       "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "13",
+      "name": "render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "open every rendered slide once (rules-core.md check list item 13); not scripted"
     },
     {
       "id": "3",
@@ -3065,10 +3088,10 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 102,
+    "pass": 104,
     "fail": 0,
     "observation": 31,
-    "not_measured": 3,
+    "not_measured": 4,
     "waived": 0
   }
 }

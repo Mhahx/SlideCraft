@@ -15,7 +15,7 @@ Gebaut nach `SKILL.md` mit Max als Nutzer:
 | 7 Prüfung | Prüfskript mit Plan und Rendering, Selbstprüfung | `check.json`, `render/`, `uebersicht-1.png`, `uebersicht-2.png` |
 | 8 As built | Plan nachgeführt | `plan.md` §7 |
 
-Neu bauen: `python3 examples/norra/assets/light.py`, dann `NODE_PATH=<node_modules mit pptxgenjs> node examples/norra/build.js`. Entwürfe: `drafts.js` (A, B, C) und `drafts2.js` (Mischung). Prüfen: `python3 scripts/check_deck.py examples/norra/deck.pptx --plan examples/norra/plan.md --render-dir examples/norra/render`.
+Neu bauen: `python3 examples/norra/assets/light.py`, dann `NODE_PATH=<node_modules mit pptxgenjs> node examples/norra/build.js`. Entwürfe: `drafts.js` (A, B, C) und `drafts2.js` (Mischung). Prüfen: `python3 plugin/skills/slide-craft/scripts/check_deck.py examples/norra/deck.pptx --plan examples/norra/plan.md --render-dir examples/norra/render`.
 
 **Ergebnis mit 0.18:** 0 Fail, 13 waived (Schatten der Glasflächen, per Waiver `shadow` freigegeben), 207 pass.
 
