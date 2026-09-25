@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.16 (status: draft), zwei komplette Läufe des Ablaufs mit Max (`examples/nordmark/`, `examples/norra/` mit gepinntem Stil Liquid Glass), Verbotspunkte per Plan freigebbar, Grenzwerte für Lesedecks an 9 echten Decks kalibriert, Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.17 (status: draft), als Skill-Paket installierbar (`tools/package.py`), zwei komplette Läufe des Ablaufs mit Max (`examples/nordmark/`, `examples/norra/` mit gepinntem Stil Liquid Glass), Verbotspunkte per Plan freigebbar, Grenzwerte für Lesedecks an 9 echten Decks kalibriert, Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -35,6 +35,17 @@ Zuerst `BRIEF.md` lesen, besonders §10 (nächste Schritte) und §11 (verbindlic
 > Lies BRIEF.md, besonders §10 und §11, und AUDIT.md. Arbeite am nächsten offenen Schritt aus BRIEF §10.
 
 Liegen die Dateien im Repo nicht im Wurzelverzeichnis, den Pfad ergänzen.
+
+## Installieren
+
+Das installierbare Paket enthält nur `SKILL.md`, `references/` und `scripts/` (etwa 75 KB). Bauen: `python3 tools/package.py`, Ergebnis `dist/slide-craft.zip` (Ordner `slide-craft/` als oberste Ebene, wie claude.ai es verlangt). Das Werkzeug prüft Name, Länge der Beschreibung und die in `SKILL.md` genannten Dateien; zusätzlich mit dem offiziellen Validator: `skills-ref validate dist/slide-craft` (Stand 0.17: gültig).
+
+| Umgebung | Weg | Stand |
+|---|---|---|
+| Claude (claude.ai, App) | Customize > Skills > „+“ > Upload a skill, ZIP hochladen, einschalten; Code-Ausführung muss an sein | offiziell unterstützt; ob die Sandbox LibreOffice hat, ist ungeprüft (sonst Fallback ohne Rendering) |
+| Claude for PowerPoint | nichts extra: Skills aus den Claude-Einstellungen sind im Add-in verfügbar, mit `/slide-craft` direkt aufrufbar | offiziell unterstützt; ob das Add-in das Prüfskript ausführen kann, ist ungeprüft |
+| Claude Code | Ordner `dist/slide-craft/` nach `~/.claude/skills/slide-craft/` kopieren | getestet (so sind alle Beispieldecks entstanden) |
+| Claude Design | nutzt laut Anthropic Design-Systeme, keine Skills | nicht offiziell unterstützt; ob hochgeladene Skills dort greifen, ist ungeprüft |
 
 ## Prüfskript
 

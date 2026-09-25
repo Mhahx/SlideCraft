@@ -1,12 +1,14 @@
 ---
 name: slide-craft
-description: Design and quality rules for presentation slides and decks (Folien, Präsentationen, Slides, Deck, Pitch, Keynote). Load when a presentation is created, restructured, or reviewed and polished for design, even if the user only says "make me 10 slides about X" (mach mir Folien zu X). Do not load for reading, extracting text from, or converting an existing file. This skill does not create files: always load the file-building tool as well (pptx skill, slides artifact type, PowerPoint add-in). Sets context profile, design direction, deck plan, story structure, typography, grid, colour, charts and a ban list against generic AI-looking slides.
+description: 'Design and quality rules for presentation slides and decks (Folien, Präsentationen, Slides, Deck, Pitch, Keynote). Load when a presentation is created, restructured, or reviewed and polished for design, even if the user only says "make me 10 slides about X" (mach mir Folien zu X). Do not load for reading, extracting text from, or converting an existing file. This skill does not create files: always load the file-building tool as well (pptx skill, slides artifact type, PowerPoint add-in). Sets context profile, design direction, deck plan, story structure, typography, grid, colour, charts and a ban list against generic AI-looking slides.'
 metadata:
-  version: 0.16-draft
+  version: 0.17-draft
   status: draft
 ---
 
 This skill decides HOW slides look and argue. The file-building tool (pptx skill, PowerPoint add-in, design tool) decides how the file is produced.
+
+Paths under `research/`, `examples/`, `tests/` and the name BRIEF in the reference files are provenance notes from the project repository (github.com/Mhahx/SlideCraft). They are not part of the installed skill: do not look for them.
 
 ## Precedence (read first)
 
@@ -28,7 +30,7 @@ This skill decides HOW slides look and argue. The file-building tool (pptx skill
 
 ## Check script
 
-Run it on the drafts (step 4), on the finished deck (step 7) and in the modes `audit`, `critique` and `polish`. `<skill dir>` is the directory that contains this SKILL.md (in Claude Code: `${CLAUDE_SKILL_DIR}`).
+Run it on the drafts (step 4), on the finished deck (step 7) and in the modes `audit`, `critique` and `polish`. `<skill dir>` is the directory that contains this SKILL.md (in Claude Code: `${CLAUDE_SKILL_DIR}`; in claude.ai chat and the Office add-ins the skill folder is copied into the code-execution sandbox, so use the path relative to this file, `scripts/check_deck.py`, from the skill folder).
 
 ```
 python3 "<skill dir>/scripts/check_deck.py" deck.pptx --plan deck-plan.md --render-dir render/ --out check.json

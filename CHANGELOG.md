@@ -2,6 +2,18 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.17-draft (2026-09-25)
+
+Installierbar gemacht, für die Ziele Claude (claude.ai), Claude for PowerPoint und Claude Design (Entscheidung Max).
+
+| Änderung | Warum |
+|---|---|
+| `tools/package.py` baut `dist/slide-craft/` und `dist/slide-craft.zip` mit nur `SKILL.md`, `references/`, `scripts/` (12 Dateien, 73 KB) und prüft Name, Beschreibung, genannte Dateien | das Repo enthält 24 MB Beispiele und Projektdokumente, die nicht in den Skill gehören; claude.ai verlangt den Skill-Ordner als oberste Ebene im ZIP |
+| Beschreibung im YAML-Kopf in Anführungszeichen | der offizielle Validator (`skills-ref validate`) lehnte den Kopf ab: „: “ in der Beschreibung ist ungültiges YAML; das hätte den Upload scheitern lassen können. Jetzt: „Valid skill“ |
+| `SKILL.md`: Pfad zum Prüfskript auch für claude.ai und die Office-Add-ins (Skill-Ordner wird in die Sandbox kopiert, Pfad relativ zu `SKILL.md`) | bisher nur für Claude Code beschrieben |
+| `SKILL.md`: Pfade zu `research/`, `examples/`, `tests/` und BRIEF sind Herkunftsnachweise des Repos, nicht Teil des Skills | im Paket fehlen diese Dateien; ein Modell soll nicht danach suchen |
+| README: Abschnitt „Installieren“ mit Stand je Umgebung | Claude Design nutzt laut Anthropic Design-Systeme statt Skills; offiziell unterstützt sind claude.ai, die Office-Add-ins und Claude Code |
+
 ## 0.16-draft (2026-09-25)
 
 Zweiter Lauf des Ablaufs mit Max, diesmal mit einem gepinnten Stil: Pitch für ein fiktives Wasserstoffauto („Norra“), „Stil von Apple, hellblau, weiß“, dann „abgerundet Liquid Glass“ (`examples/norra/`). 14 Folien, Profil `pitch`, Deutsch, Musterzahlen. Ergebnis: 0 Fail, 13 waived. 83 Tests (3 neu), alle grün; jede der drei Änderungen durch einen Mutationstest abgesichert.
