@@ -24,7 +24,7 @@ Model: McKinsey, BCG, Bain. The slide must be understandable without a speaker.
 - Claim title, answer first (pyramid principle).
 - At most 3 to 5 supporting points, one central exhibit.
 - Structure: title on top, one exhibit in the body, source and page number in the footer. Structured text is fine, no running paragraphs.
-- Muted colours, one accent. A tracker (status or chapter marker) is allowed. A kicker is not.
+- A tracker (status or chapter marker) is allowed. A kicker is not. Colours come from the chosen direction, not from the profile.
 - Explainable in about 60 seconds.
 
 ## talk (keynote, conference, live board presentation)

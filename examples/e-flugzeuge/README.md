@@ -2,6 +2,8 @@
 
 Vier Decks zum selben Thema, je eines pro Profil, gebaut nach dem Ablauf von `slide-craft` (Brief, Profil, Richtung im Modus Quick, Story, Plan, Bau, Prüfung, Plan as built). Sie dienen dazu, das Prüfskript (`scripts/check_deck.py`) und den Planablauf an realistischen Decks zu erproben, solange keine echten Decks der Zielgruppe vorliegen. Alle Zahlen, die Firma Voltair und die Personen sind erfunden und in den Quellzeilen so markiert.
 
+**Hinweis (0.11):** Die Decks sind vor 0.11 entstanden, im Modus Quick mit "Standing exit" als Ausweichoption. Beides gibt es nicht mehr: Der Look wird jetzt immer aus gerenderten Entwürfen gewählt (`references/direction.md`). Mit dem Detektor aus 0.11 bestehen alle vier Decks ohne Fail; `talk` erhält die Beobachtung `default-look` (violett-blauer Grund). Die Kritik aus `AUDIT.md` K2 (gleiche Titelfolien, leeres unteres Drittel) sieht der Detektor nicht, sie bleibt eine Beurteilung. `check.json` in den Ordnern stammt noch vom Skript aus 0.10.
+
 **Stand: zweite Fassung.** Die erste Fassung (nur Typografie, alles links, keine Bilder) wurde von Max als gestalterisch schwach beurteilt und bildgeführt neu gebaut, siehe unten.
 
 | Deck | Profil | Folien | Richtung | Prüfskript (`--plan --render`) | Größter Füllgrad (Limit) | Größte Wortzahl (Limit) |

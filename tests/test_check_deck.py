@@ -660,5 +660,154 @@ class ScriptRound4(unittest.TestCase):
         self.assertEqual(planmod._role_kind('subtitle'), 'other')
 
 
+# ------------------------------------------------------------------ detector (scripts/detect.py, check 9)
+
+PT = 12700  # EMU per pt
+
+
+def box(idn, x, y, w, h, fill=None, line=None, lw=1.0, geom='rect', text=None, sz=18, algn=None):
+    """A shape in pt. fill/line: hex or None. text: one paragraph."""
+    f = '<a:solidFill><a:srgbClr val="%s"/></a:solidFill>' % fill if fill else '<a:noFill/>'
+    ln = ('<a:ln w="%d"><a:solidFill><a:srgbClr val="%s"/></a:solidFill></a:ln>' % (lw * PT, line)) if line else '<a:ln><a:noFill/></a:ln>'
+    tx = ''
+    if text is not None:
+        ppr = '<a:pPr algn="%s"/>' % algn if algn else ''
+        tx = ('<p:txBody><a:bodyPr/><a:lstStyle/><a:p>%s<a:r><a:rPr lang="en-US" sz="%d"><a:solidFill><a:srgbClr val="111111"/></a:solidFill>'
+              '<a:latin typeface="Arial"/></a:rPr><a:t>%s</a:t></a:r></a:p></p:txBody>' % (ppr, sz * 100, text))
+    return ('<p:sp><p:nvSpPr><p:cNvPr id="%d" name="S%d"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr>'
+            '<a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm><a:prstGeom prst="%s"><a:avLst/></a:prstGeom>%s%s</p:spPr>%s</p:sp>'
+            % (idn, idn, x * PT, y * PT, w * PT, h * PT, geom, f, ln, tx))
+
+
+def title_sp(text, y=48):
+    return sp_text(2, 'Title', 48 * PT, y * PT, 864 * PT, 60 * PT, text, rpr_of(26, '111111'), ph='<p:ph type="title"/>')
+
+
+def detector(rep, slide=1):
+    return {c['name'].split(']')[0].split('[')[1]: c for c in rep['slides'][slide - 1]['checks'] if c['name'].startswith('refuse [')}
+
+
+class Detector(unittest.TestCase):
+    T = 'Pricing explains most of the 12 % gain'
+
+    def run_slide(self, body, profile='read', plan=None):
+        z = build_pptx([title_sp(self.T) + body])
+        if plan is None:
+            return run_on(z, profile)
+        return cd.analyse(cd.Package(z), 'synthetic', profile, set(), 'en', plan)
+
+    def test_card_in_card_fails_single_panel_passes(self):
+        nested = box(10, 48, 140, 864, 340, fill='F3F4F6') + box(11, 72, 160, 260, 200, fill='FFFFFF', line='D1D5DB', text='Energy')
+        self.assertEqual(detector(self.run_slide(nested))['nested-cards']['status'], 'fail')
+        single = box(10, 48, 140, 400, 120, fill='F3F4F6', text='One panel with its own text')
+        self.assertNotIn('nested-cards', detector(self.run_slide(single)))
+
+    def test_box_in_background_colour_is_not_a_container(self):
+        # a plate in the slide colour (white on white) is invisible and cannot nest
+        body = box(10, 48, 140, 864, 340, fill='FFFFFF') + box(11, 72, 160, 260, 200, fill='F3F4F6', text='Energy')
+        self.assertNotIn('nested-cards', detector(self.run_slide(body)))
+
+    def test_three_equal_cards_fail_two_do_not(self):
+        three = ''.join(box(10 + i, 48 + i * 290, 150, 270, 200, fill='F3F4F6', text='Card %d' % i) for i in range(3))
+        self.assertEqual(detector(self.run_slide(three))['card-grid']['status'], 'fail')
+        two = ''.join(box(10 + i, 48 + i * 440, 150, 420, 200, fill='F3F4F6', text='Option %d' % i) for i in range(2))
+        self.assertNotIn('card-grid', detector(self.run_slide(two)))
+
+    def test_short_header_bars_are_not_cards(self):
+        bars = ''.join(box(10 + i, 48 + i * 290, 150, 270, 30, fill='1F4E79', text='Option %d' % i) for i in range(3))
+        self.assertNotIn('card-grid', detector(self.run_slide(bars)))
+
+    def test_icon_tiles_above_headings_fail_timeline_dots_do_not(self):
+        tiles = ''.join(box(10 + 2 * i, 48 + i * 290, 150, 48, 48, fill='DBEAFE', geom='roundRect') +
+                        box(11 + 2 * i, 48 + i * 290, 210, 250, 30, text='Heading %d' % i) for i in range(2))
+        self.assertEqual(detector(self.run_slide(tiles))['icon-tile-stack']['status'], 'fail')
+        dots = ''.join(box(10 + 2 * i, 48 + i * 290, 150, 16, 16, fill='C0392B', geom='ellipse') +
+                       box(11 + 2 * i, 48 + i * 290, 172, 250, 30, text='Q%d 2027' % (i + 1)) for i in range(3))
+        self.assertNotIn('icon-tile-stack', detector(self.run_slide(dots)))
+
+    def test_row_of_big_numbers_fails_single_number_passes(self):
+        row = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, text=v, sz=54) for i, v in enumerate(['-18 %', '-60 %', '0 g']))
+        self.assertEqual(detector(self.run_slide(row))['stat-row']['status'], 'fail')
+        one = box(10, 48, 200, 400, 80, text='+38 %', sz=60)
+        found = detector(self.run_slide(one, 'talk'))
+        self.assertNotIn('stat-row', found)
+        self.assertNotIn('number-card', found)
+
+    def test_boxed_single_number_is_an_observation(self):
+        body = box(10, 48, 150, 300, 200, fill='F3F4F6') + box(11, 60, 170, 260, 80, text='320 km', sz=60)
+        self.assertEqual(detector(self.run_slide(body, 'talk'))['number-card']['status'], 'observation')
+
+    def test_edge_stripe_on_box_fails(self):
+        body = box(10, 48, 150, 400, 150, fill='F3F4F6', text='Callout text') + box(11, 48, 150, 6, 150, fill='2563EB')
+        self.assertEqual(detector(self.run_slide(body))['side-stripe']['status'], 'fail')
+
+    def test_thick_outline_on_rounded_box_fails(self):
+        body = box(10, 48, 150, 400, 150, line='2563EB', lw=3, geom='roundRect', text='Callout')
+        self.assertEqual(detector(self.run_slide(body))['border-on-rounded']['status'], 'fail')
+        thin = box(10, 48, 150, 400, 150, line='2563EB', lw=1, geom='roundRect', text='Callout')
+        self.assertNotIn('border-on-rounded', detector(self.run_slide(thin)))
+
+    def test_kicker_fails_in_talk_is_observation_in_read(self):
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 90 * PT, 864 * PT, 60 * PT, self.T, rpr_of(40, '111111'), ph='<p:ph type="title"/>')
+                        + box(10, 48, 60, 300, 24, text='CHAPTER TWO', sz=12)])
+        self.assertEqual(detector(run_on(z, 'talk'))['kicker']['status'], 'fail')
+        self.assertEqual(detector(run_on(z, 'read'))['kicker']['status'], 'observation')
+
+    def test_buzzword_fails_and_can_be_waived(self):
+        body = box(10, 48, 150, 600, 60, text='A seamless and ganzheitliche platform')
+        c = detector(self.run_slide(body))['buzzword']
+        self.assertEqual(c['status'], 'fail')
+        self.assertIn('seamless', c['evidence'])
+        self.assertIn('ganzheitliche', c['evidence'])
+        waived = detector(self.run_slide(body, plan='Waivers: buzzword (the client uses this wording)\nProfile: read\n'))['buzzword']
+        self.assertEqual(waived['status'], 'waived')
+
+    def test_question_title_fails(self):
+        z = build_pptx([title_sp('Why does pricing matter?')])
+        c = [c for c in run_on(z)['slides'][0]['checks'] if 'question-title' in c['name']]
+        self.assertEqual(c[0]['status'], 'fail')
+        self.assertEqual(c[0]['id'], '1')
+
+    def test_justified_and_centered_running_text_fail(self):
+        long = 'Churn fell from nine to six percent after the onboarding change in the second quarter of the year'
+        self.assertEqual(detector(self.run_slide(box(10, 48, 150, 600, 90, text=long, sz=16, algn='just')))['justified-text']['status'], 'fail')
+        self.assertEqual(detector(self.run_slide(box(10, 48, 150, 600, 90, text=long, sz=16, algn='ctr')))['centered-running-text']['status'], 'fail')
+        self.assertNotIn('justified-text', detector(self.run_slide(box(10, 48, 150, 600, 90, text=long, sz=16))))
+
+    def test_all_caps_running_text_fails(self):
+        body = box(10, 48, 150, 600, 90, text='CHURN FELL FROM NINE TO SIX PERCENT AFTER ONBOARDING', sz=16)
+        self.assertEqual(detector(self.run_slide(body))['all-caps-body']['status'], 'fail')
+
+    def test_clean_slide_reports_one_pass(self):
+        rep = self.run_slide(box(10, 48, 150, 600, 60, text='Churn fell from 9 % to 6 %.', sz=16))
+        passes = [c for c in rep['slides'][0]['checks'] if c['name'] == 'refuse patterns (detector)']
+        self.assertEqual(passes[0]['status'], 'pass')
+
+    def test_violet_ground_is_reported_as_default_look(self):
+        bg = '<p:bg><p:bgPr><a:solidFill><a:srgbClr val="4C2FBF"/></a:solidFill><a:effectLst/></p:bgPr></p:bg>'
+        z = build_pptx([title_sp(self.T)], slide_bg=bg)
+        c = [c for c in run_on(z)['deck'] if 'default-look' in c['name']]
+        self.assertEqual(c[0]['status'], 'observation')
+        self.assertNotIn('default-look', ' '.join(c['name'] for c in run_on(build_pptx([title_sp(self.T)]))['deck']))
+
+
+class DetectorFixtures(unittest.TestCase):
+    def setUp(self):
+        if not os.path.exists(os.path.join(FIX, 'slop.pptx')):
+            self.skipTest('tests/fixtures/slop.pptx missing: run tests/make_fixtures.js')
+
+    def test_slop_deck_fails_on_every_slide_for_the_planted_patterns(self):
+        rep = cd.analyse(cd.Package(os.path.join(FIX, 'slop.pptx')), 'slop.pptx', 'read', set(), 'auto')
+        expect = {1: {'nested-cards', 'card-grid', 'icon-tile-stack'}, 2: {'card-grid', 'stat-row', 'side-stripe'}, 3: {'card-grid', 'side-stripe'}}
+        for n, rules in expect.items():
+            fails = {r for r, c in detector(rep, n).items() if c['status'] == 'fail'}
+            self.assertEqual(fails, rules, 'slide %d' % n)
+
+    def test_good_deck_has_no_detector_finding(self):
+        rep = cd.analyse(cd.Package(os.path.join(FIX, 'good.pptx')), 'good.pptx', 'read', set(), 'auto')
+        for n in range(1, len(rep['slides']) + 1):
+            self.assertEqual(detector(rep, n), {}, 'slide %d' % n)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
