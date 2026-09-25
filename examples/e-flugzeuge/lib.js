@@ -15,7 +15,16 @@ function master(pres, name, o) {
 }
 
 function source(slide, text, o) {
-  slide.addText(text, { x: pt(48), y: pt(456), w: pt(768), h: pt(24), fontFace: o.font, fontSize: o.size, color: o.color, align: 'left', valign: 'top', margin: 0, isTextBox: true });
+  slide.addText(text, { x: pt(48), y: pt(456), w: pt(o.w || 768), h: pt(o.h || 24), fontFace: o.font, fontSize: o.size, color: o.color, align: 'left', valign: 'top', margin: 0, isTextBox: true });
 }
 
-module.exports = { pt, master, source };
+// Full-bleed picture used as the slide ground (rules-core: a full-bleed image is ground and not counted as fill).
+function ground(slide, file, alt) {
+  slide.addImage({ path: file, x: 0, y: 0, w: 960 / 72, h: 540 / 72, altText: alt });
+}
+// Solid plate behind text that sits over a picture (rules-core: text is never placed directly on a picture).
+function plate(slide, pres, x, y, w, h, color) {
+  slide.addShape(pres.shapes.RECTANGLE, { x: pt(x), y: pt(y), w: pt(w), h: pt(h), fill: { color }, line: { type: 'none' } });
+}
+
+module.exports = { pt, master, source, ground, plate };

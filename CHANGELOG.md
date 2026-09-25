@@ -2,6 +2,21 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.10-draft (2026-09-25)
+
+Die vier Beispieldecks (`examples/e-flugzeuge/`) wurden nach der Rückmeldung von Max ("linkslastig, keine Bilder") bildgeführt neu gebaut. Bildmaterial: Vektorgrafiken, erzeugt von `examples/e-flugzeuge/art.js` (SVG, mit sharp als PNG gerastert). Alle vier bestehen das Prüfskript ohne Fail. 51 Tests (2 neu). Kein Regelwerk geändert (Feature-Stopp).
+
+**Änderungen am Skript, ausgelöst durch den Umbau:**
+
+| Befund | Änderung |
+|---|---|
+| T-15 | Zellfüllungen in Tabellen wurden nicht gelesen: weiße Schrift in einer farbigen Statuszelle wurde als "Weiß auf Weiß" gemeldet. Text in einer gefüllten Zelle wird jetzt gegen die Zelle gemessen, die Füllfarben zählen als verwendete Farben (Palette, Farbregel). |
+| T-16 | Plan-Kontrast: Der Plan kennt keine Flächenzuordnung. Jede Rollenfarbe muss jetzt auf mindestens einem deklarierten Hintergrund lesbar sein (Flächen wie eine orange Beschlussleiste als weitere `background`-Einträge schreiben), statt auf allen. Die tatsächliche Fläche misst der Deck-Check je Textfeld. |
+
+**Befunde zu Regeln und Ablauf** (nicht umgesetzt, Feature-Stopp, Details in `examples/e-flugzeuge/README.md`): (1) Die Regeln enthalten nichts Positives zur Komposition (Fixpunkt, Balance, bildgeführtes Layout) und keinen Schritt für Bildmaterial; die erste Fassung bestand alle Prüfungen und war trotzdem linkslastig und bildlos. (2) Der Füllgrad-Grenzwert hat die erste Fassung mit kleinen Exhibits erzwungen; Vollflächen-Bilder als Grund und Platten in Textfeldgröße umgehen ihn. (3) "Linksbündig" gilt für Fließtext, nicht für den Folienaufbau. (4) pptxgenjs: Textfeld-`margin` ist [links, rechts, unten, oben] in Punkt, abweichend von der Dokumentation.
+
+**Grenzen:** Selbstprüfung des Modells, das die Decks gebaut hat, keine unabhängige Prüfung. Ob die überarbeiteten Decks besser gefallen, ist offen (Rückmeldung von Max steht aus). Grafiken sind flach und geometrisch.
+
 ## 0.9-draft (2026-09-25)
 
 Vier Beispieldecks zum Thema E-Flugzeuge (`examples/e-flugzeuge/`, je Profil eines, erfundene Zahlen), gebaut nach dem Ablauf von `slide-craft` (Modus Quick auf ausdrückliche Übergabe), jeweils mit Plan, Bau, Prüfskript und Plan as built. Sie sind die erste Erprobung von Skript und Planablauf an Decks, die nicht für die Tests gebaut wurden. Sie ersetzen weder die Testdecks nach BRIEF §5 noch echte Decks. Ergebnis: alle vier ohne Fail im Prüfskript, nach mehreren Korrekturrunden. 49 Tests (5 neu), Mutationsprüfung der neuen Skriptteile: alle 6 Änderungen erkannt.

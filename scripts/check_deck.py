@@ -513,6 +513,7 @@ class Shape:
         self.is_source = False
         self.chart = None        # dict for charts
         self.table_margin_issues = []
+        self.cell_fills = []
         self.ref = ''
 
     @property
@@ -662,7 +663,14 @@ def parse_slide(ctx):
                     for tc in gd.iter(A + 'tc'):
                         tx = tc.find(A + 'txBody')
                         if tx is not None:
-                            s.paras.extend(read_paragraphs(ctx, tx, None, None, None, s.ref))
+                            cell_paras = read_paragraphs(ctx, tx, None, None, None, s.ref)
+                            cf = get_fill(tc.find(A + 'tcPr'), None, ctx.theme, ctx.clrmap)
+                            if cf['kind'] == 'solid':
+                                s.cell_fills.append(cf['hex'])
+                                for p_ in cell_paras:
+                                    for r_ in p_:
+                                        r_['surface'] = cf          # text in a filled cell sits on the cell, not on the slide
+                            s.paras.extend(cell_paras)
                 else:
                     s.kind = 'other'
                 s.fill = {'kind': 'none'}
@@ -1031,11 +1039,12 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             rs = s.runs()
             if not rs:
                 continue
-            bk = backdrop_for(s, shapes, bg)
-            if bk[0] != 'solid':
-                skipped.append('%s: %s' % (s.ref, bk[1]))
-                continue
+            bk_shape = backdrop_for(s, shapes, bg)
             for r in rs:
+                bk = ('solid', r['surface'], s.ref + ' table cell fill') if r.get('surface') else bk_shape
+                if bk[0] != 'solid':
+                    skipped.append('%s: %s' % (s.ref, bk[1]))
+                    continue
                 col = r['color']
                 if not col or not col.get('hex'):
                     skipped.append('%s: text colour unresolved (%s)' % (s.ref, r['color_origin']))
@@ -1091,6 +1100,8 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         for s in shapes:
             if s.fill['kind'] == 'solid':
                 use(s.fill['hex'], 'slide %d fill %s' % (i, s.ref))
+            for hx in s.cell_fills:
+                use(hx, 'slide %d table cell fill %s' % (i, s.ref))
             for r in s.runs():
                 if r['color'] and r['color'].get('hex'):
                     use(r['color']['hex'], 'slide %d text %s' % (i, s.ref))
@@ -1103,6 +1114,10 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 k = hue_family_key(s.fill['hex'])
                 if k is not None:
                     deck_hues.append((k, s.fill['hex'], 'slide %d fill %s' % (i, s.ref)))
+            for hx in s.cell_fills:
+                k = hue_family_key(hx)
+                if k is not None:
+                    deck_hues.append((k, hx, 'slide %d table cell fill %s' % (i, s.ref)))
             for r in s.runs():
                 if r['color'] and r['color'].get('hex'):
                     k = hue_family_key(r['color']['hex'])

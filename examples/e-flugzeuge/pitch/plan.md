@@ -18,10 +18,10 @@ Chosen direction:   Typenblatt: weiße Fläche, Graphit, ein sattes Magenta, Tab
 Alternatives:       Standing exit: sauberes Pitch-Deck in Schwarz-Weiß. Risiko: Magenta wirkt für Luftfahrt ungewohnt; es hebt sich dafür von den anderen Pitches ab.
 Colour strategy:    Restrained
 Direction contract:
-  THESIS: Beweis vor Versprechen. Jede Folie zeigt eine Messung oder eine Rechnung, keine Vision.
+  THESIS: Beweis vor Versprechen, und ein Flugzeug, das sichtbar vorankommt. Jede Folie zeigt eine Messung oder eine Rechnung, keine Vision.
   OWN-WORLD: Weiß, Graphit 20242B, Magenta B0175F als einzige Farbe, Calibri, Tabellen mit Haarlinien, keine Icons, keine Karten.
   STORY: Problem, Produkt, Beweis durch Testflüge, Markt, Erlösmodell, Team, Ansprache der Investoren mit klarem Betrag.
-  FIRST SLIDES: Titel: Name groß links, Untertitel darunter. Beweisfolie: Titel mit der Zahl, links Säulen der Testflüge mit dem letzten Flug in Magenta, rechts zwei Sätze.
+  FIRST SLIDES: Titel: Name links auf weißer Platte, rechts großes Magenta-Flugzeug über grauen Ringen (Vollfläche). Beweisfolie: Titel mit der Zahl, links zwei Sätze und die Fortschrittsleiste, rechts Säulen der Testflüge mit dem letzten Flug in Magenta.
   FORM: Typenblatt, Platz 1 der Liste (Typenblatt, Testbericht, Jahresbericht, Fahrplan); Alternative: Standing exit.
   FINISH: Kein Folienbau vor dem Plan; das Deck endet mit dem Prüfskript, der Durchsicht der Renderings und dem Plan as built.
 Rationale:          Magenta: unabhängig von der Kategorie (kein Grün, kein Blau), Kontrast auf Weiß 6,7:1. Calibri: Safe-Liste, wirkt sachlicher als Arial.
@@ -53,10 +53,10 @@ Text roles:
 | label | Calibri | regular | 14 | 20242B | Diagrammbeschriftung |
 | footnote | Calibri | regular | 10 | 5B6470 | Quelle, Seitenzahl |
 
-Palette:            background FFFFFF | text 20242B, 5B6470 | accent B0175F | neutrals 7A808A, D3D6DB
+Palette:            background FFFFFF | text 20242B, 5B6470 | accent B0175F | neutrals 7A808A, D3D6DB, E6E8EC
 Grid and spacing:   13.33 x 7.5 in, margins 0.667 in (48 pt), 12 columns, Abstände in Vielfachen von 8 pt; Titelband 48 bis 88 pt (einzeilig), Inhalt ab 120 pt
-Layout types:       title, text, table, chart
-Images and icons:   keine (kein Produktfoto vorhanden, kein Mockup)
+Layout types:       title, text, table, chart (Titel- und Problemfolie: Bildgrund mit weißen Platten unter dem Text; sonst links Textspalte, rechts Exhibit)
+Images and icons:   Vektorillustration (SVG, examples/e-flugzeuge/art.js): Titelfolie und Problemfolie mit eigener Vollflächen-Illustration; auf den Folien 3 bis 8 rückt ein kleines Flugzeug auf einer gepunkteten Fortschrittsleiste (links unten) von Folie zu Folie nach rechts; kein Mockup, kein Stockbild
 Charts:             Säulen und Balken nativ; Magenta nur für den Wert, um den es geht, Rest Grau 7A808A (3,7:1); Quellzeile 10 pt unten links
 
 ## 5. Slide plan
@@ -77,7 +77,7 @@ Gefährdet: Kartenraster (vermieden: Tabellen), Hero-Metrik (vermieden: Zahlen i
 Firma, Personen und alle Zahlen sind erfunden und in den Quellzeilen so markiert.
 
 ## 7. As built
-Fonts: Calibri (im Render als Carlito, gleiche Zeichenbreiten). Rollengrößen: 44 (Titelfolie), 32 (Titel), 20 (Text und Tabellen), 14 (Diagramm), 10 (Quelle). Farben: FFFFFF, 20242B, 5B6470, B0175F, 7A808A, D3D6DB. Rand 48 pt. Layouts: title, text, table, chart. Größter Füllgrad 49 % (Limit 50 %).
-Abweichungen vom Plan: (1) Der erste Bau mit zweizeiligem Titelband und normal großen Diagrammen lag auf allen sechs Datenfolien zwischen 60 und 71 % Füllgrad. Titel wurden einzeilig (Titel 5 gekürzt zu "Vierzig Prozent der Regionalflüge sind erreichbar"), Diagramme und Tabellen kompakter. (2) Größen wie im Plan.
-Beobachtungen ohne Befund: Kein Produktbild (keins vorhanden, Mockups sind verboten); Folie 2 besteht nur aus drei Sätzen; Diagrammbeschriftung 14 pt wirkt neben 20 pt Text klein.
-Review: keine unabhängige Prüfung. Es lief kein Subagent, die Durchsicht der Renderings und der Prüfskript-Berichte stammt aus derselben Sitzung wie der Bau (Selbstprüfung des gleichen Modells). Disposition: ship mit den unten genannten Beobachtungen. Geltungsbereich: die Prüfpunkte des Skripts (check.json) und die Durchsicht aller Renderings (render/); Urteilspunkte 10 und 11 sind Einschätzung, nicht gemessen.
+Fonts: Calibri (im Render als Carlito, gleiche Zeichenbreiten). Rollengrößen: 44 (Titelfolie), 32 (Titel), 20 (Text und Tabellen), 14 (Diagramm), 10 (Quelle). Farben: FFFFFF, 20242B, 5B6470, B0175F, 7A808A, D3D6DB, E6E8EC. Rand 48 pt. Layouts: title, text, table, chart. Größter Füllgrad 49 % (Limit 50 %). Bildmaterial: Titel- und Problemillustration (Vollfläche), kleines Flugzeug auf der Fortschrittsleiste (Folien 3 bis 8), Quelle `examples/e-flugzeuge/art.js`.
+Abweichungen vom Plan und Gründe (zweite Runde): (1) Die erste Fassung: alles linksbündig, Exhibits klein, keine Bilder. Jetzt Text links, Exhibit rechts, Bilder auf der Titel- und Problemfolie, Fortschrittsleiste als Motiv. (2) Ein Versuch mit einem großen Flugzeug auf einem Flugpfad über alle Folien scheiterte: Die weißen Platten unter dem Text verdeckten es und zerschnitten den Pfad. Verworfen. (3) Textfelder auf Texthöhe verkleinert, weil sonst 54 bis 59 % Füllgrad.
+Beobachtungen ohne Befund: Der Füllgrad-Grenzwert von 50 % erzwingt kleine Exhibits; größere Diagramme hätten besser gewirkt. Kein Produktfoto, kein Team-Foto (nicht vorhanden).
+Review: keine unabhängige Prüfung. Es lief kein Subagent, die Durchsicht der Renderings und der Prüfskript-Berichte stammt aus derselben Sitzung wie der Bau (Selbstprüfung des gleichen Modells). Disposition: ship mit den genannten Beobachtungen. Geltungsbereich: die Prüfpunkte des Skripts (check.json) und die Durchsicht aller Renderings (render/); Urteilspunkte 10 und 11 sind Einschätzung, nicht gemessen.

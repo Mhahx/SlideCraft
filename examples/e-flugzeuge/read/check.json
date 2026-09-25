@@ -45,7 +45,7 @@
           "method": "file",
           "status": "observation",
           "value": 5,
-          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (--exempt)"
+          "evidence": "slide1.xml#4 \"Text 0\": exempt slide type (--exempt)"
         },
         {
           "id": "2",
@@ -70,7 +70,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide1.xml#25 \"Slide Number Placeholder 0\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 18.0 pt (slide1.xml#5 \"Text 2\")"
         },
         {
           "id": "5",
@@ -87,7 +87,7 @@
           "status": "pass",
           "value": 98,
           "limit": 720,
-          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\""
+          "evidence": "counted: slide1.xml#4 \"Text 0\", slide1.xml#5 \"Text 2\""
         },
         {
           "id": "6",
@@ -103,9 +103,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.291,
+          "value": 0.232,
           "limit": 0.75,
-          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -119,22 +119,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide1.xml#2 \"Text 0\""
+          "evidence": "slide1.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide1.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -151,23 +151,23 @@
           "status": "observation",
           "value": 0,
           "limit": 0,
-          "evidence": "all 11 rendered words lie inside a text box"
+          "evidence": "all 10 rendered words lie inside a text box"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 2,
+          "value": 3,
           "limit": 2,
-          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 3 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
     {
       "n": 2,
       "part": "ppt/slides/slide2.xml",
-      "layout": "chart",
+      "layout": "map",
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "14 von 30 Strecken liegen innerhalb von 320 Kilometern",
@@ -225,16 +225,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide2.xml#5 \"Text 2\")"
-        },
-        {
-          "id": "5",
-          "name": "chart series contrast (WCAG 1.4.11)",
-          "method": "computed",
-          "status": "pass",
-          "value": 3.66,
-          "limit": "3.0:1",
-          "evidence": "slide2.xml#3 \"Chart 0\" series colours vs surface"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide2.xml#11 \"Text 8\")"
         },
         {
           "id": "5",
@@ -249,16 +240,16 @@
           "name": "characters per slide (German rule)",
           "method": "file",
           "status": "pass",
-          "value": 226,
+          "value": 235,
           "limit": 720,
-          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Chart 0\" (chart text), slide2.xml#4 \"Text 1\""
+          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#4 \"Text 1\", slide2.xml#6 \"Text 3\", slide2.xml#8 \"Text 5\", slide2.xml#10 \"Text 7\""
         },
         {
           "id": "6",
           "name": "words per slide",
           "method": "file",
           "status": "observation",
-          "value": 41,
+          "value": 37,
           "limit": 120,
           "evidence": "reported only; character limit applies for German"
         },
@@ -267,16 +258,16 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.702,
+          "value": 0.668,
           "limit": 0.75,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "7 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
           "name": "data slide has source and date",
           "method": "file",
-          "status": "pass",
-          "evidence": "source line: \"Quelle: Streckennetz der Beispielairline, Stand 2026 (erfundene Daten)\""
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
         },
         {
           "id": "8",
@@ -315,7 +306,7 @@
           "status": "observation",
           "value": 0,
           "limit": 0,
-          "evidence": "all 55 rendered words lie inside a text box"
+          "evidence": "all 48 rendered words lie inside a text box"
         },
         {
           "id": "1",
@@ -334,16 +325,16 @@
       "layout": "table",
       "layout_type": null,
       "exempt_from_action_title": null,
-      "title": "Der Sitzkilometer wird mit dem E-Flugzeug 22 % günstiger",
+      "title": "Mit E-Flugzeug wird der Sitzkilometer 22 % günstiger",
       "checks": [
         {
           "id": "1",
           "name": "title word ceiling",
           "method": "file",
           "status": "pass",
-          "value": 8,
+          "value": 7,
           "limit": 15,
-          "evidence": "slide3.xml#2 \"Text 0\" \"Der Sitzkilometer wird mit dem E-Flugzeug 22 % günstiger\""
+          "evidence": "slide3.xml#2 \"Text 0\" \"Mit E-Flugzeug wird der Sitzkilometer 22 % günstiger\""
         },
         {
           "id": "2",
@@ -389,7 +380,16 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide3.xml#5 \"Text 2\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide3.xml#6 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.66,
+          "limit": "3.0:1",
+          "evidence": "slide3.xml#4 \"Chart 0\" series colours vs surface"
         },
         {
           "id": "5",
@@ -404,16 +404,16 @@
           "name": "characters per slide (German rule)",
           "method": "file",
           "status": "pass",
-          "value": 236,
+          "value": 270,
           "limit": 720,
-          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#4 \"Table 0\", slide3.xml#4 \"Text 1\""
+          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#4 \"Table 0\", slide3.xml#4 \"Chart 0\" (chart text), slide3.xml#5 \"Text 1\""
         },
         {
           "id": "6",
           "name": "words per slide",
           "method": "file",
           "status": "observation",
-          "value": 42,
+          "value": 46,
           "limit": 120,
           "evidence": "reported only; character limit applies for German"
         },
@@ -422,9 +422,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.576,
+          "value": 0.598,
           "limit": 0.75,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -444,9 +444,9 @@
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
@@ -477,7 +477,7 @@
           "status": "observation",
           "value": 0,
           "limit": 0,
-          "evidence": "all 51 rendered words lie inside a text box"
+          "evidence": "all 54 rendered words lie inside a text box"
         },
         {
           "id": "1",
@@ -496,16 +496,16 @@
       "layout": "table",
       "layout_type": null,
       "exempt_from_action_title": null,
-      "title": "Die Reichweite von 320 Kilometern bleibt die harte Grenze",
+      "title": "320 Kilometer Reichweite bleiben die harte Grenze",
       "checks": [
         {
           "id": "1",
           "name": "title word ceiling",
           "method": "file",
           "status": "pass",
-          "value": 9,
+          "value": 7,
           "limit": 15,
-          "evidence": "slide4.xml#2 \"Text 0\" \"Die Reichweite von 320 Kilometern bleibt die harte Grenze\""
+          "evidence": "slide4.xml#2 \"Text 0\" \"320 Kilometer Reichweite bleiben die harte Grenze\""
         },
         {
           "id": "2",
@@ -551,7 +551,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide4.xml#5 \"Text 2\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide4.xml#6 \"Text 2\")"
         },
         {
           "id": "5",
@@ -566,16 +566,16 @@
           "name": "characters per slide (German rule)",
           "method": "file",
           "status": "pass",
-          "value": 253,
+          "value": 245,
           "limit": 720,
-          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#5 \"Table 0\", slide4.xml#4 \"Text 1\""
+          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#5 \"Table 0\", slide4.xml#5 \"Text 1\""
         },
         {
           "id": "6",
           "name": "words per slide",
           "method": "file",
           "status": "observation",
-          "value": 42,
+          "value": 40,
           "limit": 120,
           "evidence": "reported only; character limit applies for German"
         },
@@ -584,9 +584,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.532,
+          "value": 0.736,
           "limit": 0.75,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -606,9 +606,9 @@
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
@@ -639,7 +639,7 @@
           "status": "observation",
           "value": 0,
           "limit": 0,
-          "evidence": "all 51 rendered words lie inside a text box"
+          "evidence": "all 49 rendered words lie inside a text box"
         },
         {
           "id": "1",
@@ -658,16 +658,16 @@
       "layout": "chart",
       "layout_type": null,
       "exempt_from_action_title": null,
-      "title": "Bis 2033 amortisieren sich 14 Flugzeuge bei 137 Mio. € Investition",
+      "title": "Die 137 Mio. € Investition amortisieren sich bis 2033",
       "checks": [
         {
           "id": "1",
           "name": "title word ceiling",
           "method": "file",
           "status": "pass",
-          "value": 10,
+          "value": 8,
           "limit": 15,
-          "evidence": "slide5.xml#2 \"Text 0\" \"Bis 2033 amortisieren sich 14 Flugzeuge bei 137 Mio. € Investition\""
+          "evidence": "slide5.xml#2 \"Text 0\" \"Die 137 Mio. € Investition amortisieren sich bis 2033\""
         },
         {
           "id": "2",
@@ -737,7 +737,7 @@
           "name": "characters per slide (German rule)",
           "method": "file",
           "status": "pass",
-          "value": 214,
+          "value": 207,
           "limit": 720,
           "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Chart 0\" (chart text), slide5.xml#4 \"Text 1\""
         },
@@ -746,7 +746,7 @@
           "name": "words per slide",
           "method": "file",
           "status": "observation",
-          "value": 35,
+          "value": 34,
           "limit": 120,
           "evidence": "reported only; character limit applies for German"
         },
@@ -755,7 +755,7 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.684,
+          "value": 0.705,
           "limit": 0.75,
           "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
@@ -810,28 +810,28 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 2,
+          "value": 1,
           "limit": 2,
-          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
     {
       "n": 6,
       "part": "ppt/slides/slide6.xml",
-      "layout": "table",
+      "layout": "timeline",
       "layout_type": null,
       "exempt_from_action_title": null,
-      "title": "Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen ab 2028",
+      "title": "Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen",
       "checks": [
         {
           "id": "1",
           "name": "title word ceiling",
           "method": "file",
           "status": "pass",
-          "value": 9,
+          "value": 7,
           "limit": 15,
-          "evidence": "slide6.xml#2 \"Text 0\" \"Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen ab 2028\""
+          "evidence": "slide6.xml#2 \"Text 0\" \"Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen\""
         },
         {
           "id": "2",
@@ -877,7 +877,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide6.xml#5 \"Text 2\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide6.xml#13 \"Text 11\")"
         },
         {
           "id": "5",
@@ -892,16 +892,16 @@
           "name": "characters per slide (German rule)",
           "method": "file",
           "status": "pass",
-          "value": 326,
+          "value": 300,
           "limit": 720,
-          "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#7 \"Table 0\", slide6.xml#4 \"Text 1\""
+          "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#5 \"Text 3\", slide6.xml#7 \"Text 5\", slide6.xml#9 \"Text 7\", slide6.xml#11 \"Text 9\", slide6.xml#12 \"Text 10\""
         },
         {
           "id": "6",
           "name": "words per slide",
           "method": "file",
           "status": "observation",
-          "value": 51,
+          "value": 47,
           "limit": 120,
           "evidence": "reported only; character limit applies for German"
         },
@@ -910,16 +910,16 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.709,
+          "value": 0.506,
           "limit": 0.75,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "10 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
           "name": "data slide has source and date",
           "method": "file",
-          "status": "pass",
-          "evidence": "source line: \"Quelle: Investitionsplanung, Annahmen 2026 (erfundene Daten)\""
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
         },
         {
           "id": "8",
@@ -944,13 +944,6 @@
           "evidence": "first text object in z-order: slide6.xml#2 \"Text 0\""
         },
         {
-          "id": "3",
-          "name": "table cell margins leave room for the text",
-          "method": "file",
-          "status": "pass",
-          "evidence": "slide6.xml#7 \"Table 0\": margins are below 60 % of every cell width"
-        },
-        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -965,7 +958,7 @@
           "status": "observation",
           "value": 0,
           "limit": 0,
-          "evidence": "all 63 rendered words lie inside a text box"
+          "evidence": "all 58 rendered words lie inside a text box"
         },
         {
           "id": "1",
@@ -1027,7 +1020,7 @@
       "method": "file",
       "status": "pass",
       "value": 1,
-      "evidence": "slides [2, 3, 4, 5, 6] share (48.0, 48.0, 864.0, 80.0)"
+      "evidence": "slides [2, 3, 4, 5, 6] share (48.0, 48.0, 864.0, 40.0)"
     },
     {
       "id": "4",
@@ -1042,8 +1035,8 @@
       "name": "distinct left edges of text shapes",
       "method": "file",
       "status": "observation",
-      "value": 2,
-      "evidence": "x positions (pt): [48, 624]. Optical alignment is not measured."
+      "value": 6,
+      "evidence": "x positions (pt): [48, 272, 496, 528, 560, 720]. Optical alignment is not measured."
     },
     {
       "id": "3",
@@ -1081,7 +1074,7 @@
   "notes": [],
   "language": {
     "used": "de",
-    "note": "auto: German stop-word share 14.6 %"
+    "note": "auto: German stop-word share 12.5 %"
   },
   "title_strand": [
     {
@@ -1094,19 +1087,19 @@
     },
     {
       "n": 3,
-      "t": "Der Sitzkilometer wird mit dem E-Flugzeug 22 % günstiger"
+      "t": "Mit E-Flugzeug wird der Sitzkilometer 22 % günstiger"
     },
     {
       "n": 4,
-      "t": "Die Reichweite von 320 Kilometern bleibt die harte Grenze"
+      "t": "320 Kilometer Reichweite bleiben die harte Grenze"
     },
     {
       "n": 5,
-      "t": "Bis 2033 amortisieren sich 14 Flugzeuge bei 137 Mio. € Investition"
+      "t": "Die 137 Mio. € Investition amortisieren sich bis 2033"
     },
     {
       "n": 6,
-      "t": "Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen ab 2028"
+      "t": "Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen"
     }
   ],
   "render": {
@@ -1128,19 +1121,19 @@
     "slide_count": 6,
     "layouts": [
       "title",
-      "chart",
+      "map",
       "table",
       "table",
       "chart",
-      "table"
+      "timeline"
     ],
     "titles": [
       "E-Regionalflugzeuge: Entscheidungsvorlage für den Vorstand",
       "14 von 30 Strecken liegen innerhalb von 320 Kilometern",
-      "Der Sitzkilometer wird mit dem E-Flugzeug 22 % günstiger",
-      "Die Reichweite von 320 Kilometern bleibt die harte Grenze",
-      "Bis 2033 amortisieren sich 14 Flugzeuge bei 137 Mio. € Investition",
-      "Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen ab 2028"
+      "Mit E-Flugzeug wird der Sitzkilometer 22 % günstiger",
+      "320 Kilometer Reichweite bleiben die harte Grenze",
+      "Die 137 Mio. € Investition amortisieren sich bis 2033",
+      "Wir empfehlen einen Pilotbetrieb mit vier Flugzeugen"
     ],
     "fonts": [
       "Arial"
@@ -1148,39 +1141,42 @@
     "colors": {
       "FFFFFF": [
         "slide 1 background",
+        "slide 1 fill slide1.xml#3 \"Shape 0\"",
+        "slide 1 fill slide1.xml#5 \"Text 2\"",
         "slide 2 background",
         "slide 3 background",
-        "slide 4 background",
-        "slide 5 background",
-        "slide 6 background"
+        "slide 4 background"
       ],
       "1B2733": [
-        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 1 text slide1.xml#4 \"Text 0\"",
+        "slide 2 text slide2.xml#10 \"Text 7\"",
         "slide 2 text slide2.xml#2 \"Text 0\"",
         "slide 2 text slide2.xml#4 \"Text 1\"",
-        "slide 3 text slide3.xml#2 \"Text 0\"",
-        "slide 3 text slide3.xml#4 \"Table 0\"",
-        "slide 3 text slide3.xml#4 \"Text 1\""
+        "slide 2 text slide2.xml#6 \"Text 3\"",
+        "slide 2 text slide2.xml#8 \"Text 5\""
       ],
       "4A5866": [
-        "slide 1 text slide1.xml#25 \"Slide Number Placeholder 0\"",
-        "slide 1 text slide1.xml#3 \"Text 1\"",
+        "slide 1 text slide1.xml#5 \"Text 2\"",
+        "slide 2 text slide2.xml#11 \"Text 8\"",
         "slide 2 text slide2.xml#25 \"Slide Number Placeholder 0\"",
-        "slide 2 text slide2.xml#5 \"Text 2\"",
         "slide 3 text slide3.xml#25 \"Slide Number Placeholder 0\"",
-        "slide 3 text slide3.xml#5 \"Text 2\""
+        "slide 3 text slide3.xml#6 \"Text 2\"",
+        "slide 4 text slide4.xml#25 \"Slide Number Placeholder 0\""
       ],
       "C2410C": [
-        "slide 2 chart series 1",
+        "slide 2 fill slide2.xml#5 \"Shape 2\"",
+        "slide 3 chart series 1",
         "slide 5 chart series 1",
-        "slide 6 text slide6.xml#4 \"Text 1\""
+        "slide 6 fill slide6.xml#10 \"Shape 8\"",
+        "slide 6 fill slide6.xml#12 \"Text 10\"",
+        "slide 6 fill slide6.xml#4 \"Shape 2\""
       ],
       "7B8794": [
-        "slide 2 chart series 1"
+        "slide 3 chart series 1"
       ]
     },
     "min_inset_pt": 48.0,
-    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "min_inset_at": "slide1.xml#3 \"Shape 0\"",
     "profile": "read",
     "chart_sizes": [
       14.0
@@ -1188,19 +1184,22 @@
     "slide_facts": [
       {
         "n": 1,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": ""
       },
       {
         "n": 2,
         "exhibits": [
-          "chart"
+          "pic"
         ],
         "source": "Quelle: Streckennetz der Beispielairline, Stand 2026 (erfundene Daten)"
       },
       {
         "n": 3,
         "exhibits": [
+          "chart",
           "table"
         ],
         "source": "Quelle: Kostenmodell Flottenplanung, Annahmen 2026 (erfundene Daten)"
@@ -1208,6 +1207,7 @@
       {
         "n": 4,
         "exhibits": [
+          "pic",
           "table"
         ],
         "source": "Quelle: Herstellerangaben Modell EV-19, Vorabversion 2026 (erfundene Daten)"
@@ -1221,9 +1221,7 @@
       },
       {
         "n": 6,
-        "exhibits": [
-          "table"
-        ],
+        "exhibits": [],
         "source": "Quelle: Investitionsplanung, Annahmen 2026 (erfundene Daten)"
       }
     ]
@@ -1231,13 +1229,15 @@
   "plan": {
     "parsed": {
       "profile": "read",
-      "roles": 6,
-      "palette": 6,
+      "roles": 7,
+      "palette": 7,
       "margin_pt": 48.024,
       "layout_types": [
         "title",
+        "map",
+        "table",
         "chart",
-        "table"
+        "timeline"
       ],
       "slide_rows": 6,
       "waivers": "keine",
@@ -1255,9 +1255,10 @@
           18.0,
           14.0,
           14.0,
+          18.0,
           10.0
         ],
-        "evidence": "all 6 roles within limits"
+        "evidence": "all 7 roles within limits"
       },
       {
         "id": "P2",
@@ -1294,8 +1295,8 @@
         "name": "plan: role colours against palette backgrounds (contrast)",
         "method": "computed",
         "status": "pass",
-        "value": 7.29,
-        "evidence": "6 pairs computed"
+        "value": 5.18,
+        "evidence": "7 pairs computed"
       },
       {
         "id": "P4",
@@ -1380,7 +1381,7 @@
         "status": "pass",
         "value": 48.0,
         "limit": 48.0,
-        "evidence": "smallest edge distance 48.0 pt at slide1.xml#2 \"Text 0\""
+        "evidence": "smallest edge distance 48.0 pt at slide1.xml#3 \"Shape 0\""
       }
     ]
   },
@@ -1393,7 +1394,7 @@
   "summary": {
     "pass": 102,
     "fail": 0,
-    "observation": 26,
+    "observation": 25,
     "not_measured": 3,
     "waived": 0
   }

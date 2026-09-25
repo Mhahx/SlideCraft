@@ -1,31 +1,34 @@
 // Deck "update": Status Pilotprojekt E-Regionalflug. Executes update/plan.md.
 const pptxgen = require('pptxgenjs');
 const path = require('path');
-const { pt, master, source } = require('../lib');
+const { pt, master, source, ground, plate } = require('../lib');
 
 const C = { bg: 'FFFFFF', ink: '1B2733', ink2: '4A5866', accent: '1F4E79', neutral: '7A808A', rule: 'D0D5DB', green: '2E7D32', amber: 'B45309', red: 'B71C1C' };
 const STATUS = { Rot: C.red, Gelb: C.amber, Grün: C.green };
 const F = 'Calibri';
 const S = { titleSlide: 40, title: 28, body: 18, label: 14, foot: 10 };
+const A = (n) => path.join(__dirname, '..', 'assets', `update-${n}.png`);
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
 pres.title = 'Status Pilotprojekt E-Regionalflug, KW 39 (Beispieldaten)';
 
 const common = { font: F, bg: C.bg, titleSize: S.title, titleBold: true, titleColor: C.ink, title: [48, 48, 864, 40], number: { size: S.foot, color: C.ink2 } };
-master(pres, 'title', { ...common, titleSize: S.titleSlide, title: [48, 160, 768, 56] });
+master(pres, 'title', { ...common, titleSize: S.titleSlide, title: [48, 160, 480, 112], number: null });
 master(pres, 'overview', common);
 master(pres, 'status', common);
 
 const src = (s) => source(s, 'Quelle: Projektcontrolling, KW 39 (erfundene Daten)', { font: F, size: S.foot, color: C.ink2 });
 const line = (strong) => [{ type: 'none' }, { type: 'none' }, { type: 'solid', pt: strong ? 1 : 0.75, color: strong ? C.ink : C.rule }, { type: 'none' }];
-const cell = (t, o = {}) => ({ text: t, options: { fontFace: F, fontSize: S.label, color: o.color || C.ink, bold: !!o.bold, align: 'left', valign: 'middle', border: line(o.strong), margin: [0, 0.11, 0, 0] } });
+const cell = (t, o = {}) => ({ text: t, options: { fontFace: F, fontSize: S.label, color: o.color || C.ink, bold: !!o.bold, align: o.center ? 'center' : 'left', valign: 'middle', border: line(o.strong), margin: [0, 0.11, 0, o.first ? 0 : 0.11], fill: o.fill ? { color: o.fill } : undefined } });
 
 let s = pres.addSlide({ masterName: 'title' });
-s.addText('Status Pilotprojekt E-Regionalflug, KW 39', { placeholder: 'title' });
-s.addText('Beispieldaten', { x: pt(48), y: pt(232), w: pt(480), h: pt(32), fontFace: F, fontSize: S.body, color: C.ink2, align: 'left', valign: 'top', margin: 0, isTextBox: true });
+ground(s, A('title'), 'Illustration: Elektroflugzeug in Stahlblau in der Draufsicht über hellgrauen Ringen');
+plate(s, pres, 48, 160, 480, 112, C.bg);
+s.addText([{ text: 'Status Pilotprojekt', options: { breakLine: true } }, { text: 'E-Regionalflug, KW 39' }], { placeholder: 'title' });
+s.addText('Beispieldaten', { x: pt(48), y: pt(288), w: pt(480), h: pt(24), fontFace: F, fontSize: S.body, color: C.ink2, align: 'left', valign: 'top', margin: 0, isTextBox: true, fill: { color: C.bg } });
 
-// 2 overview table
+// 2 overview table: status as a coloured cell with its word
 s = pres.addSlide({ masterName: 'overview' });
 s.addText('Das Projekt liegt zwei Wochen hinter dem Plan', { placeholder: 'title' });
 const data = [['Bereich', 'Status', 'Trend', 'Abweichung', 'Nächster Schritt'],
@@ -34,23 +37,23 @@ const data = [['Bereich', 'Status', 'Trend', 'Abweichung', 'Nächster Schritt'],
   ['Ladeinfrastruktur', 'Gelb', 'verschlechtert', '+1 Woche', 'Vergabe bis KW 41'],
   ['Budget', 'Grün', 'gleichbleibend', '−0,4 Mio. €', 'Prognose im Oktober'],
   ['Personal', 'Gelb', 'verbessert', '1 Stelle offen', 'Zwei Zusagen erwartet']];
-s.addTable(data.map((r, i) => r.map((t, j) => cell(t, { bold: i === 0 || j === 1, strong: i === 0, color: i > 0 && j === 1 ? STATUS[t] : C.ink }))),
+s.addTable(data.map((r, i) => r.map((t, j) => (i > 0 && j === 1) ? cell(t, { bold: true, center: true, color: 'FFFFFF', fill: STATUS[t] }) : cell(t, { bold: i === 0, strong: i === 0, first: j === 0 }))),
   { x: pt(48), y: pt(120), w: pt(864), colW: [pt(176), pt(96), pt(160), pt(152), pt(280)], rowH: pt(32) });
 src(s);
 
-// 3 to 5: one fixed status layout
+// 3 to 5: one fixed status layout: status block, trend, deviation, next step on the left, plan against actual on the right
 function status(title, st, trend, dev, next, chart) {
   const sl = pres.addSlide({ masterName: 'status' });
   sl.addText(title, { placeholder: 'title' });
-  const run = (t, o) => ({ text: t, options: { fontFace: F, fontSize: S.body, color: C.ink, ...o } });
-  sl.addText([run('Status: ', { breakLine: false }), run(st, { bold: true, color: STATUS[st], breakLine: true }),
-    run('Trend: ' + trend, { breakLine: true }), run('Abweichung: ' + dev)],
-    { x: pt(48), y: pt(120), w: pt(288), h: pt(88), fontFace: F, fontSize: S.body, color: C.ink, align: 'left', valign: 'top', margin: 0, paraSpaceAfter: 4, isTextBox: true });
+  sl.addText('Status: ' + st, { x: pt(48), y: pt(120), w: pt(296), h: pt(56), fontFace: F, fontSize: S.title, bold: true, color: 'FFFFFF', align: 'left', valign: 'middle', margin: [16, 16, 0, 0], isTextBox: true, fill: { color: STATUS[st] } });   // [left, right, bottom, top] in pt
+  sl.addText([{ text: 'Trend: ' + trend, options: { breakLine: true } }, { text: 'Abweichung: ' + dev, options: {} }],
+    { x: pt(48), y: pt(192), w: pt(296), h: pt(64), fontFace: F, fontSize: S.body, color: C.ink, align: 'left', valign: 'top', margin: 0, paraSpaceAfter: 4, isTextBox: true });
   sl.addText([{ text: 'Nächster Schritt', options: { fontFace: F, fontSize: S.label, bold: true, color: C.ink, breakLine: true } },
     { text: next, options: { fontFace: F, fontSize: S.body, color: C.ink } }],
-    { x: pt(48), y: pt(240), w: pt(288), h: pt(80), align: 'left', valign: 'top', margin: 0, isTextBox: true });
-  sl.addChart(pres.charts.LINE, [{ name: 'Plan', labels: ['KW 35', 'KW 36', 'KW 37', 'KW 38', 'KW 39'], values: chart.plan }, { name: 'Ist', labels: ['KW 35', 'KW 36', 'KW 37', 'KW 38', 'KW 39'], values: chart.ist }],
-    { x: pt(384), y: pt(120), w: pt(528), h: pt(232), chartColors: [C.neutral, C.accent], lineSize: 3, lineDataSymbol: 'none', lineDash: 'solid',   // pptxgenjs takes one value for all series; the plan series is made dashed after writing (see below)
+    { x: pt(48), y: pt(280), w: pt(296), h: pt(72), align: 'left', valign: 'top', margin: 0, isTextBox: true });
+  const labels = ['KW 35', 'KW 36', 'KW 37', 'KW 38', 'KW 39'];
+  sl.addChart(pres.charts.LINE, [{ name: 'Plan', labels, values: chart.plan }, { name: 'Ist', labels, values: chart.ist }],
+    { x: pt(384), y: pt(120), w: pt(528), h: pt(240), chartColors: [C.neutral, C.accent], lineSize: 4, lineDataSymbol: 'none', lineDash: 'solid',   // Plan is made dashed after writing (see below)
       dataLabelFontFace: F, dataLabelFontSize: S.label, showLegend: true, legendPos: 'b', legendFontFace: F, legendFontSize: S.label, legendColor: C.ink,
       catAxisLabelFontFace: F, valAxisLabelFontFace: F, catAxisLabelFontSize: S.label, valAxisLabelFontSize: S.label, catAxisLabelColor: C.ink, valAxisLabelColor: C.ink,
       valAxisMinVal: chart.min, valAxisMaxVal: chart.max, valGridLine: { color: C.rule, size: 0.75 }, catGridLine: { style: 'none' }, showValAxisTitle: true, valAxisTitle: chart.unit,

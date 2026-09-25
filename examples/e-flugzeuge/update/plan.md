@@ -19,9 +19,9 @@ Alternatives:       Keine weitere gezeigt, weil das Profil update ausdrücklich 
 Colour strategy:    Restrained
 Direction contract:
   THESIS: Jede Statusfolie sieht gleich aus, damit nur der Inhalt auffällt.
-  OWN-WORLD: Weiß, Tinte 1B2733, Stahlblau 1F4E79 nur für die Ist-Linie, Status in Rot, Gelb, Grün mit Wort, Calibri, keine Icons.
+  OWN-WORLD: Weiß, Tinte 1B2733, Stahlblau 1F4E79 nur für die Ist-Linie, Status als farbige Fläche in Rot, Gelb, Grün mit weißem Wort, Calibri, keine Icons.
   STORY: Gesamtbild in einer Tabelle, dann drei Arbeitspakete im gleichen Format.
-  FIRST SLIDES: Titel: Titel links, Untertitel darunter. Statusfolie: Titel mit Aussage, links Status, Trend, Abweichung und nächster Schritt, rechts Plan gegen Ist als Linien.
+  FIRST SLIDES: Titel: links Titel auf weißer Platte, rechts blaues Flugzeug über grauen Ringen (Vollfläche). Statusfolie: Titel mit Aussage, links Statusfläche, Trend, Abweichung und nächster Schritt, rechts Plan gegen Ist als Linien.
   FORM: Kategorie-Standard (Standing exit gewählt).
   FINISH: Kein Folienbau vor dem Plan; das Deck endet mit dem Prüfskript, der Durchsicht der Renderings und dem Plan as built.
 Rationale:          Calibri: Safe-Liste, sachlich. Plan gestrichelt grau, Ist durchgezogen blau: unterscheidbar ohne Farbe.
@@ -45,16 +45,17 @@ Text roles:
 |---|---|---|---|---|---|
 | title-slide | Calibri | bold | 40 | 1B2733 | Titel auf der ersten Folie |
 | title | Calibri | bold | 28 | 1B2733 | Aussagetitel, einzeilig |
+| status-block | Calibri | bold | 28 | FFFFFF | Statusfläche auf den Statusfolien, weiße Schrift auf Statusfarbe |
 | body | Calibri | regular | 18 | 1B2733 | Trend, Abweichung, nächster Schritt |
 | body-strong | Calibri | bold | 18 | 1B2733 | Statuswort, Status in Farbe |
 | label | Calibri | regular | 14 | 1B2733 | Tabellenzellen, Diagrammbeschriftung |
-| label-strong | Calibri | bold | 14 | 1B2733 | Tabellenkopf, Statuswort in der Tabelle |
+| label-strong | Calibri | bold | 14 | 1B2733 | Tabellenkopf, Statuswort in der Tabelle (weiß auf Statusfarbe) |
 | footnote | Calibri | regular | 10 | 4A5866 | Quelle, Seitenzahl |
 
-Palette:            background FFFFFF | text 1B2733, 4A5866 | accent 1F4E79 | status 2E7D32, B45309, B71C1C | neutrals 7A808A, D0D5DB
+Palette:            background FFFFFF, 2E7D32, B45309, B71C1C (Statusflächen) | text 1B2733, 4A5866, FFFFFF | accent 1F4E79 | status 2E7D32, B45309, B71C1C | neutrals 7A808A, D0D5DB
 Grid and spacing:   13.33 x 7.5 in, margins 0.667 in (48 pt), 12 columns, Abstände in Vielfachen von 8 pt; Titelband 48 bis 88 pt (einzeilig), Inhalt ab 120 pt
 Layout types:       title, overview, status
-Images and icons:   keine
+Images and icons:   Titelfolie mit Vektorillustration (SVG, examples/e-flugzeuge/art.js), sonst keine; Status als farbige Fläche mit Wort
 Charts:             Linien nativ, Plan grau gestrichelt, Ist blau durchgezogen; Legende unten; Quellzeile 10 pt unten links
 
 ## 5. Slide plan
@@ -72,7 +73,7 @@ Kombinationsprüfung: Titelband einzeilig (864 x 40 pt), Tabellenzeilen 32 pt; d
 Alle Zahlen sind erfundene Beispieldaten und in den Quellzeilen so markiert.
 
 ## 7. As built
-Fonts: Calibri (im Render als Carlito). Rollengrößen: 40 (Titelfolie), 28 (Titel), 18 (Text), 14 (Tabelle, Diagramm), 10 (Quelle). Farben: FFFFFF, 1B2733, 4A5866, 1F4E79, 2E7D32, B45309, B71C1C, 7A808A, D0D5DB. Rand 48 pt. Layouts: title, overview, status. Größter Füllgrad 54 % (Limit 60 %).
-Abweichungen vom Plan: (1) pptxgenjs schrieb für `lineDash` mit zwei Werten den ungültigen Wert `dash,solid`; der Validator des pptx-Skills ließ es durch, das Prüfskript nicht. Der Plan gestrichelt, Ist durchgezogen wird jetzt per Nachbearbeitung des XML gesetzt. (2) Das Standardformat der Datenbeschriftung war 12 pt und stand nicht im Plan; auf 14 pt gesetzt. (3) Quellzeilen nennen die Kalenderwoche als Datum ("KW 39"), nicht das Jahr.
-Beobachtungen ohne Befund: Die Farbregel meldet vier Farbtonfamilien, das ist die dokumentierte Ausnahme für Statusfarben (Profil update). Auf den Statusfolien 3 bis 5 ist unter dem Diagramm viel Fläche frei.
-Review: keine unabhängige Prüfung. Es lief kein Subagent, die Durchsicht der Renderings und der Prüfskript-Berichte stammt aus derselben Sitzung wie der Bau (Selbstprüfung des gleichen Modells). Disposition: ship mit den unten genannten Beobachtungen. Geltungsbereich: die Prüfpunkte des Skripts (check.json) und die Durchsicht aller Renderings (render/); Urteilspunkte 10 und 11 sind Einschätzung, nicht gemessen.
+Fonts: Calibri (im Render als Carlito). Rollengrößen: 40 (Titelfolie), 28 (Titel und Statusfläche fett), 18 (Text), 14 (Tabelle, Diagramm), 10 (Quelle). Farben: FFFFFF, 1B2733, 4A5866, 1F4E79, 2E7D32, B45309, B71C1C, 7A808A, D0D5DB. Rand 48 pt. Layouts: title, overview, status. Größter Füllgrad 57 % (Limit 60 %). Bildmaterial: Titelillustration (Flugzeug in Stahlblau über grauen Ringen), sonst Statusflächen und Diagramme.
+Abweichungen vom Plan und Gründe (zweite Runde): (1) Status ist jetzt eine farbige Fläche mit weißem Wort, in der Tabelle als Zellfüllung, auf den Statusfolien als Block. Vorher nur farbiges Wort. (2) Diagramme etwas größer. (3) pptxgenjs schrieb für `lineDash` mit zwei Werten den ungültigen Wert `dash,solid`; der Plan gestrichelt wird per Nachbearbeitung des XML gesetzt (aus der ersten Runde). (4) Das Prüfskript hat Zellfüllungen zunächst nicht gelesen und "Weiß auf Weiß" gemeldet; Skript korrigiert.
+Beobachtungen ohne Befund: Die Farbregel meldet vier Farbtonfamilien, das ist die dokumentierte Ausnahme für Statusfarben. Unter den Diagrammen der Statusfolien bleibt Fläche frei.
+Review: keine unabhängige Prüfung. Es lief kein Subagent, die Durchsicht der Renderings und der Prüfskript-Berichte stammt aus derselben Sitzung wie der Bau (Selbstprüfung des gleichen Modells). Disposition: ship mit den genannten Beobachtungen. Geltungsbereich: die Prüfpunkte des Skripts (check.json) und die Durchsicht aller Renderings (render/); Urteilspunkte 10 und 11 sind Einschätzung, nicht gemessen.

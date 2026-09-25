@@ -45,7 +45,7 @@
           "method": "file",
           "status": "observation",
           "value": 3,
-          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (--exempt)"
+          "evidence": "slide1.xml#4 \"Text 0\": exempt slide type (--exempt)"
         },
         {
           "id": "2",
@@ -70,7 +70,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 28.0 pt (slide1.xml#3 \"Text 1\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 28.0 pt (slide1.xml#5 \"Text 2\")"
         },
         {
           "id": "5",
@@ -87,7 +87,7 @@
           "status": "pass",
           "value": 42,
           "limit": 90,
-          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\""
+          "evidence": "counted: slide1.xml#4 \"Text 0\", slide1.xml#5 \"Text 2\""
         },
         {
           "id": "6",
@@ -103,9 +103,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.232,
+          "value": 0.253,
           "limit": 0.3,
-          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -119,22 +119,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide1.xml#2 \"Text 0\""
+          "evidence": "slide1.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide1.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -158,9 +158,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -179,7 +179,7 @@
           "status": "pass",
           "value": 8,
           "limit": 8,
-          "evidence": "slide2.xml#2 \"Text 0\" \"Jeder dritte Flug ist kürzer als 300 km\""
+          "evidence": "slide2.xml#4 \"Text 0\" \"Jeder dritte Flug ist kürzer als 300 km\""
         },
         {
           "id": "2",
@@ -190,7 +190,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide2.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide2.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -225,7 +225,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide2.xml#5 \"Text 3\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide2.xml#8 \"Text 5\")"
         },
         {
           "id": "5",
@@ -242,7 +242,7 @@
           "status": "pass",
           "value": 67,
           "limit": 90,
-          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Text 1\", slide2.xml#4 \"Text 2\""
+          "evidence": "counted: slide2.xml#4 \"Text 0\", slide2.xml#5 \"Text 2\", slide2.xml#6 \"Text 3\""
         },
         {
           "id": "6",
@@ -258,9 +258,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.282,
+          "value": 0.288,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -274,22 +274,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide2.xml#2 \"Text 0\""
+          "evidence": "slide2.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide2.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -313,9 +313,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -334,7 +334,7 @@
           "status": "pass",
           "value": 6,
           "limit": 8,
-          "evidence": "slide3.xml#2 \"Text 0\" \"Kurze Flüge fressen das meiste Kerosin\""
+          "evidence": "slide3.xml#4 \"Text 0\" \"Kurze Flüge fressen das meiste Kerosin\""
         },
         {
           "id": "2",
@@ -345,7 +345,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide3.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide3.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -380,7 +380,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide3.xml#5 \"Text 3\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide3.xml#8 \"Text 5\")"
         },
         {
           "id": "5",
@@ -397,7 +397,7 @@
           "status": "pass",
           "value": 67,
           "limit": 90,
-          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\""
+          "evidence": "counted: slide3.xml#4 \"Text 0\", slide3.xml#5 \"Text 2\", slide3.xml#6 \"Text 3\""
         },
         {
           "id": "6",
@@ -413,9 +413,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.282,
+          "value": 0.288,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -429,22 +429,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide3.xml#2 \"Text 0\""
+          "evidence": "slide3.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide3.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -468,9 +468,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -489,7 +489,7 @@
           "status": "pass",
           "value": 5,
           "limit": 8,
-          "evidence": "slide4.xml#2 \"Text 0\" \"Elektroantriebe sparen dort am meisten\""
+          "evidence": "slide4.xml#4 \"Text 0\" \"Elektroantriebe sparen dort am meisten\""
         },
         {
           "id": "2",
@@ -500,7 +500,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide4.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide4.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -535,7 +535,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide4.xml#5 \"Text 3\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide4.xml#8 \"Text 5\")"
         },
         {
           "id": "5",
@@ -552,7 +552,7 @@
           "status": "pass",
           "value": 66,
           "limit": 90,
-          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Text 1\", slide4.xml#4 \"Text 2\""
+          "evidence": "counted: slide4.xml#4 \"Text 0\", slide4.xml#5 \"Text 2\", slide4.xml#6 \"Text 3\""
         },
         {
           "id": "6",
@@ -568,9 +568,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.282,
+          "value": 0.288,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -584,22 +584,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide4.xml#2 \"Text 0\""
+          "evidence": "slide4.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide4.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -623,9 +623,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -644,7 +644,7 @@
           "status": "pass",
           "value": 6,
           "limit": 8,
-          "evidence": "slide5.xml#2 \"Text 0\" \"Der Startlärm sinkt um 15 Dezibel\""
+          "evidence": "slide5.xml#4 \"Text 0\" \"Der Startlärm sinkt um 15 Dezibel\""
         },
         {
           "id": "2",
@@ -655,7 +655,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide5.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide5.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -690,7 +690,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide5.xml#5 \"Text 3\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide5.xml#8 \"Text 5\")"
         },
         {
           "id": "5",
@@ -707,7 +707,7 @@
           "status": "pass",
           "value": 64,
           "limit": 90,
-          "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Text 2\""
+          "evidence": "counted: slide5.xml#4 \"Text 0\", slide5.xml#5 \"Text 2\", slide5.xml#6 \"Text 3\""
         },
         {
           "id": "6",
@@ -723,9 +723,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.282,
+          "value": 0.288,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -739,22 +739,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide5.xml#2 \"Text 0\""
+          "evidence": "slide5.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide5.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -778,9 +778,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -799,7 +799,7 @@
           "status": "pass",
           "value": 5,
           "limit": 8,
-          "evidence": "slide6.xml#2 \"Text 0\" \"Die Batterie setzt die Grenze\""
+          "evidence": "slide6.xml#4 \"Text 0\" \"Die Batterie setzt die Grenze\""
         },
         {
           "id": "2",
@@ -810,7 +810,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide6.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide6.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -845,7 +845,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide6.xml#5 \"Text 3\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide6.xml#8 \"Text 5\")"
         },
         {
           "id": "5",
@@ -862,7 +862,7 @@
           "status": "pass",
           "value": 63,
           "limit": 90,
-          "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#3 \"Text 1\", slide6.xml#4 \"Text 2\""
+          "evidence": "counted: slide6.xml#4 \"Text 0\", slide6.xml#5 \"Text 2\", slide6.xml#6 \"Text 3\""
         },
         {
           "id": "6",
@@ -878,9 +878,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.282,
+          "value": 0.288,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -894,22 +894,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide6.xml#2 \"Text 0\""
+          "evidence": "slide6.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide6.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide6.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -933,9 +933,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -954,7 +954,7 @@
           "status": "pass",
           "value": 5,
           "limit": 8,
-          "evidence": "slide7.xml#2 \"Text 0\" \"Vierzehn von dreißig Strecken passen\""
+          "evidence": "slide7.xml#4 \"Text 0\" \"Vierzehn von dreißig Strecken passen\""
         },
         {
           "id": "2",
@@ -965,7 +965,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide7.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide7.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -1000,7 +1000,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide7.xml#34 \"Text 32\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 12.0 pt (slide7.xml#7 \"Text 4\")"
         },
         {
           "id": "5",
@@ -1017,7 +1017,7 @@
           "status": "pass",
           "value": 52,
           "limit": 90,
-          "evidence": "counted: slide7.xml#2 \"Text 0\", slide7.xml#33 \"Text 31\""
+          "evidence": "counted: slide7.xml#4 \"Text 0\", slide7.xml#5 \"Text 2\""
         },
         {
           "id": "6",
@@ -1033,9 +1033,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.192,
+          "value": 0.184,
           "limit": 0.3,
-          "evidence": "16 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -1049,22 +1049,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide7.xml#2 \"Text 0\""
+          "evidence": "slide7.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide7.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide7.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -1088,9 +1088,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -1109,7 +1109,7 @@
           "status": "pass",
           "value": 6,
           "limit": 8,
-          "evidence": "slide8.xml#2 \"Text 0\" \"Wir starten 2028 mit dem Pilotbetrieb\""
+          "evidence": "slide8.xml#4 \"Text 0\" \"Wir starten 2028 mit dem Pilotbetrieb\""
         },
         {
           "id": "2",
@@ -1120,7 +1120,7 @@
             40.0
           ],
           "limit": "40-open pt",
-          "evidence": "slide8.xml#2 \"Text 0\" run rPr"
+          "evidence": "slide8.xml#4 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -1145,7 +1145,7 @@
           "status": "pass",
           "value": 6.54,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair E4DEFA on 4C2FBF at 28.0 pt (slide8.xml#4 \"Text 2\")"
+          "evidence": "worst pair E4DEFA on 4C2FBF at 28.0 pt (slide8.xml#6 \"Text 3\")"
         },
         {
           "id": "5",
@@ -1162,7 +1162,7 @@
           "status": "pass",
           "value": 65,
           "limit": 90,
-          "evidence": "counted: slide8.xml#2 \"Text 0\", slide8.xml#3 \"Text 1\", slide8.xml#4 \"Text 2\""
+          "evidence": "counted: slide8.xml#4 \"Text 0\", slide8.xml#5 \"Text 2\", slide8.xml#6 \"Text 3\""
         },
         {
           "id": "6",
@@ -1178,9 +1178,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.282,
+          "value": 0.279,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -1194,22 +1194,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide8.xml#2 \"Text 0\""
+          "evidence": "slide8.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide8.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide8.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -1233,9 +1233,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     }
@@ -1280,7 +1280,7 @@
       "status": "pass",
       "value": 1,
       "limit": 2,
-      "evidence": "hue 253 deg: E4DEFA"
+      "evidence": "hue 252 deg: 4C2FBF,E4DEFA"
     },
     {
       "id": "4",
@@ -1288,7 +1288,7 @@
       "method": "file",
       "status": "pass",
       "value": 1,
-      "evidence": "slides [2, 3, 4, 5, 6, 7, 8] share (48.0, 48.0, 864.0, 56.0)"
+      "evidence": "slides [2, 3, 4, 5, 6, 7, 8] share (48.0, 48.0, 480.0, 104.0)"
     },
     {
       "id": "4",
@@ -1415,72 +1415,88 @@
     "colors": {
       "4C2FBF": [
         "slide 1 background",
+        "slide 1 fill slide1.xml#3 \"Shape 0\"",
+        "slide 1 fill slide1.xml#5 \"Text 2\"",
         "slide 2 background",
-        "slide 3 background",
-        "slide 4 background",
-        "slide 5 background",
-        "slide 6 background"
+        "slide 2 fill slide2.xml#3 \"Shape 0\"",
+        "slide 2 fill slide2.xml#5 \"Text 2\""
       ],
       "FFFFFF": [
-        "slide 1 text slide1.xml#2 \"Text 0\"",
-        "slide 2 text slide2.xml#2 \"Text 0\"",
-        "slide 2 text slide2.xml#3 \"Text 1\"",
-        "slide 3 text slide3.xml#2 \"Text 0\"",
-        "slide 3 text slide3.xml#3 \"Text 1\"",
-        "slide 4 text slide4.xml#2 \"Text 0\""
+        "slide 1 text slide1.xml#4 \"Text 0\"",
+        "slide 2 text slide2.xml#4 \"Text 0\"",
+        "slide 2 text slide2.xml#5 \"Text 2\"",
+        "slide 3 text slide3.xml#4 \"Text 0\"",
+        "slide 3 text slide3.xml#5 \"Text 2\"",
+        "slide 4 text slide4.xml#4 \"Text 0\""
       ],
       "E4DEFA": [
-        "slide 1 text slide1.xml#3 \"Text 1\"",
-        "slide 2 text slide2.xml#4 \"Text 2\"",
-        "slide 2 text slide2.xml#5 \"Text 3\"",
-        "slide 3 text slide3.xml#4 \"Text 2\"",
-        "slide 3 text slide3.xml#5 \"Text 3\"",
-        "slide 4 text slide4.xml#4 \"Text 2\""
+        "slide 1 text slide1.xml#5 \"Text 2\"",
+        "slide 2 text slide2.xml#6 \"Text 3\"",
+        "slide 2 text slide2.xml#8 \"Text 5\"",
+        "slide 3 text slide3.xml#6 \"Text 3\"",
+        "slide 3 text slide3.xml#8 \"Text 5\"",
+        "slide 4 text slide4.xml#6 \"Text 3\""
       ]
     },
     "min_inset_pt": 48.0,
-    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "min_inset_at": "slide1.xml#3 \"Shape 0\"",
     "profile": "talk",
     "chart_sizes": [],
     "slide_facts": [
       {
         "n": 1,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": ""
       },
       {
         "n": 2,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": "Quelle: Beispieldaten (erfunden)"
       },
       {
         "n": 3,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": "Quelle: Beispieldaten (erfunden)"
       },
       {
         "n": 4,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": "Quelle: Beispieldaten (erfunden)"
       },
       {
         "n": 5,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": "Quelle: Beispieldaten (erfunden)"
       },
       {
         "n": 6,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": "Quelle: Beispieldaten (erfunden)"
       },
       {
         "n": 7,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": "Quelle: Beispieldaten (erfunden)"
       },
       {
         "n": 8,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": ""
       }
     ]
@@ -1636,7 +1652,7 @@
         "status": "pass",
         "value": 48.0,
         "limit": 48.0,
-        "evidence": "smallest edge distance 48.0 pt at slide1.xml#2 \"Text 0\""
+        "evidence": "smallest edge distance 48.0 pt at slide1.xml#3 \"Shape 0\""
       }
     ]
   },
@@ -1647,9 +1663,9 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 112,
+    "pass": 120,
     "fail": 0,
-    "observation": 43,
+    "observation": 35,
     "not_measured": 3,
     "waived": 0
   }

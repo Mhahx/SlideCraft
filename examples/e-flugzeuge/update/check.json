@@ -37,7 +37,7 @@
       "layout": "title",
       "layout_type": null,
       "exempt_from_action_title": "--exempt",
-      "title": "Status Pilotprojekt E-Regionalflug, KW 39",
+      "title": "Status Pilotprojekt\nE-Regionalflug, KW 39",
       "checks": [
         {
           "id": "1",
@@ -45,7 +45,7 @@
           "method": "file",
           "status": "observation",
           "value": 5,
-          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (--exempt)"
+          "evidence": "slide1.xml#4 \"Text 0\": exempt slide type (--exempt)"
         },
         {
           "id": "2",
@@ -70,7 +70,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide1.xml#25 \"Slide Number Placeholder 0\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 18.0 pt (slide1.xml#5 \"Text 2\")"
         },
         {
           "id": "5",
@@ -85,9 +85,9 @@
           "name": "characters per slide (German rule)",
           "method": "file",
           "status": "pass",
-          "value": 54,
+          "value": 53,
           "limit": 480,
-          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\""
+          "evidence": "counted: slide1.xml#4 \"Text 0\", slide1.xml#5 \"Text 2\""
         },
         {
           "id": "6",
@@ -103,9 +103,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.154,
+          "value": 0.172,
           "limit": 0.6,
-          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -119,22 +119,22 @@
           "name": "title set",
           "method": "file",
           "status": "pass",
-          "evidence": "slide1.xml#2 \"Text 0\""
+          "evidence": "slide1.xml#4 \"Text 0\""
         },
         {
           "id": "8",
           "name": "alt text on pictures and charts",
           "method": "file",
-          "status": "observation",
-          "value": 0,
-          "evidence": "no pictures or charts"
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
         },
         {
           "id": "8",
           "name": "reading order: title first",
           "method": "file",
           "status": "pass",
-          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+          "evidence": "first text object in z-order: slide1.xml#4 \"Text 0\""
         },
         {
           "id": "9",
@@ -151,16 +151,16 @@
           "status": "observation",
           "value": 0,
           "limit": 0,
-          "evidence": "all 7 rendered words lie inside a text box"
+          "evidence": "all 6 rendered words lie inside a text box"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -387,7 +387,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide3.xml#6 \"Text 3\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide3.xml#7 \"Text 4\")"
         },
         {
           "id": "5",
@@ -396,7 +396,7 @@
           "status": "pass",
           "value": 3.98,
           "limit": "3.0:1",
-          "evidence": "slide3.xml#5 \"Chart 0\" series colours vs surface"
+          "evidence": "slide3.xml#6 \"Chart 0\" series colours vs surface"
         },
         {
           "id": "5",
@@ -413,7 +413,7 @@
           "status": "pass",
           "value": 239,
           "limit": 480,
-          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\", slide3.xml#5 \"Chart 0\" (chart text)"
+          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\", slide3.xml#5 \"Text 3\", slide3.xml#6 \"Chart 0\" (chart text)"
         },
         {
           "id": "6",
@@ -429,9 +429,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.54,
+          "value": 0.574,
           "limit": 0.6,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -551,7 +551,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide4.xml#6 \"Text 3\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide4.xml#7 \"Text 4\")"
         },
         {
           "id": "5",
@@ -560,7 +560,7 @@
           "status": "pass",
           "value": 3.98,
           "limit": "3.0:1",
-          "evidence": "slide4.xml#5 \"Chart 0\" series colours vs surface"
+          "evidence": "slide4.xml#6 \"Chart 0\" series colours vs surface"
         },
         {
           "id": "5",
@@ -577,7 +577,7 @@
           "status": "pass",
           "value": 213,
           "limit": 480,
-          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Text 1\", slide4.xml#4 \"Text 2\", slide4.xml#5 \"Chart 0\" (chart text)"
+          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Text 1\", slide4.xml#4 \"Text 2\", slide4.xml#5 \"Text 3\", slide4.xml#6 \"Chart 0\" (chart text)"
         },
         {
           "id": "6",
@@ -593,9 +593,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.54,
+          "value": 0.574,
           "limit": 0.6,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -715,7 +715,7 @@
           "status": "pass",
           "value": 7.29,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide5.xml#6 \"Text 3\")"
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide5.xml#7 \"Text 4\")"
         },
         {
           "id": "5",
@@ -724,7 +724,7 @@
           "status": "pass",
           "value": 3.98,
           "limit": "3.0:1",
-          "evidence": "slide5.xml#5 \"Chart 0\" series colours vs surface"
+          "evidence": "slide5.xml#6 \"Chart 0\" series colours vs surface"
         },
         {
           "id": "5",
@@ -741,7 +741,7 @@
           "status": "pass",
           "value": 226,
           "limit": 480,
-          "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Text 2\", slide5.xml#5 \"Chart 0\" (chart text)"
+          "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Text 2\", slide5.xml#5 \"Text 3\", slide5.xml#6 \"Chart 0\" (chart text)"
         },
         {
           "id": "6",
@@ -757,9 +757,9 @@
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
           "status": "pass",
-          "value": 0.54,
+          "value": 0.574,
           "limit": 0.6,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
         },
         {
           "id": "7",
@@ -921,12 +921,12 @@
   "notes": [],
   "language": {
     "used": "de",
-    "note": "auto: German stop-word share 6.5 %"
+    "note": "auto: German stop-word share 6.6 %"
   },
   "title_strand": [
     {
       "n": 1,
-      "t": "Status Pilotprojekt E-Regionalflug, KW 39"
+      "t": "Status Pilotprojekt\nE-Regionalflug, KW 39"
     },
     {
       "n": 2,
@@ -969,7 +969,7 @@
       "status"
     ],
     "titles": [
-      "Status Pilotprojekt E-Regionalflug, KW 39",
+      "Status Pilotprojekt\nE-Regionalflug, KW 39",
       "Das Projekt liegt zwei Wochen hinter dem Plan",
       "Zulassung: Batterienachweis verzögert sich um zwei Wochen",
       "Prototyp: Der Dauerlauf-Test startet planmäßig",
@@ -981,38 +981,39 @@
     "colors": {
       "FFFFFF": [
         "slide 1 background",
+        "slide 1 fill slide1.xml#3 \"Shape 0\"",
+        "slide 1 fill slide1.xml#5 \"Text 2\"",
         "slide 2 background",
-        "slide 3 background",
-        "slide 4 background",
-        "slide 5 background"
+        "slide 2 text slide2.xml#3 \"Table 0\"",
+        "slide 3 background"
       ],
       "1B2733": [
-        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 1 text slide1.xml#4 \"Text 0\"",
         "slide 2 text slide2.xml#2 \"Text 0\"",
         "slide 2 text slide2.xml#3 \"Table 0\"",
         "slide 3 text slide3.xml#2 \"Text 0\"",
-        "slide 3 text slide3.xml#3 \"Text 1\"",
-        "slide 3 text slide3.xml#4 \"Text 2\""
+        "slide 3 text slide3.xml#4 \"Text 2\"",
+        "slide 3 text slide3.xml#5 \"Text 3\""
       ],
       "4A5866": [
-        "slide 1 text slide1.xml#25 \"Slide Number Placeholder 0\"",
-        "slide 1 text slide1.xml#3 \"Text 1\"",
+        "slide 1 text slide1.xml#5 \"Text 2\"",
         "slide 2 text slide2.xml#25 \"Slide Number Placeholder 0\"",
         "slide 2 text slide2.xml#4 \"Text 1\"",
         "slide 3 text slide3.xml#25 \"Slide Number Placeholder 0\"",
-        "slide 3 text slide3.xml#6 \"Text 3\""
+        "slide 3 text slide3.xml#7 \"Text 4\"",
+        "slide 4 text slide4.xml#25 \"Slide Number Placeholder 0\""
       ],
       "B71C1C": [
-        "slide 2 text slide2.xml#3 \"Table 0\"",
-        "slide 3 text slide3.xml#3 \"Text 1\""
+        "slide 2 table cell fill slide2.xml#3 \"Table 0\"",
+        "slide 3 fill slide3.xml#3 \"Text 1\""
       ],
       "2E7D32": [
-        "slide 2 text slide2.xml#3 \"Table 0\"",
-        "slide 4 text slide4.xml#3 \"Text 1\"",
-        "slide 5 text slide5.xml#3 \"Text 1\""
+        "slide 2 table cell fill slide2.xml#3 \"Table 0\"",
+        "slide 4 fill slide4.xml#3 \"Text 1\"",
+        "slide 5 fill slide5.xml#3 \"Text 1\""
       ],
       "B45309": [
-        "slide 2 text slide2.xml#3 \"Table 0\""
+        "slide 2 table cell fill slide2.xml#3 \"Table 0\""
       ],
       "7A808A": [
         "slide 3 chart series 1",
@@ -1026,7 +1027,7 @@
       ]
     },
     "min_inset_pt": 48.0,
-    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "min_inset_at": "slide1.xml#3 \"Shape 0\"",
     "profile": "update",
     "chart_sizes": [
       14.0
@@ -1034,7 +1035,9 @@
     "slide_facts": [
       {
         "n": 1,
-        "exhibits": [],
+        "exhibits": [
+          "pic"
+        ],
         "source": ""
       },
       {
@@ -1070,8 +1073,8 @@
   "plan": {
     "parsed": {
       "profile": "update",
-      "roles": 7,
-      "palette": 9,
+      "roles": 8,
+      "palette": 13,
       "margin_pt": 48.024,
       "layout_types": [
         "title",
@@ -1091,13 +1094,14 @@
         "value": [
           40.0,
           28.0,
+          28.0,
           18.0,
           18.0,
           14.0,
           14.0,
           10.0
         ],
-        "evidence": "all 7 roles within limits"
+        "evidence": "all 8 roles within limits"
       },
       {
         "id": "P2",
@@ -1134,8 +1138,8 @@
         "name": "plan: role colours against palette backgrounds (contrast)",
         "method": "computed",
         "status": "pass",
-        "value": 7.29,
-        "evidence": "7 pairs computed"
+        "value": 5.13,
+        "evidence": "8 pairs computed"
       },
       {
         "id": "P4",
@@ -1220,7 +1224,7 @@
         "status": "pass",
         "value": 48.0,
         "limit": 48.0,
-        "evidence": "smallest edge distance 48.0 pt at slide1.xml#2 \"Text 0\""
+        "evidence": "smallest edge distance 48.0 pt at slide1.xml#3 \"Shape 0\""
       }
     ]
   },
@@ -1231,9 +1235,9 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 88,
+    "pass": 89,
     "fail": 0,
-    "observation": 22,
+    "observation": 21,
     "not_measured": 3,
     "waived": 0
   }

@@ -232,17 +232,20 @@ def self_checks(plan, prof, cd):
             out.append(_chk('P3', 'plan: palette entries without a role word', 'file (plan)', 'observation', value=unl,
                             evidence='write background / text / accent / signal / neutral next to each hex'))
         backs = [p['hex'] for p in pal if p['role'] == 'background']
+        # The plan does not say which surface a role sits on, so each role colour must reach the threshold on at least one
+        # declared background (write panels such as a coloured decision bar as further background entries).
+        # The measured deck check tests every text against the surface it really sits on.
         pairs, bad = [], []
         for r in roles:
             cols = r['colors'] or [p['hex'] for p in pal if p['role'] == 'text']
             for c in cols:
-                for b in backs:
-                    ratio = cd.contrast(c, b)
-                    large = r['size'] >= 18 or (r['size'] >= 14 and _weight_bold(r['weight']))
-                    need = cd.LARGE_TEXT_CONTRAST if large else cd.TEXT_CONTRAST
-                    pairs.append(ratio)
-                    if ratio < need - 1e-9:
-                        bad.append('%s %s on %s = %.2f:1 (need %g:1)' % (r['name'], c, b, ratio, need))
+                large = r['size'] >= 18 or (r['size'] >= 14 and _weight_bold(r['weight']))
+                need = cd.LARGE_TEXT_CONTRAST if large else cd.TEXT_CONTRAST
+                best = max((cd.contrast(c, b), b) for b in backs) if backs else None
+                if best:
+                    pairs.append(best[0])
+                    if best[0] < need - 1e-9:
+                        bad.append('%s %s reaches %.2f:1 at best, on %s (need %g:1)' % (r['name'], c, best[0], best[1], need))
         if backs and pairs:
             out.append(_chk('P3', 'plan: role colours against palette backgrounds (contrast)', 'computed', 'fail' if bad else 'pass',
                             value=round(min(pairs), 2), evidence='; '.join(bad[:5]) if bad else '%d pairs computed' % len(pairs)))

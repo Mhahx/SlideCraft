@@ -454,6 +454,12 @@ class PlanComparison(unittest.TestCase):
             rep = plan_run('good.pptx', GOOD_PLAN.replace(old, new))
             self.assertIn(expected, plan_fails(rep), (old, new, plan_fails(rep)))
 
+    def test_light_role_colour_passes_on_a_declared_panel(self):
+        plan = GOOD_PLAN.replace('| 333333 | body text |', '| FFFFFF | body text |')
+        self.assertIn('plan: role colours against palette backgrounds (contrast)', plan_fails(plan_run('good.pptx', plan)))      # white on white only
+        panel = plan.replace('background FFFFFF |', 'background FFFFFF, C2410C |')
+        self.assertNotIn('plan: role colours against palette backgrounds (contrast)', plan_fails(plan_run('good.pptx', panel)))  # white on an orange panel
+
     def test_unparseable_plan_leaves_checks_not_measured(self):
         rep = plan_run('good.pptx', 'Profile: read\nnothing else')
         st = {c['status'] for c in rep['plan']['checks'] if c['id'] == '12'}
@@ -602,6 +608,20 @@ class ScriptRound4(unittest.TestCase):
         tbl = next(s for s in rep['slides'][0]['shapes'] if s['kind'] == 'table')
         self.assertEqual(tbl['bbox_pt'][3], 80.0)          # two rows of 40 pt, not the stored 7.9 pt
         self.assertEqual(tbl['bbox_pt'][2], 393.7)         # two columns of 196.85 pt, wider than the stored 315 pt frame
+
+    def test_text_in_a_filled_table_cell_is_measured_against_the_cell(self):
+        def deck(fill):
+            cells = ('<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr sz="1400"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></a:rPr><a:t>Rot</a:t></a:r></a:p></a:txBody>'
+                     '<a:tcPr>' + ('<a:solidFill><a:srgbClr val="%s"/></a:solidFill>' % fill if fill else '') + '</a:tcPr></a:tc>')
+            return ('<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="4" name="Table"/><p:cNvGraphicFramePr/><p:nvPr/></p:nvGraphicFramePr>'
+                    '<p:xfrm><a:off x="609600" y="1524000"/><a:ext cx="2000000" cy="500000"/></p:xfrm><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/table">'
+                    '<a:tbl><a:tblGrid><a:gridCol w="2000000"/></a:tblGrid><a:tr h="508000">' + cells + '</a:tr></a:tbl></a:graphicData></a:graphic></p:graphicFrame>')
+        white = find(run_on(build_pptx([deck(None)]))['slides'][0]['checks'], 'text contrast', 'fail')
+        self.assertTrue(white)                                   # white text, no cell fill: white on white
+        red = run_on(build_pptx([deck('B71C1C')]))
+        ok = find(red['slides'][0]['checks'], 'text contrast', 'pass')
+        self.assertTrue(ok and abs(ok[0]['value'] - cd.contrast('FFFFFF', 'B71C1C')) < 0.01)
+        self.assertIn('B71C1C', red['facts']['colors'])         # the cell fill counts as a used colour
 
     def test_table_margins_larger_than_the_cell_fail(self):
         good = find(run_on(build_pptx([table_body()]))['slides'][0]['checks'], 'table cell margins', 'pass')
