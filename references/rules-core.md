@@ -69,6 +69,7 @@ Every check in a report carries its method. Only items with a method of *file*, 
 | Check | Method |
 |---|---|
 | Font sizes, font families, colour count, positions, margins, words per slide, alt text, reading order, titles set | file (read from XML or object properties) |
+| Typical AI patterns (nested cards, card grid, icon tiles, stat row, stripes, kicker, buzzwords, text alignment) | file (`scripts/detect.py`: geometry, fill, outline and text of each shape) |
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
 | Fill share | script (`scripts/check_deck.py`, bounding-box union) |
 | Optical alignment | not measured (no script yet) |
@@ -101,9 +102,9 @@ Name evidence for each item (slide number, value, method). A bare "ok" is not ev
 6. Words per slide within the profile limit [file]; fill within the profile limit [script].
 7. Every data slide has source and date; charts labelled directly. [file]
 8. Accessibility: every slide has a title, reading order correct, every picture and chart has alt text. [file]
-9. No detectable item from `refuse.md` (gradient, shadow, 3D, emoji icons, edge stripes, accent lines under titles). [file]
+9. No detectable item from `refuse.md`: gradient, shadow, 3D, emoji icons, and the detector rules (nested cards, card grid, icon tiles, stat row, edge stripes, kicker, buzzwords, justified, centered or capitalised running text, among others; ids in `refuse.md`). [file, `scripts/detect.py`]
 10. The title strand reads as a story. [judgement]
-11. The deck holds its direction contract (thesis, own-world), and the look is not guessable from the category alone (see `direction.md`). [judgement]
+11. The deck holds its direction contract (thesis, own-world), and the look is not guessable from the category alone (see `direction.md`). [judgement; a default-look ground colour is reported by script as an observation]
 12. The deck matches its deck plan: fonts, role sizes, palette, margins and layout types are those of the plan. Every deviation is a finding, or the plan is extended deck-wide. [file]
 
 ## Provenance of the rules
@@ -119,4 +120,5 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks |
 | Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
 | Refuse list, calibration against AI looks, direction flow, fresh review | Transferred | Impeccable (`craft-floor.md`, `new-work.md`), untested on slides |
+| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on `audit/slop-test.js`, `tests/fixtures/slop.pptx` and the four example decks only |
 | Profile values | Starting value | `profiles.md` |

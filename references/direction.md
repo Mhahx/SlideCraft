@@ -1,6 +1,6 @@
 # Direction
 
-Decide what the deck should look and feel like, from the audience's world and the deck's purpose, not from defaults. Adapted from Impeccable's new-work flow (visual work); the web-specific machinery (dice script, mock images, browser decision page) is left out.
+Decide with the user what the deck should look like, from the audience's world and the deck's purpose, never from a default. There is no default look (decision by Max, 2026-09-25). Adapted from Impeccable's new-work flow; its decision comps become rendered draft slides here, its web machinery (dice script, browser decision page) is left out.
 
 ## When to run this
 - **New deck or redesign:** run the whole flow.
@@ -10,42 +10,44 @@ Decide what the deck should look and feel like, from the audience's world and th
 ## What is already true (decide first)
 - Established look in the deck or brand: inherit it and document it.
 - Incomplete brand: keep confirmed assets, expand the system with the user.
-- Nothing given: create a new direction.
+- Nothing given: create a new direction with the user.
 A user- or brief-pinned choice (font, colour, tone words, a reference) always beats anything derived here. Vibe words the user volunteers ("calm, credible", "not like a consulting deck") are pinned constraints. Translate them with the table below.
 
-## Ask what will change the work
-This is the single question round of the whole workflow (SKILL.md step 1). Two or three related questions in one round. A precise brief needs only a short confirmation. A sparse brief needs at least one round. State the likely reading and invite correction instead of building a menu.
+## Round 1: ask what will change the work
+This is the first of the two rounds before building (SKILL.md step 1). Three or four related questions in one message. A precise brief needs only a short confirmation. State the likely reading and invite correction.
 - Purpose and outcome: what should the audience decide, believe or do? What proves it?
 - Situation: who sees it, where, on which medium, in what state of mind?
+- Look: is there a brand, template or font that must be used? What effect should the deck have, in the user's own words? Is there a deck, a publication or a brand they like, or one it must not resemble?
 - Boundaries: what must stay untouched? What would make a polished result feel wrong?
-Never ask for hex values, font names or a menu of style lanes, and do not open with a vibe questionnaire. If nobody can answer, mark the assumptions in the plan and continue with the recommended direction.
+Ask for the effect and for references, not for design decisions: never ask for hex values or font names, and never offer a menu of style lanes. "Modern and clean" is not an answer to build from; ask once what it should feel like in the room or what it must not look like. If nobody can answer, mark the assumptions in the plan and derive the drafts from the scene and the audience's world.
 
 ## Derive the direction
 1. **Scene sentence:** who sees the deck, where, on what medium, under what light. It decides light or dark background and the size floor.
 2. **Mechanism:** one sentence on what this deck must make believable or decidable that a generic deck could not.
 3. **The audience's world:** list five to seven concrete visual systems, artifacts or traditions this audience knows by heart (for example annual reports, museum catalogues, scientific journals, timetables and signage, technical drawings, film title cards, trade press, dashboards), each with one line on why it can carry the mechanism, ordered by resonance. Near-duplicates count once. If more than three share one material family, dig until the list spans at least three families.
-4. **Directions:** turn the strongest candidates into complete directions. Each joins a look (colour strategy, type character, grid character, image world) to what the title slide and one key data slide would look like.
+4. **Directions:** turn the two or three strongest candidates into complete directions. Each joins a look (colour strategy, type character, grid character, image world) to the exact composition of the title slide and of the deck's most typical content slide. The directions must differ in composition, not only in colour: the same layout in three palettes is one direction.
 
-## Quick or choice (how many directions to show)
-**Choice is the default** (decision by Max, 2026-09-25): one extra message to pick a direction costs less than rebuilding a deck that missed the intended look. Show two or three directions and let the user pick before building.
+## Round 2: rendered drafts, the user picks
+Always, for a new deck or a redesign (decision by Max, 2026-09-25): the user chooses the look from rendered drafts before the deck is built. Descriptions alone are not enough, because a look is judged by seeing it.
+- **Drafts:** for each direction build two real slides with the deck's real content from the brief: the title slide and the most typical content slide (for example the key chart, the key comparison, the key number). Same effort and finish for every draft; no deliberately weak option. Run the detectable checks (`scripts/check_deck.py`, check 9) on the drafts and fix findings before showing them.
+- **Show:** one compact message with the rendered images side by side, and per direction a one-line world, palette and type character, and an honest risk line. Recommend one and say why. Never pre-select the safe option on the user's behalf.
+- **Pick:** the user picks one, or asks for a named change or a mix (state the mix back in one line). Record the pick, the drafts shown and their paths in the plan. The picked drafts become the title slide and the pattern for the content slides of the full deck.
+- **Quick** (no drafts) only when the user explicitly hands the decision over ("you decide", "mach du"). Then commit to one direction, say which in one line, and build. The user can always ask for drafts afterwards.
 
-**Quick** applies only when one of these holds:
-- the user explicitly hands the decision over ("you decide", "mach du"), or
-- the brief already pins the look enough (brand or template, tone words and profile) and the deck has at most 10 slides.
-
-In Quick mode, commit to one recommended direction, show it with one alternative and the standing exit, then continue building. The user can always ask for options afterwards.
-
-In Choice mode keep it to a single compact message: two or three directions, each with a one-line world, palette and type character, what the title slide looks like, and an honest risk line. If the brief is already clear enough to derive directions, put the questions of step 1 and the directions into the same message so there is only one round. Claude never pre-selects the safe option on the user's behalf.
-
-## Standing exit
-Always offer one quiet alternative: the category standard played straight, meaning the plain profile look (`read` or `update` as a clean consulting-style deck, `talk` as a clean keynote look). Claude never recommends it and never lets it soften the other directions. If the user takes it, execute it at full quality, without smuggling in quirks.
+How to render the drafts, by environment:
+| Environment | Drafts |
+|---|---|
+| pptx skill (Claude app, Claude Code) | one small .pptx per direction (`drafts/<direction>.pptx`), rendered to one PNG per slide (`check_deck.py --render-dir`, or the pptx skill's rendering), images shown to the user |
+| PowerPoint add-in | add the draft slides at the end of the open deck, name the direction in the speaker notes, ask the user to look at them; after the pick delete the drafts not chosen |
+| Claude Design, HTML | render the two slides per direction natively and show them |
+| no rendering available | say so in one line, then describe each draft precisely (what is where, at what scale, which colour on which surface) and mark it as not rendered |
 
 ## Commit the look
-- **Colour strategy first, then colours.** Restrained (neutrals plus one accent; default for `read` and `update`), Committed (one saturated colour carries 30 to 60 % of the surface), Drenched (the slide surface is the colour). The colour count rule in `rules-core.md` still applies. A multi-colour "full palette" is allowed only when the brief pins it.
+- **Colour strategy first, then colours.** Restrained (neutrals plus one accent), Committed (one saturated colour carries 30 to 60 % of the surface), Drenched (the slide surface is the colour). None is a default; the direction decides. The colour count rule in `rules-core.md` still applies. A multi-colour "full palette" is allowed only when the brief pins it.
 - **Light or dark** follows from the scene sentence, never from the industry.
 - **Fonts** come from the user or brand, otherwise from the safe list of `rules-core.md`. Differentiation then comes from deliberate pairing, size scale, weight contrast, alignment and layout, not from exotic fonts.
 - **Layout character:** strict grid or asymmetric, generous or compact whitespace, rules or fields, image world (documentary photo, illustration, diagram, pure type).
-- The first build is fully committed. Later passes make the committed look clearer, never blander. An unattended run's safe rendition is the known risk.
+- The full build is fully committed to the picked drafts. Later passes make the committed look clearer, never blander.
 
 ## Vibe words to decisions
 | Words | Decisions |
@@ -73,7 +75,7 @@ Before the plan is finished, write the chosen direction as six short blocks, abo
 - **OWN-WORLD:** palette and component language, specific enough to be recognisable with all content removed.
 - **STORY:** what the audience understands, believes and does.
 - **FIRST SLIDES:** the exact composition of the title slide and one key data slide: what is where, at what scale.
-- **FORM:** the chosen form, its position on the ordered list and the alternatives shown.
+- **FORM:** the chosen form, the drafts shown and why this one was picked.
 - **FINISH:** "no slide before the plan; this deck ends with the fresh review and the plan as built".
 The contract lives in the plan only. Never put it into slide text, notes or file metadata.
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """slide-craft check script: measures a .pptx and reports per slide, with method and origin.
 
-Reads the OOXML directly (standard library only). Every value carries its origin
+Reads the OOXML directly (standard library only). Check 9 includes the detector for typical AI-slide
+patterns (scripts/detect.py). Every value carries its origin
 (part, shape, property). Statuses:
   pass / fail          only for checks measured from the file, computed, or run by script
   observation          estimates and heuristics (never a threshold)
@@ -23,6 +24,8 @@ import re
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
+
+import detect as detect_mod
 
 A = '{http://schemas.openxmlformats.org/drawingml/2006/main}'
 P = '{http://schemas.openxmlformats.org/presentationml/2006/main}'
@@ -373,6 +376,39 @@ def sp_effects(spPr):
     return out
 
 
+def get_line(spPr, style, theme, clrmap):
+    """Outline of a shape: {'visible': bool, 'width': pt or None, 'hex': str or None, 'origin': str}."""
+    ln = spPr.find(A + 'ln') if spPr is not None else None
+    if ln is not None:
+        if ln.find(A + 'noFill') is not None:
+            return {'visible': False, 'width': None, 'hex': None, 'origin': 'spPr ln noFill'}
+        width = int(ln.get('w')) / EMU_PT if ln.get('w') else None
+        sf = ln.find(A + 'solidFill')
+        if sf is not None:
+            c = resolve_color(sf, theme, clrmap)
+            return {'visible': True, 'width': width if width is not None else 0.75, 'hex': c['hex'] if c else None, 'origin': 'spPr ln'}
+        if ln.find(A + 'gradFill') is not None or ln.find(A + 'pattFill') is not None:
+            return {'visible': True, 'width': width if width is not None else 0.75, 'hex': None, 'origin': 'spPr ln (gradient/pattern)'}
+    if style is not None:
+        lr = style.find(A + 'lnRef')
+        if lr is not None and lr.get('idx') not in (None, '0'):
+            c = resolve_color(lr, theme, clrmap)
+            return {'visible': True, 'width': None, 'hex': c['hex'] if c else None,
+                    'origin': 'style lnRef idx=%s (theme line width not read)' % lr.get('idx')}
+    return {'visible': False, 'width': None, 'hex': None, 'origin': 'no outline'}
+
+
+def geom_of(spPr):
+    if spPr is None:
+        return None
+    g = spPr.find(A + 'prstGeom')
+    if g is not None:
+        return g.get('prst')
+    if spPr.find(A + 'custGeom') is not None:
+        return 'custom'
+    return None
+
+
 # ----------------------------------------------------------------- text style inheritance
 
 def lvl_defrpr(container, lvl):
@@ -465,6 +501,13 @@ def read_paragraphs(ctx, tx, ph, layout_sp, master_sp, shape_ref, fontscale=1.0)
     for p in tx.findall(A + 'p'):
         ppr = p.find(A + 'pPr')
         lvl = int(ppr.get('lvl')) if ppr is not None and ppr.get('lvl') else 0
+        algn = ppr.get('algn') if ppr is not None else None
+        if algn is None:
+            for _label, cont in sources:
+                lp = cont.find(A + 'lvl%dpPr' % (lvl + 1))
+                if lp is not None and lp.get('algn'):
+                    algn = lp.get('algn')
+                    break
         runs = []
         for r in p:
             if r.tag not in (A + 'r', A + 'fld'):
@@ -476,6 +519,8 @@ def read_paragraphs(ctx, tx, ph, layout_sp, master_sp, shape_ref, fontscale=1.0)
             bold, _ = lookup_rpr(rpr, sources, lvl, g_bold)
             font, fo = lookup_rpr(rpr, sources, lvl, g_font)
             col, co = lookup_rpr(rpr, sources, lvl, cget)
+            cap, _ = lookup_rpr(rpr, sources, lvl, lambda e: e.get('cap'))
+            spc, _ = lookup_rpr(rpr, sources, lvl, lambda e: int(e.get('spc')) / 100.0 if e.get('spc') else None)
             eff = size * fontscale if size is not None else None
             runs.append({
                 'text': text,
@@ -483,6 +528,7 @@ def read_paragraphs(ctx, tx, ph, layout_sp, master_sp, shape_ref, fontscale=1.0)
                 'bold': bool(bold),
                 'font': resolve_font(font, ctx.theme) if font else None, 'font_origin': fo,
                 'color': col, 'color_origin': co,
+                'caps': cap in ('all', 'small'), 'spc': spc, 'algn': algn,
                 'field': r.tag == A + 'fld'})
         paras.append(runs)
     return paras
@@ -505,6 +551,8 @@ class Shape:
         self.bbox_origin = ''
         self.descr = None
         self.fill = {'kind': 'inherit'}
+        self.line = {'visible': False, 'width': None, 'hex': None, 'origin': 'not read'}
+        self.geom = None
         self.effects = []
         self.paras = []
         self.autofit = None
@@ -708,6 +756,9 @@ def parse_slide(ctx):
                     if s.has_text:
                         s.kind = 'text'
             s.effects = sp_effects(spPr)
+            if tag == P + 'sp':
+                s.geom = geom_of(spPr)
+                s.line = get_line(spPr, style, ctx.theme, ctx.clrmap)
             if s.kind == 'text' and s.has_text and SOURCE_RE.match(s.text):
                 s.is_source = True
             shapes.append(s)
@@ -867,6 +918,14 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                                      evidence='ppt/presentation.xml sldSz')
 
     live = (MARGIN_PT, MARGIN_PT, sw - 2 * MARGIN_PT, sh - 2 * MARGIN_PT)
+    waivers = ''
+    if plan is not None:
+        import plan as plan_mod
+        try:
+            waivers = plan_mod.parse_plan(plan).get('waivers', '') or ''
+        except Exception:
+            waivers = ''
+    grounds = []
     all_text_for_lang = []
     slides = []
     for i, part in enumerate(slide_parts, 1):
@@ -1239,6 +1298,17 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                             break
         if heur:
             checks.append(chk('9', 'accent line under title / side stripe (heuristic)', 'estimate (geometry heuristic)', 'observation', value=len(heur), evidence='; '.join(heur[:4])))
+        # -- 9 detector for typical AI-slide patterns (scripts/detect.py)
+        findings = detect_mod.detect_slide(shapes, bg, sw, sh, title, profile_name, exempt, sys.modules[__name__])
+        for f in findings:
+            st = 'waived' if f['status'] == 'fail' and detect_mod.is_waived(f['rule'], waivers) else f['status']
+            checks.append(chk('1' if f['rule'] == 'question-title' else '9', 'refuse [%s]: %s' % (f['rule'], detect_mod.RULES[f['rule']]),
+                              'file (detector)', st, value=f['value'],
+                              evidence=f['evidence'] + ('; waived by brief' if st == 'waived' else '')))
+        if not findings:
+            checks.append(chk('9', 'refuse patterns (detector)', 'file (detector)', 'pass',
+                              evidence='none of the %d detector rules found (%s)' % (len(detect_mod.RULES), ', '.join(sorted(detect_mod.RULES)))))
+        grounds.append((i, detect_mod.ground_colour(bg, shapes, sw, sh)[0]))
 
         # placeholders' positions for the recurring-element check
         for s in shapes:
@@ -1282,6 +1352,9 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                     st, value=len(clusters), limit=2,
                     evidence='; '.join('hue %d deg: %s' % (round(c['hue']), ','.join(sorted(c['members']))) for c in clusters) or 'no chromatic colours found'
                     + ('; update profile: status colours are a documented exception' if profile_name == 'update' and len(clusters) > 2 else '')))
+    for f in detect_mod.default_look(grounds, sys.modules[__name__]):
+        deck.append(chk('11', 'refuse [%s]: look matches a default AI look' % f['rule'], 'computed (hue and lightness of the slide ground)',
+                        f['status'], value=f['value'], evidence=f['evidence']))
     for phtype, pos in ph_positions.items():
         if len(pos) < 2:
             continue

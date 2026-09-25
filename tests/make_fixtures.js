@@ -1,4 +1,4 @@
-// Builds the two test decks for scripts/check_deck.py with pptxgenjs.
+// Builds the test decks (good, bad, overflow, fonts, slop) for scripts/check_deck.py with pptxgenjs.
 // Usage: NODE_PATH=<dir with node_modules> node tests/make_fixtures.js <outdir>
 const pptxgen = require('pptxgenjs');
 const path = require('path');
@@ -81,4 +81,41 @@ function master(pres, bg) {
   s.addText('Calibri body text', { x: 0.667, y: 2.5, w: 5, h: 0.6, fontFace: 'Calibri', fontSize: 20, color: '333333' });
   s.addText('Cambria body text', { x: 0.667, y: 3.5, w: 5, h: 0.6, fontFace: 'Cambria', fontSize: 20, color: '333333' });
   await pres.writeFile({ fileName: path.join(out, 'fonts.pptx') });
+})();
+
+// ---- slop deck: the AI patterns of audit/slop-test.js (nested cards, icon tiles, stat row, card grid, stripes, 01 labels)
+(function slop() {
+  const pres = new pptxgen();
+  pres.layout = 'LAYOUT_WIDE';
+  master(pres, 'FFFFFF');
+  const F = 'Arial', INK = '1F2937', MUTED = '4B5563', ACC = '2563EB', CARD = 'F3F4F6', LINE = 'D1D5DB';
+  let s = pres.addSlide({ masterName: 'MAIN' });
+  s.addText('Three levers cut operating cost by 18 percent', { placeholder: 'title' });
+  s.addShape('roundRect', { x: 0.667, y: 1.9, w: 12, h: 4.7, fill: { color: 'F9FAFB' }, line: { color: LINE, width: 1 }, rectRadius: 0.2 });
+  [['Energy', 'Long-term contracts lower power prices.'], ['Maintenance', 'Fewer moving parts lower maintenance.'], ['Crew', 'Smaller crews on short routes.']].forEach((c, i) => {
+    const x = 1.0 + i * 3.9;
+    s.addShape('roundRect', { x, y: 2.1, w: 3.6, h: 4.2, fill: { color: 'FFFFFF' }, line: { color: LINE, width: 1 }, rectRadius: 0.15 });
+    s.addShape('roundRect', { x: x + 0.3, y: 2.4, w: 0.7, h: 0.7, fill: { color: 'DBEAFE' }, line: { type: 'none' }, rectRadius: 0.12 });
+    s.addText(c[0], { x: x + 0.3, y: 3.3, w: 3.0, h: 0.5, fontFace: F, fontSize: 18, bold: true, color: INK });
+    s.addText(c[1], { x: x + 0.3, y: 3.85, w: 3.0, h: 1.2, fontFace: F, fontSize: 14, color: MUTED });
+  });
+  s = pres.addSlide({ masterName: 'MAIN' });
+  s.addText('The fleet flies cheaper, quieter and cleaner', { placeholder: 'title' });
+  [['-18 %', 'Operating cost'], ['-60 %', 'Noise'], ['0 g', 'CO2 in flight']].forEach((m, i) => {
+    const x = 0.667 + i * 4.1;
+    s.addShape('roundRect', { x, y: 2.0, w: 3.8, h: 3.2, fill: { color: CARD }, line: { type: 'none' }, rectRadius: 0.15 });
+    s.addShape('rect', { x, y: 2.0, w: 0.08, h: 3.2, fill: { color: ACC }, line: { type: 'none' } });
+    s.addText(m[0], { x: x + 0.3, y: 2.4, w: 3.3, h: 1.3, fontFace: F, fontSize: 54, bold: true, color: ACC });
+    s.addText(m[1], { x: x + 0.3, y: 3.8, w: 3.3, h: 0.6, fontFace: F, fontSize: 16, color: MUTED });
+  });
+  s = pres.addSlide({ masterName: 'MAIN' });
+  s.addText('Four steps lead to scheduled service by 2028', { placeholder: 'title' });
+  ['Certification', 'Pilot route', 'Charging', 'Fleet'].forEach((t, i) => {
+    const x = 0.667 + (i % 2) * 6.1, y = 1.9 + Math.floor(i / 2) * 2.4;
+    s.addShape('roundRect', { x, y, w: 5.9, h: 2.1, fill: { color: CARD }, line: { type: 'none' }, rectRadius: 0.12 });
+    s.addShape('rect', { x, y, w: 0.1, h: 2.1, fill: { color: ACC }, line: { type: 'none' } });
+    s.addText('0' + (i + 1), { x: x + 0.35, y: y + 0.25, w: 1, h: 0.4, fontFace: F, fontSize: 14, bold: true, color: ACC });
+    s.addText(t, { x: x + 0.35, y: y + 0.7, w: 5.2, h: 0.5, fontFace: F, fontSize: 20, bold: true, color: INK });
+  });
+  pres.writeFile({ fileName: path.join(out, 'slop.pptx') });
 })();

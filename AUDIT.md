@@ -2,6 +2,8 @@
 
 Stand: 2026-09-25. Gegenstand: Repo `slide-craft` in Version 0.10-draft, verglichen mit Impeccable im Original, mit bestehenden Skills für Beratungsfolien und mit dem Ziel, das Max in dieser Session formuliert hat. Das Audit ändert keinen Code. Neu sind nur diese Datei und `audit/`, dort liegen ein Testdeck und das Ergebnis des Prüfskripts.
 
+**Umsetzung (Nachtrag, 0.11):** Schritt 1 und 2 aus §5 sind umgesetzt, siehe CHANGELOG 0.11. Das Testdeck aus K1 fällt jetzt auf jeder Folie durch (`tests/fixtures/slop.pptx`, Render: `audit/slop-test-render.png`). `audit/slop-test-result.json` zeigt bewusst den Stand vor 0.11. Die Renderprüfung lief nach Installation von `libreoffice-impress` und `poppler-utils`; die Einschränkung in §7 zum Rendern gilt damit nicht mehr.
+
 ## 0. Das Ziel (abgestimmt mit Max, 2026-09-25)
 
 > Ein „Impeccable für Folien“: Der Skill vermeidet zuverlässig die typischen KI-Muster (Boxen in Boxen, Kartenraster mit Icons, Verläufe, austauschbare Titel). Dazu kommen positive Gestaltungsregeln nach dem Vorbild professioneller Beratungsdecks (McKinsey, BCG, Bain), damit das Ergebnis gut aussieht und nicht bloß „nicht schlecht“. Max bekommt damit **mit weniger Aufwand gute Decks**. Die Regeln gelten gleich, egal ob Claude ein Deck neu baut, eine vorhandene Folie verbessert, in PowerPoint (Add-in), in LibreOffice oder in Claude Design arbeitet.

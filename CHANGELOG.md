@@ -2,6 +2,43 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.11-draft (2026-09-25)
+
+Umsetzung von Schritt 1 und 2 aus Audit 3 (`AUDIT.md`, IDs hier mit Präfix **A3-**), freigegeben von Max. Neues Testergebnis: Das absichtlich gebaute KI-Deck fällt jetzt auf jeder Folie durch, vorher bestand es die Vermeidungsprüfung. 69 Tests (18 neu), alle grün, auch die 5 Rendertests, die bisher mangels LibreOffice Impress übersprungen wurden.
+
+**Entscheidungen von Max (2026-09-25):**
+
+| Befund | Änderung |
+|---|---|
+| A3-Ziel | Zielgruppe ist Max, nicht "etwa 600 Nutzer" (war eine Annahme). Ziel neu gefasst: "Impeccable für Folien", gute Decks mit weniger Aufwand, gleiche Regeln in Claude, PowerPoint, LibreOffice und Claude Design (BRIEF §2, README). |
+| A3-H2 | Feature-Stopp aufgehoben (BRIEF §10, §11 alte Regel 1 gestrichen, übrige Regeln neu nummeriert). Formales Evaluationsdesign (12 Aufgaben × 5 Läufe × 3 Bewerter, Trigger-Tests) entfällt; Maßstab ist Max' Urteil plus Detektor (BRIEF §5). |
+| Look | Kein Standard-Look mehr. "Standing exit" und "Restrained als Standard für read/update" gestrichen (`direction.md`, `SKILL.md`, `profiles.md`). Claude fragt in Runde 1 nach Zweck, Situation, gewünschter Wirkung und Vorbildern, zeigt in Runde 2 zwei bis drei Richtungen als **gerenderte Entwürfe** (Titelfolie und typische Inhaltsfolie mit echtem Inhalt), der Nutzer wählt. Quick nur auf ausdrückliche Übergabe. Wege zum Rendern je Umgebung (pptx-Skill, PowerPoint-Add-in, Claude Design, ohne Rendern) in `direction.md`. Plan-Feld `Drafts shown` (auch im Parser). |
+
+**Detektor (A3-K1), neues Modul `scripts/detect.py`, gemeldet unter Prüfpunkt 9 mit Regel-ID:**
+
+| Regel | Status | Was gemessen wird |
+|---|---|---|
+| `nested-cards` | fail | sichtbare Box (Füllung oder Umriss auf ihrer Fläche) mit Text in einer anderen sichtbaren Box |
+| `card-grid` | fail | drei oder mehr gleich große Boxen (±5 %) mit Text, mindestens 72 × 48 pt, in Reihe oder Spalte |
+| `icon-tile-stack` | fail | zwei oder mehr fast quadratische Kacheln (20 bis 72 pt) direkt über einer Überschrift |
+| `stat-row` / `number-card` | fail / observation | zwei oder mehr große Zahlen (ab 40 pt) in einer Reihe / eine große Zahl in einer Box |
+| `side-stripe`, `border-on-rounded` | fail | dünner Farbbalken bündig an einer Box / Umriss ab 2 pt an abgerundeter Box |
+| `kicker` | fail in talk/pitch, observation in read/update | kurzes Label (bis 5 Wörter, Versalien, gesperrt oder klein) direkt über dem Titel |
+| `numbered-labels` | observation | zwei oder mehr Labels "01", "02" |
+| `buzzword` | fail | Wortliste Deutsch und Englisch (aus `refuse.md`, ergänzt um Impeccables Liste; "leverage" ausgenommen) |
+| `question-title` | fail (Prüfpunkt 1) | Titel endet mit Fragezeichen |
+| `justified-text`, `centered-running-text`, `all-caps-body`, `wide-tracking` | fail, fail, fail, observation | Absatzausrichtung, Versalien, Sperrung aus der Datei |
+| `shape-illustration` | observation | zwölf oder mehr kleine Formen ohne Text in einer Region |
+| `default-look` (Deck) | observation, Prüfpunkt 11 | Grund in Violett-Blau, Creme oder Dunkelnavy auf mindestens der Hälfte der Folien |
+
+Dafür liest `check_deck.py` jetzt zusätzlich Formgeometrie (`prstGeom`), Umriss (`a:ln`, `lnRef`), Absatzausrichtung (`algn`, auch vererbt), Versalien (`cap`) und Sperrung (`spc`). Eine Regel-ID im Waivers-Feld des Plans macht den Befund `waived`. `refuse.md` und `rules-core.md` (Prüfpunkt 9, Methodentabelle, Provenienz) entsprechend angepasst.
+
+**Geprüft (Arbeitsregel 1):** `tests/fixtures/slop.pptx` (neu in `make_fixtures.js`) fällt auf Folie 1 mit `nested-cards`, `card-grid`, `icon-tile-stack` durch, auf Folie 2 mit `card-grid`, `stat-row`, `side-stripe`, auf Folie 3 mit `card-grid`, `side-stripe`. Gerendert per LibreOffice (`audit/slop-test-render.png`). Die vier Beispieldecks bestehen ohne Fail (`talk`: Beobachtung `default-look`). Ein Fehlalarm wurde dabei gefunden und behoben: Zeitleistenpunkte (16 pt) im `read`-Deck galten als Icon-Kacheln, deshalb Untergrenze 20 pt. Mutationsprüfung: 13 absichtlich eingebaute Fehler in `detect.py`, alle von den Tests erkannt.
+
+**Aufräumen (A3-M1):** `.DS_Store` entfernt und in `.gitignore`. README-Stand korrigiert (stand noch auf 0.5).
+
+**Grenzen:** Alle Schwellen des Detektors sind Startwerte, geprüft nur an selbst gebauten Decks. Als PNG eingebettete Bilder sieht er nicht (die Flugzeuge der Beispieldecks). Gleiche Kompositionen über mehrere Folien oder Decks (A3-K2) erkennt er nicht. Der Entwurfsschritt ist beschrieben und der Renderweg (`check_deck.py --render-dir`) hier ausgeführt, aber noch nicht in einer echten Deck-Sitzung mit Nutzerwahl erprobt.
+
 ## 0.10-draft (2026-09-25)
 
 Die vier Beispieldecks (`examples/e-flugzeuge/`) wurden nach der Rückmeldung von Max ("linkslastig, keine Bilder") bildgeführt neu gebaut. Bildmaterial: Vektorgrafiken, erzeugt von `examples/e-flugzeuge/art.js` (SVG, mit sharp als PNG gerastert). Alle vier bestehen das Prüfskript ohne Fail. 51 Tests (2 neu). Kein Regelwerk geändert (Feature-Stopp).
