@@ -38,6 +38,57 @@
       "layout_type": null,
       "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
       "title": "Werk Nord wird günstiger",
+      "shapes": [
+        {
+          "ref": "slide1.xml#2 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            0.0,
+            0.0,
+            960.0,
+            540.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide1.xml#3 \"Shape 0\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            336.0,
+            497.3,
+            136.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1A1A1A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide1.xml#4 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            72.0,
+            356.0,
+            449.3,
+            96.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -149,7 +200,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -178,6 +229,80 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Ausschuss verdoppelt seit 2022",
+      "shapes": [
+        {
+          "ref": "slide2.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            104.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#3 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            190.0,
+            864.0,
+            240.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            470.0,
+            700.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -308,6 +433,14 @@
           "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "slide2.xml#3 \"Chart 0\": 0 visible gridline set(s)"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -320,7 +453,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -349,6 +482,103 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Das kostet uns jährlich",
+      "shapes": [
+        {
+          "ref": "slide3.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            104.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            210.0,
+            570.7,
+            110.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            96.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            330.0,
+            570.7,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            470.0,
+            700.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -482,7 +712,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -511,6 +741,61 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Die Wärme ist schon da",
+      "shapes": [
+        {
+          "ref": "slide4.xml#2 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            0.0,
+            0.0,
+            960.0,
+            250.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#3 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            290.0,
+            570.7,
+            64.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            44.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide4.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            370.0,
+            570.7,
+            34.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            28.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -550,7 +835,7 @@
         },
         {
           "id": "3",
-          "name": "pictures crossing margins (bleed)",
+          "name": "pictures and colour fields crossing margins (bleed)",
           "method": "file",
           "status": "observation",
           "evidence": "slide4.xml#2 \"Image 0\" [0,0,960,250] (allowed only if deliberate)"
@@ -641,7 +926,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -745,6 +1030,13 @@
       "evidence": "judgement item, not scripted"
     },
     {
+      "id": "13",
+      "name": "render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "open every rendered slide once (rules-core.md check list item 13); not scripted"
+    },
+    {
       "id": "3",
       "name": "fonts drawn in the render",
       "method": "render (LibreOffice, pdffonts)",
@@ -809,6 +1101,129 @@
     "fonts": [
       "Arial"
     ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "FFFFFF",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#4 \"Text 1\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#3 \"Text 1\"",
+        "size": 96.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "0F5E9C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Text 2\"",
+        "size": 24.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#5 \"Text 3\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#3 \"Text 0\"",
+        "size": 44.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#4 \"Text 1\"",
+        "size": 28.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      }
+    ],
     "colors": {
       "FFFFFF": [
         "slide 1 background",
@@ -839,8 +1254,8 @@
         "slide 4 text slide4.xml#4 \"Text 1\""
       ]
     },
-    "min_inset_pt": 38.0,
-    "min_inset_at": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+    "min_inset_pt": 48.0,
+    "min_inset_at": "slide1.xml#3 \"Shape 0\"",
     "profile": "talk",
     "chart_sizes": [
       12.0,
@@ -883,10 +1298,10 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 54,
+    "pass": 55,
     "fail": 0,
     "observation": 24,
-    "not_measured": 4,
+    "not_measured": 5,
     "waived": 0
   }
 }

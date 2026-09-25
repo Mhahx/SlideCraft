@@ -3689,6 +3689,13 @@
       "evidence": "judgement item, not scripted"
     },
     {
+      "id": "13",
+      "name": "render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "open every rendered slide once (rules-core.md check list item 13); not scripted"
+    },
+    {
       "id": "3",
       "name": "fonts drawn in the render",
       "method": "render (LibreOffice, pdffonts)",
@@ -5488,7 +5495,7 @@
     "pass": 138,
     "fail": 0,
     "observation": 57,
-    "not_measured": 3,
+    "not_measured": 4,
     "waived": 0
   }
 }

@@ -219,25 +219,25 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 0,
           "limit": 0,
-          "evidence": "words drawn outside every text box: 39@(48,259)"
+          "evidence": "all 6 rendered words lie inside a text box"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 3,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 3 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -466,7 +466,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -757,6 +757,14 @@
           "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide3.xml#6 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -769,25 +777,25 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 0,
           "limit": 0,
-          "evidence": "words drawn outside every text box: Wochen@(48,84)"
+          "evidence": "all 53 rendered words lie inside a text box"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 2,
+          "value": 1,
           "limit": 2,
-          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -1060,6 +1068,14 @@
           "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide4.xml#6 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -1072,7 +1088,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1363,6 +1379,14 @@
           "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide5.xml#6 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -1375,7 +1399,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1486,15 +1510,22 @@
       "evidence": "judgement item, not scripted"
     },
     {
+      "id": "13",
+      "name": "render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "open every rendered slide once (rules-core.md check list item 13); not scripted"
+    },
+    {
       "id": "3",
       "name": "fonts drawn in the render",
       "method": "render (LibreOffice, pdffonts)",
-      "status": "observation",
+      "status": "pass",
       "value": [
-        "DejaVuSans",
-        "DejaVuSans-Bold"
+        "Carlito-Bold",
+        "Carlito-Regular"
       ],
-      "evidence": "Calibri: replaced by another font, glyph widths may differ. Rendered line breaks and overflow are unreliable for: Calibri"
+      "evidence": "Calibri: drawn as carlito (same glyph widths)"
     }
   ],
   "notes": [],
@@ -1527,8 +1558,8 @@
   "render": {
     "ok": true,
     "fonts": [
-      "DejaVuSans",
-      "DejaVuSans-Bold"
+      "Carlito-Bold",
+      "Carlito-Regular"
     ],
     "png": []
   },
@@ -2470,10 +2501,10 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 88,
+    "pass": 92,
     "fail": 0,
-    "observation": 27,
-    "not_measured": 3,
+    "observation": 26,
+    "not_measured": 4,
     "waived": 0
   }
 }

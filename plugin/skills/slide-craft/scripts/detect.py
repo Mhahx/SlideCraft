@@ -2,7 +2,7 @@
 
 Transferred from Impeccable's deterministic detector rules (crates/live/assets/antipatterns.json in
 pbakaus/impeccable) to OOXML shapes. Every finding names its rule id, the shapes and the geometry it
-was read from. Thresholds below are starting values, tested on audit/slop-test.js and the example decks
+was read from. Thresholds below are starting values, tested on docs/audits/slop-test/slop-test.js and the example decks
 only. A rule id quoted in the plan's Waivers line turns that finding into "waived".
 
 Statuses: fail where the pattern is unambiguous in the file, observation where the file cannot tell a

@@ -1,0 +1,20 @@
+{
+  "name": "slide-craft",
+  "displayName": "Slide Craft",
+  "version": "0.19.0",
+  "description": "Design and quality rules for presentation decks: asks how the deck should look, shows rendered drafts to choose from, builds from 14 slide patterns taken from real consulting decks, and checks the result with a script that finds generic AI-looking slides (boxes in boxes, card grids, icon tiles) as well as contrast, size and plan deviations.",
+  "author": {
+    "name": "Mhahx",
+    "url": "https://github.com/Mhahx"
+  },
+  "homepage": "https://github.com/Mhahx/SlideCraft",
+  "repository": "https://github.com/Mhahx/SlideCraft",
+  "keywords": [
+    "slides",
+    "presentation",
+    "pptx",
+    "deck",
+    "design",
+    "pitch"
+  ]
+}

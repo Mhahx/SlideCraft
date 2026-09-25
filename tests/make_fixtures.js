@@ -1,4 +1,4 @@
-// Builds the test decks (good, bad, overflow, fonts, slop) for scripts/check_deck.py with pptxgenjs.
+// Builds the test decks (good, bad, overflow, fonts, slop) for plugin/skills/slide-craft/scripts/check_deck.py with pptxgenjs.
 // Usage: NODE_PATH=<dir with node_modules> node tests/make_fixtures.js <outdir>
 const pptxgen = require('pptxgenjs');
 const path = require('path');
@@ -83,7 +83,7 @@ function master(pres, bg) {
   await pres.writeFile({ fileName: path.join(out, 'fonts.pptx') });
 })();
 
-// ---- slop deck: the AI patterns of audit/slop-test.js (nested cards, icon tiles, stat row, card grid, stripes, 01 labels)
+// ---- slop deck: the AI patterns of docs/audits/slop-test/slop-test.js (nested cards, icon tiles, stat row, card grid, stripes, 01 labels)
 (function slop() {
   const pres = new pptxgen();
   pres.layout = 'LAYOUT_WIDE';

@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests (render tests skip without LibreOffice)
+        run: python3 -m unittest discover -s tests -v
+      - name: Build the skill package and check versions
+        run: python3 tools/package.py
+      - name: Validate the skill against the Agent Skills specification
+        # skills-ref 0.1.1 from PyPI installs its command as `agentskills` (the git version names it `skills-ref`)
+        run: |
+          pip install --quiet skills-ref==0.1.1
+          agentskills validate dist/slide-craft
+      - name: Manifests are valid JSON
+        run: |
+          python3 -m json.tool .claude-plugin/marketplace.json > /dev/null
+          python3 -m json.tool plugin/.claude-plugin/plugin.json > /dev/null
