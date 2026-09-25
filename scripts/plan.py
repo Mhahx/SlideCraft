@@ -6,7 +6,7 @@ The parser reads the template of references/deck-plan.md and nothing else:
   - the text-role table (columns role | family | weight | size pt | colour | use),
   - the slide table (columns No. | Layout type | Claim title | ... | Exhibit | Source | ...),
   - hex colours as six digits (with or without #) in the Palette block, each tied to the role word
-    (background, text, accent, signal, neutral) in the same segment; segments split at | ; , or a new line.
+    (background, text, accent, signal, status, neutral) in the same segment; segments split at | ; , or a new line.
 Whatever cannot be parsed is reported as not_measured with the reason, never guessed.
 """
 import re
@@ -84,7 +84,7 @@ def _palette(block):
     role, out = None, []
     for seg in re.split(r'[|;,\n]', block or ''):
         s = seg.lower()
-        for key, name in (('accent', 'accent'), ('signal', 'signal'), ('neutral', 'neutral'), ('grey', 'neutral'),
+        for key, name in (('status', 'status'), ('accent', 'accent'), ('signal', 'signal'), ('neutral', 'neutral'), ('grey', 'neutral'),
                           ('gray', 'neutral'), ('background', 'background'), ('bg', 'background'), ('text', 'text')):
             if key in s:
                 role = name
@@ -157,6 +157,9 @@ def parse_plan(text):
 # ----------------------------------------------------------------- helpers
 
 def _role_kind(name):
+    # roles for exempt slide types (title slide, divider, quote) are not bound to the title size range
+    if any(k in name for k in ('slide', 'divider', 'quote', 'display', 'cover')):
+        return 'other'
     if 'subtitle' in name:
         return 'other'
     if 'title' in name:

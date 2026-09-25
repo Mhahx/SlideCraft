@@ -50,7 +50,9 @@ STEP_FACTOR = 1.25
 EMOJI_RE = re.compile('[\U0001F000-\U0001FAFF☀-➿⬀-⯿⌀-⏿️]')
 AUTO_ALT_RE = re.compile(r'(\.(png|jpe?g|gif|svg|bmp|tiff?|webp|emf|wmf)$|[\\/]|^(image|picture|graphic|chart|bild|grafik|diagramm|abbildung)\s*\d*$)', re.I)
 SOURCE_RE = re.compile(r'^\s*(sources?|quellen?)\s*[:：]', re.I)
-YEAR_RE = re.compile(r'\b(19|20)\d{2}\b')
+# a date on a source line: a year, a calendar week (KW/CW), a quarter or a month name
+YEAR_RE = re.compile(r'\b(19|20)\d{2}\b|\b(KW|CW)\s?\d{1,2}\b|\bQ[1-4]\b|\b(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember|january|february|march|may|june|july|october|december)\b', re.I)
+DASH_VALUES = {'solid', 'dot', 'dash', 'lgDash', 'dashDot', 'lgDashDot', 'lgDashDotDot', 'sysDash', 'sysDot', 'sysDashDot', 'sysDashDotDot'}
 DE_STOP = set('der die das und ist nicht mit für von den dem ein eine wir sie zu im auf als auch sich wird werden'.split())
 
 
@@ -510,6 +512,7 @@ class Shape:
         self.insets = (7.2, 3.6, 7.2, 3.6)
         self.is_source = False
         self.chart = None        # dict for charts
+        self.table_margin_issues = []
         self.ref = ''
 
     @property
@@ -526,7 +529,7 @@ class Shape:
 
 def parse_chart(ctx, rid, shape_ref):
     tgt = ctx.rels.get(rid)
-    info = {'part': None, 'series_colors': [], 'texts': [], 'sizes': [], 'gradient': False, 'notes': []}
+    info = {'part': None, 'series_colors': [], 'texts': [], 'sizes': [], 'gradient': False, 'notes': [], 'bad_dash': []}
     if not tgt:
         info['notes'].append('chart relationship %s not found' % rid)
         return info
@@ -536,6 +539,9 @@ def parse_chart(ctx, rid, shape_ref):
     if root is None:
         info['notes'].append('chart part missing')
         return info
+    for d in root.iter(A + 'prstDash'):
+        if d.get('val') not in DASH_VALUES:
+            info['bad_dash'].append(d.get('val'))
     for ser in root.iter(C + 'ser'):
         sp = ser.find(C + 'spPr')
         name = 'series'
@@ -635,6 +641,24 @@ def parse_slide(ctx):
                     s.chart = parse_chart(ctx, ch.get(R + 'id'), s.ref) if ch is not None else {'notes': ['no c:chart']}
                 elif 'table' in uri:
                     s.kind = 'table'
+                    # the stored frame height is often stale: the table is as tall as its rows (a:tr h) and as wide as its columns
+                    col_w = [int(gc.get('w') or 0) for gc in gd.iter(A + 'gridCol')]
+                    for tr in gd.iter(A + 'tr'):
+                        ci = 0
+                        for tc in tr.findall(A + 'tc'):
+                            span = int(tc.get('gridSpan') or 1)
+                            pr = tc.find(A + 'tcPr')
+                            ml = int(pr.get('marL')) if pr is not None and pr.get('marL') else 91440
+                            mr = int(pr.get('marR')) if pr is not None and pr.get('marR') else 91440
+                            width = sum(col_w[ci:ci + span])
+                            if width and ml + mr >= 0.6 * width and ''.join(t.text or '' for t in tc.iter(A + 't')).strip():
+                                s.table_margin_issues.append('column %d: margins %.0f + %.0f pt in a %.0f pt wide cell' % (ci + 1, ml / EMU_PT, mr / EMU_PT, width / EMU_PT))
+                            ci += span
+                    rows_h = sum(int(tr.get('h') or 0) for tr in gd.iter(A + 'tr')) / EMU_PT
+                    cols_w = sum(int(gc.get('w') or 0) for gc in gd.iter(A + 'gridCol')) / EMU_PT
+                    if s.bbox is not None and (rows_h > s.bbox[3] or cols_w > s.bbox[2]):
+                        s.bbox = (s.bbox[0], s.bbox[1], max(s.bbox[2], cols_w), max(s.bbox[3], rows_h))
+                        s.bbox_origin += ' (extended to the table rows and columns)'
                     for tc in gd.iter(A + 'tc'):
                         tx = tc.find(A + 'txBody')
                         if tx is not None:
@@ -1159,6 +1183,16 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             checks.append(chk('8', 'reading order: title first', 'file', 'pass' if first is title else 'fail',
                               evidence='first text object in z-order: %s' % first.ref))
 
+        for s in shapes:
+            if s.kind == 'table':
+                bad = sorted(set(s.table_margin_issues))
+                checks.append(chk('3', 'table cell margins leave room for the text', 'file', 'fail' if bad else 'pass',
+                                  evidence=('%s: %s' % (s.ref, '; '.join(bad[:3]))) if bad else '%s: margins are below 60 %% of every cell width' % s.ref))
+        # -- file validity of chart parts (the pptx validator lets invalid line-dash values through)
+        for s in shapes:
+            if s.kind == 'chart' and s.chart and s.chart['bad_dash']:
+                checks.append(chk('0', 'chart line dash values are valid', 'file', 'fail', value=sorted(set(s.chart['bad_dash'])),
+                                  evidence='%s: prstDash %s is not a preset dash value; PowerPoint may repair or refuse the file' % (s.ref, ', '.join(sorted(set(s.chart['bad_dash']))))))
         # -- 9 refuse list (detectable items)
         found = []
         for s in shapes:

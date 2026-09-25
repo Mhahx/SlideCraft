@@ -2,6 +2,24 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.9-draft (2026-09-25)
+
+Vier Beispieldecks zum Thema E-Flugzeuge (`examples/e-flugzeuge/`, je Profil eines, erfundene Zahlen), gebaut nach dem Ablauf von `slide-craft` (Modus Quick auf ausdrückliche Übergabe), jeweils mit Plan, Bau, Prüfskript und Plan as built. Sie sind die erste Erprobung von Skript und Planablauf an Decks, die nicht für die Tests gebaut wurden. Sie ersetzen weder die Testdecks nach BRIEF §5 noch echte Decks. Ergebnis: alle vier ohne Fail im Prüfskript, nach mehreren Korrekturrunden. 49 Tests (5 neu), Mutationsprüfung der neuen Skriptteile: alle 6 Änderungen erkannt.
+
+**Änderungen am Skript, ausgelöst durch die Decks:**
+
+| Befund | Änderung |
+|---|---|
+| T-10 | Tabellenrahmen: pptxgenjs schreibt nur die Zeilenhöhen, nicht die Rahmenhöhe. Das Skript nahm die gespeicherte Höhe und meldete Überlauf zu Unrecht. Der Rahmen ist jetzt so hoch wie die Zeilen und so breit wie die Spalten. |
+| T-11 | Neue Dateiprüfung "Tabellenzellenränder lassen Platz für den Text" (Ränder mindestens 60 % der Zellbreite ist ein Fail). Anlass: pptxgenjs liest `margin` in Tabellenzellen in Zoll, nicht in Punkt, acht Punkt wurden acht Zoll und der Text brach Buchstabe für Buchstabe um. Nur das Rendern hatte das gefunden. |
+| T-12 | Neue Dateiprüfung "Strichwerte in Diagrammen sind gültig". pptxgenjs schrieb bei `lineDash` mit zwei Werten `dash,solid`. Der Validator des pptx-Skills meldete "PASSED", das Skript meldet den Fail. |
+| T-13 | "Quelle und Datum" erkannte nur Jahreszahlen. Jetzt auch Kalenderwoche (KW, CW), Quartal und Monatsnamen. |
+| T-14 | Plan-Parser: Rollenwort `status` (Statusfarben des Profils update zählen nicht als Signalfarbe). Rollen für Titelfolie, Trennfolie und Zitat (`title-slide`, `divider`, `quote`, `display`, `cover`) sind nicht an den Titelgrößenbereich des Profils gebunden. |
+
+**Befunde zu Regelwerten** (nicht geändert, Feature-Stopp; Details in `examples/e-flugzeuge/README.md`): (1) Der Füllgrad-Grenzwert (Bounding-Boxen) kollidiert mit den Größenwerten: Ein zweizeiliges Titelband belegt bei `talk` (40 pt) etwa 27 % des Limits von 30 %, bei `pitch` kamen Titel plus normal großes Diagramm auf 60 bis 71 % (Limit 50 %). Erst einzeilige Titel und kompakte Exhibits hielten die Grenzen. (2) Die Titellängen-Grenzen in Wörtern sagen nichts darüber, ob der Titel in eine Zeile passt (etwa 50 Zeichen bei 32 pt, 43 bei 40 pt). (3) Zwei Rollen fehlten im ersten Plan (Titelfolie, Tabellenkopf fett), der Planabgleich hat sie gemeldet.
+
+**Grenzen:** Die Durchsicht der Decks war eine Selbstprüfung desselben Modells (kein Subagent, kein Mensch). Ob die Decks "nicht nach KI aussehen", ist nicht belegt. LibreOffice-Renderings, nicht in PowerPoint geöffnet. Ein Plan, den ein anderes Modell in einer echten Sitzung schreibt, ist weiter ungetestet.
+
 ## 0.8-draft (2026-09-25)
 
 Renderprüfung im Prüfskript (BRIEF §10 Schritt 1). LibreOffice 26.8 und poppler sind auf dem Entwicklungsrechner jetzt installiert, das Werkzeug-Fehlen aus 0.5 bis 0.7 entfällt für diese Rechnung. Neues Testergebnis im Sinne von §11 Regel 9: 44 Tests (12 neu), davon 5 mit echtem LibreOffice-Lauf.

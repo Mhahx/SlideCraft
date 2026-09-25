@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.8 (status: draft), Prüfskript mit Planabgleich und Renderprüfung, Regeln weiter ungetestet an echten Decks.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.9 (status: draft), Prüfskript mit Planabgleich und Renderprüfung, vier Beispieldecks, Regeln weiter ungetestet an echten Decks.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -26,7 +26,7 @@ Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsreg
 
 Konzept und Regelwerk stehen, aber **nichts davon ist getestet**. Alle Zahlenwerte sind Startwerte. Das Prüfskript `scripts/check_deck.py` existiert seit 0.6, der Planabgleich seit 0.7, die Renderprüfung seit 0.8 (siehe unten), es wurde aber noch kein Deck mit dem Skill gebaut. Der Skill wurde zweimal statisch auditiert. Die Änderungen stehen im CHANGELOG, die Audit-IDs heißen A1 und A2.
 
-**Nächster Schritt:** Testdecks nach dem Evaluationsdesign in BRIEF §5, Kalibrierung, Validierung und Verpackung mit `quick_validate.py` und `package_skill.py`.
+**Nächster Schritt:** Kalibrierung an echten Decks (bisher nur vier selbst gebaute Beispieldecks in `examples/e-flugzeuge/`, siehe dort die Befunde zu den Grenzwerten) nach dem Evaluationsdesign in BRIEF §5, Kalibrierung, Validierung und Verpackung mit `quick_validate.py` und `package_skill.py`.
 
 ## Für eine neue Claude-Session
 
@@ -50,6 +50,7 @@ Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder 
 
 ## Inhalt
 - `scripts/check_deck.py`, `scripts/plan.py`, `scripts/render.py`: Prüfskript, Plan- und Render-Modul
+- `examples/e-flugzeuge/`: vier Beispieldecks (je Profil eines) mit Plan, Bauskript, Bericht und Renderings
 - `tests/`: Tests (`test_check_deck.py`), Testdecks (`fixtures/`, gebaut mit `make_fixtures.js` und pptxgenjs)
 - `BRIEF.md`: Projektbeschreibung und Übergabedokument
 - `SKILL.md`: Ablauf und harte Grenzen

@@ -581,5 +581,64 @@ class RenderEndToEnd(unittest.TestCase):
             self.assertTrue(all(os.path.getsize(p) > 500 for p in rr['png']))
 
 
+def table_body(marl=91440, colw=(2000000, 2000000), text='alpha'):
+    cells = ''.join('<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr sz="1400"/><a:t>%s</a:t></a:r></a:p></a:txBody><a:tcPr marL="%d"/></a:tc>' % (text, marl) for _ in colw)
+    grid = ''.join('<a:gridCol w="%d"/>' % w for w in colw)
+    return ('<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="4" name="Table"/><p:cNvGraphicFramePr/><p:nvPr/></p:nvGraphicFramePr>'
+            '<p:xfrm><a:off x="609600" y="1524000"/><a:ext cx="4000000" cy="100000"/></p:xfrm><a:graphic>'
+            '<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/table"><a:tbl><a:tblGrid>%s</a:tblGrid>'
+            '<a:tr h="508000">%s</a:tr><a:tr h="508000">%s</a:tr></a:tbl></a:graphicData></a:graphic></p:graphicFrame>' % (grid, cells, cells))
+
+
+class ScriptRound4(unittest.TestCase):
+    def test_source_date_accepts_year_week_quarter_month(self):
+        for good in ('Quelle: Controlling, 2026', 'Quelle: Controlling, KW 39', 'Source: Ops, CW39', 'Quelle: Plan, Q3', 'Quelle: Bericht, Oktober'):
+            self.assertTrue(cd.YEAR_RE.search(good), good)
+        for bad in ('Quelle: Controlling', 'Quelle: interne Daten', 'Source: Ops team'):
+            self.assertFalse(cd.YEAR_RE.search(bad), bad)
+
+    def test_table_frame_is_as_tall_as_its_rows(self):
+        rep = run_on(build_pptx([table_body(colw=(2500000, 2500000))]))
+        tbl = next(s for s in rep['slides'][0]['shapes'] if s['kind'] == 'table')
+        self.assertEqual(tbl['bbox_pt'][3], 80.0)          # two rows of 40 pt, not the stored 7.9 pt
+        self.assertEqual(tbl['bbox_pt'][2], 393.7)         # two columns of 196.85 pt, wider than the stored 315 pt frame
+
+    def test_table_margins_larger_than_the_cell_fail(self):
+        good = find(run_on(build_pptx([table_body()]))['slides'][0]['checks'], 'table cell margins', 'pass')
+        self.assertTrue(good)
+        bad = find(run_on(build_pptx([table_body(marl=8 * 914400)]))['slides'][0]['checks'], 'table cell margins', 'fail')   # 8 inches, the pptxgenjs unit trap
+        self.assertTrue(bad and 'margins' in bad[0]['evidence'])
+
+    def test_invalid_chart_dash_value_fails(self):
+        chart = ('<c:chartSpace xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
+                 '<c:chart><c:plotArea><c:lineChart><c:ser><c:spPr><a:ln><a:solidFill><a:srgbClr val="1F4E79"/></a:solidFill><a:prstDash val="%s"/></a:ln></c:spPr></c:ser></c:lineChart></c:plotArea></c:chart></c:chartSpace>')
+        frame = ('<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="4" name="Chart" descr="A chart of values"/><p:cNvGraphicFramePr/><p:nvPr/></p:nvGraphicFramePr>'
+                 '<p:xfrm><a:off x="609600" y="1524000"/><a:ext cx="4000000" cy="2000000"/></p:xfrm><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/chart">'
+                 '<c:chart xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" r:id="rId9"/></a:graphicData></a:graphic></p:graphicFrame>')
+        def deck(dash):
+            src = build_pptx([frame])
+            zin = zipfile.ZipFile(src)
+            out = io.BytesIO()
+            with zipfile.ZipFile(out, 'w') as zout:
+                for n in zin.namelist():
+                    b = zin.read(n)
+                    if n == 'ppt/slides/_rels/slide1.xml.rels':
+                        b = b.replace(b'</Relationships>', b'<Relationship Id="rId9" Type="http://x/chart" Target="../charts/chart1.xml"/></Relationships>')
+                    zout.writestr(n, b)
+                zout.writestr('ppt/charts/chart1.xml', chart % dash)
+            out.seek(0)
+            return out
+        self.assertTrue(find(run_on(deck('dash,solid'))['slides'][0]['checks'], 'chart line dash', 'fail'))
+        self.assertFalse(find(run_on(deck('dash'))['slides'][0]['checks'], 'chart line dash', 'fail'))
+
+    def test_plan_status_colours_do_not_count_as_signal_and_slide_roles_are_exempt(self):
+        p = planmod.parse_plan('Palette: background FFFFFF | accent 1F4E79 | status 2E7D32, B45309, B71C1C | neutrals 7A808A\n')
+        roles = [(x['role'], x['hex']) for x in p['palette']]
+        self.assertEqual([r for r in roles if r[0] == 'status'], [('status', '2E7D32'), ('status', 'B45309'), ('status', 'B71C1C')])
+        self.assertEqual(planmod._role_kind('title-slide'), 'other')
+        self.assertEqual(planmod._role_kind('title'), 'title')
+        self.assertEqual(planmod._role_kind('subtitle'), 'other')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

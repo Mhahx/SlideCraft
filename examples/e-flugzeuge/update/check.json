@@ -1,0 +1,1240 @@
+{
+  "file": "examples/e-flugzeuge/update/deck.pptx",
+  "profile": "update",
+  "thresholds": {
+    "title_min": 24,
+    "title_max": 28,
+    "title_words": 15,
+    "body_min": 14,
+    "foot_min": 10,
+    "words": 80,
+    "chars": 480,
+    "fill": 0.6
+  },
+  "slide_size_pt": [
+    960.0,
+    540.0
+  ],
+  "slide_size_check": {
+    "id": "0",
+    "name": "slide size is 13.33 x 7.5 in (960 x 540 pt)",
+    "method": "file",
+    "status": "pass",
+    "value": [
+      960.0,
+      540.0
+    ],
+    "limit": [
+      960.0,
+      540.0
+    ],
+    "evidence": "ppt/presentation.xml sldSz"
+  },
+  "slides": [
+    {
+      "n": 1,
+      "part": "ppt/slides/slide1.xml",
+      "layout": "title",
+      "layout_type": null,
+      "exempt_from_action_title": "--exempt",
+      "title": "Status Pilotprojekt E-Regionalflug, KW 39",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 5,
+          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (--exempt)"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.29,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide1.xml#25 \"Slide Number Placeholder 0\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 54,
+          "limit": 480,
+          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 6,
+          "limit": 80,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.154,
+          "limit": 0.6,
+          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 7 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "part": "ppt/slides/slide2.xml",
+      "layout": "overview",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Das Projekt liegt zwei Wochen hinter dem Plan",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 8,
+          "limit": 15,
+          "evidence": "slide2.xml#2 \"Text 0\" \"Das Projekt liegt zwei Wochen hinter dem Plan\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            28.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide2.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.29,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide2.xml#4 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 377,
+          "limit": 480,
+          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Table 0\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 54,
+          "limit": 80,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.527,
+          "limit": 0.6,
+          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Projektcontrolling, KW 39 (erfundene Daten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "3",
+          "name": "table cell margins leave room for the text",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#3 \"Table 0\": margins are below 60 % of every cell width"
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 62 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "part": "ppt/slides/slide3.xml",
+      "layout": "status",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Zulassung: Batterienachweis verzögert sich um zwei Wochen",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 7,
+          "limit": 15,
+          "evidence": "slide3.xml#2 \"Text 0\" \"Zulassung: Batterienachweis verzögert sich um zwei Wochen\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            28.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide3.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.29,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide3.xml#6 \"Text 3\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.98,
+          "limit": "3.0:1",
+          "evidence": "slide3.xml#5 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 239,
+          "limit": 480,
+          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\", slide3.xml#5 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 48,
+          "limit": 80,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.54,
+          "limit": 0.6,
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Projektcontrolling, KW 39 (erfundene Daten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 53 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "part": "ppt/slides/slide4.xml",
+      "layout": "status",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Prototyp: Der Dauerlauf-Test startet planmäßig",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 5,
+          "limit": 15,
+          "evidence": "slide4.xml#2 \"Text 0\" \"Prototyp: Der Dauerlauf-Test startet planmäßig\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            28.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide4.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.29,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide4.xml#6 \"Text 3\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.98,
+          "limit": "3.0:1",
+          "evidence": "slide4.xml#5 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 213,
+          "limit": 480,
+          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Text 1\", slide4.xml#4 \"Text 2\", slide4.xml#5 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 43,
+          "limit": 80,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.54,
+          "limit": 0.6,
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Projektcontrolling, KW 39 (erfundene Daten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 48 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "part": "ppt/slides/slide5.xml",
+      "layout": "status",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Budget: Die Prognose liegt 0,4 Mio. € unter Plan",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 8,
+          "limit": 15,
+          "evidence": "slide5.xml#2 \"Text 0\" \"Budget: Die Prognose liegt 0,4 Mio. € unter Plan\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            28.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide5.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.29,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 4A5866 on FFFFFF at 10.0 pt (slide5.xml#6 \"Text 3\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.98,
+          "limit": "3.0:1",
+          "evidence": "slide5.xml#5 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 226,
+          "limit": 480,
+          "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Text 2\", slide5.xml#5 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 46,
+          "limit": 80,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.54,
+          "limit": 0.6,
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Projektcontrolling, KW 39 (erfundene Daten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 53 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "2",
+      "name": "at most 2 font families",
+      "method": "file",
+      "status": "pass",
+      "value": [
+        "Calibri"
+      ],
+      "limit": 2,
+      "evidence": "families used on slides: Calibri (slides [1, 2, 3, 4, 5])"
+    },
+    {
+      "id": "2",
+      "name": "fonts on the safe list",
+      "method": "file",
+      "status": "pass",
+      "evidence": "all on safe list"
+    },
+    {
+      "id": "2",
+      "name": "steps between neighbouring sizes >= 1.25",
+      "method": "file",
+      "status": "observation",
+      "value": [
+        10.0,
+        14.0,
+        18.0,
+        28.0,
+        40.0
+      ],
+      "evidence": "all neighbouring sizes differ by at least 1.25"
+    },
+    {
+      "id": "5",
+      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
+      "status": "observation",
+      "value": 4,
+      "limit": 2,
+      "evidence": "hue 0 deg: B71C1C; hue 26 deg: B45309; hue 123 deg: 2E7D32; hue 209 deg: 1B2733,1F4E79,4A5866"
+    },
+    {
+      "id": "4",
+      "name": "recurring title placeholder at the same position",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [2, 3, 4, 5] share (48.0, 48.0, 864.0, 40.0)"
+    },
+    {
+      "id": "4",
+      "name": "recurring sldNum placeholder at the same position",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [2, 3, 4, 5] share (864.0, 456.0, 48.0, 24.0)"
+    },
+    {
+      "id": "4",
+      "name": "distinct left edges of text shapes",
+      "method": "file",
+      "status": "observation",
+      "value": 1,
+      "evidence": "x positions (pt): [48]. Optical alignment is not measured."
+    },
+    {
+      "id": "3",
+      "name": "spacing in multiples of 8 pt",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "not implemented yet"
+    },
+    {
+      "id": "10",
+      "name": "title strand reads as a story",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "11",
+      "name": "direction contract held, look not guessable",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "3",
+      "name": "fonts drawn in the render",
+      "method": "render (LibreOffice, pdffonts)",
+      "status": "pass",
+      "value": [
+        "Carlito",
+        "Carlito-Bold"
+      ],
+      "evidence": "Calibri: drawn as carlito (same glyph widths)"
+    }
+  ],
+  "notes": [],
+  "language": {
+    "used": "de",
+    "note": "auto: German stop-word share 6.5 %"
+  },
+  "title_strand": [
+    {
+      "n": 1,
+      "t": "Status Pilotprojekt E-Regionalflug, KW 39"
+    },
+    {
+      "n": 2,
+      "t": "Das Projekt liegt zwei Wochen hinter dem Plan"
+    },
+    {
+      "n": 3,
+      "t": "Zulassung: Batterienachweis verzögert sich um zwei Wochen"
+    },
+    {
+      "n": 4,
+      "t": "Prototyp: Der Dauerlauf-Test startet planmäßig"
+    },
+    {
+      "n": 5,
+      "t": "Budget: Die Prognose liegt 0,4 Mio. € unter Plan"
+    }
+  ],
+  "render": {
+    "ok": true,
+    "fonts": [
+      "Carlito",
+      "Carlito-Bold"
+    ],
+    "png": [
+      "examples/e-flugzeuge/update/render/deck-1.png",
+      "examples/e-flugzeuge/update/render/deck-2.png",
+      "examples/e-flugzeuge/update/render/deck-3.png",
+      "examples/e-flugzeuge/update/render/deck-4.png",
+      "examples/e-flugzeuge/update/render/deck-5.png"
+    ]
+  },
+  "facts": {
+    "slide_count": 5,
+    "layouts": [
+      "title",
+      "overview",
+      "status",
+      "status",
+      "status"
+    ],
+    "titles": [
+      "Status Pilotprojekt E-Regionalflug, KW 39",
+      "Das Projekt liegt zwei Wochen hinter dem Plan",
+      "Zulassung: Batterienachweis verzögert sich um zwei Wochen",
+      "Prototyp: Der Dauerlauf-Test startet planmäßig",
+      "Budget: Die Prognose liegt 0,4 Mio. € unter Plan"
+    ],
+    "fonts": [
+      "Calibri"
+    ],
+    "colors": {
+      "FFFFFF": [
+        "slide 1 background",
+        "slide 2 background",
+        "slide 3 background",
+        "slide 4 background",
+        "slide 5 background"
+      ],
+      "1B2733": [
+        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 2 text slide2.xml#2 \"Text 0\"",
+        "slide 2 text slide2.xml#3 \"Table 0\"",
+        "slide 3 text slide3.xml#2 \"Text 0\"",
+        "slide 3 text slide3.xml#3 \"Text 1\"",
+        "slide 3 text slide3.xml#4 \"Text 2\""
+      ],
+      "4A5866": [
+        "slide 1 text slide1.xml#25 \"Slide Number Placeholder 0\"",
+        "slide 1 text slide1.xml#3 \"Text 1\"",
+        "slide 2 text slide2.xml#25 \"Slide Number Placeholder 0\"",
+        "slide 2 text slide2.xml#4 \"Text 1\"",
+        "slide 3 text slide3.xml#25 \"Slide Number Placeholder 0\"",
+        "slide 3 text slide3.xml#6 \"Text 3\""
+      ],
+      "B71C1C": [
+        "slide 2 text slide2.xml#3 \"Table 0\"",
+        "slide 3 text slide3.xml#3 \"Text 1\""
+      ],
+      "2E7D32": [
+        "slide 2 text slide2.xml#3 \"Table 0\"",
+        "slide 4 text slide4.xml#3 \"Text 1\"",
+        "slide 5 text slide5.xml#3 \"Text 1\""
+      ],
+      "B45309": [
+        "slide 2 text slide2.xml#3 \"Table 0\""
+      ],
+      "7A808A": [
+        "slide 3 chart series 1",
+        "slide 4 chart series 1",
+        "slide 5 chart series 1"
+      ],
+      "1F4E79": [
+        "slide 3 chart series 2",
+        "slide 4 chart series 2",
+        "slide 5 chart series 2"
+      ]
+    },
+    "min_inset_pt": 48.0,
+    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "profile": "update",
+    "chart_sizes": [
+      14.0
+    ],
+    "slide_facts": [
+      {
+        "n": 1,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 2,
+        "exhibits": [
+          "table"
+        ],
+        "source": "Quelle: Projektcontrolling, KW 39 (erfundene Daten)"
+      },
+      {
+        "n": 3,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Projektcontrolling, KW 39 (erfundene Daten)"
+      },
+      {
+        "n": 4,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Projektcontrolling, KW 39 (erfundene Daten)"
+      },
+      {
+        "n": 5,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Projektcontrolling, KW 39 (erfundene Daten)"
+      }
+    ]
+  },
+  "plan": {
+    "parsed": {
+      "profile": "update",
+      "roles": 7,
+      "palette": 9,
+      "margin_pt": 48.024,
+      "layout_types": [
+        "title",
+        "overview",
+        "status"
+      ],
+      "slide_rows": 5,
+      "waivers": "Statusfarben Rot, Gelb, Grün sind im Profil update als Ausnahme von der Farbzählung erlaubt und stehen immer mit einem Textwort (Rot, Gelb, Grün).",
+      "notes": []
+    },
+    "checks": [
+      {
+        "id": "P2",
+        "name": "plan: role sizes within profile limits",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": [
+          40.0,
+          28.0,
+          18.0,
+          18.0,
+          14.0,
+          14.0,
+          10.0
+        ],
+        "evidence": "all 7 roles within limits"
+      },
+      {
+        "id": "P2",
+        "name": "plan: neighbouring role sizes differ by at least 1.25",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": [
+          10.0,
+          14.0,
+          18.0,
+          28.0,
+          40.0
+        ],
+        "limit": 1.25,
+        "evidence": "all steps >= 1.25"
+      },
+      {
+        "id": "P3",
+        "name": "plan: palette has 1 accent and at most 1 signal colour",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": {
+          "accent": 1,
+          "signal": 0
+        },
+        "limit": {
+          "accent": 1,
+          "signal": 1
+        },
+        "evidence": "roles are read from the words next to each hex in the Palette block"
+      },
+      {
+        "id": "P3",
+        "name": "plan: role colours against palette backgrounds (contrast)",
+        "method": "computed",
+        "status": "pass",
+        "value": 7.29,
+        "evidence": "7 pairs computed"
+      },
+      {
+        "id": "P4",
+        "name": "plan: every slide row uses a layout type defined in the design system",
+        "method": "file (plan)",
+        "status": "pass",
+        "evidence": "all rows match"
+      },
+      {
+        "id": "P5",
+        "name": "plan: every data slide row has a source",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": 4,
+        "evidence": "checked 4 data rows"
+      },
+      {
+        "id": "12",
+        "name": "slide count equals plan rows",
+        "method": "file",
+        "status": "pass",
+        "value": 5,
+        "limit": 5,
+        "evidence": "deck has 5 slides, plan lists 5"
+      },
+      {
+        "id": "12",
+        "name": "slide titles equal the plan",
+        "method": "file",
+        "status": "pass",
+        "evidence": "titles match (0 rows without a plan title skipped)"
+      },
+      {
+        "id": "12",
+        "name": "slide layouts match the plan layout types by name",
+        "method": "file",
+        "status": "pass",
+        "evidence": "all layout names match"
+      },
+      {
+        "id": "12",
+        "name": "fonts are those of the plan",
+        "method": "file",
+        "status": "pass",
+        "value": [
+          "Calibri"
+        ],
+        "evidence": "plan families: calibri"
+      },
+      {
+        "id": "12",
+        "name": "text sizes are role sizes of the plan",
+        "method": "file",
+        "status": "pass",
+        "limit": [
+          10.0,
+          14.0,
+          18.0,
+          28.0,
+          40.0
+        ],
+        "evidence": "every run size is a role size"
+      },
+      {
+        "id": "12",
+        "name": "weights match the plan roles (bold or regular)",
+        "method": "file",
+        "status": "pass",
+        "evidence": "checked runs whose size identifies a role"
+      },
+      {
+        "id": "12",
+        "name": "colours used are palette colours of the plan",
+        "method": "file",
+        "status": "pass",
+        "evidence": "all 8 colours are in the palette"
+      },
+      {
+        "id": "12",
+        "name": "shapes keep the plan margin",
+        "method": "file",
+        "status": "pass",
+        "value": 48.0,
+        "limit": 48.0,
+        "evidence": "smallest edge distance 48.0 pt at slide1.xml#2 \"Text 0\""
+      }
+    ]
+  },
+  "not_measured_here": [
+    "overflow: render observation only",
+    "optical alignment",
+    "spacing scale",
+    "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
+  ],
+  "summary": {
+    "pass": 88,
+    "fail": 0,
+    "observation": 22,
+    "not_measured": 3,
+    "waived": 0
+  }
+}
