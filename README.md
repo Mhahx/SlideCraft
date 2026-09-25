@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.7 (status: draft), Prüfskript mit Planabgleich, Regeln weiter ungetestet an echten Decks.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.8 (status: draft), Prüfskript mit Planabgleich und Renderprüfung, Regeln weiter ungetestet an echten Decks.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -24,9 +24,9 @@ Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsreg
 
 ## Stand (Version 0.5, status: draft)
 
-Konzept und Regelwerk stehen, aber **nichts davon ist getestet**. Alle Zahlenwerte sind Startwerte. Das Prüfskript `scripts/check_deck.py` existiert seit 0.6, der Planabgleich seit 0.7 (siehe unten), es wurde aber noch kein Deck mit dem Skill gebaut. Der Skill wurde zweimal statisch auditiert. Die Änderungen stehen im CHANGELOG, die Audit-IDs heißen A1 und A2.
+Konzept und Regelwerk stehen, aber **nichts davon ist getestet**. Alle Zahlenwerte sind Startwerte. Das Prüfskript `scripts/check_deck.py` existiert seit 0.6, der Planabgleich seit 0.7, die Renderprüfung seit 0.8 (siehe unten), es wurde aber noch kein Deck mit dem Skill gebaut. Der Skill wurde zweimal statisch auditiert. Die Änderungen stehen im CHANGELOG, die Audit-IDs heißen A1 und A2.
 
-**Nächster Schritt:** das Prüfskript um die Renderprüfung (LibreOffice) erweitern, dann Testdecks nach dem Evaluationsdesign in BRIEF §5, Kalibrierung, Validierung und Verpackung mit `quick_validate.py` und `package_skill.py`.
+**Nächster Schritt:** Testdecks nach dem Evaluationsdesign in BRIEF §5, Kalibrierung, Validierung und Verpackung mit `quick_validate.py` und `package_skill.py`.
 
 ## Für eine neue Claude-Session
 
@@ -42,13 +42,14 @@ Liegen die Dateien im Repo nicht im Wurzelverzeichnis, den Pfad ergänzen.
 python3 scripts/check_deck.py deck.pptx --profile read|talk|pitch|update [--exempt 1,9] [--lang auto|en|de] [--compact]
 python3 scripts/check_deck.py deck.pptx --plan deck-plan.md          # Plan gegen sich selbst und Deck gegen Plan (Prüfpunkt 12)
 python3 scripts/check_deck.py deck.pptx --profile read --derive-plan  # Plan aus einem Deck ohne Plan ableiten
+python3 scripts/check_deck.py deck.pptx --profile read --render [--render-dir out/]  # LibreOffice: Überlauf, Titelzeilen, fehlender Text, PNG je Folie
 python3 tests/test_check_deck.py
 ```
 
-Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder Prüfpunkt mit Nummer aus `rules-core.md`, Methode, Status (`pass`, `fail`, `observation`, `not_measured`) und Herkunft des Werts. Exit-Code 1 bei mindestens einem `fail`. **Planabgleich:** `--plan` liest `deck-plan.md` nach der Vorlage in `references/deck-plan.md` (Zeilen `Label: Wert`, Rollentabelle `role | family | weight | size pt | colour | use`, Folientabelle `No. | Layout type | Claim title | ... | Exhibit | Source | ...`, Hexwerte mit Rollenwort in der Palette-Zeile, Rand in `Grid and spacing`). Was sich nicht lesen lässt, wird `not_measured` mit Grund. Waivers werden erkannt, wenn Schriftname oder Hexwert im Waiver-Text vorkommt (Status `waived`). Grenzen: kein Rendern (Überlauf nur geschätzt), kein Abstandsraster, Farbtransformationen `tint`, `shade`, `satMod` nur genähert.
+Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder Prüfpunkt mit Nummer aus `rules-core.md`, Methode, Status (`pass`, `fail`, `observation`, `not_measured`) und Herkunft des Werts. Exit-Code 1 bei mindestens einem `fail`. **Planabgleich:** `--plan` liest `deck-plan.md` nach der Vorlage in `references/deck-plan.md` (Zeilen `Label: Wert`, Rollentabelle `role | family | weight | size pt | colour | use`, Folientabelle `No. | Layout type | Claim title | ... | Exhibit | Source | ...`, Hexwerte mit Rollenwort in der Palette-Zeile, Rand in `Grid and spacing`). Was sich nicht lesen lässt, wird `not_measured` mit Grund. Waivers werden erkannt, wenn Schriftname oder Hexwert im Waiver-Text vorkommt (Status `waived`). **Renderprüfung** (`--render`, braucht LibreOffice und poppler): exportiert per LibreOffice als PDF und liest die Wortpositionen. Meldet Wörter außerhalb ihres Textfelds oder der Folie, die gerenderte Zeilenzahl der Titel, Text der in der Datei steht aber nicht im PDF, und welche Schriften tatsächlich gezeichnet wurden. Ergebnisse sind Beobachtungen, nie Pass/Fail. Grenzen: kein Abstandsraster, Farbtransformationen `tint`, `shade`, `satMod` nur genähert, Darstellung nur so gut wie die Schriftübereinstimmung (Arial, Calibri, Cambria, Times New Roman, Courier New sind in LibreOffice metrisch gleich ersetzt, Bookman Old Style und Century Schoolbook sind ungetestet).
 
 ## Inhalt
-- `scripts/check_deck.py`, `scripts/plan.py`: Prüfskript und Plan-Modul
+- `scripts/check_deck.py`, `scripts/plan.py`, `scripts/render.py`: Prüfskript, Plan- und Render-Modul
 - `tests/`: Tests (`test_check_deck.py`), Testdecks (`fixtures/`, gebaut mit `make_fixtures.js` und pptxgenjs)
 - `BRIEF.md`: Projektbeschreibung und Übergabedokument
 - `SKILL.md`: Ablauf und harte Grenzen
@@ -66,6 +67,6 @@ Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder 
 - Apple-/Jobs-Regeln nach Presentation Zen und Forbes (Sekundärquellen)
 
 ## Offen
-- Prüfskript: Renderprüfung (Überlauf), Abstandsraster, Test an echten Decks
+- Prüfskript: Abstandsraster, Test an echten Decks
 - Testdecks pro Profil
 - Lizenz

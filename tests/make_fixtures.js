@@ -56,3 +56,29 @@ function master(pres, bg) {
   s.addTable([[{ text: 'A' }, { text: 'B' }], [{ text: '1' }, { text: '2' }]], { x: 0.667, y: 4.5, w: 6, h: 1, fontFace: 'Arial', fontSize: 14, color: '333333' });
   await pres.writeFile({ fileName: path.join(out, 'bad.pptx') });
 })();
+
+// ---- overflow deck: text that does not fit its box, a three-line title, a calibri run (font substitution)
+(async function overflow() {
+  const pres = new pptxgen();
+  pres.layout = 'LAYOUT_WIDE';
+  master(pres, 'FFFFFF');
+  const s = pres.addSlide({ masterName: 'MAIN' });
+  s.addText('This title is deliberately far too long so that it needs three full lines at twenty six points in the title area of the slide master, and it keeps going with more words until the third line is certainly reached', { placeholder: 'title' });
+  s.addText('One two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty ' +
+    'twenty-one twenty-two twenty-three twenty-four twenty-five twenty-six twenty-seven twenty-eight',
+    { x: 0.667, y: 2.5, w: 4, h: 0.6, fontFace: 'Arial', fontSize: 20, color: '333333', valign: 'top' });
+  s.addText('Fits easily', { x: 6.0, y: 2.5, w: 4, h: 0.6, fontFace: 'Arial', fontSize: 20, color: '333333' });
+  await pres.writeFile({ fileName: path.join(out, 'overflow.pptx') });
+})();
+
+// ---- fonts deck: Calibri and Cambria, which LibreOffice replaces unless Carlito/Caladea are installed
+(async function fonts() {
+  const pres = new pptxgen();
+  pres.layout = 'LAYOUT_WIDE';
+  master(pres, 'FFFFFF');
+  const s = pres.addSlide({ masterName: 'MAIN' });
+  s.addText('Calibri and Cambria are drawn by substitutes', { placeholder: 'title' });
+  s.addText('Calibri body text', { x: 0.667, y: 2.5, w: 5, h: 0.6, fontFace: 'Calibri', fontSize: 20, color: '333333' });
+  s.addText('Cambria body text', { x: 0.667, y: 3.5, w: 5, h: 0.6, fontFace: 'Cambria', fontSize: 20, color: '333333' });
+  await pres.writeFile({ fileName: path.join(out, 'fonts.pptx') });
+})();

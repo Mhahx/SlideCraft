@@ -2,6 +2,23 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.8-draft (2026-09-25)
+
+Renderprüfung im Prüfskript (BRIEF §10 Schritt 1). LibreOffice 26.8 und poppler sind auf dem Entwicklungsrechner jetzt installiert, das Werkzeug-Fehlen aus 0.5 bis 0.7 entfällt für diese Rechnung. Neues Testergebnis im Sinne von §11 Regel 9: 44 Tests (12 neu), davon 5 mit echtem LibreOffice-Lauf.
+
+**Neu** (`scripts/render.py`, Aufruf `check_deck.py --render [--render-dir DIR]`): PDF-Export per LibreOffice mit eigenem Profilordner (kein Konflikt mit einem laufenden LibreOffice), Wortpositionen per `pdftotext -bbox`, Schriftliste per `pdffonts`, optional ein PNG je Folie für den frischen Reviewer. Ausgabe je Folie: Wörter, die in keinem Textfeld und nicht auf der Folie liegen (Überlauf), gerenderte Zeilenzahl des Titels, Text der in der Datei steht aber nicht im PDF. Deckweit: welche Schrift tatsächlich gezeichnet wurde und ob deren Zeichenbreiten gleich sind. Alles ist eine `observation` (Regel: Renderschätzung ist keine Schwelle) und ersetzt die 0,5-em-Schätzung, die ohne `--render` als Rückfall bleibt. Ohne LibreOffice meldet das Skript `not_measured` mit Grund.
+
+| Befund | Änderung |
+|---|---|
+| T-6 | LibreOffice ersetzt Arial durch Liberation Sans, Calibri durch Carlito und Cambria durch Caladea. Diese Ersatzschriften haben dieselben Zeichenbreiten, Umbrüche und Überlauf stimmen also für diese drei (und Times New Roman, Courier New über Liberation Serif und Mono, nur die ersten drei wurden gelaufen). Für Bookman Old Style und Century Schoolbook der Safe-Liste gibt es keinen Ersatz im Paket: ungetestet, das Skript meldet sie als unzuverlässig, sobald die Schrift nicht gezeichnet wird. Das schließt eine offene Frage aus rules-core.md nicht, es zeigt nur, dass zwei der sieben Safe-Schriften nicht per Render prüfbar sind. |
+| T-7 | Ein Wort mit Bindestrich wird am Zeilenende getrennt ("twenty-" und "six"). Der erste Vergleich "Text fehlt" meldete das fälschlich. Tokens werden jetzt an Leerraum und Bindestrichen getrennt. |
+| T-8 | Titelzeilen ließen sich nicht messen, wenn der Titel Zeichen ohne Buchstaben enthielt (`12 %`), weil ich solche Tokens vorher verwarf. Behoben. |
+| T-9 | Der Überlauf-Test zählt Wörter ohne Textfeld. Ein Textfeld mit `spAutoFit` wächst mit seinem Text, die gespeicherte Höhe ist veraltet. Solche Felder gelten deshalb bis zum Folienrand als Behälter. |
+
+**Tests:** Auswertung an erfundenen Seitendaten ohne LibreOffice (Überlauf, Seitenrand, Skalierung, Bindestrichumbruch, fehlender Text, spAutoFit, Titelzeilen, Schriftbericht, fehlender Renderer) und Ende-zu-Ende mit echtem LibreOffice an vier Testdecks (gutes Deck ohne Überlauf, Überlauf-Deck mit 29 Streuwörtern und drei Titelzeilen, Deck mit nicht vorhandener Schrift, PNG-Export). Mutationsprüfung von Hand: neun gezielte Änderungen an `render.py` und `check_deck.py`. Zwei überlebten zunächst (der `spAutoFit`-Zweig und die Erkennung von Wörtern außerhalb der Folie), dafür kamen eigene Tests dazu, danach werden alle erkannt.
+
+**Grenzen:** (1) Die Prüfung ist nur so gut wie die Schriftübereinstimmung, siehe T-6. (2) Texte in Bildern und Diagrammen zählen nicht als Streuwörter, wenn sie in einem Diagramm-Rahmen liegen. (3) Ein Wort, das zufällig im Textfeld eines anderen Feldes landet, wird als "im Feld" gezählt. Das ist zu selten, um es auszuschließen, aber möglich. (4) Nur getestet an eigenen Decks. Echte PowerPoint-Decks mit Master-Platzhaltern, Tabellenstilen und eingebetteten Schriften fehlen weiterhin.
+
 ## 0.7-draft (2026-09-25)
 
 Planabgleich im Prüfskript (BRIEF §10 Schritt 1, Prüfpunkt 12). Neues Testergebnis im Sinne von §11 Regel 9: 32 automatisierte Tests (11 neu). Kein neues Regelwerk und keine Änderung an `deck-plan.md`: Das Skript liest die bestehende Vorlage.

@@ -8,7 +8,7 @@ Reads the OOXML directly (standard library only). Every value carries its origin
   not_measured         cannot be measured here (say so instead of guessing)
 
 Usage:
-  check_deck.py deck.pptx --profile read|talk|pitch|update [--plan deck-plan.md] [--exempt 1,9] [--lang auto|en|de]
+  check_deck.py deck.pptx --profile read|talk|pitch|update [--plan deck-plan.md] [--render] [--render-dir DIR] [--exempt 1,9] [--lang auto|en|de]
                           [--out report.json] [--compact]
   check_deck.py deck.pptx --profile read --derive-plan      (print a plan derived from the deck)
 Exit code: 0 = no fail, 1 = at least one fail, 2 = input error.
@@ -17,6 +17,7 @@ import argparse
 import colorsys
 import json
 import math
+import os
 import posixpath
 import re
 import sys
@@ -808,7 +809,7 @@ def estimate_lines(s):
     return lines, height + s.insets[1] + s.insets[3]
 
 
-def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None):
+def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts=None):
     prof = PROFILES[profile_name]
     pres = pkg.xml('ppt/presentation.xml')
     if pres is None:
@@ -1257,6 +1258,40 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None):
     deck.append(chk('11', 'direction contract held, look not guessable', 'judgement', 'not_measured', evidence='judgement item, not scripted'))
     strand = [(sl['n'], sl['title']) for sl in report['slides']]
     report['title_strand'] = [{'n': n, 't': t} for n, t in strand]
+    report['render'] = None
+    if render_opts is not None:
+        import render as render_mod
+        rr = render_mod.render(path, render_opts.get('dir')) if isinstance(path, str) and os.path.isfile(path) \
+            else {'ok': False, 'reason': 'render needs a file path'}
+        report['render'] = {k: v for k, v in rr.items() if k != 'pages'}
+        if not rr['ok']:
+            report['deck'].append(chk('3', 'rendering', 'render (LibreOffice)', 'not_measured', evidence=rr['reason']))
+        else:
+            npages = len(rr['pages'])
+            if npages != len(slides):
+                report['deck'].append(chk('3', 'rendered page count equals slide count', 'render (LibreOffice)', 'observation',
+                                          value=npages, limit=len(slides), evidence='hidden slides are not exported; pages are matched by position'))
+            fstatus, fvalue, fevid = render_mod.font_report(sorted(deck_fonts), rr['fonts'])
+            report['deck'].append(chk('3', 'fonts drawn in the render', 'render (LibreOffice, pdffonts)', fstatus, value=fvalue, evidence=fevid))
+            for k, (i, ctx, shapes, bg, ltype, lname) in enumerate(slides):
+                sl = report['slides'][k]
+                if k >= npages:
+                    sl['checks'].append(chk('3', 'rendered page', 'render (LibreOffice)', 'not_measured', evidence='no page %d in the PDF' % (k + 1)))
+                    continue
+                ttl = next((s for s in shapes if s.ph and norm_ph_type(s.ph[0]) == 'title' and s.has_text), None)
+                res = render_mod.analyse_page(rr['pages'][k], shapes, sw, sh, ttl, words_of)
+                sl['checks'] = [c for c in sl['checks'] if not (c['name'] in ('text overflow', 'title fits 2 lines') and c['method'].startswith('estimate'))]
+                bad = res['stray'] + ['outside slide: ' + w for w in res['outside']]
+                sl['checks'].append(chk('3', 'text overflow (rendered)', 'render (LibreOffice PDF word boxes, observation)', 'observation',
+                                        value=len(res['stray']), limit=0,
+                                        evidence=('words drawn outside every text box: ' + ', '.join(bad[:6])) if bad else 'all %d rendered words lie inside a text box' % res['words']))
+                if res['missing']:
+                    sl['checks'].append(chk('3', 'text missing in the render', 'render (LibreOffice PDF word boxes, observation)', 'observation',
+                                            value=len(res['missing']), evidence='in the file but not in the PDF: ' + ', '.join(res['missing'][:8])))
+                if res['title_lines'] is not None:
+                    sl['checks'].append(chk('1', 'title lines (rendered)', 'render (LibreOffice PDF word boxes, observation)', 'observation',
+                                            value=res['title_lines'], limit=2,
+                                            evidence='title needs %d line(s) at its role size; the limit is 2 (not a threshold: render)' % res['title_lines']))
     facts = {
         'slide_count': len(report['slides']),
         'layouts': [sl['layout'] for sl in report['slides']],
@@ -1274,7 +1309,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None):
     if plan is not None:
         import plan as plan_mod
         plan_mod.attach(report, plan, prof, sys.modules[__name__])
-    report['not_measured_here'] = ['overflow and rendering (no renderer in this script: estimates only)',
+    report['not_measured_here'] = [('overflow: render observation only' if report['render'] and report['render'].get('ok') else 'overflow and rendering (not run: use --render; otherwise estimates only)'),
                                    'optical alignment'] + ([] if plan is not None else ['plan comparison (run with --plan)']) + ['spacing scale',
                                    'theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides']
     # summary
@@ -1295,6 +1330,8 @@ def main():
     ap.add_argument('--profile', choices=sorted(PROFILES), help='required unless --plan names a profile')
     ap.add_argument('--plan', help='deck-plan.md: check the plan against itself and the deck against the plan (check 12)')
     ap.add_argument('--derive-plan', action='store_true', help='print a plan derived from the deck (facts only) and exit')
+    ap.add_argument('--render', action='store_true', help='render with LibreOffice and report overflow, title lines and missing text (observations)')
+    ap.add_argument('--render-dir', help='also write one PNG per slide here (implies --render)')
     ap.add_argument('--exempt', default='', help='comma-separated slide numbers exempt from the action-title rule')
     ap.add_argument('--lang', default='auto', choices=['auto', 'en', 'de'])
     ap.add_argument('--out')
@@ -1320,7 +1357,8 @@ def main():
         print('need --profile (or a plan with a "Profile:" line)', file=sys.stderr)
         return 2
     exempt = {int(x) for x in a.exempt.split(',') if x.strip().isdigit()}
-    rep = analyse(pkg, a.deck, profile, exempt, a.lang, plan_text)
+    render_opts = {'dir': a.render_dir} if (a.render or a.render_dir) else None
+    rep = analyse(pkg, a.deck, profile, exempt, a.lang, plan_text, render_opts)
     if a.derive_plan:
         import plan as plan_mod
         print(plan_mod.derive(rep, sys.modules[__name__]))

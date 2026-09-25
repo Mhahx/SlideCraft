@@ -16,6 +16,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import check_deck as cd  # noqa: E402
 import plan as planmod  # noqa: E402
+import render as rendermod  # noqa: E402
 
 FIX = os.path.join(ROOT, 'tests', 'fixtures')
 NS = ('xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
@@ -458,6 +459,126 @@ class PlanComparison(unittest.TestCase):
         st = {c['status'] for c in rep['plan']['checks'] if c['id'] == '12'}
         self.assertEqual(st, {'not_measured'})
 
+
+
+class RenderAnalysis(unittest.TestCase):
+    """analyse_page and font_report on fabricated page data: no LibreOffice needed."""
+
+    def _shapes(self):
+        title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'A title that wraps', ph='<p:ph type="title"/>')
+        box = sp_text(3, 'Box', 48 * 12700, 120 * 12700, 300 * 12700, 30 * 12700, 'inside words', rpr=rpr_of(18, '333333'))
+        pkg = cd.Package(build_pptx([title + box]))
+        ctx = cd.Ctx(pkg, 'ppt/slides/slide1.xml', pkg.xml('ppt/presentation.xml'))
+        shapes = cd.parse_slide(ctx)
+        return shapes, next(s for s in shapes if s.ph)
+
+    def test_words_outside_their_box_are_stray_and_title_lines_counted(self):
+        shapes, title = self._shapes()
+        page = {'w': 960.0, 'h': 540.0, 'words': [
+            (48, 54, 100, 80, 'A'), (110, 54, 170, 80, 'title'),          # title line 1
+            (48, 84, 100, 110, 'that'), (110, 84, 170, 110, 'wraps'),     # title line 2 (inside the 72 pt title box + 3 pt tolerance? no: y=84..110)
+            (60, 125, 120, 145, 'inside'), (130, 125, 200, 145, 'words'),  # inside the 300 x 30 box
+            (60, 300, 120, 320, 'spilled')]}                               # far below every box
+        res = rendermod.analyse_page(page, shapes, 960.0, 540.0, title, cd.words_of)
+        stray = [s.split('@')[0] for s in res['stray']]
+        self.assertIn('spilled', stray)
+        self.assertNotIn('inside', stray)
+        self.assertNotIn('words', stray)
+        self.assertEqual(res['title_lines'], 2)
+        self.assertEqual(res['missing'], [])
+
+    def test_missing_text_and_hyphen_wrapping(self):
+        shapes, title = self._shapes()
+        box = next(s for s in shapes if not s.ph)
+        shapes = [box]
+        box.paras = [[{'text': 'twenty-six items', 'size': 18, 'bold': False}]]
+        page = {'w': 960.0, 'h': 540.0, 'words': [(60, 125, 120, 145, 'twenty-'), (60, 150, 100, 170, 'six')]}   # 'items' cut off
+        res = rendermod.analyse_page(page, shapes, 960.0, 540.0, None, cd.words_of)
+        self.assertEqual(res['missing'], ['items'])       # the hyphen break alone is not a difference
+
+    def test_page_is_scaled_to_slide_points(self):
+        shapes, title = self._shapes()
+        page = {'w': 480.0, 'h': 270.0, 'words': [(30, 62.5, 50, 72.5, 'inside')]}   # half-size page: box is at 48..348 x 120..150 pt
+        res = rendermod.analyse_page(page, shapes, 960.0, 540.0, None, cd.words_of)
+        self.assertEqual(res['stray'], [])
+
+    def test_words_beyond_the_slide_edge_are_reported(self):
+        shapes, title = self._shapes()
+        page = {'w': 960.0, 'h': 540.0, 'words': [(60, 125, 120, 145, 'inside'), (940, 125, 990, 145, 'clipped'), (60, 520, 100, 560, 'below')]}
+        res = rendermod.analyse_page(page, shapes, 960.0, 540.0, None, cd.words_of)
+        self.assertEqual(res['outside'], ['clipped', 'below'])
+
+    def test_growing_autofit_box_does_not_make_its_own_lines_stray(self):
+        shapes, title = self._shapes()
+        box = next(s for s in shapes if not s.ph)
+        page = {'w': 960.0, 'h': 540.0, 'words': [(60, 400, 120, 420, 'grown')]}   # far below the stored 30 pt height
+        self.assertEqual(len(rendermod.analyse_page(page, shapes, 960.0, 540.0, None, cd.words_of)['stray']), 1)
+        box.autofit = 'spAutoFit'
+        self.assertEqual(rendermod.analyse_page(page, shapes, 960.0, 540.0, None, cd.words_of)['stray'], [])
+
+    def test_font_report_metric_compatible_and_replaced(self):
+        st, _, ev = rendermod.font_report(['Arial', 'Calibri'], ['LiberationSans', 'Carlito'])
+        self.assertEqual(st, 'pass')
+        st, _, ev = rendermod.font_report(['Arial', 'Comic Sans MS'], ['LiberationSans', 'DejaVuSans'])
+        self.assertEqual(st, 'observation')
+        self.assertIn('Comic Sans MS', ev.split('unreliable for:')[-1])
+
+    def test_missing_renderer_is_not_measured(self):
+        orig = rendermod.find_soffice
+        rendermod.find_soffice = lambda: None
+        try:
+            rep = cd.analyse(cd.Package(os.path.join(FIX, 'good.pptx')), os.path.join(FIX, 'good.pptx'), 'read', set(), 'auto',
+                             None, {}) if os.path.exists(os.path.join(FIX, 'good.pptx')) else None
+        finally:
+            rendermod.find_soffice = orig
+        if rep is not None:
+            c = find(rep['deck'], 'rendering')
+            self.assertTrue(c and c[0]['status'] == 'not_measured')
+            self.assertTrue(any(c['name'] == 'text overflow' for c in rep['slides'][0]['checks']))   # estimate stays as fallback
+
+
+@unittest.skipUnless(rendermod.find_soffice() and __import__('shutil').which('pdftotext'), 'LibreOffice or poppler missing')
+class RenderEndToEnd(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        def run(name):
+            path = os.path.join(FIX, name)
+            return cd.analyse(cd.Package(path), path, 'read', set(), 'auto', None, {})
+        cls.good, cls.over, cls.bad = run('good.pptx'), run('overflow.pptx'), run('bad.pptx')
+
+    def test_good_deck_renders_without_overflow(self):
+        for sl in self.good['slides']:
+            c = find(sl['checks'], 'text overflow (rendered)')[0]
+            self.assertEqual(c['value'], 0, c)
+            self.assertFalse(find(sl['checks'], 'text missing in the render'))
+            self.assertEqual(find(sl['checks'], 'title lines (rendered)')[0]['value'], 1)
+        self.assertEqual(find(self.good['deck'], 'fonts drawn in the render')[0]['status'], 'pass')
+
+    def test_overflow_deck_reports_spill_and_three_title_lines(self):
+        sl = self.over['slides'][0]
+        self.assertGreater(find(sl['checks'], 'text overflow (rendered)')[0]['value'], 10)
+        self.assertEqual(find(sl['checks'], 'title lines (rendered)')[0]['value'], 3)
+        self.assertFalse(find(sl['checks'], 'text missing in the render'))       # hyphen wrap is not missing text
+
+    def test_render_replaces_the_estimate_and_never_creates_a_fail(self):
+        names = [c['name'] for c in self.over['slides'][0]['checks']]
+        self.assertNotIn('text overflow', names)
+        self.assertNotIn('title fits 2 lines', names)
+        self.assertTrue(all(c['status'] == 'observation' for sl in self.over['slides'] for c in sl['checks'] if 'render' in c['method']))
+        self.assertTrue(all(c['status'] != 'fail' for c in self.over['deck'] if 'render' in c['method']))
+
+    def test_unavailable_font_is_flagged_unreliable(self):
+        c = find(self.bad['deck'], 'fonts drawn in the render')[0]
+        self.assertEqual(c['status'], 'observation')
+        self.assertIn('Comic Sans MS', c['evidence'])
+
+    def test_png_export(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            rr = rendermod.render(os.path.join(FIX, 'good.pptx'), d)
+            self.assertTrue(rr['ok'])
+            self.assertEqual(len(rr['png']), 2)
+            self.assertTrue(all(os.path.getsize(p) > 500 for p in rr['png']))
 
 
 if __name__ == '__main__':

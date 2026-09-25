@@ -72,7 +72,7 @@ Every check in a report carries its method. Only items with a method of *file*, 
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
 | Fill share | script (`scripts/check_deck.py`, bounding-box union) |
 | Optical alignment | not measured (no script yet) |
-| Overflow, text density, overall impression | render estimate (unreliable for non-safe fonts) |
+| Overflow, text density, overall impression | render estimate (`check_deck.py --render`: LibreOffice PDF word boxes; unreliable where the font is replaced, the script reports which fonts were drawn) |
 | Title strand reads as a story, look not guessable, direction contract held | judgement |
 
 Contrast rules:
