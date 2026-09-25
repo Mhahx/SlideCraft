@@ -1258,7 +1258,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                     grid[rr][cc] = True
             contributing.append(s.ref)
         fillv = sum(sum(1 for c in row if c) for row in grid) / float(cols * rows)
-        # observation until calibrated (decision Max 2026-09-25, AUDIT-4 H1): as a fail it pushed builds towards shrinking exhibits
+        # observation until calibrated (project decision, 0.13): as a fail it pushed builds towards shrinking exhibits
         checks.append(chk('6', 'fill of live area (bounding boxes, union, 8 pt cells)', 'script',
                           'observation', value=round(fillv, 3), limit=prof['fill'],
                           evidence='%d shapes counted; %s the starting value; box-based, so text boxes larger than their text overstate the fill. '

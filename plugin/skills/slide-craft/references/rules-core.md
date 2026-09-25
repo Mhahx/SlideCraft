@@ -72,7 +72,7 @@ Every check in a report carries its method. Only items with a method of *file*, 
 | Font sizes, font families, colour count, positions, margins, words per slide, alt text, reading order, titles set | file (read from XML or object properties) |
 | Typical AI patterns (nested cards, card grid, icon tiles, stat row, stripes, kicker, buzzwords, text alignment) | file (`scripts/detect.py`: geometry, fill, outline and text of each shape) |
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
-| Fill share | script (`scripts/check_deck.py`, bounding-box union); reported as an observation until the profile values are calibrated (decision Max, 2026-09-25) |
+| Fill share | script (`scripts/check_deck.py`, bounding-box union); reported as an observation until the profile values are calibrated (project decision, 0.13) |
 | Optical alignment | not measured (no script yet) |
 | Overflow, text density, overall impression | render estimate (`check_deck.py --render`: LibreOffice PDF word boxes; unreliable where the font is replaced, the script reports which fonts were drawn) |
 | Title strand reads as a story, look not guessable, direction contract held | judgement |
@@ -119,9 +119,9 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Title word ceilings, words per slide, fill limits, 60-second and 3-second rules | Starting value | Consulting rule of "about 15 words" is practitioner only; 3-second rule: Gallo / Forbes |
 | Text contrast 4.5:1 and 3:1 thresholds | Cited | W3C WCAG 2.2 SC 1.4.3 (pt sizes approximated for projection) |
 | Non-text contrast 3:1 | Cited | W3C WCAG 2.2 SC 1.4.11 |
-| Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (`docs/research/beratungsdecks.md`) |
-| `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, `docs/research/beratungsdecks.md`; 250 words decided by Max |
+| Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (`docs/evidence.md`) |
+| `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, `docs/evidence.md`; 250 words is a project decision |
 | Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
 | Refuse list, calibration against AI looks, direction flow, fresh review | Transferred | Impeccable (`craft-floor.md`, `new-work.md`), untested on slides |
-| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on `docs/audits/slop-test/slop-test.js`, `tests/fixtures/slop.pptx` and the four example decks only |
+| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on a synthetic AI-style deck (`tests/fixtures/slop.pptx`) and four example decks only |
 | Profile values | Starting value | `profiles.md` |

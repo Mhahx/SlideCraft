@@ -17,11 +17,11 @@ Pick exactly one profile before building. Key question: is the slide read, or do
 
 The title ceiling comes from a line-capacity estimate, not a measurement: over the live-area width of 873 pt, a bold sans title holds about 43 characters per line at 40 pt, about 47 at 36 pt and about 61 at 28 pt (average glyph width about 0.5 em). A title must fit its role in 2 lines; if it does not, shorten it, do not shrink it below the profile size. Serif titles (for example Cambria) are wider and hold fewer words.
 
-Calibrated in 0.14 on nine real consulting decks (`docs/research/beratungsdecks.md`): `read` words 250 (decision by Max; the reading decks show 130 to 300), title 20-28 pt in `read` and `update` (medians 20 to 25 pt), footnote and source 8 pt in `read`, `update` and `pitch` (all decks set sources in 7 to 8 pt). `talk`, `pitch` and `update` word limits are unchanged: the corpus has no status report, and the presented Bain decks sit between `talk` and `pitch`.
+Calibrated in 0.14 on nine real consulting decks (`docs/evidence.md`): `read` words 250 (project decision; the reading decks show 130 to 300), title 20-28 pt in `read` and `update` (medians 20 to 25 pt), footnote and source 8 pt in `read`, `update` and `pitch` (all decks set sources in 7 to 8 pt). `talk`, `pitch` and `update` word limits are unchanged: the corpus has no status report, and the presented Bain decks sit between `talk` and `pitch`.
 
 The margin of 0.667 in leaves about 74 % of the slide as live area.
 
-The fill values are reported, not enforced, until they are calibrated (decision Max, 2026-09-25): the pattern test build (`examples/patterns/`) showed that charts at the size real decks use exceed 75 % in `read`, and that the two-line 40 pt title field alone takes 23 % of the live area in `talk`. The zones of `patterns.md` decide exhibit size, not the fill value.
+The fill values are reported, not enforced, until they are calibrated (project decision, 0.13): the pattern test build showed that charts at the size real decks use exceed 75 % in `read`, and that the two-line 40 pt title field alone takes 23 % of the live area in `talk`. The zones of `patterns.md` decide exhibit size, not the fill value.
 
 ## read (decision paper, report, leave-behind)
 Model: McKinsey, BCG, Bain. The slide must be understandable without a speaker.

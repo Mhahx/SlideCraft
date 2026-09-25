@@ -83,7 +83,7 @@ function master(pres, bg) {
   await pres.writeFile({ fileName: path.join(out, 'fonts.pptx') });
 })();
 
-// ---- slop deck: the AI patterns of docs/audits/slop-test/slop-test.js (nested cards, icon tiles, stat row, card grid, stripes, 01 labels)
+// ---- slop deck: typical AI patterns (nested cards, icon tiles, stat row, card grid, stripes, 01 labels)
 (function slop() {
   const pres = new pptxgen();
   pres.layout = 'LAYOUT_WIDE';

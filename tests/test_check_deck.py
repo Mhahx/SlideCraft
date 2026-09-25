@@ -849,7 +849,7 @@ class PinnedStyles(unittest.TestCase):
     def test_shadow_fails_unless_the_plan_waives_it_by_id(self):
         z = build_pptx([title_sp(self.T) + glass_panel(10, 600, 184, 312, 136, text='Fleet cars no longer wait')])
         self.assertEqual(self.refuse_items(run_on(z))['status'], 'fail')
-        plan = 'Waivers: `shadow` (Max: "abgerundet Liquid Glass")\nProfile: read\n'
+        plan = 'Waivers: `shadow` (user: "rounded, Liquid Glass")\nProfile: read\n'
         rep = cd.analyse(cd.Package(z), 'synthetic', 'read', set(), 'en', plan)
         item = self.refuse_items(rep)
         self.assertEqual(item['status'], 'waived')
@@ -956,7 +956,7 @@ class BlindTestFindings(unittest.TestCase):
 
 
 class Calibration(unittest.TestCase):
-    """Thresholds calibrated on the real decks in docs/research/beratungsdecks.md (0.14)."""
+    """Thresholds calibrated on the real decks in docs/evidence.md (0.14)."""
     T = 'Pricing explains most of the 12 % gain'
 
     def test_read_allows_250_words_not_more(self):
