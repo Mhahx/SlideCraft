@@ -1,0 +1,3262 @@
+{
+  "file": "deck.pptx",
+  "profile": "talk",
+  "thresholds": {
+    "title_min": 40,
+    "title_max": null,
+    "title_words": 8,
+    "body_min": 24,
+    "foot_min": 12,
+    "words": 15,
+    "chars": 90,
+    "fill": 0.3
+  },
+  "slide_size_pt": [
+    960.0,
+    540.0
+  ],
+  "slide_size_check": {
+    "id": "0",
+    "name": "slide size is 13.33 x 7.5 in (960 x 540 pt)",
+    "method": "file",
+    "status": "pass",
+    "value": [
+      960.0,
+      540.0
+    ],
+    "limit": [
+      960.0,
+      540.0
+    ],
+    "evidence": "ppt/presentation.xml sldSz"
+  },
+  "slides": [
+    {
+      "n": 1,
+      "part": "ppt/slides/slide1.xml",
+      "layout": "P01 cover",
+      "layout_type": null,
+      "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
+      "title": "5.000 neue Bäume für kühlere Straßen",
+      "shapes": [
+        {
+          "ref": "slide1.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            96.0,
+            300.0,
+            700.0,
+            120.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            50.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide1.xml#3 \"Text 0\"",
+          "kind": "text",
+          "ph": "body",
+          "bbox_pt": [
+            96.0,
+            430.0,
+            700.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide1.xml#4 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            96.0,
+            478.0,
+            120.0,
+            3.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "D97B3E",
+          "sizes_pt": [],
+          "fonts": []
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 6,
+          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (layout \"P01 cover\" (patterns.md P01/P02))"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 50.0 pt (slide1.xml#2 \"Text 0\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 86,
+          "limit": 90,
+          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 0\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 12,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.331,
+          "limit": 0.3,
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 13 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "part": "ppt/slides/slide2.xml",
+      "layout": "P14 statement",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Asphalt ohne Bäume heizt unsere Straßen auf",
+      "shapes": [
+        {
+          "ref": "slide2.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            96.0,
+            322.0,
+            768.0,
+            168.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            50.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 7,
+          "limit": 8,
+          "evidence": "slide2.xml#2 \"Text 0\" \"Asphalt ohne Bäume heizt unsere Straßen auf\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            50.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide2.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 50.0 pt (slide2.xml#2 \"Text 0\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 43,
+          "limit": 90,
+          "evidence": "counted: slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 7,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.339,
+          "limit": 0.3,
+          "evidence": "1 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 7 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "part": "ppt/slides/slide3.xml",
+      "layout": "P13 key-numbers",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Baumkronen kühlen die Straße um 10 Grad",
+      "shapes": [
+        {
+          "ref": "slide3.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            176.0,
+            350.7,
+            170.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            96.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            488.0,
+            236.0,
+            424.0,
+            140.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 7,
+          "limit": 8,
+          "evidence": "slide3.xml#2 \"Text 0\" \"Baumkronen kühlen die Straße um 10 Grad\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide3.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            12.0
+          ],
+          "limit": "12 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 5.47,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair D97B3E on 241C16 at 96.0 pt (slide3.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 86,
+          "limit": 90,
+          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 13,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.472,
+          "limit": 0.3,
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 23 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "part": "ppt/slides/slide4.xml",
+      "layout": "P05 chart-focus",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Beschattete Straßen bleiben deutlich kühler",
+      "shapes": [
+        {
+          "ref": "slide4.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide4.xml#3 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            166.0,
+            864.0,
+            260.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 5,
+          "limit": 8,
+          "evidence": "slide4.xml#2 \"Text 0\" \"Beschattete Straßen bleiben deutlich kühler\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide4.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            12.0
+          ],
+          "limit": "12 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 12.0 pt (slide4.xml#4 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.22,
+          "limit": "3.0:1",
+          "evidence": "slide4.xml#3 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 63,
+          "limit": 90,
+          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 9,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.764,
+          "limit": 0.3,
+          "evidence": "2 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Beispieldaten (Oberflächentemperatur, °C), nicht real erhoben · 2026\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 22 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "part": "ppt/slides/slide5.xml",
+      "layout": "P14 statement",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Schatten und Verdunstung kühlen die Luft",
+      "shapes": [
+        {
+          "ref": "slide5.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            96.0,
+            322.0,
+            768.0,
+            168.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            50.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#3 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            96.0,
+            250.0,
+            768.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#4 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            241.0,
+            120.0,
+            140.0,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "3B6E8C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#5 \"Shape 3\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            305.0,
+            195.0,
+            12.0,
+            55.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "857F75",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#6 \"Shape 4\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            303.0,
+            70.0,
+            16.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "3B6E8C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#7 \"Shape 5\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            281.0,
+            60.0,
+            -16.0,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#8 \"Shape 6\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            734.0,
+            60.0,
+            -22.0,
+            190.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#9 \"Shape 7\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            774.0,
+            60.0,
+            -22.0,
+            190.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#10 \"Shape 8\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            814.0,
+            60.0,
+            -22.0,
+            190.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 6,
+          "limit": 8,
+          "evidence": "slide5.xml#2 \"Text 0\" \"Schatten und Verdunstung kühlen die Luft\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            50.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide5.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 50.0 pt (slide5.xml#2 \"Text 0\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 40,
+          "limit": 90,
+          "evidence": "counted: slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 6,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.375,
+          "limit": 0.3,
+          "evidence": "4 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 6 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "part": "ppt/slides/slide6.xml",
+      "layout": "P13 key-numbers",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Hitzetage erhöhen Notaufnahmen um ein Drittel",
+      "shapes": [
+        {
+          "ref": "slide6.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            176.0,
+            350.7,
+            170.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            96.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            488.0,
+            236.0,
+            424.0,
+            140.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 6,
+          "limit": 8,
+          "evidence": "slide6.xml#2 \"Text 0\" \"Hitzetage erhöhen Notaufnahmen um ein Drittel\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide6.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            12.0
+          ],
+          "limit": "12 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 5.47,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair D97B3E on 241C16 at 96.0 pt (slide6.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 74,
+          "limit": 90,
+          "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#3 \"Text 1\", slide6.xml#4 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 11,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.472,
+          "limit": 0.3,
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide6.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide6.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 0,
+          "evidence": "words drawn outside every text box: Drittel@(55,119)"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "part": "ppt/slides/slide7.xml",
+      "layout": "P11 timeline",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "5.000 Bäume entstehen in vier Bauphasen",
+      "shapes": [
+        {
+          "ref": "slide7.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#3 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            216.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#4 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            49.0,
+            210.0,
+            12.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "857F75",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            55.0,
+            232.0,
+            120.0,
+            26.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            55.0,
+            260.0,
+            120.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#7 \"Shape 5\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            332.3,
+            210.0,
+            12.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "857F75",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            278.3,
+            232.0,
+            120.0,
+            26.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#9 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            278.3,
+            260.0,
+            120.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#10 \"Shape 8\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            615.7,
+            210.0,
+            12.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "857F75",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.7,
+            232.0,
+            120.0,
+            26.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.7,
+            260.0,
+            120.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#13 \"Shape 11\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            899.0,
+            210.0,
+            12.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "D97B3E",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#14 \"Text 12\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            785.0,
+            232.0,
+            120.0,
+            26.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#15 \"Text 13\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            785.0,
+            260.0,
+            120.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            16.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 6,
+          "limit": 8,
+          "evidence": "slide7.xml#2 \"Text 0\" \"5.000 Bäume entstehen in vier Bauphasen\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide7.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            16.0
+          ],
+          "limit": "body >= 24 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide7.xml#11 \"Text 9\" 16.0pt; slide7.xml#12 \"Text 10\" 16.0pt; slide7.xml#14 \"Text 12\" 16.0pt; slide7.xml#15 \"Text 13\" 16.0pt; slide7.xml#5 \"Text 3\" 16.0pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 16.0 pt (slide7.xml#5 \"Text 3\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 83,
+          "limit": 90,
+          "evidence": "counted: slide7.xml#2 \"Text 0\", slide7.xml#5 \"Text 3\", slide7.xml#6 \"Text 4\", slide7.xml#8 \"Text 6\", slide7.xml#9 \"Text 7\", slide7.xml#11 \"Text 9\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 14,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.246,
+          "limit": 0.3,
+          "evidence": "13 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide7.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide7.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 14 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "part": "ppt/slides/slide8.xml",
+      "layout": "P05 chart-focus",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Die heißesten Straßen bekommen zuerst Bäume",
+      "shapes": [
+        {
+          "ref": "slide8.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#3 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            166.0,
+            864.0,
+            260.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 6,
+          "limit": 8,
+          "evidence": "slide8.xml#2 \"Text 0\" \"Die heißesten Straßen bekommen zuerst Bäume\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide8.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            12.0
+          ],
+          "limit": "12 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 12.0 pt (slide8.xml#4 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.22,
+          "limit": "3.0:1",
+          "evidence": "slide8.xml#3 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 68,
+          "limit": 90,
+          "evidence": "counted: slide8.xml#2 \"Text 0\", slide8.xml#3 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 10,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.764,
+          "limit": 0.3,
+          "evidence": "2 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Beispieldaten (Wärmebelastungstage/Jahr), nicht real erhoben · 2026\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide8.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide8.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 0,
+          "evidence": "words drawn outside every text box: Bäume@(55,119)"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "part": "ppt/slides/slide9.xml",
+      "layout": "P13 key-numbers",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Ein Straßenbaum kostet weniger als Kühlung",
+      "shapes": [
+        {
+          "ref": "slide9.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide9.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            176.0,
+            350.7,
+            170.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            96.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide9.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            488.0,
+            236.0,
+            424.0,
+            140.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide9.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            12.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 6,
+          "limit": 8,
+          "evidence": "slide9.xml#2 \"Text 0\" \"Ein Straßenbaum kostet weniger als Kühlung\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide9.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            12.0
+          ],
+          "limit": "12 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 5.47,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair D97B3E on 241C16 at 96.0 pt (slide9.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 89,
+          "limit": 90,
+          "evidence": "counted: slide9.xml#2 \"Text 0\", slide9.xml#3 \"Text 1\", slide9.xml#4 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 12,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.472,
+          "limit": 0.3,
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide9.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide9.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 0,
+          "evidence": "words drawn outside every text box: Kühlung@(55,119)"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "part": "ppt/slides/slide10.xml",
+      "layout": "P14 statement",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Beschließen Sie heute 5.000 neue Bäume",
+      "shapes": [
+        {
+          "ref": "slide10.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            96.0,
+            322.0,
+            768.0,
+            168.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            50.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 6,
+          "limit": 8,
+          "evidence": "slide10.xml#2 \"Text 0\" \"Beschließen Sie heute 5.000 neue Bäume\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            50.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide10.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "12 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.93,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair E8E1D8 on 241C16 at 50.0 pt (slide10.xml#2 \"Text 0\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "241C16",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 38,
+          "limit": 90,
+          "evidence": "counted: slide10.xml#2 \"Text 0\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 6,
+          "limit": 15,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.339,
+          "limit": 0.3,
+          "evidence": "1 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide10.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide10.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 6 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "2",
+      "name": "at most 2 font families",
+      "method": "file",
+      "status": "pass",
+      "value": [
+        "Arial"
+      ],
+      "limit": 2,
+      "evidence": "families used on slides: Arial (slides [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])"
+    },
+    {
+      "id": "2",
+      "name": "fonts on the safe list",
+      "method": "file",
+      "status": "pass",
+      "evidence": "all on safe list"
+    },
+    {
+      "id": "2",
+      "name": "steps between neighbouring sizes >= 1.25",
+      "method": "file",
+      "status": "observation",
+      "value": [
+        12.0,
+        16.0,
+        24.0,
+        40.0,
+        50.0,
+        96.0
+      ],
+      "evidence": "all neighbouring sizes differ by at least 1.25"
+    },
+    {
+      "id": "5",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
+      "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
+      "status": "pass",
+      "value": 2,
+      "limit": 3,
+      "evidence": "hue 24 deg: D97B3E,E8E1D8; hue 202 deg: 3B6E8C"
+    },
+    {
+      "id": "4",
+      "name": "recurring title placeholder at the same position (layout \"P14 statement\")",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [2, 5, 10] share (96.0, 322.0, 768.0, 168.0)"
+    },
+    {
+      "id": "4",
+      "name": "recurring title placeholder at the same position (layout \"P13 key-numbers\")",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [3, 6, 9] share (48.0, 64.0, 864.0, 58.0)"
+    },
+    {
+      "id": "4",
+      "name": "recurring title placeholder at the same position (layout \"P05 chart-focus\")",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [4, 8] share (48.0, 64.0, 864.0, 58.0)"
+    },
+    {
+      "id": "4",
+      "name": "distinct left edges of text shapes",
+      "method": "file",
+      "status": "observation",
+      "value": 7,
+      "evidence": "x positions (pt): [48, 55, 96, 278, 488, 562, 785]. Optical alignment is not measured."
+    },
+    {
+      "id": "3",
+      "name": "spacing in multiples of 8 pt",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "not implemented yet"
+    },
+    {
+      "id": "10",
+      "name": "title strand reads as a story",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "11",
+      "name": "direction contract held, look not guessable",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "3",
+      "name": "fonts drawn in the render",
+      "method": "render (LibreOffice, pdffonts)",
+      "status": "pass",
+      "value": [
+        "LiberationSans",
+        "LiberationSans-Bold"
+      ],
+      "evidence": "Arial: drawn as liberationsans (same glyph widths)"
+    }
+  ],
+  "notes": [],
+  "language": {
+    "used": "de",
+    "note": "auto: German stop-word share 13.7 %"
+  },
+  "title_strand": [
+    {
+      "n": 1,
+      "t": "5.000 neue Bäume für kühlere Straßen"
+    },
+    {
+      "n": 2,
+      "t": "Asphalt ohne Bäume heizt unsere Straßen auf"
+    },
+    {
+      "n": 3,
+      "t": "Baumkronen kühlen die Straße um 10 Grad"
+    },
+    {
+      "n": 4,
+      "t": "Beschattete Straßen bleiben deutlich kühler"
+    },
+    {
+      "n": 5,
+      "t": "Schatten und Verdunstung kühlen die Luft"
+    },
+    {
+      "n": 6,
+      "t": "Hitzetage erhöhen Notaufnahmen um ein Drittel"
+    },
+    {
+      "n": 7,
+      "t": "5.000 Bäume entstehen in vier Bauphasen"
+    },
+    {
+      "n": 8,
+      "t": "Die heißesten Straßen bekommen zuerst Bäume"
+    },
+    {
+      "n": 9,
+      "t": "Ein Straßenbaum kostet weniger als Kühlung"
+    },
+    {
+      "n": 10,
+      "t": "Beschließen Sie heute 5.000 neue Bäume"
+    }
+  ],
+  "render": {
+    "ok": true,
+    "fonts": [
+      "LiberationSans",
+      "LiberationSans-Bold"
+    ],
+    "png": [
+      "render/deck-01.png",
+      "render/deck-02.png",
+      "render/deck-03.png",
+      "render/deck-04.png",
+      "render/deck-05.png",
+      "render/deck-06.png",
+      "render/deck-07.png",
+      "render/deck-08.png",
+      "render/deck-09.png",
+      "render/deck-10.png"
+    ]
+  },
+  "facts": {
+    "slide_count": 10,
+    "layouts": [
+      "P01 cover",
+      "P14 statement",
+      "P13 key-numbers",
+      "P05 chart-focus",
+      "P14 statement",
+      "P13 key-numbers",
+      "P11 timeline",
+      "P05 chart-focus",
+      "P13 key-numbers",
+      "P14 statement"
+    ],
+    "titles": [
+      "5.000 neue Bäume für kühlere Straßen",
+      "Asphalt ohne Bäume heizt unsere Straßen auf",
+      "Baumkronen kühlen die Straße um 10 Grad",
+      "Beschattete Straßen bleiben deutlich kühler",
+      "Schatten und Verdunstung kühlen die Luft",
+      "Hitzetage erhöhen Notaufnahmen um ein Drittel",
+      "5.000 Bäume entstehen in vier Bauphasen",
+      "Die heißesten Straßen bekommen zuerst Bäume",
+      "Ein Straßenbaum kostet weniger als Kühlung",
+      "Beschließen Sie heute 5.000 neue Bäume"
+    ],
+    "fonts": [
+      "Arial"
+    ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#2 \"Text 0\"",
+        "size": 50.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#3 \"Text 0\"",
+        "size": 24.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": "body"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#2 \"Text 0\"",
+        "size": 50.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#3 \"Text 1\"",
+        "size": 96.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "D97B3E",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Text 2\"",
+        "size": 24.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#5 \"Text 3\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#4 \"Text 1\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#2 \"Text 0\"",
+        "size": 50.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#3 \"Text 1\"",
+        "size": 96.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "D97B3E",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#4 \"Text 2\"",
+        "size": 24.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#5 \"Text 3\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#5 \"Text 3\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#6 \"Text 4\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Text 6\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#9 \"Text 7\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#11 \"Text 9\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#12 \"Text 10\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#14 \"Text 12\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#15 \"Text 13\"",
+        "size": 16.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#4 \"Text 1\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#3 \"Text 1\"",
+        "size": 96.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "D97B3E",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#4 \"Text 2\"",
+        "size": 24.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#5 \"Text 3\"",
+        "size": 12.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 10,
+        "ref": "slide10.xml#2 \"Text 0\"",
+        "size": 50.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "E8E1D8",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      }
+    ],
+    "colors": {
+      "241C16": [
+        "slide 1 background",
+        "slide 10 background",
+        "slide 2 background",
+        "slide 3 background",
+        "slide 4 background",
+        "slide 5 background"
+      ],
+      "E8E1D8": [
+        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 1 text slide1.xml#3 \"Text 0\"",
+        "slide 10 text slide10.xml#2 \"Text 0\"",
+        "slide 2 text slide2.xml#2 \"Text 0\"",
+        "slide 3 text slide3.xml#2 \"Text 0\"",
+        "slide 3 text slide3.xml#4 \"Text 2\""
+      ],
+      "D97B3E": [
+        "slide 1 fill slide1.xml#4 \"Shape 2\"",
+        "slide 3 text slide3.xml#3 \"Text 1\"",
+        "slide 4 chart series 1",
+        "slide 6 text slide6.xml#3 \"Text 1\"",
+        "slide 7 fill slide7.xml#13 \"Shape 11\"",
+        "slide 8 chart series 1"
+      ],
+      "857F75": [
+        "slide 4 chart series 1",
+        "slide 5 fill slide5.xml#5 \"Shape 3\"",
+        "slide 7 fill slide7.xml#10 \"Shape 8\"",
+        "slide 7 fill slide7.xml#4 \"Shape 2\"",
+        "slide 7 fill slide7.xml#7 \"Shape 5\"",
+        "slide 8 chart series 1"
+      ],
+      "3B6E8C": [
+        "slide 5 fill slide5.xml#4 \"Shape 2\"",
+        "slide 5 fill slide5.xml#6 \"Shape 4\""
+      ]
+    },
+    "min_inset_pt": 48.0,
+    "min_inset_at": "slide3.xml#2 \"Text 0\"",
+    "profile": "talk",
+    "chart_sizes": [
+      12.0,
+      16.0
+    ],
+    "slide_facts": [
+      {
+        "n": 1,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 2,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 3,
+        "exhibits": [],
+        "source": "Quelle: Beispieldaten zur Illustration, nicht real erhoben · 2026"
+      },
+      {
+        "n": 4,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Beispieldaten (Oberflächentemperatur, °C), nicht real erhoben · 2026"
+      },
+      {
+        "n": 5,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 6,
+        "exhibits": [],
+        "source": "Quelle: Beispieldaten zur Illustration, nicht real erhoben · 2026"
+      },
+      {
+        "n": 7,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 8,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Beispieldaten (Wärmebelastungstage/Jahr), nicht real erhoben · 2026"
+      },
+      {
+        "n": 9,
+        "exhibits": [],
+        "source": "Quelle: Beispieldaten zur Illustration, nicht real erhoben · 2026"
+      },
+      {
+        "n": 10,
+        "exhibits": [],
+        "source": ""
+      }
+    ]
+  },
+  "plan": {
+    "parsed": {
+      "profile": "talk",
+      "roles": 6,
+      "palette": 6,
+      "margin_pt": 48.0,
+      "layout_types": [
+        "p01 cover",
+        "p05 chart-focus",
+        "p11 timeline",
+        "p13 key-numbers",
+        "p14 statement."
+      ],
+      "slide_rows": 10,
+      "waivers": "keine (keine vom Nutzer freigegebenen refuse.md-Punkte)",
+      "notes": []
+    },
+    "checks": [
+      {
+        "id": "P2",
+        "name": "plan: role sizes within profile limits",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": [
+          50.0,
+          40.0,
+          24.0,
+          16.0,
+          96.0,
+          12.0
+        ],
+        "evidence": "all 6 roles within limits"
+      },
+      {
+        "id": "P2",
+        "name": "plan: neighbouring role sizes differ by at least 1.25",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": [
+          12.0,
+          16.0,
+          24.0,
+          40.0,
+          50.0,
+          96.0
+        ],
+        "limit": 1.25,
+        "evidence": "all steps >= 1.25"
+      },
+      {
+        "id": "P3",
+        "name": "plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": {
+          "accent": 1,
+          "signal": 2
+        },
+        "limit": {
+          "accent": 1,
+          "signal": 2
+        },
+        "evidence": "roles are read from the words next to each hex in the Palette block"
+      },
+      {
+        "id": "P3",
+        "name": "plan: role colours against palette backgrounds (contrast)",
+        "method": "computed",
+        "status": "pass",
+        "value": 5.47,
+        "evidence": "6 pairs computed"
+      },
+      {
+        "id": "P4",
+        "name": "plan: every slide row uses a layout type defined in the design system",
+        "method": "file (plan)",
+        "status": "pass",
+        "evidence": "all rows match"
+      },
+      {
+        "id": "P5",
+        "name": "plan: every data slide row has a source",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": 0,
+        "evidence": "checked 0 data rows"
+      },
+      {
+        "id": "12",
+        "name": "slide count equals plan rows",
+        "method": "file",
+        "status": "pass",
+        "value": 10,
+        "limit": 10,
+        "evidence": "deck has 10 slides, plan lists 10"
+      },
+      {
+        "id": "12",
+        "name": "slide titles equal the plan",
+        "method": "file",
+        "status": "pass",
+        "evidence": "titles match (0 rows without a plan title skipped)"
+      },
+      {
+        "id": "12",
+        "name": "slide layouts match the plan layout types by name",
+        "method": "file",
+        "status": "pass",
+        "evidence": "all layout names match"
+      },
+      {
+        "id": "12",
+        "name": "fonts are those of the plan",
+        "method": "file",
+        "status": "pass",
+        "value": [
+          "Arial"
+        ],
+        "evidence": "plan families: arial"
+      },
+      {
+        "id": "12",
+        "name": "text sizes are role sizes of the plan",
+        "method": "file",
+        "status": "pass",
+        "limit": [
+          12.0,
+          16.0,
+          24.0,
+          40.0,
+          50.0,
+          96.0
+        ],
+        "evidence": "every run size is a role size"
+      },
+      {
+        "id": "12",
+        "name": "weights match the plan roles (bold or regular)",
+        "method": "file",
+        "status": "pass",
+        "evidence": "checked runs whose size identifies a role"
+      },
+      {
+        "id": "12",
+        "name": "colours used are palette colours of the plan",
+        "method": "file",
+        "status": "pass",
+        "evidence": "all 5 colours are in the palette"
+      },
+      {
+        "id": "12",
+        "name": "shapes keep the plan margin",
+        "method": "file",
+        "status": "pass",
+        "value": 48.0,
+        "limit": 48.0,
+        "evidence": "smallest edge distance 48.0 pt at slide3.xml#2 \"Text 0\""
+      }
+    ]
+  },
+  "not_measured_here": [
+    "overflow: render observation only",
+    "optical alignment",
+    "spacing scale",
+    "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
+  ],
+  "summary": {
+    "pass": 141,
+    "fail": 0,
+    "observation": 60,
+    "not_measured": 3,
+    "waived": 0
+  }
+}

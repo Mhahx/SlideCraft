@@ -72,7 +72,7 @@ const yrs = ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
 s.addChart(pres.charts.LINE, [{ name: 'Schalterbesuche', labels: yrs, values: [2.10, 1.62, 1.55, 1.51, 1.46, 1.40, 1.35, 1.30] }],
   { x: pt(col(1)), y: pt(156), w: pt(span(8)), h: pt(296), chartColors: [GREEN], lineSize: 2.5, lineDataSymbol: 'circle', lineDataSymbolSize: 6,
     valAxisMinVal: 0, valAxisMaxVal: 2.5, valAxisMajorUnit: 0.5, valAxisLabelFontSize: 11, catAxisLabelFontSize: 11, valAxisLabelFontFace: BF,
-    catAxisLabelFontFace: BF, valGridLine: { color: 'E3E3E3', size: 0.5 }, showLegend: false, showValue: true, dataLabelFontSize: 11,
+    catAxisLabelFontFace: BF, valGridLine: { style: 'none' }, showLegend: false, showValue: true, dataLabelFontSize: 11,
     dataLabelColor: INK, dataLabelPosition: 't', dataLabelFormatCode: '0.00',
     altText: 'Linie 2019 bis 2026: Schalterbesuche fallen von 2,10 auf 1,30 Millionen im Jahr, am stärksten 2020' });
 rail(s, 'Was das bedeutet', [

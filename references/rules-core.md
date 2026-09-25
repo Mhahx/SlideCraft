@@ -56,7 +56,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 - Label directly instead of a legend where possible. One highlight colour (the accent), everything else neutral and at least 3:1 (see section 4).
 - Several series: tell them apart by direct labels plus position, line style or marker shape, never by colour alone. More than 4 series: split into small multiples or reduce.
 - No 3D, shadows, gradients or decorative gridlines. Honest axes, bars start at zero.
-- Every data slide: source and date in the footer area.
+- Every data slide: source and date in the footer area. The source line starts with `Source:` or `Quelle:` (also `Sources:`, `Quellen:`). The check script recognises it only by this prefix: then it counts as the source (check 7) and is left out of the words per slide (check 6); a source written differently is counted as body text and the source check fails.
 - Tables: numbers right-aligned, tabular figures, rules instead of zebra stripes where enough.
 
 ## 7. Accessibility
@@ -101,12 +101,13 @@ Name evidence for each item (slide number, value, method). A bare "ok" is not ev
 4. Alignment on shared edges, recurring elements at the same position. [file; optical alignment: script]
 5. Colour roles respected (1 accent + at most a signal pair; hue families counted by script). Text contrast and non-text contrast computed. [file, computed]
 6. Words per slide within the profile limit [file]; fill reported against the profile value [script, observation until calibrated; never shrink an exhibit below its pattern zone to meet it].
-7. Every data slide has source and date; charts labelled directly. [file]
+7. Every data slide has source and date; charts labelled directly; no gridlines on a chart whose values are labelled. [file]
 8. Accessibility: every slide has a title, reading order correct, every picture and chart has alt text. [file]
 9. No detectable item from `refuse.md`: gradient, shadow, 3D, emoji icons, and the detector rules (nested cards, card grid, icon tiles, stat row, edge stripes, kicker, buzzwords, justified, centered or capitalised running text, among others; ids in `refuse.md`). [file, `scripts/detect.py`]
 10. The title strand reads as a story. [judgement]
 11. The deck holds its direction contract (thesis, own-world), and the look is not guessable from the category alone (see `direction.md`). [judgement; a default-look ground colour is reported by script as an observation]
 12. The deck matches its deck plan: fonts, role sizes, palette, margins and layout types are those of the plan. Every deviation is a finding, or the plan is extended deck-wide. [file]
+13. Render review: open every rendered slide once and answer for each (the script cannot see these; the blind test in 0.17 passed the script with all three): (a) Is anything a picture built from shapes (a tree from an ellipse and a rectangle, a vehicle, a person)? Remove it or replace it with an exhibit, a real photo or type. (b) Does every exhibit show its measure and unit on the slide itself, in a measure line or axis title, not only in the source line? (c) Do more than two slides share the same composition (for example big number left, label right)? Change the pattern or the variant of all but one. (d) Does any element touch or overlap another? [judgement on the render]
 
 ## Provenance of the rules
 

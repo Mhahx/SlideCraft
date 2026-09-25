@@ -81,7 +81,7 @@ Before the plan is finished, write the chosen direction as six short blocks, abo
 The contract lives in the plan only. Never put it into slide text, notes or file metadata.
 
 ## Finish
-1. **Capture validity:** render every slide and open each image once. A blank, cut-off or half-loaded render is not evidence. Recapture before judging.
+1. **Capture validity:** render every slide and open each image once. A blank, cut-off or half-loaded render is not evidence. Recapture before judging. Then answer the render review (item 13 of the check list in `rules-core.md`) for every slide.
 2. **Bounded passes:** build fully, inspect once in a batched round, fix everything found in one batch, confirm with at most one more round. Then stop polishing. Two rounds is the ceiling for an unattended run. In an attended session the ceiling belongs to the user.
 3. **Fresh review:** where subagents are available, spawn a reviewer with no build history. Inputs: the request and confirmed answers, the deck plan with the direction contract, the file path, the render paths, and the check results with their methods. Without subagents, do a fresh pass after stepping out of the build context and say so in one line. The reviewer returns exactly one disposition:
    - **recapture:** the evidence failed, not the deck. Re-render, then review again in full.

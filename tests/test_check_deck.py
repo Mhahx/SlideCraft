@@ -887,6 +887,74 @@ class PinnedStyles(unittest.TestCase):
         self.assertTrue(find(checks, 'inside 48 pt margins', 'fail'))
 
 
+CNS = 'xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"'
+
+
+def chart_pptx(gridlines=True, hidden=False, labels=True):
+    """One slide with a bar chart part; gridlines visible, hidden (line noFill) or absent; value labels on or off."""
+    grid = ''
+    if gridlines:
+        grid = ('<c:majorGridlines><c:spPr><a:ln><a:noFill/></a:ln></c:spPr></c:majorGridlines>' if hidden else
+                '<c:majorGridlines><c:spPr><a:ln w="6350"><a:solidFill><a:srgbClr val="D9D9D9"/></a:solidFill></a:ln></c:spPr></c:majorGridlines>')
+    dl = '<c:dLbls><c:showVal val="1"/></c:dLbls>' if labels else ''
+    chart = ('<c:chartSpace %s><c:chart><c:plotArea><c:barChart><c:barDir val="col"/><c:ser><c:idx val="0"/><c:order val="0"/>'
+             '<c:spPr><a:solidFill><a:srgbClr val="1F4E79"/></a:solidFill></c:spPr>%s'
+             '<c:cat><c:strRef><c:strCache><c:pt idx="0"><c:v>A</c:v></c:pt></c:strCache></c:strRef></c:cat>'
+             '<c:val><c:numRef><c:numCache><c:pt idx="0"><c:v>5</c:v></c:pt></c:numCache></c:numRef></c:val></c:ser></c:barChart>'
+             '<c:valAx>%s</c:valAx></c:plotArea></c:chart></c:chartSpace>') % (CNS, dl, grid)
+    frame = ('<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="5" name="Chart" descr="Bars"/><p:cNvGraphicFramePr/><p:nvPr/></p:nvGraphicFramePr>'
+             '<p:xfrm><a:off x="609600" y="1981200"/><a:ext cx="6096000" cy="3048000"/></p:xfrm><a:graphic>'
+             '<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/chart">'
+             '<c:chart xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" r:id="rId2"/></a:graphicData></a:graphic></p:graphicFrame>')
+    src = build_pptx([title_sp('Retention drives the 12 % revenue growth') + frame])
+    out = io.BytesIO()
+    with zipfile.ZipFile(src) as zin, zipfile.ZipFile(out, 'w') as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename == 'ppt/slides/_rels/slide1.xml.rels':
+                data = rels(('rId1', 'slideLayout', '../slideLayouts/slideLayout1.xml'), ('rId2', 'chart', '../charts/chart1.xml')).encode()
+            zout.writestr(item, data)
+        zout.writestr('ppt/charts/chart1.xml', chart)
+    out.seek(0)
+    return out
+
+
+class BlindTestFindings(unittest.TestCase):
+    """0.18: findings of the blind test (fresh agent, other model, talk deck)."""
+
+    def grid(self, z):
+        return find(run_on(z)['slides'][0]['checks'], 'no decorative gridlines')[0]
+
+    def test_gridlines_fail_only_when_values_are_labelled(self):
+        self.assertEqual(self.grid(chart_pptx(gridlines=True, labels=True))['status'], 'fail')
+        self.assertEqual(self.grid(chart_pptx(gridlines=True, labels=False))['status'], 'pass')   # reading aid
+        self.assertEqual(self.grid(chart_pptx(gridlines=True, hidden=True, labels=True))['status'], 'pass')
+        self.assertEqual(self.grid(chart_pptx(gridlines=False, labels=True))['status'], 'pass')
+
+    def test_design_label_repeated_in_direction_section_is_read_from_section_4(self):
+        text = ('## 2. Direction\nDrafts shown: A and B\n- Palette: A uses 1F4A3A, C0392B and 2E86C1\n\n'
+                '## 4. Design system (deck-wide)\nPalette: background FFFFFF | text 1C1C1C | accent 1F4A3A\nProfile: read\n')
+        p = planmod.parse_plan(text)
+        self.assertEqual([(x['role'], x['hex']) for x in p['palette']], [('background', 'FFFFFF'), ('text', '1C1C1C'), ('accent', '1F4A3A')])
+        p0 = [c for c in planmod.self_checks(p, cd.PROFILES['read'], cd) if c['id'] == 'P0']
+        self.assertEqual(p0[0]['status'], 'observation')
+        self.assertIn('Palette', p0[0]['evidence'])
+
+    def test_other_repeated_label_is_ambiguous_and_fails(self):
+        p = planmod.parse_plan('Profile: read\nPurpose: decide\nProfile: talk\n')
+        self.assertEqual(p['profile'], 'read')
+        p0 = [c for c in planmod.self_checks(p, cd.PROFILES['read'], cd) if c['id'] == 'P0']
+        self.assertEqual(p0[0]['status'], 'fail')
+
+    def test_as_built_section_may_restate_labels(self):
+        p = planmod.parse_plan('## 4. Design system\nFonts: Arial\nProfile: read\n## 7. As built\nFonts: Arial (rendered as Liberation Sans)\n')
+        self.assertEqual(p['duplicate_labels'], [])
+
+    def test_plan_without_repeats_has_no_label_finding(self):
+        p = planmod.parse_plan(GOOD_PLAN)
+        self.assertFalse([c for c in planmod.self_checks(p, cd.PROFILES['read'], cd) if c['id'] == 'P0'])
+
+
 class Calibration(unittest.TestCase):
     """Thresholds calibrated on the real decks in research/beratungsdecks.md (0.14)."""
     T = 'Pricing explains most of the 12 % gain'

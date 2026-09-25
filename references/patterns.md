@@ -8,6 +8,17 @@ Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page b
 - In the deck plan, every slide row names its pattern (`Layout type` column: the pattern id, for example `P04 chart-rail`). A deck uses 4 to 8 patterns; each pattern is one layout, identical wherever it recurs. Name the slide layout (master) in the file after the pattern, for example `P04 chart-rail`: the plan comparison (check 12) matches layouts by name, and the recurring-position check compares positions within each layout.
 - Pick by the job of the slide (table below), not by variety. Repetition of a pattern is recognition; a new pattern needs a new job.
 - Text budgets are per zone for `read` at the lean end (words; for German use about 6 characters per word). A dense reading deck may go up to the profile limit (250 words) by adding panels, rows or a second exhibit, never by shrinking type below the role size. `update` uses the same zones at about two thirds of the budget. `talk` and `pitch` use the patterns marked for them.
+- **In `talk` and `pitch` the profile ceiling for the whole slide wins over the zone budgets** (`talk` 15 words or 90 characters, `pitch` 40 words or 240 characters, title included). The zone budgets below are written for `read`; following them literally in a `talk` deck fails every slide. Counted are all words on the slide: title, labels, chart categories and data labels; not counted is the source line (`rules-core.md` §6). Budgets for the patterns used in presentations:
+
+| Pattern | `talk` | `pitch` |
+|---|---|---|
+| P01 cover | title 8 words, one line under it | title 10, subtitle 12 |
+| P05 chart-focus | title 8, measure line 5, at most 5 bars or points with 1-word labels | title 10, measure line 8, up to 8 categories, one callout of 6 words |
+| P04 chart-rail | not for `talk` (use P05) | title 10, rail 1 to 2 points of up to 12 words |
+| P09 before-after | title 8, 2 × 3 words | title 10, 2 × 3 lines of up to 5 words |
+| P11 timeline | title 8, at most 4 stations of 2 words | title 10, at most 5 stations of up to 4 words |
+| P13 key-numbers | title 8, one number with a label of up to 5 words | title 10, up to three numbers of one measure, one line of up to 8 words each |
+| P14 statement | the statement is the title (up to 8 words), up to 7 further words | up to 10 words, up to 15 further |
 - If content does not fit the budget, split the slide or move detail to notes or the appendix. Never shrink type below the role size to make it fit.
 - Boxes are allowed where the pattern names them (a panel, a callout, a takeaway band). Cards as a default container, cards in cards and grids of equal cards are not (`refuse.md`, detector check 9).
 
@@ -286,7 +297,7 @@ Rules that hold in every pattern (seen in all nine decks):
 │ └───────────────────────┘                │
 └──────────────────────────────────────────┘
 ```
-- **Zones:** photo as ground (full bleed or the upper half), statement on a solid panel or on the plain half, cols 1–8.
+- **Zones:** photo as ground (full bleed or the upper half), statement on a solid panel or on the plain half, cols 1–8. A graphic that shows the subject (a range ring, a profile, a cross-section) takes the photo zone: the upper half above y 250 or cols 7–12 beside the statement, never the statement's zone; check the render for overlap.
 - **Budget:** `talk` limits apply: the statement is the title (up to 8 words at 40 pt and more), up to 7 further words.
 - **Rules:** the photo shows the subject, not a metaphor; text never directly on the photo.
 
