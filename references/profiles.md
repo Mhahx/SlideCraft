@@ -6,16 +6,18 @@ Pick exactly one profile before building. Key question: is the slide read, or do
 
 | Value | `read` | `talk` | `pitch` | `update` |
 |---|---|---|---|---|
-| Title / statement size | 24-28 pt | at least 40 pt | 28-36 pt | 24-28 pt |
+| Title / statement size | 20-28 pt | at least 40 pt | 28-36 pt | 20-28 pt |
 | Title length ceiling (words) | 15 | 8 | 10 | 15 |
 | Title lines | at most 2 | at most 2 | at most 2 | at most 2 |
 | Body minimum | 14 pt | 24 pt (supporting text) | 18 pt | 14 pt |
-| Footnote / source minimum | 10 pt | 12 pt | 10 pt | 10 pt |
-| Words per slide (max, incl. title) | 120 | 15 | 40 | 80 |
-| Characters per slide (max, incl. spaces; use instead of words for German) | 720 | 90 | 240 | 480 |
+| Footnote / source minimum | 8 pt | 12 pt | 8 pt | 8 pt |
+| Words per slide (max, incl. title) | 250 | 15 | 40 | 80 |
+| Characters per slide (max, incl. spaces; use instead of words for German) | 1500 | 90 | 240 | 480 |
 | Fill of the live area (reference, reported only) | 75 % | 30 % | 50 % | 60 % |
 
 The title ceiling comes from a line-capacity estimate, not a measurement: over the live-area width of 873 pt, a bold sans title holds about 43 characters per line at 40 pt, about 47 at 36 pt and about 61 at 28 pt (average glyph width about 0.5 em). A title must fit its role in 2 lines; if it does not, shorten it, do not shrink it below the profile size. Serif titles (for example Cambria) are wider and hold fewer words.
+
+Calibrated in 0.14 on nine real consulting decks (`research/beratungsdecks.md`): `read` words 250 (decision by Max; the reading decks show 130 to 300), title 20-28 pt in `read` and `update` (medians 20 to 25 pt), footnote and source 8 pt in `read`, `update` and `pitch` (all decks set sources in 7 to 8 pt). `talk`, `pitch` and `update` word limits are unchanged: the corpus has no status report, and the presented Bain decks sit between `talk` and `pitch`.
 
 The margin of 0.667 in leaves about 74 % of the slide as live area.
 

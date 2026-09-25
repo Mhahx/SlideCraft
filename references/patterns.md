@@ -7,7 +7,7 @@ Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page b
 ## How to use
 - In the deck plan, every slide row names its pattern (`Layout type` column: the pattern id, for example `P04 chart-rail`). A deck uses 4 to 8 patterns; each pattern is one layout, identical wherever it recurs. Name the slide layout (master) in the file after the pattern, for example `P04 chart-rail`: the plan comparison (check 12) matches layouts by name, and the recurring-position check compares positions within each layout.
 - Pick by the job of the slide (table below), not by variety. Repetition of a pattern is recognition; a new pattern needs a new job.
-- Text budgets are maxima per zone for `read` (words; for German use about 6 characters per word). `update` uses the same zones at about two thirds of the budget. `talk` and `pitch` use the patterns marked for them.
+- Text budgets are per zone for `read` at the lean end (words; for German use about 6 characters per word). A dense reading deck may go up to the profile limit (250 words) by adding panels, rows or a second exhibit, never by shrinking type below the role size. `update` uses the same zones at about two thirds of the budget. `talk` and `pitch` use the patterns marked for them.
 - If content does not fit the budget, split the slide or move detail to notes or the appendix. Never shrink type below the role size to make it fit.
 - Boxes are allowed where the pattern names them (a panel, a callout, a takeaway band). Cards as a default container, cards in cards and grids of equal cards are not (`refuse.md`, detector check 9).
 
@@ -54,9 +54,9 @@ Canvas 960 × 540 pt (13.33 × 7.5 in), margin 48 pt, 12 columns with 16 pt gutt
 | Status mark (optional, any profile) | right-aligned at x 912, y 48 | "Preliminary", "Illustrative", "Not exhaustive" | 3 words |
 | Title | x 48, y 64, w 864, h 58 | claim sentence, 1 to 2 lines, left | profile ceiling (`read` 15 words) |
 | Measure line (optional) | x 48, y 124, h 18 | what is measured, unit, period: "Buyout deal value, $ billions, 2005–2022" | 10 words |
-| Body | x 48, y 156 to 436 (h 280) | the pattern's zones | per pattern |
-| Footnotes and source | x 48, y 446, w 700, h 30 | numbered footnotes, then "Source: …, date" | not counted |
-| Page number | right-aligned at x 912, y 462 | number | not counted |
+| Body | x 48, y 156 to 456 (h 300) | the pattern's zones | per pattern |
+| Footnotes and source | x 48, y 466, w 700, h 36, 8 pt and up | numbered footnotes, then "Source: …, date"; may reach 18 pt above the bottom edge | not counted |
+| Page number | right-aligned at x 912, y 488 | number | not counted |
 
 Rules that hold in every pattern (seen in all nine decks):
 - The title carries the claim; an exhibit headline inside the body names the evidence, not the claim again.

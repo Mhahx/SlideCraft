@@ -223,9 +223,9 @@ def self_checks(plan, prof, cd):
     if pal:
         n_acc = len({p['hex'] for p in pal if p['role'] == 'accent'})
         n_sig = len({p['hex'] for p in pal if p['role'] == 'signal'})
-        ok = n_acc <= 1 and n_sig <= 1
-        out.append(_chk('P3', 'plan: palette has 1 accent and at most 1 signal colour', 'file (plan)', 'pass' if ok else 'fail',
-                        value={'accent': n_acc, 'signal': n_sig}, limit={'accent': 1, 'signal': 1},
+        ok = n_acc <= 1 and n_sig <= 2
+        out.append(_chk('P3', 'plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)', 'file (plan)', 'pass' if ok else 'fail',
+                        value={'accent': n_acc, 'signal': n_sig}, limit={'accent': 1, 'signal': 2},
                         evidence='roles are read from the words next to each hex in the Palette block'))
         unl = [p['hex'] for p in pal if p['role'] == 'unlabelled']
         if unl:

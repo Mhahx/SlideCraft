@@ -130,7 +130,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -415,7 +415,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -700,7 +700,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -985,7 +985,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1270,7 +1270,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1555,7 +1555,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1821,7 +1821,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -2062,7 +2062,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -2209,11 +2209,11 @@
     },
     {
       "id": "5",
-      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
       "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
       "status": "pass",
       "value": 1,
-      "limit": 2,
+      "limit": 3,
       "evidence": "hue 252 deg: 4C2FBF,E4DEFA"
     },
     {
@@ -2791,7 +2791,7 @@
       },
       {
         "id": "P3",
-        "name": "plan: palette has 1 accent and at most 1 signal colour",
+        "name": "plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)",
         "method": "file (plan)",
         "status": "pass",
         "value": {
@@ -2800,7 +2800,7 @@
         },
         "limit": {
           "accent": 1,
-          "signal": 1
+          "signal": 2
         },
         "evidence": "roles are read from the words next to each hex in the Palette block"
       },

@@ -2,6 +2,24 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.14-draft (2026-09-25)
+
+Schritt 4 aus BRIEF §10 (Werte kalibrieren) für die Lesedecks, freigegeben von Max. Grundlage: die Messwerte aus `research/beratungsdecks.md`. 79 Tests (5 neu), alle grün; alle Beispiel- und Musterdecks neu geprüft, kein Fail.
+
+| Wert | vorher | jetzt | Beleg |
+|---|---|---|---|
+| Wörter je Folie `read` | 120 (720 Zeichen) | 250 (1.500 Zeichen) | Entscheidung Max; Lesedecks p25–p75 von 130 bis 300 Wörtern |
+| Titel `read`, `update` | 24–28 pt | 20–28 pt | Median der Decks 20–25 pt |
+| Fußnote und Quelle `read`, `update`, `pitch` | 10 pt | 8 pt | Quellen in allen Decks 7–8 pt |
+| Fußzeile | innerhalb 48 pt | Fußnoten, Quelle, Seitenzahl bis 18 pt über der Unterkante | Quellenzeilen bei 482–514 von 540 pt |
+| Farben | 1 Akzent + höchstens 1 Signalfarbe | Rollen: Neutrale, 1 Akzent, höchstens ein Signalpaar (positiv/negativ), Abstufungen einer Farbe zählen einmal; Skript erlaubt 3 Farbfamilien | MCK-DC S. 4 (Blauskala plus orange Fokuszeile), BAIN-PE (Rot auf Grau) |
+
+Geändert: `profiles.md`, `rules-core.md` (Glossar, §2, §3, §4, Prüfliste, Provenienz), `deck-plan.md`, `commands.md`, `patterns.md` (Rahmen: Körper bis y 456, Fußzeile y 466–502; Budgets als schlankes Ende, bis 250 Wörter durch mehr Panels, nie durch kleinere Schrift), `check_deck.py` (Profilwerte, Fußzeilen-Rand, Farbrollen), `plan.py` (Plan-Palette mit Signalpaar), Testbau der Muster (Fußzeile neu positioniert).
+
+**Tests:** Der Test mit den absichtlichen Verstößen (`bad.pptx`) erwartet die 8-pt-Fußnote, die 150 Wörter und die drei Farbfamilien nicht mehr als Fehler; dafür prüfen neue Tests die neuen Schwellen (251 Wörter, 7 pt, Fußzeile unter 18 pt, vierte Farbfamilie, Titel ab 20 pt).
+
+**Unverändert, mangels Belegen:** Werte für `talk`, `pitch`, `update` (kein Statusbericht im Korpus, die Bain-Vortragsdecks liegen zwischen `talk` und `pitch`), Füllgrad (bleibt Beobachtung), Körperschrift-Minima.
+
 ## 0.13-draft (2026-09-25)
 
 Umsetzung von Audit 4 (`AUDIT-4.md`, IDs hier mit Präfix **A4-**), Empfehlungen 1 bis 3 und A4-H1, freigegeben von Max. 74 Tests (2 neu), alle grün. Alle Beispiel- und Musterdecks neu geprüft: kein Fail.

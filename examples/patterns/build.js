@@ -14,7 +14,7 @@ const INK = '1A1A1A', MUTED = '595959', GREY = '949494', GREY_ON_LIGHT = '858585
 const col = (c) => 48 + (c - 1) * (57.333 + 16);        // left edge of column c (1..12), pt
 const span = (n) => n * 57.333 + (n - 1) * 16;            // width of n columns, pt
 
-function master(pres, name, titleSize, titleH, footSize = 10) {
+function master(pres, name, titleSize, titleH, footSize = 8) {
   pres.defineSlideMaster({
     title: name,
     background: { color: 'FFFFFF' },
@@ -22,7 +22,7 @@ function master(pres, name, titleSize, titleH, footSize = 10) {
       { placeholder: { options: { name: 'title', type: 'title', x: pt(48), y: pt(64), w: pt(864), h: pt(titleH),
           fontFace: F, fontSize: titleSize, bold: true, color: INK, align: 'left', valign: 'top', margin: 0 }, text: '' } },
     ],
-    slideNumber: { x: pt(872), y: pt(462), w: pt(40), h: pt(16), fontFace: F, fontSize: footSize, color: MUTED, align: 'right' },
+    slideNumber: { x: pt(872), y: pt(486), w: pt(40), h: pt(16), fontFace: F, fontSize: footSize, color: MUTED, align: 'right' },
   });
 }
 
@@ -31,7 +31,7 @@ function text(s, t, x, y, w, h, o = {}) {
     align: 'left', valign: 'top', margin: 0, isTextBox: true }, o));
 }
 function measure(s, t) { text(s, t, 48, 124, 864, 18, { fontSize: 12, color: MUTED }); }
-function source(s, t, size = 10) { text(s, 'Quelle: ' + t, 48, 446, 700, 18, { fontSize: size, color: MUTED }); }
+function source(s, t, size = 8) { text(s, 'Quelle: ' + t, 48, 470, 700, 16, { fontSize: size, color: MUTED }); }
 function rule(s, x, y, w, color = RULE) { s.addShape('line', { x: pt(x), y: pt(y), w: pt(w), h: 0, line: { color, width: 0.75 } }); }
 
 // ------------------------------------------------------------------ read deck

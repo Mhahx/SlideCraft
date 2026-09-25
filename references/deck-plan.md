@@ -55,7 +55,7 @@ Fonts:              title family, body family, fallback (safe-list rule)
 Text roles:         role | family | weight | size pt | colour | use
                     title, subtitle, body, label, footnote/source, key number
                     (sizes at or above the profile minimums)
-Palette:            background | text | accent | signal (max 1) | neutrals
+Palette:            background | text | accent | signal (max 2: positive, negative) | neutrals
                     each with hex and role; contrast pairs with computed ratio
 Grid and spacing:   slide size, margins, 12 columns, spacing scale
 Layout types:       the patterns this deck uses, by id from patterns.md (for example
@@ -80,7 +80,7 @@ Real fonts, role sizes, hex colours, margins and layout types as shipped. Deviat
 ## Consistency checks on the plan itself (before building)
 1. Title strand read alone tells the argument; every non-exempt title is a claim.
 2. Each text role has one size and one colour; sizes are at or above the profile minimums; neighbouring sizes differ by at least a factor of 1.25.
-3. Palette follows the colour rule (1 accent + at most 1 signal colour); every text and background pair has a computed contrast at or above the threshold.
+3. Palette follows the colour roles (1 accent + at most a positive/negative signal pair); every text and background pair has a computed contrast at or above the threshold.
 4. Every slide row uses a layout type defined in section 4 and a role defined in the role table.
 5. Every data slide has a source and date.
 6. Word counts fit the profile limit.

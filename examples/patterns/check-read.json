@@ -2,13 +2,13 @@
   "file": "examples/patterns/read.pptx",
   "profile": "read",
   "thresholds": {
-    "title_min": 24,
+    "title_min": 20,
     "title_max": 28,
     "title_words": 15,
     "body_min": 14,
-    "foot_min": 10,
-    "words": 120,
-    "chars": 720,
+    "foot_min": 8,
+    "words": 250,
+    "chars": 1500,
     "fill": 0.75
   },
   "slide_size_pt": [
@@ -52,7 +52,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -60,7 +60,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -86,7 +86,7 @@
           "method": "file",
           "status": "pass",
           "value": 123,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\""
         },
         {
@@ -95,7 +95,7 @@
           "method": "file",
           "status": "observation",
           "value": 14,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -192,7 +192,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -200,7 +200,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -226,7 +226,7 @@
           "method": "file",
           "status": "pass",
           "value": 69,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Text 1\", slide2.xml#4 \"Text 2\", slide2.xml#5 \"Text 3\", slide2.xml#6 \"Text 4\""
         },
         {
@@ -235,7 +235,7 @@
           "method": "file",
           "status": "observation",
           "value": 11,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -336,7 +336,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide3.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -344,7 +344,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -353,16 +353,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -388,7 +388,7 @@
           "method": "file",
           "status": "pass",
           "value": 483,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\", slide3.xml#5 \"Text 3\", slide3.xml#6 \"Text 4\", slide3.xml#7 \"Text 5\""
         },
         {
@@ -397,7 +397,7 @@
           "method": "file",
           "status": "observation",
           "value": 76,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -498,7 +498,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide4.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -506,7 +506,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -526,16 +526,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -570,7 +570,7 @@
           "method": "file",
           "status": "pass",
           "value": 367,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Text 1\", slide4.xml#4 \"Chart 0\" (chart text), slide4.xml#5 \"Text 2\", slide4.xml#6 \"Text 3\", slide4.xml#8 \"Text 5\""
         },
         {
@@ -579,7 +579,7 @@
           "method": "file",
           "status": "observation",
           "value": 68,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -680,7 +680,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide5.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -688,7 +688,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -708,16 +708,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -752,7 +752,7 @@
           "method": "file",
           "status": "pass",
           "value": 153,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Chart 0\" (chart text)"
         },
         {
@@ -761,7 +761,7 @@
           "method": "file",
           "status": "observation",
           "value": 27,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -862,7 +862,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide6.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -870,7 +870,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -890,16 +890,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -943,7 +943,7 @@
           "method": "file",
           "status": "pass",
           "value": 181,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#4 \"Text 2\", slide6.xml#5 \"Text 3\", slide6.xml#6 \"Chart 0\" (chart text), slide6.xml#7 \"Text 4\", slide6.xml#8 \"Text 5\""
         },
         {
@@ -952,7 +952,7 @@
           "method": "file",
           "status": "observation",
           "value": 35,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -1053,7 +1053,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide7.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1061,7 +1061,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1081,16 +1081,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1116,7 +1116,7 @@
           "method": "file",
           "status": "pass",
           "value": 372,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide7.xml#2 \"Text 0\", slide7.xml#3 \"Text 1\", slide7.xml#8 \"Table 0\", slide7.xml#5 \"Text 2\""
         },
         {
@@ -1125,7 +1125,7 @@
           "method": "file",
           "status": "observation",
           "value": 73,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -1233,7 +1233,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide8.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1241,7 +1241,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1261,16 +1261,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1296,7 +1296,7 @@
           "method": "file",
           "status": "pass",
           "value": 339,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide8.xml#2 \"Text 0\", slide8.xml#3 \"Text 1\", slide8.xml#5 \"Text 3\", slide8.xml#6 \"Text 4\", slide8.xml#8 \"Text 6\", slide8.xml#9 \"Text 7\""
         },
         {
@@ -1305,7 +1305,7 @@
           "method": "file",
           "status": "observation",
           "value": 50,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -1406,7 +1406,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide9.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1414,7 +1414,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1423,16 +1423,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1442,7 +1442,7 @@
           "status": "pass",
           "value": 7.0,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 595959 on FFFFFF at 10.0 pt (slide9.xml#21 \"Text 19\")"
+          "evidence": "worst pair 595959 on FFFFFF at 8.0 pt (slide9.xml#21 \"Text 19\")"
         },
         {
           "id": "5",
@@ -1458,7 +1458,7 @@
           "method": "file",
           "status": "pass",
           "value": 346,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide9.xml#2 \"Text 0\", slide9.xml#3 \"Text 1\", slide9.xml#4 \"Text 2\", slide9.xml#6 \"Text 4\", slide9.xml#7 \"Text 5\", slide9.xml#9 \"Text 7\""
         },
         {
@@ -1467,7 +1467,7 @@
           "method": "file",
           "status": "observation",
           "value": 54,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -1568,7 +1568,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide10.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1576,7 +1576,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1596,16 +1596,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1631,7 +1631,7 @@
           "method": "file",
           "status": "pass",
           "value": 320,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide10.xml#2 \"Text 0\", slide10.xml#3 \"Text 1\", slide10.xml#4 \"Text 2\", slide10.xml#5 \"Text 3\", slide10.xml#7 \"Text 5\", slide10.xml#8 \"Text 6\""
         },
         {
@@ -1640,7 +1640,7 @@
           "method": "file",
           "status": "observation",
           "value": 49,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -1741,7 +1741,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide11.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1749,7 +1749,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1758,16 +1758,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1777,7 +1777,7 @@
           "status": "pass",
           "value": 7.0,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 595959 on FFFFFF at 10.0 pt (slide11.xml#18 \"Text 16\")"
+          "evidence": "worst pair 595959 on FFFFFF at 8.0 pt (slide11.xml#18 \"Text 16\")"
         },
         {
           "id": "5",
@@ -1793,7 +1793,7 @@
           "method": "file",
           "status": "pass",
           "value": 288,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide11.xml#2 \"Text 0\", slide11.xml#5 \"Text 3\", slide11.xml#6 \"Text 4\", slide11.xml#8 \"Text 6\", slide11.xml#9 \"Text 7\", slide11.xml#11 \"Text 9\""
         },
         {
@@ -1802,7 +1802,7 @@
           "method": "file",
           "status": "observation",
           "value": 52,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -1903,7 +1903,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide12.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1911,7 +1911,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1931,16 +1931,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1966,7 +1966,7 @@
           "method": "file",
           "status": "pass",
           "value": 413,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide12.xml#2 \"Text 0\", slide12.xml#3 \"Text 1\", slide12.xml#4 \"Text 2\", slide12.xml#5 \"Text 3\", slide12.xml#6 \"Text 4\", slide12.xml#7 \"Text 5\""
         },
         {
@@ -1975,7 +1975,7 @@
           "method": "file",
           "status": "observation",
           "value": 63,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -2076,7 +2076,7 @@
           "value": [
             24.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide13.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -2084,7 +2084,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -2093,16 +2093,16 @@
           "method": "file",
           "status": "pass",
           "value": [
-            10.0
+            8.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -2112,7 +2112,7 @@
           "status": "pass",
           "value": 7.0,
           "limit": "4.5:1 (large 3.0:1)",
-          "evidence": "worst pair 595959 on FFFFFF at 10.0 pt (slide13.xml#13 \"Text 11\")"
+          "evidence": "worst pair 595959 on FFFFFF at 8.0 pt (slide13.xml#13 \"Text 11\")"
         },
         {
           "id": "5",
@@ -2128,7 +2128,7 @@
           "method": "file",
           "status": "pass",
           "value": 257,
-          "limit": 720,
+          "limit": 1500,
           "evidence": "counted: slide13.xml#2 \"Text 0\", slide13.xml#3 \"Text 1\", slide13.xml#5 \"Text 3\", slide13.xml#6 \"Text 4\", slide13.xml#8 \"Text 6\", slide13.xml#9 \"Text 7\""
         },
         {
@@ -2137,7 +2137,7 @@
           "method": "file",
           "status": "observation",
           "value": 39,
-          "limit": 120,
+          "limit": 250,
           "evidence": "reported only; character limit applies for German"
         },
         {
@@ -2240,7 +2240,7 @@
       "method": "file",
       "status": "observation",
       "value": [
-        10.0,
+        8.0,
         12.0,
         14.0,
         16.0,
@@ -2250,15 +2250,15 @@
         32.0,
         48.0
       ],
-      "evidence": "pairs below factor 1.25: 10/12, 12/14, 14/16, 20/22, 22/24. Roles are only known from the deck plan, so this is not a threshold yet."
+      "evidence": "pairs below factor 1.25: 12/14, 14/16, 20/22, 22/24. Roles are only known from the deck plan, so this is not a threshold yet."
     },
     {
       "id": "5",
-      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
       "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
       "status": "pass",
       "value": 2,
-      "limit": 2,
+      "limit": 3,
       "evidence": "hue 4 deg: B42318; hue 206 deg: 0F5E9C"
     },
     {
@@ -2480,8 +2480,8 @@
         "slide 8 fill slide8.xml#16 \"Shape 14\""
       ]
     },
-    "min_inset_pt": 48.0,
-    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "min_inset_pt": 38.0,
+    "min_inset_at": "slide10.xml#25 \"Slide Number Placeholder 0\"",
     "profile": "read",
     "chart_sizes": [
       12.0

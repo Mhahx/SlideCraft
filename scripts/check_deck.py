@@ -35,14 +35,15 @@ REL = '{http://schemas.openxmlformats.org/package/2006/relationships}'
 
 EMU_PT = 12700.0
 MARGIN_PT = 48.0
+FOOTER_MARGIN_PT = 18.0  # footnotes, source and page number may sit in the bottom margin (research: sources at 482-514 of 540 pt)
 TOL = 0.75  # pt tolerance for geometry comparisons
 
 # Thresholds: copied from references/profiles.md and rules-core.md. Change them there first.
 PROFILES = {
-    'read':   dict(title_min=24, title_max=28, title_words=15, body_min=14, foot_min=10, words=120, chars=720, fill=0.75),
+    'read':   dict(title_min=20, title_max=28, title_words=15, body_min=14, foot_min=8, words=250, chars=1500, fill=0.75),
     'talk':   dict(title_min=40, title_max=None, title_words=8, body_min=24, foot_min=12, words=15, chars=90, fill=0.30),
-    'pitch':  dict(title_min=28, title_max=36, title_words=10, body_min=18, foot_min=10, words=40, chars=240, fill=0.50),
-    'update': dict(title_min=24, title_max=28, title_words=15, body_min=14, foot_min=10, words=80, chars=480, fill=0.60),
+    'pitch':  dict(title_min=28, title_max=36, title_words=10, body_min=18, foot_min=8, words=40, chars=240, fill=0.50),
+    'update': dict(title_min=20, title_max=28, title_words=15, body_min=14, foot_min=8, words=80, chars=480, fill=0.60),
 }
 SAFE_FONTS = {'arial', 'calibri', 'cambria', 'times new roman', 'courier new',
               'bookman old style', 'century schoolbook'}
@@ -1079,10 +1080,14 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             x, y, w, h = s.bbox
             if s.kind != 'pic':
                 insets.append((min(x, y, sw - x - w, sh - y - h), s.ref))
-            if x < MARGIN_PT - TOL or y < MARGIN_PT - TOL or x + w > sw - MARGIN_PT + TOL or y + h > sh - MARGIN_PT + TOL:
+            footer_item = s.is_source or bool(s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt')) or (
+                s.kind == 'text' and s.has_text and y >= sh - MARGIN_PT - 60 and
+                all(r['size'] is not None and r['size'] < prof['body_min'] - 0.01 for r in s.runs()))
+            bottom = sh - (FOOTER_MARGIN_PT if footer_item else MARGIN_PT)
+            if x < MARGIN_PT - TOL or y < MARGIN_PT - TOL or x + w > sw - MARGIN_PT + TOL or y + h > bottom + TOL:
                 (bleed if s.kind == 'pic' else edge_bad).append('%s [%.0f,%.0f,%.0f,%.0f]' % (s.ref, x, y, w, h))
         checks.append(chk('3', 'shapes inside 48 pt margins', 'file', 'fail' if edge_bad else 'pass',
-                          limit='48 pt', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
+                          limit='48 pt (footer items: 18 pt at the bottom)', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
         if bleed:
             checks.append(chk('3', 'pictures crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
         over = []
@@ -1351,13 +1356,13 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         deck.append(chk('2', 'steps between neighbouring sizes >= 1.25', 'file', 'observation', value=sizes,
                         evidence=('pairs below factor 1.25: %s. Roles are only known from the deck plan, so this is not a threshold yet.' % ', '.join('%g/%g' % p for p in small_steps)) if small_steps else 'all neighbouring sizes differ by at least 1.25'))
     clusters = cluster_hues(deck_hues)
-    st = 'pass' if len(clusters) <= 2 else 'fail'
-    if profile_name == 'update' and len(clusters) > 2:
+    st = 'pass' if len(clusters) <= 3 else 'fail'
+    if profile_name == 'update' and len(clusters) > 3:
         st = 'observation'
-    deck.append(chk('5', 'colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)', 'computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)',
-                    st, value=len(clusters), limit=2,
+    deck.append(chk('5', 'colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)', 'computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)',
+                    st, value=len(clusters), limit=3,
                     evidence='; '.join('hue %d deg: %s' % (round(c['hue']), ','.join(sorted(c['members']))) for c in clusters) or 'no chromatic colours found'
-                    + ('; update profile: status colours are a documented exception' if profile_name == 'update' and len(clusters) > 2 else '')))
+                    + ('; update profile: status colours are a documented exception' if profile_name == 'update' and len(clusters) > 3 else '')))
     for f in detect_mod.default_look(grounds, sys.modules[__name__]):
         deck.append(chk('11', 'refuse [%s]: look matches a default AI look' % f['rule'], 'computed (hue and lightness of the slide ground)',
                         f['status'], value=f['value'], evidence=f['evidence']))

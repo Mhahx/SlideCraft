@@ -316,17 +316,16 @@ class Fixtures(unittest.TestCase):
     def test_bad_deck_fails_exactly_the_planted_violations(self):
         rep = self.report('bad.pptx', 'read')
         expected = {
-            (1, '2', 'no text below footnote minimum'),                       # 8 pt footnote
+            # since 0.14 (calibrated on real decks): the 8 pt footnote, the 150 words and the three hue families
+            # of this deck are within the limits; tests in Calibration cover the new thresholds
             (1, '3', 'shapes inside 48 pt margins'),                          # 8 pt box at y=6.9 in and a shape at x=12 in
             (1, '5', 'text contrast'),                                        # BFBFBF on white
             (1, '8', 'alt text on pictures and charts'),                      # pptxgenjs writes the file path as alt text
             (1, '9', 'detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)'),  # shadow + emoji
             (2, '1', 'title present and non-empty'),
-            (2, '6', 'words per slide'),                                      # 150 filler words + table
             (2, '7', 'data slide has source and date'),
             (2, '8', 'title set'),
             ('deck', '2', 'at most 2 font families'),                         # Arial, Comic Sans MS, Georgia
-            ('deck', '5', 'colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)'),
         }
         self.assertEqual(self.fails(rep), expected)
 
@@ -456,7 +455,7 @@ class PlanComparison(unittest.TestCase):
         cases = [
             ('| body | Arial | regular | 16 |', '| body | Arial | regular | 12 |', 'plan: role sizes within profile limits'),
             ('| body | Arial | regular | 16 |', '| body | Arial | regular | 17 |', 'plan: neighbouring role sizes differ by at least 1.25'),
-            ('accent 1F4E79', 'accent 1F4E79, C00000', 'plan: palette has 1 accent and at most 1 signal colour'),
+            ('accent 1F4E79', 'accent 1F4E79, C00000', 'plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)'),
             ('| 333333 | body text |', '| BFBFBF | body text |', 'plan: role colours against palette backgrounds (contrast)'),
             ('| chart | Company data, 2025 |', '| chart | - |', 'plan: every data slide row has a source'),
             ('| 2 | main |', '| 2 | comparison |', 'plan: every slide row uses a layout type defined in the design system'),
@@ -821,6 +820,43 @@ class Detector(unittest.TestCase):
         c = [c for c in run_on(z)['deck'] if 'default-look' in c['name']]
         self.assertEqual(c[0]['status'], 'observation')
         self.assertNotIn('default-look', ' '.join(c['name'] for c in run_on(build_pptx([title_sp(self.T)]))['deck']))
+
+
+class Calibration(unittest.TestCase):
+    """Thresholds calibrated on the real decks in research/beratungsdecks.md (0.14)."""
+    T = 'Pricing explains most of the 12 % gain'
+
+    def test_read_allows_250_words_not_more(self):
+        ok = box(10, 48, 150, 864, 280, text=' '.join(['word'] * 230), sz=14)
+        over = box(10, 48, 150, 864, 280, text=' '.join(['word'] * 260), sz=14)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + ok]))['slides'][0]['checks'], 'words per slide')[0]['status'], 'pass')
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + over]))['slides'][0]['checks'], 'words per slide')[0]['status'], 'fail')
+
+    def test_footnote_minimum_is_8_pt_in_read_12_in_talk(self):
+        body = box(10, 48, 470, 700, 16, text='Source: company data, 2026', sz=8)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + body]))['slides'][0]['checks'], 'no text below footnote minimum')[0]['status'], 'pass')
+        seven = box(10, 48, 470, 700, 16, text='Source: company data, 2026', sz=7)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + seven]))['slides'][0]['checks'], 'no text below footnote minimum')[0]['status'], 'fail')
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + body]), 'talk')['slides'][0]['checks'], 'no text below footnote minimum')[0]['status'], 'fail')
+
+    def test_footer_items_may_use_the_bottom_margin_body_text_may_not(self):
+        source = box(10, 48, 496, 700, 16, text='Source: company data, 2026', sz=8)
+        body = box(10, 48, 496, 700, 20, text='A body sentence placed far too low', sz=16)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + source]))['slides'][0]['checks'], 'shapes inside 48 pt margins')[0]['status'], 'pass')
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + body]))['slides'][0]['checks'], 'shapes inside 48 pt margins')[0]['status'], 'fail')
+        below = box(10, 48, 512, 700, 16, text='Source: company data, 2026', sz=8)   # bottom at 528 > 522
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + below]))['slides'][0]['checks'], 'shapes inside 48 pt margins')[0]['status'], 'fail')
+
+    def test_colour_roles_allow_accent_plus_signal_pair_not_a_fourth_hue(self):
+        def deck(hexes):
+            return build_pptx([title_sp(self.T) + ''.join(box(10 + i, 48 + i * 100, 200, 80, 40, fill=h) for i, h in enumerate(hexes))])
+        roles = lambda r: [c for c in r['deck'] if c['name'].startswith('colour roles')][0]['status']
+        self.assertEqual(roles(run_on(deck(['0F5E9C', '2E7D32', 'B42318']))), 'pass')             # accent, positive, negative
+        self.assertEqual(roles(run_on(deck(['0F5E9C', '2E7D32', 'B42318', '7B1FA2']))), 'fail')   # plus a fourth hue
+
+    def test_read_title_from_20_pt(self):
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 64 * PT, 864 * PT, 60 * PT, self.T, rpr_of(20, '111111'), ph='<p:ph type="title"/>')])
+        self.assertEqual(find(run_on(z)['slides'][0]['checks'], 'title size within profile range')[0]['status'], 'pass')
 
 
 class RecurringPositions(unittest.TestCase):

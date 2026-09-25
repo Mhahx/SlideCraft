@@ -60,7 +60,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -222,7 +222,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -393,7 +393,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -545,7 +545,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -701,11 +701,11 @@
     },
     {
       "id": "5",
-      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
       "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
       "status": "pass",
       "value": 1,
-      "limit": 2,
+      "limit": 3,
       "evidence": "hue 206 deg: 0F5E9C"
     },
     {
@@ -839,8 +839,8 @@
         "slide 4 text slide4.xml#4 \"Text 1\""
       ]
     },
-    "min_inset_pt": 48.0,
-    "min_inset_at": "slide1.xml#3 \"Shape 0\"",
+    "min_inset_pt": 38.0,
+    "min_inset_at": "slide2.xml#25 \"Slide Number Placeholder 0\"",
     "profile": "talk",
     "chart_sizes": [
       12.0,

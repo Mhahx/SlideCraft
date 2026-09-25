@@ -2,11 +2,11 @@
   "file": "examples/e-flugzeuge/update/deck.pptx",
   "profile": "update",
   "thresholds": {
-    "title_min": 24,
+    "title_min": 20,
     "title_max": 28,
     "title_words": 15,
     "body_min": 14,
-    "foot_min": 10,
+    "foot_min": 8,
     "words": 80,
     "chars": 480,
     "fill": 0.6
@@ -122,7 +122,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -130,7 +130,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -344,7 +344,7 @@
           "value": [
             28.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide2.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -352,7 +352,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -363,14 +363,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -645,7 +645,7 @@
           "value": [
             28.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide3.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -653,7 +653,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -664,14 +664,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -948,7 +948,7 @@
           "value": [
             28.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide4.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -956,7 +956,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -967,14 +967,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1251,7 +1251,7 @@
           "value": [
             28.0
           ],
-          "limit": "24-28 pt",
+          "limit": "20-28 pt",
           "evidence": "slide5.xml#2 \"Text 0\" run rPr"
         },
         {
@@ -1259,7 +1259,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1270,14 +1270,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1433,11 +1433,11 @@
     },
     {
       "id": "5",
-      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
       "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
       "status": "observation",
       "value": 4,
-      "limit": 2,
+      "limit": 3,
       "evidence": "hue 0 deg: B71C1C; hue 26 deg: B45309; hue 123 deg: 2E7D32; hue 209 deg: 1B2733,1F4E79,4A5866"
     },
     {
@@ -2355,7 +2355,7 @@
       },
       {
         "id": "P3",
-        "name": "plan: palette has 1 accent and at most 1 signal colour",
+        "name": "plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)",
         "method": "file (plan)",
         "status": "pass",
         "value": {
@@ -2364,7 +2364,7 @@
         },
         "limit": {
           "accent": 1,
-          "signal": 1
+          "signal": 2
         },
         "evidence": "roles are read from the words next to each hex in the Palette block"
       },
