@@ -1,10 +1,15 @@
 name: Release
 
-# Push a tag that matches the plugin version (plugin/.claude-plugin/plugin.json), for example v0.19.0.
-# The workflow tests, builds dist/slide-craft.zip and attaches it to a GitHub release of that tag.
+# Two ways to release the version in plugin/.claude-plugin/plugin.json (for example 0.19.0):
+# - push a tag v0.19.0, or
+# - run this workflow by hand (Actions > Release > Run workflow): it creates the tag v<version> on the
+#   commit it runs on.
+# The workflow tests, builds dist/slide-craft.zip, checks that tag and versions agree, and attaches
+# the ZIP to a GitHub release of that tag.
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,10 +22,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Tag of this release
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then tag="$GITHUB_REF_NAME"; else
+            tag="v$(python3 -c "import json; print(json.load(open('plugin/.claude-plugin/plugin.json'))['version'])")"; fi
+          echo "TAG=$tag" >> "$GITHUB_ENV"
+          echo "Release tag: $tag"
       - name: Unit tests
         run: python3 -m unittest discover -s tests
       - name: Build the package; the tag must match the plugin version
-        run: python3 tools/package.py --tag "$GITHUB_REF_NAME"
+        run: python3 tools/package.py --tag "$TAG"
       - name: Validate the skill
         # skills-ref 0.1.1 from PyPI installs its command as `agentskills` (the git version names it `skills-ref`)
         run: |
@@ -30,6 +41,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/slide-craft.zip \
-            --title "Slide Craft $GITHUB_REF_NAME" \
-            --notes "Skill package for claude.ai (Customize > Skills > Upload a skill). Changes: see CHANGELOG.md. Install from GitHub instead: see README.md, section Installieren."
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Release $TAG exists already; raise the version in plugin.json and SKILL.md for a new one."; exit 1; fi
+          gh release create "$TAG" dist/slide-craft.zip --target "$GITHUB_SHA" \
+            --title "Slide Craft $TAG" \
+            --notes "Skill package for claude.ai (Customize > Skills > Upload a skill). Install from GitHub instead: see README.md, section Installieren. Changes: see CHANGELOG.md."
