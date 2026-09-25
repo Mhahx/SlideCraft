@@ -40,7 +40,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 - Colour carries meaning, not decoration. The same meaning has the same colour on every slide.
 - The `update` profile may use status colours (red/amber/green) as a documented exception, always with a text label as well.
 - Text contrast: normal text at least 4.5:1, large text (at least 18 pt, or at least 14 pt bold) at least 3:1 (WCAG 2.2 SC 1.4.3). The pt sizes of WCAG refer to screens; applying them to projected slides is an approximation. Secondary text on a coloured surface is derived from that surface's hue, not neutral grey.
-- Non-text contrast: graphic elements that carry meaning (bars, lines, markers, icons needed to understand a slide) at least 3:1 against adjacent colours (WCAG 2.2 SC 1.4.11). This includes the neutral colour used for de-emphasised chart elements: on a white background the neutral must be as dark as `959595` (3.0:1) or darker. Decorative rules and gridlines are exempt.
+- Non-text contrast: graphic elements that carry meaning (bars, lines, markers, icons needed to understand a slide) at least 3:1 against adjacent colours (WCAG 2.2 SC 1.4.11). This includes the neutral colour used for de-emphasised chart elements: on a white background the neutral must be as dark as `949494` (3.03:1) or darker (`959595` computes to 2.995:1 and does not pass). Decorative rules and gridlines are exempt.
 - Text is never placed directly on photos, gradients or busy areas. Place a text panel or scrim with known colour and opacity behind it.
 - Light or dark is chosen from the use scene (room, projector, screen, print), not from the industry.
 
@@ -64,13 +64,14 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 
 ## Checks: how each one is verified
 
-Every check in a report carries its method. Only items with a method of *file*, *computed* or *script* are reported as pass or fail. Items with *render estimate* or *judgement* are reported as observations, never as thresholds. Never report a measured value that was not read from the file or computed by code. Until a script in `scripts/` provides fixed output per slide (planned), state which method you used for each value.
+Every check in a report carries its method. Only items with a method of *file*, *computed* or *script* are reported as pass or fail. Items with *render estimate* or *judgement* are reported as observations, never as thresholds. Never report a measured value that was not read from the file or computed by code. `scripts/check_deck.py` provides fixed JSON output per slide with method and origin for each value. Where it is not run, state which method you used for each value.
 
 | Check | Method |
 |---|---|
 | Font sizes, font families, colour count, positions, margins, words per slide, alt text, reading order, titles set | file (read from XML or object properties) |
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
-| Fill share, optical alignment | script (until it exists: "not measured") |
+| Fill share | script (`scripts/check_deck.py`, bounding-box union) |
+| Optical alignment | not measured (no script yet) |
 | Overflow, text density, overall impression | render estimate (unreliable for non-safe fonts) |
 | Title strand reads as a story, look not guessable, direction contract held | judgement |
 

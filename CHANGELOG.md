@@ -2,6 +2,44 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.7-draft (2026-09-25)
+
+Planabgleich im Prüfskript (BRIEF §10 Schritt 1, Prüfpunkt 12). Neues Testergebnis im Sinne von §11 Regel 9: 32 automatisierte Tests (11 neu). Kein neues Regelwerk und keine Änderung an `deck-plan.md`: Das Skript liest die bestehende Vorlage.
+
+**Neu** (`scripts/plan.py`, Aufruf über `check_deck.py`):
+- `--plan deck-plan.md`: liest den Plan und prüft (a) **den Plan gegen sich selbst** nach den Konsistenzprüfungen in `deck-plan.md` (Rollengrößen gegen Profilgrenzen, Faktor 1,25 zwischen Rollengrößen, höchstens 1 Akzent und 1 Signalfarbe, berechneter Kontrast Rollenfarbe gegen Hintergrund, Layouttypen der Folientabelle, Quelle in Datenfolien-Zeilen, Profil gleich Lauf) und (b) **das Deck gegen den Plan**: Folienzahl, Titelwortlaut, Schriftfamilien, jede Textgröße ist eine Rollengröße, Fettdruck gegen Rollengewicht, jede verwendete Farbe steht in der Palette, kleinster Randabstand gegen Planrand, Layoutname gegen Layouttyp. Verstöße sind Befunde. Waivers (Schriftname oder Hexwert im Waiver-Text) ergeben den Status `waived`.
+- `--derive-plan`: schreibt aus einem Deck ohne Plan die messbaren Teile eines Plans (Schriften, Rollentabelle, Palette, Rand, Layouts, Titelstrang, Folientabelle). Rollennamen außer `title` und `footnote/source` sind Platzhalter (`text-18pt`), Direktion und Story bleiben leer. Das setzt die Regel in `deck-plan.md` um, dass ein bestehendes Deck zuerst einen abgeleiteten Plan bekommt.
+- Nicht lesbare Planteile werden `not_measured` mit Grund gemeldet, nie geraten.
+
+**Was beim Bauen auffiel:**
+
+| Befund | Änderung |
+|---|---|
+| T-4 | Der Rundlauftest (aus Deck A einen Plan ableiten, Deck A dagegen prüfen) hat drei Fehler im Skript gezeigt: reine Buchstaben-Hexwerte wie `FFFFFF` wurden beim Einlesen der Palette verworfen, Diagrammtext fehlte im abgeleiteten Plan, und mein "gutes" Testdeck verletzte selbst den Faktor 1,25 (16 und 18 pt, Diagramm-Standard 12 pt neben 10 pt Quelle). Skript und Testdeck korrigiert. |
+| T-5 | Ein Plan-Check meldete 16/18 pt und 10/12 pt zu Recht als Verstoß gegen die 1,25-Regel. Ohne Plan waren diese Werte nur Beobachtung, weil die Rollen fehlten. Mit Plan sind sie Pass/Fail. |
+
+**Tests:** Parser (Vorlagenformat, fette Labels und Aufzählungen, unlesbarer Plan), Übereinstimmung ohne Befund, Rundlauf über die abgeleitete Datei (auch als committete Datei `tests/fixtures/good-plan.md`), sieben gezielte Abweichungen (Titel, Schrift, Größe, Gewicht, Palette, Rand, Folienzahl), sechs Selbstprüfungen, Waiver, Profilkonflikt. Mutationsprüfung von Hand: 15 gezielte Änderungen an `plan.py`, alle werden von mindestens einem Test erkannt.
+
+**Grenzen:** (1) Layouts werden nur über den Namen verglichen, und Dateien aus pptxgenjs nennen ihre Layouts nicht wie die Plantypen, daher ist das nur eine Beobachtung. (2) Die Zeile `Fonts:` im Plan ist Freitext und wird nicht gelesen, Schriften kommen aus der Rollentabelle. (3) Rollengewichte kennt PowerPoint nur als fett oder nicht fett, "medium" und "light" zählen als nicht fett. (4) Größenbereiche in der Rollentabelle ("24-28") werden nicht ausgewertet, es zählt die erste Zahl. (5) Getestet an Plänen, die ich nach der Vorlage geschrieben habe, und an abgeleiteten Plänen, nicht an Plänen, die ein anderes Modell in einer echten Sitzung schreibt. Das Format, in dem Claude die Vorlage ausfüllt, ist der wahrscheinlichste Bruchpunkt. (6) Es gab weiterhin keine echten Decks der Zielgruppe.
+
+## 0.6-draft (2026-09-25)
+
+Prüfskript in erster Fassung (BRIEF §10 Schritt 1). Neues Testergebnis im Sinne von §11 Regel 9: 21 automatisierte Tests, davon zwei gebaute Testdecks (pptxgenjs) und handgebautes OOXML. Kein neues Regelwerk, nur ein Fehler korrigiert (siehe unten).
+
+**Was das Skript misst** (`scripts/check_deck.py`, nur Python-Standardbibliothek, JSON pro Folie und Deck, jeder Wert mit Methode und Herkunft): Schriftgrößen, -familien und Farben mit Vererbung (Lauf, Shape, Layout, Master, Standardstil, Theme, `normAutofit`-Skalierung), Geometrie mit Platzhalter-Vererbung und Gruppentransformation, Titel und Wortgrenze, Wörter und Zeichen je Folie (ohne Quellzeile, Seitenzahl), Füllgrad (Vereinigung der Bounding-Boxen), Ränder, Kontrast nach WCAG mit aufgelösten Themefarben, Diagrammfarben (1.4.11), Farbregel (Farbtonfamilien), Quelle und Jahr auf Datenfolien, Alt-Text, Lesereihenfolge, erkennbare Refuse-Punkte (Verlauf, Schatten, 3D, Emoji), Position wiederkehrender Platzhalter.
+
+**Was es nicht misst** (wird als `not_measured` oder `observation` ausgegeben, nie als Pass/Fail): Rendern und Überlauf (nur Schätzung mit 0,5 em, auf diesem Rechner fehlt LibreOffice), optische Ausrichtung, Abstandsraster 8 pt, Planabgleich (Prüfpunkt 12), Urteilspunkte 10 und 11, Rollen (Body gegen Label sind ohne Plan nicht unterscheidbar, deshalb sind Größen zwischen Footnote- und Body-Minimum nur Beobachtung), Theme-Füllstile (`bgRef`, `fillRef`).
+
+| Befund | Datei | Änderung |
+|---|---|---|
+| T-1 | rules-core.md | **Fehlerkorrektur:** `959595` auf Weiß ist 2,995:1 und erreicht 3:1 nicht (WCAG erlaubt kein Runden). Das hellste Grau, das besteht, ist `949494` (3,03:1). Regel und Prüfung nennen jetzt `949494`. Der Wert stand als "959595 (3,0:1)" in 0.5 und in A2-H6. |
+| T-2 | scripts/check_deck.py | pptxgenjs schreibt bei Bildern ohne `altText` den Dateipfad als Alt-Text. Ein Test auf "nicht leer" würde das als bestanden werten. Dateinamen und generische Bezeichnungen ("Image 1", "Bild 2") gelten deshalb als fehlender Alt-Text. Ob ein vorhandener Alt-Text den Inhalt beschreibt, bleibt ein Urteil. |
+| T-3 | rules-core.md | Prüfpunkt-Tabelle: Füllgrad ist jetzt `script`, optische Ausrichtung weiter "nicht gemessen". |
+
+**Tests** (`python3 tests/test_check_deck.py`): Kontrast gegen bekannte Werte (D9D9D9, BFBFBF, A6A6A6, 949494), Themefarben gegen die veröffentlichten Office-Farbfelder (Akzent 1 mit lumMod 75 % = 2F5597, 60/40 = 8FAADC, 20/80 = DAE3F3), Vererbung aus dem Master, keine erfundenen Größen bei fehlenden Angaben, Gruppentransformation, Rand- und Grundfläche, Textschwellen 4,5 und 3:1 (14 pt fett zählt als groß), deutsches Zeichenlimit, Ausnahmefolien, Profil ändert Schwellen. Das schlechte Testdeck muss **genau** die absichtlich eingebauten elf Verstöße melden, das gute keinen. Mutationsprüfung von Hand: 13 gezielte Änderungen am Skript, alle bis auf eine (äquivalent, doppelt abgesicherter Bildzweig) lassen mindestens einen Test scheitern. Zwei Lücken, die dabei sichtbar wurden (Randgrenze, Textschwelle 4,5), sind mit eigenen Tests geschlossen.
+
+**Grenzen der Tests:** Die Decks stammen aus pptxgenjs und aus handgebautem OOXML. Sie wurden nicht in PowerPoint geöffnet. Es fehlen echte Decks mit komplexen Themes, Folienmastern, Tabellenstilen und eingebetteten Diagrammen, daher ist die Kalibrierung an echten Decks (BRIEF §10 Schritt 3) der nächste echte Test. Die Schwellen im Skript sind eine Kopie aus `profiles.md` und `rules-core.md` (Konsistenz nur per Test der Beispiele, nicht automatisch).
+
 ## 0.5-draft (2026-09-25)
 
 Bereinigung nach Audit A2. Kein neues Feature. Es konnte auf diesem Rechner kein Testdeck gebaut werden (kein Node, Python nur als Store-Platzhalter). Belegt wurde durch Rechnung: Grautöne-Kontrast (D9D9D9 1,41:1, BFBFBF 1,84:1, A6A6A6 2,43:1, 959595 3,0:1), Satzspiegel bei 0,667 in Rand (74 %), Zeilenkapazität der Titel (Schätzung, nicht gemessen).
