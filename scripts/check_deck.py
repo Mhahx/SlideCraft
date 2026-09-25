@@ -1310,10 +1310,10 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                               evidence='none of the %d detector rules found (%s)' % (len(detect_mod.RULES), ', '.join(sorted(detect_mod.RULES)))))
         grounds.append((i, detect_mod.ground_colour(bg, shapes, sw, sh)[0]))
 
-        # placeholders' positions for the recurring-element check
+        # placeholders' positions for the recurring-element check, per layout: each layout type (pattern) has its own positions
         for s in shapes:
             if s.ph and s.bbox and not exempt:
-                ph_positions.setdefault(norm_ph_type(s.ph[0]), {})[i] = (tuple(round(v, 1) for v in s.bbox), s.ref)
+                ph_positions.setdefault((norm_ph_type(s.ph[0]), lname), {})[i] = (tuple(round(v, 1) for v in s.bbox), s.ref)
 
         slide_facts.append({'n': i, 'exhibits': sorted({s.kind for s in shapes if s.kind in ('chart', 'table', 'pic')}),
                             'source': next((s.text.strip() for s in shapes if s.is_source), '')})
@@ -1355,14 +1355,14 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     for f in detect_mod.default_look(grounds, sys.modules[__name__]):
         deck.append(chk('11', 'refuse [%s]: look matches a default AI look' % f['rule'], 'computed (hue and lightness of the slide ground)',
                         f['status'], value=f['value'], evidence=f['evidence']))
-    for phtype, pos in ph_positions.items():
+    for (phtype, lay), pos in ph_positions.items():
         if len(pos) < 2:
             continue
         uniq = {}
         for n, (bb, ref) in pos.items():
             uniq.setdefault(bb, []).append(n)
         same = len(uniq) == 1
-        deck.append(chk('4', 'recurring %s placeholder at the same position' % phtype, 'file', 'pass' if same else 'fail',
+        deck.append(chk('4', 'recurring %s placeholder at the same position%s' % (phtype, ' (layout "%s")' % lay if lay else ''), 'file', 'pass' if same else 'fail',
                         value=len(uniq), evidence=('slides %s share %s' % (sorted(pos), list(uniq)[0])) if same else
                         '; '.join('slides %s at %s' % (sorted(v), k) for k, v in uniq.items())))
     lefts = {}

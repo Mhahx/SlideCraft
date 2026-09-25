@@ -2,6 +2,30 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.12-draft (2026-09-25)
+
+Schritt 3 aus BRIEF §10 (Musterbibliothek), freigegeben von Max. Neues Testergebnis: 14 Muster als 17 Folien gebaut, gerendert und geprüft. 72 Tests (3 neu), alle grün.
+
+**Recherche (`research/beratungsdecks.md`):** 9 öffentliche Decks selbst geladen und angesehen, darunter 5 Kundendecks: McKinsey (Transportation in DC 2020, USPS 2010), BCG (NYCHA 2012, NYC Media 2015, Kongress-Unterlagen 2023), Bain (PE Roadshow 2023, Resilience 2020, IABC 2019), Roland Berger (Trend Compendium 2025). Zusammen rund 400 Seiten; per Code gemessen (Titelgröße, Wörter, kleinste Schrift, Quellenzeilen, Positionen), rund 60 Seiten angesehen. Nicht erreichbar: PDFs von `web-assets.bcg.com` und `mckinsey.com` (Bot-Schutz der Server).
+
+**Musterbibliothek (`references/patterns.md`):** P01 cover, P02 divider-agenda, P03 summary, P04 chart-rail, P05 chart-focus, P06 two-exhibits, P07 table, P08 bridge, P09 before-after, P10 numbered-rows, P11 timeline, P12 case, P13 key-numbers, P14 statement. Jedes Muster mit Einsatz, Profilen, Belegen (Deck und Seite), Skizze, Zonen auf dem 12-Spalten-Raster, Textbudget je Zone und Regeln. Dazu der gemeinsame Rahmen (Tracker, Statusmarke, Titel, Messzeile, Körper, Fußnoten und Quelle, Seitenzahl). Eingebunden in `SKILL.md` (Schritte 5 und 6), `deck-plan.md` (Layout type = Muster-ID), `rules-core.md` §3 und `commands.md`.
+
+**Testbau (`examples/patterns/`, Arbeitsregel 1):** `read.pptx` (P01 bis P13) und `talk.pptx` (P01, P05, P13, P14), eine Folienvorlage je Muster, gerendert per LibreOffice. Ergebnis: kein Detektor-Befund außer der gewollten Beobachtung `stat-row` auf P13, kein Textüberlauf. Fails nur beim Füllgrad: `read` P05 und P06 (82 % bei 75 %), `talk` P05, P13, P14 (80, 46, 64 % bei 30 %). Nicht durch Verkleinern umgangen; Entscheidung in Schritt 4.
+
+**Detektor, korrigiert an echten Decks:**
+
+| Befund | Änderung |
+|---|---|
+| Panels mit Kopfband (MCK-USPS S. 3, 5, 8, 20) wurden als `nested-cards` gemeldet | bündige Kopf- und Fußbänder (volle Breite, höchstens 35 % der Höhe) sind ausgenommen |
+| Zeilenbeschriftungen in grauen Feldern (BCG-NYCHA S. 35) hätten `card-grid` ausgelöst | eine Karte braucht mindestens zwei Textelemente |
+| Eine ungerahmte Reihe großer Zahlen steht in einem echten Bain-Deck (BAIN-IABC S. 4) | `stat-row` ist nur noch ein Fail, wenn die Zahlen in Boxen stehen, sonst eine Beobachtung |
+
+**Prüfskript:** Prüfpunkt 4 ("wiederkehrende Platzhalter an derselben Position") vergleicht jetzt je Folienvorlage statt über das ganze Deck; vorher meldete er das Statement-Muster (Titel unter dem Fotostreifen) als Abweichung.
+
+**Beim Testbau gefundene eigene Fehler, behoben:** Grau 949494 auf hellem Band 2,71:1 (jetzt 858585, 3,3:1), zwei Elemente über dem Rand, Werte in farbigen Balken schlecht lesbar (jetzt eine Reihe mit Farbe je Punkt, Wert über dem Balken), P14-Titel auf dem Foto, Rechenfehler in den Beispielzahlen (0,54 statt 3,9 Mio. €).
+
+**Grenzen:** Muster und Budgets sind Startwerte; die Budgets sind an die heutigen Profilgrenzen angepasst, echte Lesedecks sind dichter. Der Detektor prüft die Budgets je Zone noch nicht. Rendering nur in LibreOffice. P08 aus Formen gebaut (pptxgenjs schreibt kein natives Wasserfalldiagramm). Beurteilung der Testfolien durch dasselbe Modell, keine unabhängige Prüfung.
+
 ## 0.11-draft (2026-09-25)
 
 Umsetzung von Schritt 1 und 2 aus Audit 3 (`AUDIT.md`, IDs hier mit Präfix **A3-**), freigegeben von Max. Neues Testergebnis: Das absichtlich gebaute KI-Deck fällt jetzt auf jeder Folie durch, vorher bestand es die Vermeidungsprüfung. 69 Tests (18 neu), alle grün, auch die 5 Rendertests, die bisher mangels LibreOffice Impress übersprungen wurden.

@@ -1,0 +1,2579 @@
+{
+  "file": "examples/patterns/read.pptx",
+  "profile": "read",
+  "thresholds": {
+    "title_min": 24,
+    "title_max": 28,
+    "title_words": 15,
+    "body_min": 14,
+    "foot_min": 10,
+    "words": 120,
+    "chars": 720,
+    "fill": 0.75
+  },
+  "slide_size_pt": [
+    960.0,
+    540.0
+  ],
+  "slide_size_check": {
+    "id": "0",
+    "name": "slide size is 13.33 x 7.5 in (960 x 540 pt)",
+    "method": "file",
+    "status": "pass",
+    "value": [
+      960.0,
+      540.0
+    ],
+    "limit": [
+      960.0,
+      540.0
+    ],
+    "evidence": "ppt/presentation.xml sldSz"
+  },
+  "slides": [
+    {
+      "n": 1,
+      "part": "ppt/slides/slide1.xml",
+      "layout": "P01 cover",
+      "layout_type": null,
+      "exempt_from_action_title": "--exempt",
+      "title": "Werk Nord: Wege zu 12 % niedrigeren Stückkosten",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 7,
+          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (--exempt)"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 14.0 pt (slide1.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 123,
+          "limit": 720,
+          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 14,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.182,
+          "limit": 0.75,
+          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 17 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "part": "ppt/slides/slide2.xml",
+      "layout": "P02 divider-agenda",
+      "layout_type": null,
+      "exempt_from_action_title": "--exempt",
+      "title": "Inhalt",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 1,
+          "evidence": "slide2.xml#2 \"Text 0\": exempt slide type (--exempt)"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 3.03,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 949494 on FFFFFF at 22.0 pt (slide2.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 69,
+          "limit": 720,
+          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Text 1\", slide2.xml#4 \"Text 2\", slide2.xml#5 \"Text 3\", slide2.xml#6 \"Text 4\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 11,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.336,
+          "limit": 0.75,
+          "evidence": "5 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 12 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "part": "ppt/slides/slide3.xml",
+      "layout": "P03 summary",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Drei Hebel senken die Stückkosten bis 2028 um 12 %",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 9,
+          "limit": 15,
+          "evidence": "slide3.xml#2 \"Text 0\" \"Drei Hebel senken die Stückkosten bis 2028 um 12 %\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide3.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 14.0 pt (slide3.xml#4 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 483,
+          "limit": 720,
+          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\", slide3.xml#5 \"Text 3\", slide3.xml#6 \"Text 4\", slide3.xml#7 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 76,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.63,
+          "limit": 0.75,
+          "evidence": "7 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 95 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "part": "ppt/slides/slide4.xml",
+      "layout": "P04 chart-rail",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Energie je Stück liegt in Werk Nord 31 % über Werk Süd",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 11,
+          "limit": 15,
+          "evidence": "slide4.xml#2 \"Text 0\" \"Energie je Stück liegt in Werk Nord 31 % über Werk Süd\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide4.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide4.xml#3 \"Text 1\" 12.0pt; slide4.xml#5 \"Text 2\" 12.0pt; slide4.xml#6 \"Text 3\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 6.77,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 0F5E9C on FFFFFF at 12.0 pt (slide4.xml#5 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.03,
+          "limit": "3.0:1",
+          "evidence": "slide4.xml#4 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 367,
+          "limit": 720,
+          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Text 1\", slide4.xml#4 \"Chart 0\" (chart text), slide4.xml#5 \"Text 2\", slide4.xml#6 \"Text 3\", slide4.xml#8 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 68,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.741,
+          "limit": 0.75,
+          "evidence": "7 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Energiecontrolling, 2026 (Beispieldaten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 73 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "part": "ppt/slides/slide5.xml",
+      "layout": "P05 chart-focus",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Der Ausschuss stieg 2026 auf 4,8 % und liegt damit am höchsten seit 2019",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 13,
+          "limit": 15,
+          "evidence": "slide5.xml#2 \"Text 0\" \"Der Ausschuss stieg 2026 auf 4,8 % und liegt damit am höchsten seit 2019\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide5.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide5.xml#3 \"Text 1\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 12.0 pt (slide5.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.03,
+          "limit": "3.0:1",
+          "evidence": "slide5.xml#4 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 153,
+          "limit": 720,
+          "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 27,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "fail",
+          "value": 0.818,
+          "limit": 0.75,
+          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Qualitätsberichte, 2019–2026 (Beispieldaten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 41 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "part": "ppt/slides/slide6.xml",
+      "layout": "P06 two-exhibits",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Mehr Energie und mehr Ausschuss treffen dieselben zwei Linien",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 9,
+          "limit": 15,
+          "evidence": "slide6.xml#2 \"Text 0\" \"Mehr Energie und mehr Ausschuss treffen dieselben zwei Linien\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide6.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide6.xml#5 \"Text 3\" 12.0pt; slide6.xml#8 \"Text 5\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 6.26,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on F2F2F2 at 12.0 pt (slide6.xml#5 \"Text 3\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.3,
+          "limit": "3.0:1",
+          "evidence": "slide6.xml#6 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.3,
+          "limit": "3.0:1",
+          "evidence": "slide6.xml#9 \"Chart 1\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 181,
+          "limit": 720,
+          "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#4 \"Text 2\", slide6.xml#5 \"Text 3\", slide6.xml#6 \"Chart 0\" (chart text), slide6.xml#7 \"Text 4\", slide6.xml#8 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 35,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "fail",
+          "value": 0.818,
+          "limit": 0.75,
+          "evidence": "8 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Energie- und Qualitätscontrolling, 2026 (Beispieldaten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide6.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 2,
+          "evidence": "all 2 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide6.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 48 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "part": "ppt/slides/slide7.xml",
+      "layout": "P07 table",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Linie 3 hat die höchsten Kosten je Stück bei geringster Auslastung",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 11,
+          "limit": 15,
+          "evidence": "slide7.xml#2 \"Text 0\" \"Linie 3 hat die höchsten Kosten je Stück bei geringster Auslastung\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide7.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide7.xml#3 \"Text 1\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 12.0 pt (slide7.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 372,
+          "limit": 720,
+          "evidence": "counted: slide7.xml#2 \"Text 0\", slide7.xml#3 \"Text 1\", slide7.xml#8 \"Table 0\", slide7.xml#5 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 73,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.691,
+          "limit": 0.75,
+          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Kostenrechnung je Linie, 2026 (Beispieldaten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide7.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide7.xml#2 \"Text 0\""
+        },
+        {
+          "id": "3",
+          "name": "table cell margins leave room for the text",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide7.xml#8 \"Table 0\": margins are below 60 % of every cell width"
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 92 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "part": "ppt/slides/slide8.xml",
+      "layout": "P08 bridge",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Energie und Ausschuss erklären 1,25 € der 1,90 € Mehrkosten",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 8,
+          "limit": 15,
+          "evidence": "slide8.xml#2 \"Text 0\" \"Energie und Ausschuss erklären 1,25 € der 1,90 € Mehrkosten\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide8.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide8.xml#11 \"Text 9\" 12.0pt; slide8.xml#12 \"Text 10\" 12.0pt; slide8.xml#14 \"Text 12\" 12.0pt; slide8.xml#15 \"Text 13\" 12.0pt; slide8.xml#17 \"Text 15\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 12.0 pt (slide8.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 339,
+          "limit": 720,
+          "evidence": "counted: slide8.xml#2 \"Text 0\", slide8.xml#3 \"Text 1\", slide8.xml#5 \"Text 3\", slide8.xml#6 \"Text 4\", slide8.xml#8 \"Text 6\", slide8.xml#9 \"Text 7\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 50,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.456,
+          "limit": 0.75,
+          "evidence": "28 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide8.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide8.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 60 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "part": "ppt/slides/slide9.xml",
+      "layout": "P09 before-after",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Der Pilot ändert an Linie 3 Steuerung, Wärme und Wartung",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 10,
+          "limit": 15,
+          "evidence": "slide9.xml#2 \"Text 0\" \"Der Pilot ändert an Linie 3 Steuerung, Wärme und Wartung\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide9.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 10.0 pt (slide9.xml#21 \"Text 19\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 346,
+          "limit": 720,
+          "evidence": "counted: slide9.xml#2 \"Text 0\", slide9.xml#3 \"Text 1\", slide9.xml#4 \"Text 2\", slide9.xml#6 \"Text 4\", slide9.xml#7 \"Text 5\", slide9.xml#9 \"Text 7\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 54,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.584,
+          "limit": 0.75,
+          "evidence": "15 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide9.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide9.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 62 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "part": "ppt/slides/slide10.xml",
+      "layout": "P10 numbered-rows",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Vier Treiber erklären die Mehrkosten, zwei davon sind lösbar",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 9,
+          "limit": 15,
+          "evidence": "slide10.xml#2 \"Text 0\" \"Vier Treiber erklären die Mehrkosten, zwei davon sind lösbar\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide10.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide10.xml#3 \"Text 1\" 12.0pt; slide10.xml#4 \"Text 2\" 12.0pt; slide10.xml#5 \"Text 3\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 3.03,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 949494 on FFFFFF at 20.0 pt (slide10.xml#17 \"Text 15\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 320,
+          "limit": 720,
+          "evidence": "counted: slide10.xml#2 \"Text 0\", slide10.xml#3 \"Text 1\", slide10.xml#4 \"Text 2\", slide10.xml#5 \"Text 3\", slide10.xml#7 \"Text 5\", slide10.xml#8 \"Text 6\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 49,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.552,
+          "limit": 0.75,
+          "evidence": "20 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide10.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide10.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 59 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "part": "ppt/slides/slide11.xml",
+      "layout": "P11 timeline",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Nach dem Pilot entscheidet die Geschäftsführung im Juli 2027 über den Rollout",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 12,
+          "limit": 15,
+          "evidence": "slide11.xml#2 \"Text 0\" \"Nach dem Pilot entscheidet die Geschäftsführung im Juli 2027 über den Rollout\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide11.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 10.0 pt (slide11.xml#18 \"Text 16\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 288,
+          "limit": 720,
+          "evidence": "counted: slide11.xml#2 \"Text 0\", slide11.xml#5 \"Text 3\", slide11.xml#6 \"Text 4\", slide11.xml#8 \"Text 6\", slide11.xml#9 \"Text 7\", slide11.xml#11 \"Text 9\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 52,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.403,
+          "limit": 0.75,
+          "evidence": "15 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide11.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide11.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 58 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "part": "ppt/slides/slide12.xml",
+      "layout": "P12 case",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Werk Süd senkte den Energiebedarf mit derselben Technik um 18 %",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 10,
+          "limit": 15,
+          "evidence": "slide12.xml#2 \"Text 0\" \"Werk Süd senkte den Energiebedarf mit derselben Technik um 18 %\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide12.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            12.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide12.xml#6 \"Text 4\" 12.0pt; slide12.xml#8 \"Text 6\" 12.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 12.0 pt (slide12.xml#6 \"Text 4\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 413,
+          "limit": 720,
+          "evidence": "counted: slide12.xml#2 \"Text 0\", slide12.xml#3 \"Text 1\", slide12.xml#4 \"Text 2\", slide12.xml#5 \"Text 3\", slide12.xml#6 \"Text 4\", slide12.xml#7 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 63,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.486,
+          "limit": 0.75,
+          "evidence": "7 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide12.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide12.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 76 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "part": "ppt/slides/slide13.xml",
+      "layout": "P13 key-numbers",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Zwei Drittel der Mehrkosten liegen in Energie und Ausschuss",
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 9,
+          "limit": 15,
+          "evidence": "slide13.xml#2 \"Text 0\" \"Zwei Drittel der Mehrkosten liegen in Energie und Ausschuss\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "24-28 pt",
+          "evidence": "slide13.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "10 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            10.0
+          ],
+          "limit": "10 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 10.0 pt (slide13.xml#13 \"Text 11\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 257,
+          "limit": 720,
+          "evidence": "counted: slide13.xml#2 \"Text 0\", slide13.xml#3 \"Text 1\", slide13.xml#5 \"Text 3\", slide13.xml#6 \"Text 4\", slide13.xml#8 \"Text 6\", slide13.xml#9 \"Text 7\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 39,
+          "limit": 120,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "pass",
+          "value": 0.419,
+          "limit": 0.75,
+          "evidence": "8 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide13.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide13.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse [stat-row]: row of big numbers with small labels (hero-metric template)",
+          "method": "file (detector)",
+          "status": "observation",
+          "value": 3,
+          "evidence": "3 big numbers in one row: slide13.xml#5 \"Text 3\" \"66 %\", slide13.xml#8 \"Text 6\" \"42 %\", slide13.xml#11 \"Text 9\" \"−8 %\"; fine when they are parts of one measure with a lead-in and a source, the hero-metric template when they are unrelated metrics"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 50 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 1,
+          "limit": 2,
+          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "2",
+      "name": "at most 2 font families",
+      "method": "file",
+      "status": "pass",
+      "value": [
+        "Arial"
+      ],
+      "limit": 2,
+      "evidence": "families used on slides: Arial (slides [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])"
+    },
+    {
+      "id": "2",
+      "name": "fonts on the safe list",
+      "method": "file",
+      "status": "pass",
+      "evidence": "all on safe list"
+    },
+    {
+      "id": "2",
+      "name": "steps between neighbouring sizes >= 1.25",
+      "method": "file",
+      "status": "observation",
+      "value": [
+        10.0,
+        12.0,
+        14.0,
+        16.0,
+        20.0,
+        22.0,
+        24.0,
+        32.0,
+        48.0
+      ],
+      "evidence": "pairs below factor 1.25: 10/12, 12/14, 14/16, 20/22, 22/24. Roles are only known from the deck plan, so this is not a threshold yet."
+    },
+    {
+      "id": "5",
+      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
+      "status": "pass",
+      "value": 2,
+      "limit": 2,
+      "evidence": "hue 4 deg: B42318; hue 206 deg: 0F5E9C"
+    },
+    {
+      "id": "4",
+      "name": "distinct left edges of text shapes",
+      "method": "file",
+      "status": "observation",
+      "value": 27,
+      "evidence": "x positions (pt): [48, 56, 62, 64, 121, 148, 154, 195, 240, 246, 264, 268]. Optical alignment is not measured."
+    },
+    {
+      "id": "12",
+      "name": "deck matches its deck plan",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck"
+    },
+    {
+      "id": "3",
+      "name": "spacing in multiples of 8 pt",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "not implemented yet"
+    },
+    {
+      "id": "10",
+      "name": "title strand reads as a story",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "11",
+      "name": "direction contract held, look not guessable",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "3",
+      "name": "fonts drawn in the render",
+      "method": "render (LibreOffice, pdffonts)",
+      "status": "pass",
+      "value": [
+        "LiberationSans",
+        "LiberationSans-Bold",
+        "LiberationSans-Italic",
+        "OpenSymbol"
+      ],
+      "evidence": "Arial: drawn as liberationsans (same glyph widths)"
+    }
+  ],
+  "notes": [],
+  "language": {
+    "used": "de",
+    "note": "auto: German stop-word share 11.8 %"
+  },
+  "title_strand": [
+    {
+      "n": 1,
+      "t": "Werk Nord: Wege zu 12 % niedrigeren Stückkosten"
+    },
+    {
+      "n": 2,
+      "t": "Inhalt"
+    },
+    {
+      "n": 3,
+      "t": "Drei Hebel senken die Stückkosten bis 2028 um 12 %"
+    },
+    {
+      "n": 4,
+      "t": "Energie je Stück liegt in Werk Nord 31 % über Werk Süd"
+    },
+    {
+      "n": 5,
+      "t": "Der Ausschuss stieg 2026 auf 4,8 % und liegt damit am höchsten seit 2019"
+    },
+    {
+      "n": 6,
+      "t": "Mehr Energie und mehr Ausschuss treffen dieselben zwei Linien"
+    },
+    {
+      "n": 7,
+      "t": "Linie 3 hat die höchsten Kosten je Stück bei geringster Auslastung"
+    },
+    {
+      "n": 8,
+      "t": "Energie und Ausschuss erklären 1,25 € der 1,90 € Mehrkosten"
+    },
+    {
+      "n": 9,
+      "t": "Der Pilot ändert an Linie 3 Steuerung, Wärme und Wartung"
+    },
+    {
+      "n": 10,
+      "t": "Vier Treiber erklären die Mehrkosten, zwei davon sind lösbar"
+    },
+    {
+      "n": 11,
+      "t": "Nach dem Pilot entscheidet die Geschäftsführung im Juli 2027 über den Rollout"
+    },
+    {
+      "n": 12,
+      "t": "Werk Süd senkte den Energiebedarf mit derselben Technik um 18 %"
+    },
+    {
+      "n": 13,
+      "t": "Zwei Drittel der Mehrkosten liegen in Energie und Ausschuss"
+    }
+  ],
+  "render": {
+    "ok": true,
+    "fonts": [
+      "LiberationSans",
+      "LiberationSans-Bold",
+      "LiberationSans-Italic",
+      "OpenSymbol"
+    ],
+    "png": [
+      "examples/patterns/render/read-01.png",
+      "examples/patterns/render/read-02.png",
+      "examples/patterns/render/read-03.png",
+      "examples/patterns/render/read-04.png",
+      "examples/patterns/render/read-05.png",
+      "examples/patterns/render/read-06.png",
+      "examples/patterns/render/read-07.png",
+      "examples/patterns/render/read-08.png",
+      "examples/patterns/render/read-09.png",
+      "examples/patterns/render/read-10.png",
+      "examples/patterns/render/read-11.png",
+      "examples/patterns/render/read-12.png",
+      "examples/patterns/render/read-13.png"
+    ]
+  },
+  "facts": {
+    "slide_count": 13,
+    "layouts": [
+      "P01 cover",
+      "P02 divider-agenda",
+      "P03 summary",
+      "P04 chart-rail",
+      "P05 chart-focus",
+      "P06 two-exhibits",
+      "P07 table",
+      "P08 bridge",
+      "P09 before-after",
+      "P10 numbered-rows",
+      "P11 timeline",
+      "P12 case",
+      "P13 key-numbers"
+    ],
+    "titles": [
+      "Werk Nord: Wege zu 12 % niedrigeren Stückkosten",
+      "Inhalt",
+      "Drei Hebel senken die Stückkosten bis 2028 um 12 %",
+      "Energie je Stück liegt in Werk Nord 31 % über Werk Süd",
+      "Der Ausschuss stieg 2026 auf 4,8 % und liegt damit am höchsten seit 2019",
+      "Mehr Energie und mehr Ausschuss treffen dieselben zwei Linien",
+      "Linie 3 hat die höchsten Kosten je Stück bei geringster Auslastung",
+      "Energie und Ausschuss erklären 1,25 € der 1,90 € Mehrkosten",
+      "Der Pilot ändert an Linie 3 Steuerung, Wärme und Wartung",
+      "Vier Treiber erklären die Mehrkosten, zwei davon sind lösbar",
+      "Nach dem Pilot entscheidet die Geschäftsführung im Juli 2027 über den Rollout",
+      "Werk Süd senkte den Energiebedarf mit derselben Technik um 18 %",
+      "Zwei Drittel der Mehrkosten liegen in Energie und Ausschuss"
+    ],
+    "fonts": [
+      "Arial"
+    ],
+    "colors": {
+      "FFFFFF": [
+        "slide 1 background",
+        "slide 10 background",
+        "slide 11 background",
+        "slide 11 text slide11.xml#17 \"Text 15\"",
+        "slide 12 background",
+        "slide 13 background"
+      ],
+      "1A1A1A": [
+        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 10 text slide10.xml#13 \"Text 11\"",
+        "slide 10 text slide10.xml#14 \"Text 12\"",
+        "slide 10 text slide10.xml#18 \"Text 16\"",
+        "slide 10 text slide10.xml#19 \"Text 17\"",
+        "slide 10 text slide10.xml#2 \"Text 0\""
+      ],
+      "595959": [
+        "slide 1 text slide1.xml#3 \"Text 1\"",
+        "slide 10 text slide10.xml#20 \"Text 18\"",
+        "slide 10 text slide10.xml#25 \"Slide Number Placeholder 0\"",
+        "slide 10 text slide10.xml#25 \"Text 23\"",
+        "slide 10 text slide10.xml#27 \"Text 25\"",
+        "slide 10 text slide10.xml#3 \"Text 1\""
+      ],
+      "949494": [
+        "slide 10 text slide10.xml#17 \"Text 15\"",
+        "slide 10 text slide10.xml#22 \"Text 20\"",
+        "slide 2 text slide2.xml#3 \"Text 1\"",
+        "slide 2 text slide2.xml#5 \"Text 3\"",
+        "slide 2 text slide2.xml#6 \"Text 4\"",
+        "slide 4 chart series 2"
+      ],
+      "0F5E9C": [
+        "slide 10 text slide10.xml#10 \"Text 8\"",
+        "slide 10 text slide10.xml#12 \"Text 10\"",
+        "slide 10 text slide10.xml#15 \"Text 13\"",
+        "slide 10 text slide10.xml#7 \"Text 5\"",
+        "slide 11 fill slide11.xml#10 \"Shape 8\"",
+        "slide 11 fill slide11.xml#16 \"Shape 14\""
+      ],
+      "F2F2F2": [
+        "slide 6 fill slide6.xml#3 \"Shape 1\""
+      ],
+      "858585": [
+        "slide 6 chart series 1"
+      ],
+      "B42318": [
+        "slide 8 fill slide8.xml#16 \"Shape 14\""
+      ]
+    },
+    "min_inset_pt": 48.0,
+    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "profile": "read",
+    "chart_sizes": [
+      12.0
+    ],
+    "slide_facts": [
+      {
+        "n": 1,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 2,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 3,
+        "exhibits": [],
+        "source": "Quelle: Kostenrechnung Werk Nord und Werk Süd, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 4,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Energiecontrolling, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 5,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Qualitätsberichte, 2019–2026 (Beispieldaten)"
+      },
+      {
+        "n": 6,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Energie- und Qualitätscontrolling, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 7,
+        "exhibits": [
+          "table"
+        ],
+        "source": "Quelle: Kostenrechnung je Linie, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 8,
+        "exhibits": [],
+        "source": "Quelle: Kostenvergleich der Werke, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 9,
+        "exhibits": [],
+        "source": "Quelle: Konzept Pilot Linie 3, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 10,
+        "exhibits": [],
+        "source": "Quelle: Kostenanalyse Werk Nord, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 11,
+        "exhibits": [],
+        "source": "Quelle: Projektplan, 2026 (Beispieldaten)"
+      },
+      {
+        "n": 12,
+        "exhibits": [],
+        "source": "Quelle: Interviews Werk Süd, September 2026 (Beispieldaten)"
+      },
+      {
+        "n": 13,
+        "exhibits": [],
+        "source": "Quelle: Kostenvergleich der Werke, 2026 (Beispieldaten)"
+      }
+    ]
+  },
+  "not_measured_here": [
+    "overflow: render observation only",
+    "optical alignment",
+    "plan comparison (run with --plan)",
+    "spacing scale",
+    "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
+  ],
+  "summary": {
+    "pass": 177,
+    "fail": 2,
+    "observation": 70,
+    "not_measured": 4,
+    "waived": 0
+  }
+}

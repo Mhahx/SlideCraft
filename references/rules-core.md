@@ -32,7 +32,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 - 12-column grid. Align elements to shared edges, optically and mathematically.
 - Spacing in multiples of 8 pt (margin, gaps, sizes of spacers). Group related items tightly, separate groups generously. More space above a heading than below.
 - Recurring elements (title, footer, page number) at exactly the same position.
-- Fixed layout types: title, divider, text, image, chart, comparison, quote/key number. Build them as real layouts/placeholders, not one-off text boxes per slide.
+- Fixed layout types: the patterns in `patterns.md` (P01 cover to P14 statement), each with its zones on the grid. Build them as real layouts/placeholders, not one-off text boxes per slide; a pattern that recurs keeps its positions.
 - Whitespace is a rule, not a leftover. The fill limit is in the profile table.
 
 ## 4. Colour

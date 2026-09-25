@@ -33,7 +33,7 @@ Fewer slides, less text. Questions: what is the one message of this slide? What 
 Roles, size steps, font pairing, line spacing, contrast. Name roles first (title, body, label, footnote), then apply identically on all slides. Check font availability.
 
 ## layout — refinement (redesign if masters are rebuilt; then confirm)
-Grid, spacing, alignment, layout types, masters and placeholders. Related items tight, separate groups wide. Result: fewer one-off constructions.
+Grid, spacing, alignment, layout types (the patterns in `patterns.md`), masters and placeholders. Related items tight, separate groups wide. Result: fewer one-off constructions.
 
 ## clarify — refinement (changes wording; list every change)
 Rewrite titles as claim sentences, remove filler words and buzzwords, make numbers and units consistent, make labels precise. Values themselves stay unchanged.

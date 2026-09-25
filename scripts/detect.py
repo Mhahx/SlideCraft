@@ -114,6 +114,18 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
     def text_in(c):
         return c.has_text or any(t is not c and t.kind == 'text' and _center_in(t.bbox, c.bbox) for t in texts)
 
+    def text_items(c):
+        """Number of separate text items in a box: its own paragraphs with text plus text shapes centred inside it."""
+        own = sum(1 for p in c.paras if ''.join(r['text'] for r in p).strip())
+        return own + sum(1 for t in texts if t is not c and t.kind == 'text' and _center_in(t.bbox, c.bbox))
+
+    def is_band(inner, outer):
+        """A header or footer band: flush with the top or bottom edge of its panel, (nearly) full width, low."""
+        ix, iy, iw, ih = inner.bbox
+        ox, oy, ow, oh = outer.bbox
+        flush = abs(iy - oy) <= TOL or abs((iy + ih) - (oy + oh)) <= TOL
+        return flush and iw >= 0.9 * ow and ih <= 0.35 * oh
+
     # nested-cards
     pairs = []
     for outer in boxes:
@@ -121,13 +133,16 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
             if inner is outer or not _inside(inner.bbox, outer.bbox) or _area(inner.bbox) >= 0.9 * _area(outer.bbox):
                 continue
             surface = _fill_hex(outer) or bg_hex
+            if is_band(inner, outer):
+                continue    # a panel's header band is panel grammar in consulting decks, not a card in a card
             if _surface_visible(inner, surface, cd) and text_in(inner):
                 pairs.append('%s in %s' % (inner.ref, outer.ref))
     if pairs:
         add('nested-cards', 'fail', '; '.join(pairs[:4]) + (' (+%d more)' % (len(pairs) - 4) if len(pairs) > 4 else ''), len(pairs))
 
     # card-grid: >= 3 equal-sized boxes with text, sharing a row or a column
-    cards = [c for c in boxes if c.bbox[2] >= 72 and c.bbox[3] >= 48 and text_in(c)]
+    # a card holds a heading and more (two or more text items); a row label or a header bar holds one
+    cards = [c for c in boxes if c.bbox[2] >= 72 and c.bbox[3] >= 48 and text_items(c) >= 2]
     groups = []
     for c in sorted(cards, key=lambda c: -_area(c.bbox)):
         for g in groups:
@@ -171,7 +186,14 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
             rows.append(row)
     if rows:
         r0 = max(rows, key=len)
-        add('stat-row', 'fail', '%d big numbers in one row: %s' % (len(r0), ', '.join('%s "%s"' % (o.ref, o.text.strip()) for o in r0[:4])), len(r0))
+        boxed = [o for o in r0 if any(c is not o and _center_in(o.bbox, c.bbox) for c in boxes) or _surface_visible(o, bg_hex, cd)]
+        listing = ', '.join('%s "%s"' % (o.ref, o.text.strip()) for o in r0[:4])
+        if len(boxed) >= 2:
+            add('stat-row', 'fail', '%d big numbers in one row, %d of them boxed: %s' % (len(r0), len(boxed), listing), len(r0))
+        else:
+            # real decks use an unboxed row of numbers when they are parts of one measure (Bain 2019, see research)
+            add('stat-row', 'observation', '%d big numbers in one row: %s; fine when they are parts of one measure with a lead-in '
+                'and a source, the hero-metric template when they are unrelated metrics' % (len(r0), listing), len(r0))
     elif len(bigs) == 1:
         b = bigs[0]
         box = next((c for c in boxes if c is not b and _center_in(b.bbox, c.bbox)), None)

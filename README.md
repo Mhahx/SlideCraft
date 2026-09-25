@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.11 (status: draft), Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Regeln weiter ungetestet an echten Decks.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.12 (status: draft), Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -17,16 +17,16 @@ Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsreg
 2. Ein Profil wählen: `read` (Lesedokument, Vorbild McKinsey/BCG/Bain), `talk` (Vortrag, Vorbild Apple/Jobs), `pitch`, `update`.
 3. Look mit dem Nutzer erarbeiten: 2 bis 3 Richtungen aus der Welt des Publikums, jede als gerenderter Entwurf (Titelfolie und typische Inhaltsfolie mit echtem Inhalt); der Nutzer wählt. Kein Standard-Look. Selbsttest gegen typische AI-Looks (aus Impeccable übertragen).
 4. Story: alle Folientitel als Aussagesätze. Der Titelstrang muss die Argumentation allein tragen.
-5. Deck-Plan schreiben (Brief, Richtung, Story, Designsystem mit Textarten, Palette, Raster, Layouttypen, Folientabelle), bevor eine Folie gebaut wird.
+5. Deck-Plan schreiben (Brief, Richtung, Story, Designsystem mit Textarten, Palette, Raster, Folientabelle mit einem Muster aus `references/patterns.md` je Folie), bevor eine Folie gebaut wird.
 6. Bauen, dann in einem gebündelten Durchgang prüfen, mit Detektor für KI-Muster. Danach ein frischer Reviewer ohne Bauverlauf und der Plan "as built".
 
 **Kernprinzipien:** Regeln statt Stil-Themes. Messbarkeit: Als bestanden oder nicht bestanden gilt nur, was aus der Datei gelesen, berechnet oder per Skript gemessen wird. Vom Nutzer Festgelegtes (Marke, Vorlage) gewinnt und wird im Plan als Waiver geführt.
 
 ## Stand
 
-Konzept, Regelwerk, Prüfskript (seit 0.6), Planabgleich (0.7), Renderprüfung (0.8) und Detektor für KI-Muster (0.11) stehen. Alle Zahlenwerte sind Startwerte. Erprobt nur an selbst gebauten Decks (`examples/e-flugzeuge/`, `audit/slop-test.js`), nicht an echten Decks. Drei Audits: A1 und A2 im CHANGELOG, Audit 3 in [AUDIT.md](AUDIT.md).
+Konzept, Regelwerk, Prüfskript (seit 0.6), Planabgleich (0.7), Renderprüfung (0.8), Detektor für KI-Muster (0.11) und Musterbibliothek (0.12, abgeleitet aus 9 echten Decks von McKinsey, BCG, Bain und Roland Berger, `research/beratungsdecks.md`) stehen. Alle Zahlenwerte sind Startwerte. Erprobt nur an selbst gebauten Decks (`examples/e-flugzeuge/`, `audit/slop-test.js`), nicht an echten Decks. Drei Audits: A1 und A2 im CHANGELOG, Audit 3 in [AUDIT.md](AUDIT.md).
 
-**Nächster Schritt:** Musterbibliothek mit Folienmustern aus der Beratungspraxis, siehe BRIEF §10.
+**Nächster Schritt:** Grenzwerte an den echten Decks kalibrieren (Wörter je Folie, Füllgrad, Fußnotengröße, Fußzeile), siehe BRIEF §10 Schritt 4 und `research/beratungsdecks.md`.
 
 ## Für eine neue Claude-Session
 
@@ -57,6 +57,9 @@ Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder 
 - `SKILL.md`: Ablauf und harte Grenzen
 - `references/direction.md`: Look mit dem Nutzer erarbeiten (Fragen, Szene, Mechanismus, gerenderte Entwürfe zur Auswahl, Selbsttest gegen AI-Looks, Abschlussprüfung)
 - `references/deck-plan.md`: Vorlage für den Deck-Plan, der vor dem Bauen entsteht
+- `references/patterns.md`: 14 Folienmuster (Zonen, Raster, Textbudget je Zone), belegt mit echten Beratungsdecks
+- `research/beratungsdecks.md`: Recherche zu 9 echten Decks (Quellen, Messwerte, Beobachtungen mit Seitenangaben)
+- `examples/patterns/`: Testbau aller Muster (gerendert und geprüft)
 - `references/rules-core.md`: Kernregeln und Prüfliste
 - `references/profiles.md`: Kontextprofile `read`, `talk`, `pitch`, `update` mit Werte-Tabelle
 - `CHANGELOG.md`: Änderungen je Audit-Befund
@@ -69,6 +72,6 @@ Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder 
 - Apple-/Jobs-Regeln nach Presentation Zen und Forbes (Sekundärquellen)
 
 ## Offen
-- Musterbibliothek (BRIEF §10 Schritt 3)
+- Grenzwerte kalibrieren (BRIEF §10 Schritt 4)
 - Prüfskript: Abstandsraster, Test an echten Decks
 - Lizenz

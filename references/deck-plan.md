@@ -54,14 +54,16 @@ Text roles:         role | family | weight | size pt | colour | use
 Palette:            background | text | accent | signal (max 1) | neutrals
                     each with hex and role; contrast pairs with computed ratio
 Grid and spacing:   slide size, margins, 12 columns, spacing scale
-Layout types:       the layouts this deck uses (title, divider, text, image,
-                    chart, comparison, quote/key number), each with its placeholders
+Layout types:       the patterns this deck uses, by id from patterns.md (for example
+                    P01 cover, P04 chart-rail, P07 table), each with its placeholders;
+                    usually 4 to 8 patterns
 Images and icons:   style, crop, icon library and stroke
 Charts:             types used, highlight colour, labelling rule, source line
 
 ## 5. Slide plan
 No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes
-Every slide is one row. Word count per slide stays under the profile limit.
+Every slide is one row. Layout type is a pattern id from patterns.md. Word count per slide
+stays under the profile limit and each zone under the pattern's text budget.
 
 ## 6. Avoid list check and assumptions
 Which items from refuse.md were at risk in this deck and how the plan avoids them.

@@ -708,10 +708,22 @@ class Detector(unittest.TestCase):
         self.assertNotIn('nested-cards', detector(self.run_slide(body)))
 
     def test_three_equal_cards_fail_two_do_not(self):
-        three = ''.join(box(10 + i, 48 + i * 290, 150, 270, 200, fill='F3F4F6', text='Card %d' % i) for i in range(3))
+        three = ''.join(box(10 + 2 * i, 48 + i * 290, 150, 270, 200, fill='F3F4F6', text='Card %d' % i) +
+                        box(11 + 2 * i, 60 + i * 290, 220, 240, 60, text='Body text of card %d' % i, sz=14) for i in range(3))
         self.assertEqual(detector(self.run_slide(three))['card-grid']['status'], 'fail')
-        two = ''.join(box(10 + i, 48 + i * 440, 150, 420, 200, fill='F3F4F6', text='Option %d' % i) for i in range(2))
+        two = ''.join(box(10 + 2 * i, 48 + i * 440, 150, 420, 200, fill='F3F4F6', text='Option %d' % i) +
+                      box(11 + 2 * i, 60 + i * 440, 220, 380, 60, text='Body text of option %d' % i, sz=14) for i in range(2))
         self.assertNotIn('card-grid', detector(self.run_slide(two)))
+
+    def test_panel_with_header_band_is_not_nested(self):
+        # consulting panel grammar (McKinsey USPS 2010 p3): a panel with a coloured header band holding the panel title
+        body = (box(10, 48, 140, 420, 300, fill='EAF1FB') + box(11, 48, 140, 420, 40, fill='C7DBF3', text='Net profit/loss, $ billions')
+                + box(12, 60, 190, 390, 200, text='Chart area'))
+        self.assertNotIn('nested-cards', detector(self.run_slide(body)))
+
+    def test_row_labels_with_one_text_are_not_cards(self):
+        labels = ''.join(box(10 + i, 48, 150 + i * 100, 120, 80, fill='E5E5E5', text='Row %d' % i) for i in range(3))
+        self.assertNotIn('card-grid', detector(self.run_slide(labels)))
 
     def test_short_header_bars_are_not_cards(self):
         bars = ''.join(box(10 + i, 48 + i * 290, 150, 270, 30, fill='1F4E79', text='Option %d' % i) for i in range(3))
@@ -725,9 +737,11 @@ class Detector(unittest.TestCase):
                        box(11 + 2 * i, 48 + i * 290, 172, 250, 30, text='Q%d 2027' % (i + 1)) for i in range(3))
         self.assertNotIn('icon-tile-stack', detector(self.run_slide(dots)))
 
-    def test_row_of_big_numbers_fails_single_number_passes(self):
-        row = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, text=v, sz=54) for i, v in enumerate(['-18 %', '-60 %', '0 g']))
-        self.assertEqual(detector(self.run_slide(row))['stat-row']['status'], 'fail')
+    def test_row_of_big_numbers_fails_boxed_is_observation_unboxed_single_number_passes(self):
+        row = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, text=v, sz=54) for i, v in enumerate(['20 %', '68 %', '12 %']))
+        self.assertEqual(detector(self.run_slide(row))['stat-row']['status'], 'observation')
+        boxed = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, fill='F3F4F6', text=v, sz=54) for i, v in enumerate(['-18 %', '-60 %', '0 g']))
+        self.assertEqual(detector(self.run_slide(boxed))['stat-row']['status'], 'fail')
         one = box(10, 48, 200, 400, 80, text='+38 %', sz=60)
         found = detector(self.run_slide(one, 'talk'))
         self.assertNotIn('stat-row', found)
@@ -789,6 +803,15 @@ class Detector(unittest.TestCase):
         c = [c for c in run_on(z)['deck'] if 'default-look' in c['name']]
         self.assertEqual(c[0]['status'], 'observation')
         self.assertNotIn('default-look', ' '.join(c['name'] for c in run_on(build_pptx([title_sp(self.T)]))['deck']))
+
+
+class RecurringPositions(unittest.TestCase):
+    def test_title_moving_within_one_layout_fails(self):
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 64 * PT, 864 * PT, 60 * PT, 'Pricing explains the gain', rpr_of(26, '111111'), ph='<p:ph type="title"/>'),
+                        sp_text(2, 'Title', 48 * PT, 90 * PT, 864 * PT, 60 * PT, 'Churn explains the rest', rpr_of(26, '111111'), ph='<p:ph type="title"/>')])
+        c = [c for c in run_on(z)['deck'] if c['name'].startswith('recurring title placeholder')]
+        self.assertEqual(c[0]['status'], 'fail')
+        self.assertIn('layout "Content"', c[0]['name'])
 
 
 class DetectorFixtures(unittest.TestCase):
