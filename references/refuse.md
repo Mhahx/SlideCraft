@@ -8,9 +8,10 @@ The list has two parts, which the check list treats differently:
 
 ## Detectable (checked from the file)
 `scripts/check_deck.py` reports these under check 9 with the rule id in brackets (`scripts/detect.py`, transferred from Impeccable's detector rules). A rule id quoted in the plan's Waivers line turns the finding into "waived".
-- Gradient fills or gradient text. Glass and blur effects as decoration.
-- Shadows and glow effects without function, especially hard offset shadows. 3D effects.
-- Emoji or Unicode symbols as icons.
+- Gradient fills or gradient text (`gradient`). Glass and blur effects as decoration.
+- Shadows and glow effects without function, especially hard offset shadows (`shadow`, `glow`, `soft-edge`, `reflection`). 3D effects (`3d`).
+- Emoji or Unicode symbols as icons (`emoji`).
+- `glass-stack`: more than one translucent panel (fill with transparency, at least 72 x 48 pt) on one slide. Glass marks the focus; several glass panels are a card grid in another material.
 - `nested-cards`: a box inside a box, the inner one with text. Nested cards are always wrong.
 - `card-grid`: three or more equal-sized boxes with heading and text as slide structure. Short header bars (under 48 pt) are not cards.
 - `icon-tile-stack`: a small square tile or icon (20 to 72 pt) right above a heading, repeated.
@@ -23,6 +24,13 @@ The list has two parts, which the check list treats differently:
 - `justified-text`, `centered-running-text`, `all-caps-body`: running text (8, 12 or 5 words and more) justified, centered or in capitals. `wide-tracking` (observation): letter spacing above 0.05 em on running text.
 - `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector.
 - More than 2 font families (check 2). Text on a photo without a text panel or scrim (check 5, contrast not computable).
+
+## Pinned styles that need the refuse list (for example Liquid Glass)
+A user may pin a style that the list above refuses: Apple's Liquid Glass, glassmorphism, a brand with soft shadows. Then:
+- Quote the ids of the released items in the plan's Waivers line, together with the user's words, for example: ``Waivers: `shadow` (Max: "abgerundet Liquid Glass")``. The check script turns exactly those items into "waived by brief"; every other item stays a finding. Every id that appears anywhere in the Waivers line counts as released, so never mention an id there that stays active (in the Norra run, "glass-stack stays active" would have released it).
+- **Glass (tested in `examples/norra/`):** at most one translucent panel per slide, and it marks the focus (the takeaway, the focus row, the focus milestone), never a container for every block. Light behind the glass (soft colour, a photo) as a transparent PNG whose edges fade out, never an opaque rectangle: an opaque image hides the chart next to it and shows its edges. Round the corners by a fixed radius deck-wide. Text on glass: the check script computes its contrast with the panel blended once over black and once over white, and the worse value must pass; glass on slides is therefore less transparent than in an app.
+- What a slide tool cannot do is said once to the user: PowerPoint draws transparency, outline and shadow, not refraction or live blur of the content behind.
+- `glass-stack`, `card-grid` and `nested-cards` keep applying: the waiver releases the material, not the structure.
 
 ## Judgement (observed while reading)
 Structure:

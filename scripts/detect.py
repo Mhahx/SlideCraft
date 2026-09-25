@@ -31,6 +31,7 @@ RULES = {
     'all-caps-body': 'running text in capitals',
     'wide-tracking': 'letter-spaced running text',
     'shape-illustration': 'picture assembled from many simple shapes',
+    'glass-stack': 'more than one translucent glass panel on a slide',
 }
 
 BIG_NUMBER_PT = 40.0
@@ -320,6 +321,12 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
         if (x1 - x0) * (y1 - y0) <= 0.5 * sw * sh:
             add('shape-illustration', 'observation', '%d text-less shapes within %.0f x %.0f pt; a picture built from primitives reads as clip art '
                 '(a diagram or chart built from shapes is fine)' % (len(small), x1 - x0, y1 - y0), len(small))
+    # glass-stack: translucent panels (Liquid Glass, glassmorphism). One per slide marks the focus; more read as a card grid
+    glass = [s for s in live if s.kind in ('shape', 'text') and not s.ph and s.fill['kind'] == 'solid'
+             and s.fill.get('alpha', 1.0) < 0.95 and s.bbox[2] >= 72 and s.bbox[3] >= 48]
+    if len(glass) >= 2:
+        add('glass-stack', 'fail', '%d translucent panels: %s; one glass panel per slide marks the focus, more read as a card grid'
+            % (len(glass), ', '.join(g.ref for g in glass[:4])), len(glass))
     return found
 
 

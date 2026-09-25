@@ -28,7 +28,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 - Light text on dark background: slightly more line spacing, choose the heavier of the two weights.
 
 ## 3. Grid and spacing
-- Margin 0.667 in (48 pt) on all sides. Nothing outside the margin except deliberately bled images and the footer items (footnotes, source, page number), which may use the bottom margin down to 18 pt above the edge, as in the real decks (sources at 482 to 514 of 540 pt).
+- Margin 0.667 in (48 pt) on all sides. Nothing outside the margin except deliberately bled images, text-less colour fields that run across the full slide width or height and are at least a sixth of the slide deep (a band on a cover, light behind glass; reported as bleed, not as a margin failure), and the footer items (footnotes, source, page number), which may use the bottom margin down to 18 pt above the edge, as in the real decks (sources at 482 to 514 of 540 pt).
 - 12-column grid. Align elements to shared edges, optically and mathematically.
 - Spacing in multiples of 8 pt (margin, gaps, sizes of spacers). Group related items tightly, separate groups generously. More space above a heading than below.
 - Recurring elements (title, footer, page number) at exactly the same position within a layout type; each pattern of `patterns.md` is its own layout type and may place the title differently (for example P14).

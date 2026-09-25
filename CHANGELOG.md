@@ -2,6 +2,20 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.16-draft (2026-09-25)
+
+Zweiter Lauf des Ablaufs mit Max, diesmal mit einem gepinnten Stil: Pitch für ein fiktives Wasserstoffauto („Norra“), „Stil von Apple, hellblau, weiß“, dann „abgerundet Liquid Glass“ (`examples/norra/`). 14 Folien, Profil `pitch`, Deutsch, Musterzahlen. Ergebnis: 0 Fail, 13 waived. 83 Tests (3 neu), alle grün; jede der drei Änderungen durch einen Mutationstest abgesichert.
+
+| Befund aus dem Lauf | Änderung |
+|---|---|
+| Ein gepinnter Stil (Glas mit Schatten) ließ sich nicht freigeben: die Verbotspunkte Verlauf, Schatten, 3D, Emoji hatten keine ID, das Skript las Waiver nur für Detektorregeln; 14 Fails für einen gewollten Stil | Jeder Verbotspunkt trägt eine ID (`gradient`, `shadow`, `glow`, `soft-edge`, `reflection`, `3d`, `emoji`); eine im Plan genannte ID wird „waived by brief“, alle anderen bleiben Fehler (`check_deck.py`, `refuse.md`) |
+| Eine Farbfläche bis zum Folienrand (Band auf der Titelfolie) galt als Randverstoß | Textlose Flächen über die volle Breite oder Höhe, mindestens ein Sechstel tief, zählen als Grund und werden als „bleed“ beobachtet; dünne Balken und Flächen mit Text bleiben Fehler (`check_deck.py`, `rules-core.md` §3) |
+| Glas kippt leicht ins Kartenraster | Neue Regel und Detektorregel `glass-stack`: höchstens eine durchscheinende Fläche pro Folie, für den Fokus; Licht dahinter als transparentes PNG mit ausgeblendeten Rändern; Kontrast auf Glas im ungünstigsten Fall (`refuse.md`, Abschnitt „Pinned styles“; `detect.py`); Zeile „Liquid Glass“ in der Tabelle der Stilwörter (`direction.md`) |
+
+Beim Gegenlesen gefunden: Jede ID, die in der Waiver-Zeile vorkommt, gilt als freigegeben, auch in einem Satz wie „glass-stack stays active“. Der Norra-Plan ist umformuliert, `refuse.md` warnt davor.
+
+**Grenzen:** Selbstprüfung desselben Modells; Rendering nur in LibreOffice; das Urteil von Max zum fertigen Deck steht aus.
+
 ## 0.15-draft (2026-09-25)
 
 Schritt 5: erster kompletter Lauf des Ablaufs mit Max als Nutzer, fiktives Thema "Regionalbank Nordmark, Filialnetz 42 auf 28" (`examples/nordmark/`). Neues Testergebnis: Deck mit 9 Folien, 0 Fail in 136 Prüfungen einschließlich Planabgleich. 80 Tests (1 neu), alle grün.

@@ -1,0 +1,796 @@
+{
+  "file": "drafts/a-keynote.pptx",
+  "profile": "pitch",
+  "thresholds": {
+    "title_min": 28,
+    "title_max": 36,
+    "title_words": 10,
+    "body_min": 18,
+    "foot_min": 8,
+    "words": 40,
+    "chars": 240,
+    "fill": 0.5
+  },
+  "slide_size_pt": [
+    960.0,
+    540.0
+  ],
+  "slide_size_check": {
+    "id": "0",
+    "name": "slide size is 13.33 x 7.5 in (960 x 540 pt)",
+    "method": "file",
+    "status": "pass",
+    "value": [
+      960.0,
+      540.0
+    ],
+    "limit": [
+      960.0,
+      540.0
+    ],
+    "evidence": "ppt/presentation.xml sldSz"
+  },
+  "slides": [
+    {
+      "n": 1,
+      "part": "ppt/slides/slide1.xml",
+      "layout": "P01 cover",
+      "layout_type": null,
+      "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
+      "title": "Norra: Wasserstoff tanken ohne Wasserstofftankstelle",
+      "shapes": [
+        {
+          "ref": "slide1.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            120.0,
+            717.3,
+            160.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            54.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide1.xml#3 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            0.0,
+            360.0,
+            960.0,
+            180.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "D6ECFA",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide1.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            400.0,
+            717.3,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 5,
+          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (layout \"P01 cover\" (patterns.md P01/P02))"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "fail",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "slide1.xml#3 \"Shape 1\" [0,360,960,180]"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 13.81,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 1D1D1F on D6ECFA at 18.0 pt (slide1.xml#4 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "pass",
+          "value": 11,
+          "limit": 40,
+          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#4 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "characters per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 120,
+          "limit": 240,
+          "evidence": "reported only; word limit applies for English"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.594,
+          "limit": 0.5,
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "no chart or table; slides with outside numbers in plain text are a judgement"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 13 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "part": "ppt/slides/slide2.xml",
+      "layout": "P05 chart-focus",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "500 km nachladen dauert 90 Sekunden statt 35 Minuten",
+      "shapes": [
+        {
+          "ref": "slide2.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            56.0,
+            864.0,
+            84.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            36.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            152.0,
+            864.0,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#4 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            184.0,
+            816.0,
+            264.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            300.0,
+            404.0,
+            424.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            472.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            9.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            496.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            9.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 9,
+          "limit": 10,
+          "evidence": "slide2.xml#2 \"Text 0\" \"500 km nachladen dauert 90 Sekunden statt 35 Minuten\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            36.0
+          ],
+          "limit": "28-36 pt",
+          "evidence": "slide2.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            14.0
+          ],
+          "limit": "body >= 18 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide2.xml#3 \"Text 1\" 14.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            9.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 6.45,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 5E5E63 on FFFFFF at 14.0 pt (slide2.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 3.03,
+          "limit": "3.0:1",
+          "evidence": "slide2.xml#4 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "pass",
+          "value": 31,
+          "limit": 40,
+          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Text 1\", slide2.xml#4 \"Chart 0\" (chart text), slide2.xml#5 \"Text 2\"; chart numeric values not counted"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 212,
+          "limit": 240,
+          "evidence": "reported only; word limit applies for English"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.821,
+          "limit": 0.5,
+          "evidence": "4 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Norra-Messreihe 2026 (Beispieldaten)\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 35 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "2",
+      "name": "at most 2 font families",
+      "method": "file",
+      "status": "pass",
+      "value": [
+        "Arial"
+      ],
+      "limit": 2,
+      "evidence": "families used on slides: Arial (slides [1, 2])"
+    },
+    {
+      "id": "2",
+      "name": "fonts on the safe list",
+      "method": "file",
+      "status": "pass",
+      "evidence": "all on safe list"
+    },
+    {
+      "id": "2",
+      "name": "steps between neighbouring sizes >= 1.25",
+      "method": "file",
+      "status": "observation",
+      "value": [
+        9.0,
+        12.0,
+        14.0,
+        16.0,
+        18.0,
+        36.0,
+        54.0
+      ],
+      "evidence": "pairs below factor 1.25: 12/14, 14/16, 16/18. Roles are only known from the deck plan, so this is not a threshold yet."
+    },
+    {
+      "id": "5",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
+      "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
+      "status": "pass",
+      "value": 1,
+      "limit": 3,
+      "evidence": "hue 203 deg: 0A6CC2,D6ECFA"
+    },
+    {
+      "id": "4",
+      "name": "distinct left edges of text shapes",
+      "method": "file",
+      "status": "observation",
+      "value": 2,
+      "evidence": "x positions (pt): [48, 300]. Optical alignment is not measured."
+    },
+    {
+      "id": "12",
+      "name": "deck matches its deck plan",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck"
+    },
+    {
+      "id": "3",
+      "name": "spacing in multiples of 8 pt",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "not implemented yet"
+    },
+    {
+      "id": "10",
+      "name": "title strand reads as a story",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "11",
+      "name": "direction contract held, look not guessable",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "3",
+      "name": "fonts drawn in the render",
+      "method": "render (LibreOffice, pdffonts)",
+      "status": "pass",
+      "value": [
+        "LiberationSans",
+        "LiberationSans-Bold"
+      ],
+      "evidence": "Arial: drawn as liberationsans (same glyph widths)"
+    }
+  ],
+  "notes": [],
+  "language": {
+    "used": "en",
+    "note": "auto: German stop-word share 5.7 %"
+  },
+  "title_strand": [
+    {
+      "n": 1,
+      "t": "Norra: Wasserstoff tanken ohne Wasserstofftankstelle"
+    },
+    {
+      "n": 2,
+      "t": "500 km nachladen dauert 90 Sekunden statt 35 Minuten"
+    }
+  ],
+  "render": {
+    "ok": true,
+    "fonts": [
+      "LiberationSans",
+      "LiberationSans-Bold"
+    ],
+    "png": [
+      "drafts/render/a-keynote-1.png",
+      "drafts/render/a-keynote-2.png"
+    ]
+  },
+  "facts": {
+    "slide_count": 2,
+    "layouts": [
+      "P01 cover",
+      "P05 chart-focus"
+    ],
+    "titles": [
+      "Norra: Wasserstoff tanken ohne Wasserstofftankstelle",
+      "500 km nachladen dauert 90 Sekunden statt 35 Minuten"
+    ],
+    "fonts": [
+      "Arial"
+    ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#2 \"Text 0\"",
+        "size": 54.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1D1D1F",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 2\"",
+        "size": 18.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1D1D1F",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#2 \"Text 0\"",
+        "size": 36.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1D1D1F",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "5E5E63",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#5 \"Text 2\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "0A6CC2",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#6 \"Text 3\"",
+        "size": 9.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "5E5E63",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 9.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "5E5E63",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      }
+    ],
+    "colors": {
+      "FFFFFF": [
+        "slide 1 background",
+        "slide 2 background"
+      ],
+      "1D1D1F": [
+        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 1 text slide1.xml#4 \"Text 2\"",
+        "slide 2 text slide2.xml#2 \"Text 0\""
+      ],
+      "D6ECFA": [
+        "slide 1 fill slide1.xml#3 \"Shape 1\""
+      ],
+      "5E5E63": [
+        "slide 2 text slide2.xml#25 \"Slide Number Placeholder 0\"",
+        "slide 2 text slide2.xml#3 \"Text 1\"",
+        "slide 2 text slide2.xml#6 \"Text 3\""
+      ],
+      "949494": [
+        "slide 2 chart series 1"
+      ],
+      "0A6CC2": [
+        "slide 2 chart series 1",
+        "slide 2 text slide2.xml#5 \"Text 2\""
+      ]
+    },
+    "min_inset_pt": 0.0,
+    "min_inset_at": "slide1.xml#3 \"Shape 1\"",
+    "profile": "pitch",
+    "chart_sizes": [
+      12.0,
+      16.0
+    ],
+    "slide_facts": [
+      {
+        "n": 1,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 2,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Norra-Messreihe 2026 (Beispieldaten)"
+      }
+    ]
+  },
+  "not_measured_here": [
+    "overflow: render observation only",
+    "optical alignment",
+    "plan comparison (run with --plan)",
+    "spacing scale",
+    "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
+  ],
+  "summary": {
+    "pass": 28,
+    "fail": 1,
+    "observation": 14,
+    "not_measured": 4,
+    "waived": 0
+  }
+}

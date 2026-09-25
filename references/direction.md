@@ -59,6 +59,7 @@ How to render the drafts, by environment:
 | dimmed room, projector | dark ground, larger type, contrast computed anyway |
 | PDF or print | light ground, stays legible in greyscale |
 | "not like X" | the plan lists X's typical devices under avoid |
+| glass, "Liquid Glass", "like Apple" | light ground, one translucent rounded panel per slide for the focus, soft light behind it, large bold sans titles; waive `shadow` in the plan with the user's words (`refuse.md`, "Pinned styles") |
 Vibe moves decisions inside the core rules. Contrast, minimum sizes, the colour rule and the ban list stay the floor.
 
 ## Calibration against the AI look

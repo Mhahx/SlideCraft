@@ -813,6 +813,17 @@ def is_ground(s, sw, sh):
     return s.bbox[2] >= 0.95 * sw and s.bbox[3] >= 0.95 * sh
 
 
+def is_bleed_field(s, sw, sh):
+    """A text-less colour field or picture that runs across the whole slide width or height and stays on the
+    slide: a band of ground (a colour field on a cover, light behind glass), not content. Thin bars (under a
+    sixth of the slide) stay content, so a full-width header bar still counts against the margins."""
+    if s.bbox is None or s.has_text or s.kind not in ('shape', 'pic'):
+        return False
+    x, y, w, h = s.bbox
+    on_slide = x >= -TOL and y >= -TOL and x + w <= sw + TOL and y + h <= sh + TOL
+    return on_slide and ((w >= 0.95 * sw and h >= sh / 6) or (h >= 0.95 * sh and w >= sw / 6))
+
+
 def backdrop_for(s, shapes, bg):
     """Surface behind shape s: ('solid', hex_pair_list, origin) or ('unknown', reason)."""
     if s.bbox is None:
@@ -1085,11 +1096,11 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 insets.append((min(x, y, sw - x - w, sh - y - h), s.ref))     # footer items may use the bottom margin
             bottom = sh - (FOOTER_MARGIN_PT if footer_item else MARGIN_PT)
             if x < MARGIN_PT - TOL or y < MARGIN_PT - TOL or x + w > sw - MARGIN_PT + TOL or y + h > bottom + TOL:
-                (bleed if s.kind == 'pic' else edge_bad).append('%s [%.0f,%.0f,%.0f,%.0f]' % (s.ref, x, y, w, h))
+                (bleed if s.kind == 'pic' or is_bleed_field(s, sw, sh) else edge_bad).append('%s [%.0f,%.0f,%.0f,%.0f]' % (s.ref, x, y, w, h))
         checks.append(chk('3', 'shapes inside 48 pt margins', 'file', 'fail' if edge_bad else 'pass',
                           limit='48 pt (footer items: 18 pt at the bottom)', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
         if bleed:
-            checks.append(chk('3', 'pictures crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
+            checks.append(chk('3', 'pictures and colour fields crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
         over = []
         for s in shapes:
             if s.kind == 'text' and s.autofit != 'spAutoFit':
@@ -1278,23 +1289,31 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             if s.kind == 'chart' and s.chart and s.chart['bad_dash']:
                 checks.append(chk('0', 'chart line dash values are valid', 'file', 'fail', value=sorted(set(s.chart['bad_dash'])),
                                   evidence='%s: prstDash %s is not a preset dash value; PowerPoint may repair or refuse the file' % (s.ref, ', '.join(sorted(set(s.chart['bad_dash']))))))
-        # -- 9 refuse list (detectable items)
+        # -- 9 refuse list (detectable items); each item has an id a plan waiver can quote (`shadow`, `gradient`, ...)
         found = []
+        effect_ids = {'outerShdw': 'shadow', 'innerShdw': 'shadow', 'prstShdw': 'shadow', 'glow': 'glow',
+                      'softEdge': 'soft-edge', 'reflection': 'reflection', '3d': '3d'}
         for s in shapes:
             if s.fill['kind'] == 'gradient':
-                found.append('gradient fill %s' % s.ref)
+                found.append(('gradient', 'gradient fill %s' % s.ref))
             for e in s.effects:
-                if e in ('outerShdw', 'innerShdw', 'prstShdw', 'glow', 'softEdge', 'reflection', '3d'):
-                    found.append('%s on %s' % (e, s.ref))
+                if e in effect_ids:
+                    found.append((effect_ids[e], '%s on %s' % (e, s.ref)))
             if s.kind == 'chart' and s.chart and s.chart['gradient']:
-                found.append('gradient in chart %s' % s.ref)
+                found.append(('gradient', 'gradient in chart %s' % s.ref))
             m = EMOJI_RE.findall(s.text) if s.kind in ('text', 'table') else []
             if m:
-                found.append('emoji/symbol characters %s in %s' % (''.join(sorted(set(m))), s.ref))
+                found.append(('emoji', 'emoji/symbol characters %s in %s' % (''.join(sorted(set(m))), s.ref)))
         if bg['kind'] == 'gradient':
-            found.append('gradient background (%s)' % bg['origin'])
+            found.append(('gradient', 'gradient background (%s)' % bg['origin']))
+        open_items = [e for k, e in found if not detect_mod.is_waived(k, waivers)]
+        waived_items = ['%s (%s)' % (e, k) for k, e in found if detect_mod.is_waived(k, waivers)]
+        st = 'fail' if open_items else ('waived' if waived_items else 'pass')
+        ev = '; '.join(open_items[:6]) if open_items else ('none found' if not waived_items else '')
+        if waived_items:
+            ev = (ev + '; ' if open_items else '') + 'waived by brief: ' + '; '.join(waived_items[:4])
         checks.append(chk('9', 'detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)', 'file',
-                          'fail' if found else 'pass', value=len(found), evidence='; '.join(found[:6]) if found else 'none found'))
+                          st, value=len(found), evidence=ev))
         # heuristic: thin bar under title or thin edge stripe on a shape
         heur = []
         for s in shapes:

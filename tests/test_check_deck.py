@@ -826,6 +826,67 @@ class Detector(unittest.TestCase):
         self.assertNotIn('default-look', ' '.join(c['name'] for c in run_on(build_pptx([title_sp(self.T)]))['deck']))
 
 
+def glass_panel(idn, x, y, w, h, alpha=70000, shadow=True, text=None):
+    """A translucent rounded panel in pt (Liquid Glass): white at alpha, white outline, optional soft shadow."""
+    eff = ('<a:effectLst><a:outerShdw blurRad="304800" dist="76200" dir="5400000"><a:srgbClr val="0A2A4A"><a:alpha val="12000"/>'
+           '</a:srgbClr></a:outerShdw></a:effectLst>') if shadow else ''
+    tx = ('<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr lang="en-US" sz="2000"><a:solidFill><a:srgbClr val="0A2A4A"/></a:solidFill>'
+          '<a:latin typeface="Arial"/></a:rPr><a:t>%s</a:t></a:r></a:p></p:txBody>' % text) if text else ''
+    return ('<p:sp><p:nvSpPr><p:cNvPr id="%d" name="Glass%d"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr>'
+            '<a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm><a:prstGeom prst="roundRect"><a:avLst/></a:prstGeom>'
+            '<a:solidFill><a:srgbClr val="FFFFFF"><a:alpha val="%d"/></a:srgbClr></a:solidFill>'
+            '<a:ln w="19050"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></a:ln>%s</p:spPr>%s</p:sp>'
+            % (idn, idn, x * PT, y * PT, w * PT, h * PT, alpha, eff, tx))
+
+
+class PinnedStyles(unittest.TestCase):
+    """0.16: a pinned style (Liquid Glass) can waive shadows, one glass panel per slide, colour fields may bleed."""
+    T = 'Refuelling 500 km takes 90 seconds, not 35 minutes'
+
+    def refuse_items(self, rep):
+        return find(rep['slides'][0]['checks'], 'detectable refuse items')[0]
+
+    def test_shadow_fails_unless_the_plan_waives_it_by_id(self):
+        z = build_pptx([title_sp(self.T) + glass_panel(10, 600, 184, 312, 136, text='Fleet cars no longer wait')])
+        self.assertEqual(self.refuse_items(run_on(z))['status'], 'fail')
+        plan = 'Waivers: `shadow` (Max: "abgerundet Liquid Glass")\nProfile: read\n'
+        rep = cd.analyse(cd.Package(z), 'synthetic', 'read', set(), 'en', plan)
+        item = self.refuse_items(rep)
+        self.assertEqual(item['status'], 'waived')
+        self.assertIn('(shadow)', item['evidence'])
+        # a waiver for shadows does not release a gradient on the same slide
+        grad = ('<p:sp><p:nvSpPr><p:cNvPr id="11" name="Grad"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="%d" y="%d"/>'
+                '<a:ext cx="%d" cy="%d"/></a:xfrm><a:gradFill><a:gsLst><a:gs pos="0"><a:srgbClr val="FFFFFF"/></a:gs><a:gs pos="100000">'
+                '<a:srgbClr val="8FC9F2"/></a:gs></a:gsLst></a:gradFill></p:spPr></p:sp>') % (48 * PT, 184 * PT, 400 * PT, 200 * PT)
+        z2 = build_pptx([title_sp(self.T) + grad + glass_panel(10, 600, 184, 312, 136, text='Fleet cars no longer wait')])
+        rep2 = cd.analyse(cd.Package(z2), 'synthetic', 'read', set(), 'en', plan)
+        self.assertEqual(self.refuse_items(rep2)['status'], 'fail')
+
+    def test_two_glass_panels_fail_one_passes(self):
+        one = build_pptx([title_sp(self.T) + glass_panel(10, 600, 184, 312, 136, shadow=False, text='Fleet cars no longer wait')])
+        self.assertNotIn('glass-stack', detector(run_on(one)))
+        two = build_pptx([title_sp(self.T) + glass_panel(10, 48, 184, 400, 200, shadow=False, text='Option one')
+                          + glass_panel(11, 512, 184, 400, 200, shadow=False, text='Option two')])
+        self.assertEqual(detector(run_on(two))['glass-stack']['status'], 'fail')
+        # opaque panels are not glass
+        opaque = build_pptx([title_sp(self.T) + glass_panel(10, 48, 184, 400, 200, alpha=100000, shadow=False, text='A')
+                             + glass_panel(11, 512, 184, 400, 200, alpha=100000, shadow=False, text='B')])
+        self.assertNotIn('glass-stack', detector(run_on(opaque)))
+
+    def test_colour_field_to_the_edge_is_bleed_thin_bar_is_not(self):
+        band = box(10, 0, 360, 960, 180, fill='D6ECFA')
+        checks = run_on(build_pptx([title_sp(self.T) + band]))['slides'][0]['checks']
+        self.assertTrue(find(checks, 'inside 48 pt margins', 'pass'))
+        self.assertTrue(find(checks, 'colour fields crossing margins (bleed)', 'observation'))
+        bar = box(10, 0, 0, 960, 12, fill='1668B8')
+        checks = run_on(build_pptx([title_sp(self.T, y=64) + bar]))['slides'][0]['checks']
+        self.assertTrue(find(checks, 'inside 48 pt margins', 'fail'))
+        # a band with text on it is content, not ground
+        labelled = box(10, 0, 360, 960, 180, fill='D6ECFA', text='Series A pitch')
+        checks = run_on(build_pptx([title_sp(self.T) + labelled]))['slides'][0]['checks']
+        self.assertTrue(find(checks, 'inside 48 pt margins', 'fail'))
+
+
 class Calibration(unittest.TestCase):
     """Thresholds calibrated on the real decks in research/beratungsdecks.md (0.14)."""
     T = 'Pricing explains most of the 12 % gain'

@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.15 (status: draft), erster kompletter Lauf des Ablaufs mit Max (`examples/nordmark/`), Grenzwerte für Lesedecks an 9 echten Decks kalibriert, Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.16 (status: draft), zwei komplette Läufe des Ablaufs mit Max (`examples/nordmark/`, `examples/norra/` mit gepinntem Stil Liquid Glass), Verbotspunkte per Plan freigebbar, Grenzwerte für Lesedecks an 9 echten Decks kalibriert, Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -26,7 +26,7 @@ Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsreg
 
 Konzept, Regelwerk, Prüfskript (seit 0.6), Planabgleich (0.7), Renderprüfung (0.8), Detektor für KI-Muster (0.11) und Musterbibliothek (0.12, abgeleitet aus 9 echten Decks von McKinsey, BCG, Bain und Roland Berger, `research/beratungsdecks.md`) stehen. Alle Zahlenwerte sind Startwerte. Erprobt nur an selbst gebauten Decks (`examples/e-flugzeuge/`, `audit/slop-test.js`), nicht an echten Decks. Drei Audits: A1 und A2 im CHANGELOG, Audit 3 in [AUDIT.md](AUDIT.md).
 
-**Nächster Schritt:** Urteil von Max zum Testdeck `examples/nordmark/`; danach Vortragsdeck (`talk`) nach demselben Ablauf und Test im PowerPoint-Add-in.
+**Nächster Schritt:** Urteil von Max zu den Testdecks `examples/nordmark/` und `examples/norra/`; danach Vortragsdeck (`talk`) nach demselben Ablauf und Test im PowerPoint-Add-in.
 
 ## Für eine neue Claude-Session
 
@@ -61,6 +61,7 @@ Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder 
 - `research/beratungsdecks.md`: Recherche zu 9 echten Decks (Quellen, Messwerte, Beobachtungen mit Seitenangaben)
 - `examples/patterns/`: Testbau aller Muster (gerendert und geprüft)
 - `examples/nordmark/`: erster kompletter Lauf des Ablaufs (Brief, Skelett, drei Entwürfe, Wahl, Deck, Prüfung, Plan as built)
+- `examples/norra/`: Pitch mit gepinntem Stil „Liquid Glass“ (drei Entwürfe, Mischung, Waiver, 14 Folien)
 - `references/rules-core.md`: Kernregeln und Prüfliste
 - `references/profiles.md`: Kontextprofile `read`, `talk`, `pitch`, `update` mit Werte-Tabelle
 - `CHANGELOG.md`: Änderungen je Audit-Befund
