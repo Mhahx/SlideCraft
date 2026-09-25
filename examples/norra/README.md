@@ -17,7 +17,7 @@ Gebaut nach `SKILL.md` mit Max als Nutzer:
 
 Neu bauen: `python3 examples/norra/assets/light.py`, dann `NODE_PATH=<node_modules mit pptxgenjs> node examples/norra/build.js`. Entwürfe: `drafts.js` (A, B, C) und `drafts2.js` (Mischung). Prüfen: `python3 scripts/check_deck.py examples/norra/deck.pptx --plan examples/norra/plan.md --render-dir examples/norra/render`.
 
-**Ergebnis mit 0.16:** 0 Fail, 13 waived (Schatten der Glasflächen, per Waiver `shadow` freigegeben), 201 pass.
+**Ergebnis mit 0.18:** 0 Fail, 13 waived (Schatten der Glasflächen, per Waiver `shadow` freigegeben), 207 pass.
 
 ## Was der Lauf über den Skill gezeigt hat
 

@@ -38,6 +38,80 @@
       "layout_type": null,
       "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
       "title": "Nah bleiben, anders erreichbar",
+      "shapes": [
+        {
+          "ref": "slide1.xml#2 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            0.0,
+            0.0,
+            960.0,
+            320.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide1.xml#3 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            360.0,
+            717.3,
+            56.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide1.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            420.0,
+            717.3,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide1.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            500.0,
+            400.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -76,7 +150,7 @@
         },
         {
           "id": "3",
-          "name": "pictures crossing margins (bleed)",
+          "name": "pictures and colour fields crossing margins (bleed)",
           "method": "file",
           "status": "observation",
           "evidence": "slide1.xml#2 \"Image 0\" [0,0,960,320] (allowed only if deliberate)"
@@ -167,7 +241,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -196,6 +270,224 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Der Umbau spart 6,6 Mio. € im Jahr und hält 97 % der Kunden in Reichweite",
+      "shapes": [
+        {
+          "ref": "slide2.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide2.xml#3 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            152.0,
+            717.3,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            160.0,
+            717.3,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            212.0,
+            717.3,
+            22.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#6 \"Shape 4\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            250.0,
+            717.3,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#7 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            258.0,
+            717.3,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            310.0,
+            717.3,
+            22.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#9 \"Shape 7\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            348.0,
+            717.3,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#10 \"Text 8\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            356.0,
+            717.3,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            408.0,
+            717.3,
+            22.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -329,7 +621,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -358,6 +650,152 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Die Schalterbesuche sind seit 2019 um 38 % gesunken",
+      "shapes": [
+        {
+          "ref": "slide3.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide3.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            124.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#4 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            570.7,
+            296.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide3.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            634.7,
+            156.0,
+            277.3,
+            296.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "EEF2EF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide3.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.7,
+            172.0,
+            245.3,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#7 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.7,
+            200.0,
+            245.3,
+            236.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#8 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -499,6 +937,14 @@
           "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "slide3.xml#4 \"Chart 0\": 0 visible gridline set(s)"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -511,7 +957,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -540,6 +986,152 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "14 Filialen haben weniger als 40 Schalterkunden am Tag",
+      "shapes": [
+        {
+          "ref": "slide4.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide4.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            124.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#4 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            570.7,
+            296.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            634.7,
+            156.0,
+            277.3,
+            296.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "EEF2EF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.7,
+            172.0,
+            245.3,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#7 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.7,
+            200.0,
+            245.3,
+            236.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#8 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -681,6 +1273,14 @@
           "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
         },
         {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide4.xml#4 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
           "id": "9",
           "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
           "method": "file",
@@ -693,7 +1293,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -722,6 +1322,141 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Die 14 Filialen kosten 7,7 Mio. € im Jahr bei 12 % der Schalterbesuche",
+      "shapes": [
+        {
+          "ref": "slide5.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide5.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            124.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#6 \"Table 0\"",
+          "kind": "table",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            864.0,
+            204.0
+          ],
+          "bbox_origin": "slide xfrm (extended to the table rows and columns)",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            380.0,
+            864.0,
+            26.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            864.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#7 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -874,7 +1609,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -903,6 +1638,379 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "SB-Anker und Beratungsbusse ersetzen den Schalter, nicht die Nähe",
+      "shapes": [
+        {
+          "ref": "slide6.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide6.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.7,
+            156.0,
+            350.7,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.3,
+            156.0,
+            350.7,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#5 \"Shape 3\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            180.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            192.0,
+            130.7,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#7 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.7,
+            192.0,
+            326.7,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#8 \"Shape 6\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            537.3,
+            195.0,
+            12.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1F4A3A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#9 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.3,
+            192.0,
+            350.7,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#10 \"Shape 8\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            264.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            276.0,
+            130.7,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.7,
+            276.0,
+            326.7,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#13 \"Shape 11\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            537.3,
+            279.0,
+            12.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1F4A3A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#14 \"Text 12\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.3,
+            276.0,
+            350.7,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#15 \"Shape 13\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            348.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#16 \"Text 14\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            360.0,
+            130.7,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#17 \"Text 15\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.7,
+            360.0,
+            326.7,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#18 \"Shape 16\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            537.3,
+            363.0,
+            12.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1F4A3A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#19 \"Text 17\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.3,
+            360.0,
+            350.7,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#20 \"Shape 18\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            432.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#21 \"Text 19\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -1036,7 +2144,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1065,6 +2173,251 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "In der Pilotregion Angeln blieben 92 % der Kunden nach dem Umbau",
+      "shapes": [
+        {
+          "ref": "slide7.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide7.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            350.7,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            184.0,
+            350.7,
+            130.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#5 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            414.7,
+            156.0,
+            497.3,
+            155.4
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            414.7,
+            315.4,
+            497.3,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#7 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            414.7,
+            339.4,
+            155.1,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide7.xml#8 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            414.7,
+            373.4,
+            155.1,
+            44.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#9 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            585.8,
+            339.4,
+            155.1,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide7.xml#10 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            585.8,
+            373.4,
+            155.1,
+            44.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#11 \"Text 8\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            756.9,
+            339.4,
+            155.1,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide7.xml#12 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            756.9,
+            373.4,
+            155.1,
+            44.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#13 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -1210,7 +2563,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1239,6 +2592,364 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Der Umbau spart netto 6,6 Mio. € im Jahr bei 3,2 Mio. € Einmalkosten",
+      "shapes": [
+        {
+          "ref": "slide8.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide8.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            124.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#4 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            68.0,
+            189.0,
+            84.0,
+            231.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1C1C1C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            60.0,
+            169.0,
+            100.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            50.0,
+            428.0,
+            120.0,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#7 \"Shape 5\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            198.0,
+            189.0,
+            84.0,
+            15.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "A33A2B",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            190.0,
+            169.0,
+            100.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#9 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            180.0,
+            428.0,
+            120.0,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#10 \"Shape 8\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            328.0,
+            204.0,
+            84.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "A33A2B",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            320.0,
+            184.0,
+            100.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            310.0,
+            428.0,
+            120.0,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#13 \"Shape 11\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            458.0,
+            222.0,
+            84.0,
+            198.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1F4A3A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#14 \"Text 12\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            450.0,
+            202.0,
+            100.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#15 \"Text 13\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            440.0,
+            428.0,
+            120.0,
+            30.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#16 \"Shape 14\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            420.0,
+            540.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#17 \"Shape 15\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            634.7,
+            156.0,
+            277.3,
+            296.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "EEF2EF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#18 \"Text 16\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.7,
+            172.0,
+            245.3,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#19 \"Text 17\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.7,
+            200.0,
+            245.3,
+            236.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#20 \"Text 18\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -1383,7 +3094,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1412,6 +3123,326 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Der Umbau läuft in drei Wellen bis Ende 2027 und beginnt mit Ihrem Beschluss",
+      "shapes": [
+        {
+          "ref": "slide9.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide9.xml#3 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            172.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide9.xml#4 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            164.0,
+            16.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1F4A3A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide9.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            192.0,
+            190.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            214.0,
+            190.0,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#7 \"Shape 5\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            264.0,
+            164.0,
+            16.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1C1C1C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide9.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            264.0,
+            192.0,
+            190.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#9 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            264.0,
+            214.0,
+            190.0,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#10 \"Shape 8\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            480.0,
+            164.0,
+            16.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1C1C1C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide9.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            480.0,
+            192.0,
+            190.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            480.0,
+            214.0,
+            190.0,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#13 \"Shape 11\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            696.0,
+            164.0,
+            16.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1C1C1C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide9.xml#14 \"Text 12\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            696.0,
+            192.0,
+            190.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#15 \"Text 13\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            696.0,
+            214.0,
+            190.0,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#16 \"Shape 14\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            328.0,
+            864.0,
+            52.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "1F4A3A",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide9.xml#17 \"Text 15\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            64.0,
+            342.0,
+            832.0,
+            26.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#18 \"Text 16\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            474.0,
+            700.0,
+            12.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide9.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            872.0,
+            486.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -1545,7 +3576,7 @@
           "name": "refuse patterns (detector)",
           "method": "file (detector)",
           "status": "pass",
-          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+          "evidence": "none of the 17 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1765,6 +3796,1405 @@
     "fonts": [
       "Calibri",
       "Cambria"
+    ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#3 \"Text 0\"",
+        "size": 40.0,
+        "bold": false,
+        "font": "Cambria",
+        "color": "FFFFFF",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#3 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "FFFFFF",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "D6E4DC",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#5 \"Text 2\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "D6E4DC",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#4 \"Text 2\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#5 \"Text 3\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#7 \"Text 5\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#8 \"Text 6\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#10 \"Text 8\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#11 \"Text 9\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#12 \"Text 10\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#3 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#6 \"Text 3\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#8 \"Text 5\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#3 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#6 \"Text 3\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#8 \"Text 5\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#3 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Table 0\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#5 \"Text 2\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Text 3\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#7 \"Text 4\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#4 \"Text 2\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#6 \"Text 4\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Text 5\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#9 \"Text 7\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#11 \"Text 9\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#12 \"Text 10\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#14 \"Text 12\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#16 \"Text 14\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#17 \"Text 15\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#19 \"Text 17\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#21 \"Text 19\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#4 \"Text 2\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#4 \"Text 2\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#4 \"Text 2\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#6 \"Text 3\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#7 \"Text 4\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Text 5\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#9 \"Text 6\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#10 \"Text 7\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#11 \"Text 8\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#12 \"Text 9\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#13 \"Text 10\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#3 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#5 \"Text 3\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#6 \"Text 4\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#8 \"Text 6\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#9 \"Text 7\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#11 \"Text 9\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#12 \"Text 10\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#14 \"Text 12\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#15 \"Text 13\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#18 \"Text 16\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#19 \"Text 17\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#19 \"Text 17\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#19 \"Text 17\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#20 \"Text 18\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "1C1C1C",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#5 \"Text 3\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1F4A3A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#6 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#8 \"Text 6\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#9 \"Text 7\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#11 \"Text 9\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#12 \"Text 10\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#14 \"Text 12\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#15 \"Text 13\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "1C1C1C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#17 \"Text 15\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "FFFFFF",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#18 \"Text 16\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 9,
+        "ref": "slide9.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      }
     ],
     "colors": {
       "1F4A3A": [
@@ -2055,7 +5485,7 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 136,
+    "pass": 138,
     "fail": 0,
     "observation": 57,
     "not_measured": 3,

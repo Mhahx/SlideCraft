@@ -581,7 +581,8 @@ class Shape:
 
 def parse_chart(ctx, rid, shape_ref):
     tgt = ctx.rels.get(rid)
-    info = {'part': None, 'series_colors': [], 'texts': [], 'sizes': [], 'gradient': False, 'notes': [], 'bad_dash': []}
+    info = {'part': None, 'series_colors': [], 'texts': [], 'sizes': [], 'gradient': False, 'notes': [], 'bad_dash': [],
+            'gridlines': 0, 'value_labels': False}
     if not tgt:
         info['notes'].append('chart relationship %s not found' % rid)
         return info
@@ -594,6 +595,17 @@ def parse_chart(ctx, rid, shape_ref):
     for d in root.iter(A + 'prstDash'):
         if d.get('val') not in DASH_VALUES:
             info['bad_dash'].append(d.get('val'))
+    # visible gridlines (a gridline whose line has no fill is hidden) and whether values are labelled on the chart
+    for tag in ('majorGridlines', 'minorGridlines'):
+        for g in root.iter(C + tag):
+            ln = g.find(C + 'spPr/' + A + 'ln')
+            if ln is None or ln.find(A + 'noFill') is None:
+                info['gridlines'] += 1
+    for dl in root.iter(C + 'dLbls'):
+        dele = dl.find(C + 'delete')
+        sv = dl.find(C + 'showVal')
+        if (dele is None or dele.get('val') not in ('1', 'true')) and sv is not None and sv.get('val') in ('1', 'true'):
+            info['value_labels'] = True
     for ser in root.iter(C + 'ser'):
         sp = ser.find(C + 'spPr')
         name = 'series'
@@ -1284,6 +1296,15 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 bad = sorted(set(s.table_margin_issues))
                 checks.append(chk('3', 'table cell margins leave room for the text', 'file', 'fail' if bad else 'pass',
                                   evidence=('%s: %s' % (s.ref, '; '.join(bad[:3]))) if bad else '%s: margins are below 60 %% of every cell width' % s.ref))
+        # -- 7 gridlines: a reading aid when values are not on the chart, decoration when every value is labelled
+        for s in shapes:
+            if s.kind == 'chart' and s.chart and s.chart['part']:
+                deco = s.chart['gridlines'] and s.chart['value_labels']
+                checks.append(chk('7', 'no decorative gridlines (gridlines only where values are not labelled)', 'file',
+                                  'fail' if deco else 'pass', value=s.chart['gridlines'],
+                                  evidence='%s: %d visible gridline set(s)%s' % (s.ref, s.chart['gridlines'],
+                                            ' and value labels on the chart: the gridlines repeat the labels' if deco else
+                                            (' as reading aid, values not labelled' if s.chart['gridlines'] else ''))))
         # -- file validity of chart parts (the pptx validator lets invalid line-dash values through)
         for s in shapes:
             if s.kind == 'chart' and s.chart and s.chart['bad_dash']:
@@ -1408,6 +1429,8 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     deck.append(chk('3', 'spacing in multiples of 8 pt', 'file', 'not_measured', evidence='not implemented yet'))
     deck.append(chk('10', 'title strand reads as a story', 'judgement', 'not_measured', evidence='judgement item, not scripted'))
     deck.append(chk('11', 'direction contract held, look not guessable', 'judgement', 'not_measured', evidence='judgement item, not scripted'))
+    deck.append(chk('13', 'render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap',
+                    'judgement', 'not_measured', evidence='open every rendered slide once (rules-core.md check list item 13); not scripted'))
     strand = [(sl['n'], sl['title']) for sl in report['slides']]
     report['title_strand'] = [{'n': n, 't': t} for n, t in strand]
     report['render'] = None

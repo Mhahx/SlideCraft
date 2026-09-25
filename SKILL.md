@@ -2,7 +2,7 @@
 name: slide-craft
 description: 'Design and quality rules for presentation slides and decks: pitch decks, keynotes, talks, lectures, board and status updates, decision papers (Folien, Präsentation, Vortrag, Deck, Entscheidungsvorlage). Load it first, before asking the user any question about the deck, because it defines that question round (purpose, situation, look). Load when a presentation is created, restructured, reviewed or polished for design, including an existing .pptx whose design should be checked or improved, and even if the user only says make me 10 slides about X (mach mir Folien zu X) or gives no content yet. Do not load for only reading, extracting text from, summarising, counting or converting an existing file. This skill does not create files: also load the file-building tool (pptx skill, slides artifact type, PowerPoint add-in). Sets context profile, design direction, deck plan, story structure, typography, grid, colour, charts and a ban list against generic AI-looking slides.'
 metadata:
-  version: 0.17-draft
+  version: 0.18-draft
   status: draft
 ---
 

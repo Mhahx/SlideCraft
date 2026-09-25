@@ -25,23 +25,55 @@ EMPTY_TITLE = {'', '-', '—', '–', 'n/a', 'n.a.', 'tbd', 'none'}
 
 # ----------------------------------------------------------------- parsing
 
-def _fields(text):
-    out, cur, buf = {}, None, []
+DESIGN_LABELS = ('fonts', 'text roles', 'palette', 'grid and spacing', 'layout types', 'images and icons', 'charts')
+DESIGN_HEADING_RE = re.compile(r'^#+\s*(4\b|4\.|design system)', re.I)
+AS_BUILT_RE = re.compile(r'^#+\s*(7\b|7\.)?\s*as built', re.I)
+
+
+def _fields_all(text):
+    """Every `Label: value` occurrence as (label, value, heading it sits under), in file order."""
+    found, cur, buf, head, cur_head = [], None, [], '', ''
+
+    def flush():
+        if cur:
+            found.append((cur, '\n'.join(buf), cur_head))
     for line in text.splitlines():
         if line.startswith('#'):
-            if cur and cur not in out:
-                out[cur] = '\n'.join(buf)
-            cur, buf = None, []
+            flush()
+            cur, buf, head = None, [], line.strip()
             continue
         m = LABEL_RE.match(line)
         if m:
-            if cur and cur not in out:
-                out[cur] = '\n'.join(buf)
-            cur, buf = m.group(1).lower(), [m.group(2)]
+            flush()
+            cur, buf, cur_head = m.group(1).lower(), [m.group(2)], head
         elif cur is not None:
             buf.append(line)
-    if cur and cur not in out:
-        out[cur] = '\n'.join(buf)
+    flush()
+    return found
+
+
+def _fields(text, duplicates=None):
+    """One value per label. A label that occurs more than once is resolved, never silently: design-system labels
+    (Palette, Fonts, ...) come from section 4 (Design system) when they occur there, all others from their first
+    occurrence. Every repeated label is listed in `duplicates` as (label, count, heading used, design label?)."""
+    by = {}
+    for label, value, head in _fields_all(text):
+        by.setdefault(label, []).append((value, head))
+    # section 7 (As built) restates real values on purpose: used only when a label occurs nowhere else
+    for label in list(by):
+        planned = [o for o in by[label] if not AS_BUILT_RE.match(o[1])]
+        if planned:
+            by[label] = planned
+    out = {}
+    for label, occ in by.items():
+        pick = occ[0]
+        if label in DESIGN_LABELS:
+            in_design = [o for o in occ if DESIGN_HEADING_RE.match(o[1])]
+            if in_design:
+                pick = in_design[0]
+        out[label] = pick[0]
+        if len(occ) > 1 and duplicates is not None:
+            duplicates.append((label, len(occ), pick[1] or '(no heading)', label in DESIGN_LABELS))
     return out
 
 
@@ -95,9 +127,10 @@ def _palette(block):
 
 
 def parse_plan(text):
-    f = _fields(text)
+    dups = []
+    f = _fields(text, dups)
     notes = []
-    plan = {'notes': notes}
+    plan = {'notes': notes, 'duplicate_labels': dups}
     m = re.search(r'\b(read|talk|pitch|update)\b', f.get('profile', ''), re.I)
     plan['profile'] = m.group(1).lower() if m else None
     plan['waivers'] = f.get('waivers', '')
@@ -200,6 +233,14 @@ def _chk(cid, name, method, status, value=None, limit=None, evidence=None):
 
 def self_checks(plan, prof, cd):
     out = []
+    dups = plan.get('duplicate_labels') or []
+    if dups:
+        # a repeated design label is resolved by section 4; any other repeated label is ambiguous
+        amb = [d for d in dups if not (d[3] and DESIGN_HEADING_RE.match(d[2]))]
+        out.append(_chk('P0', 'plan: every label appears once (or design labels are read from section 4)', 'file (plan)',
+                        'fail' if amb else 'observation', value=[d[0] for d in dups],
+                        evidence='; '.join('"%s:" appears %d times, used the one under %s' % (d[0].capitalize(), d[1], d[2]) for d in dups)
+                        + ('' if amb else '; write other sections without these label words to silence this (section 7, As built, is exempt)')))
     roles = [r for r in plan['roles'] if r['size']]
     if roles:
         bad = []

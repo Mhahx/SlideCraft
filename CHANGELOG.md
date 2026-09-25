@@ -2,6 +2,20 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.18-draft (2026-09-25)
+
+Befunde aus dem Blindtest (`examples/blindtest-baeume/`): ein frischer Agent mit einem anderen Modell (Sonnet 5) baute nur mit dem Skill-Paket einen Vortrag (`talk`, 10 Folien, 0 Fail). Alle vier Befunde des Agenten am Code nachgeprüft und bestätigt; dazu drei eigene aus der Durchsicht der Renderings. 88 Tests (5 neu), alle grün; jede Änderung am Skript durch einen Mutationstest abgesichert.
+
+| Befund | Änderung |
+|---|---|
+| A: `plan.py` las von jeder Bezeichnung nur das erste Vorkommen, ohne Warnung. Eine „Palette:“ bei der Beschreibung einer Richtung verdrängte die echte Palette aus Abschnitt 4 | Designbezeichnungen (Palette, Fonts, Text roles …) kommen aus Abschnitt 4; jede Wiederholung meldet P0 (Beobachtung; Fehler, wenn eine andere Bezeichnung mehrdeutig ist); Abschnitt 7 „As built“ darf wiederholen. Nebenbefund: alle vier E-Flugzeug-Pläne wiederholen „Fonts:“ in „As built“, jetzt ausdrücklich erlaubt |
+| B: Budgets je Zone in `patterns.md` widersprachen den Grenzen von `talk` (15 Wörter) und `pitch` (40) | `patterns.md`: Die Grenze des Profils gilt vor den Zonenbudgets; Tabelle mit Budgets für P01, P04, P05, P09, P11, P13, P14 in `talk` und `pitch`; P14 nennt die Zone für eine Grafik |
+| C: dekorative Gitternetzlinien verboten (`rules-core.md` §6), aber nicht geprüft | Prüfung 7 „no decorative gridlines“: sichtbare Gitternetzlinien schlagen fehl, wenn die Werte am Diagramm beschriftet sind; ohne Beschriftung sind sie Lesehilfe. Fand sofort einen Fall im eigenen Nordmark-Deck (Folie 3), behoben |
+| D: dass nur eine Zeile mit „Quelle:“ oder „Source:“ als Quelle zählt und aus der Wortzahl fällt, stand nirgends | `rules-core.md` §6 beschreibt die Regel und ihre Folgen |
+| E: das Skript sah nicht: einen aus Formen gebauten Baum, Einheiten nur in der Quellzeile, dreimal dieselbe Komposition, eine Überlappung | Neuer Punkt 13 der Prüfliste (Sichtprüfung jedes Renderings mit vier Fragen), verankert in `direction.md` (Finish, Schritt 1); das Skript führt ihn als offenen Urteilspunkt im Bericht |
+
+**Grenzen:** Blindtest mit einem Lauf, einem Thema und einem Profil.
+
 ## 0.17-draft (2026-09-25)
 
 Installierbar gemacht, für die Ziele Claude (claude.ai), Claude for PowerPoint und Claude Design (Entscheidung Max).
