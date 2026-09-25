@@ -36,6 +36,9 @@ RULES = {
 BIG_NUMBER_PT = 40.0
 NUMBER_RE = re.compile(r'^[\s+\-−–~≈<>]*[\d][\d.,\s]*\s*(%|x|×|k|m|mio\.?|mrd\.?|bn|€|\$|£|db|km|kg|g|t|h|min|pt|ct|p\.?\s?p\.?)?\s*$', re.I)
 LEAD_ZERO_RE = re.compile(r'^\s*0\d[.)]?\s*$')
+# status marks are trackers, not kickers (rules-core glossary; MCK-DC p8, BCG-IRA p10, BAIN-IABC p9)
+STATUS_RE = re.compile(r'(preliminary|draft|confidential|proprietary|pre-decisional|illustrative|not exhaustive|non-exhaustive|for discussion|'
+                       r'vorl\u00e4ufig|entwurf|vertraulich|illustrativ|nicht abschlie\u00dfend|zur diskussion)', re.I)
 BUZZ = [
     r'seamless(ly)?', r'powerful', r'holistic', r'synerg(y|ies|istic)', r'game[- ]?changer', r'cutting[- ]edge',
     r'next[- ]gen(eration)?', r'world[- ]class', r'best[- ]in[- ]class', r'revolutionary', r'market[- ]leading',
@@ -246,6 +249,9 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
                 continue
             gap = ty - (y + h)
             overlap = min(x + w, tx + tw) - max(x, tx)
+            right_mark = x >= tx + 0.6 * tw or any(p and p[0].get('algn') == 'r' for p in t.paras)
+            if STATUS_RE.search(t.text) or right_mark:
+                continue    # a status mark (top right, or a status word) is a tracker, never a kicker
             if -6 <= gap <= 24 and overlap > 0:
                 runs = t.runs()
                 letters = re.sub(r'[^A-Za-zÄÖÜäöüß]', '', t.text)

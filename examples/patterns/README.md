@@ -7,7 +7,7 @@ Jedes Muster aus `references/patterns.md` als echte Folie, gebaut mit pptxgenjs,
 | `build.js` | baut beide Decks: `NODE_PATH=<Ordner mit node_modules/pptxgenjs> node examples/patterns/build.js` |
 | `read.pptx`, `render/read-*.png` | P01 bis P13, Profil `read` (13 Folien) |
 | `talk.pptx`, `render/talk-*.png` | P01 mit Foto, P05, P13 als einzelne Zahl, P14, Profil `talk` (4 Folien) |
-| `check-read.json`, `check-talk.json` | Bericht des Prüfskripts (`--profile read|talk --exempt 1,2 --render-dir render`) |
+| `check-read.json`, `check-talk.json` | Bericht des Prüfskripts (`--profile read|talk --render-dir render`; P01 und P02 sind seit 0.13 automatisch ausgenommen) |
 | `assets/` | beschriftete Foto-Platzhalter (kein echtes Bild vorhanden) |
 
 ## Ergebnis
@@ -16,7 +16,7 @@ Jedes Muster aus `references/patterns.md` als echte Folie, gebaut mit pptxgenjs,
 
 **Rendering:** kein Text läuft über oder wird abgeschnitten; alle Titel passen in 1 bis 2 Zeilen.
 
-**Fails, alle beim Füllgrad** (Boxen-Methode, 8-pt-Raster):
+**Seit 0.13 keine Fails mehr:** Der Füllgrad ist bis zur Kalibrierung nur noch eine Beobachtung (Entscheidung Max, `AUDIT-4.md` H1). Bis 0.12 waren das die einzigen Fails (Boxen-Methode, 8-pt-Raster):
 
 | Folie | Muster | Füllgrad | Limit |
 |---|---|---|---|

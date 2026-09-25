@@ -2,6 +2,26 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.13-draft (2026-09-25)
+
+Umsetzung von Audit 4 (`AUDIT-4.md`, IDs hier mit Präfix **A4-**), Empfehlungen 1 bis 3 und A4-H1, freigegeben von Max. 74 Tests (2 neu), alle grün. Alle Beispiel- und Musterdecks neu geprüft: kein Fail.
+
+| Befund | Änderung |
+|---|---|
+| A4-K1 Look vor Story | Neuer Ablauf in `SKILL.md`: Brief, Profil, **Story-Skelett** (Titel als Aussagen, ein Muster je Folie), dann Richtung mit Entwürfen aus dem Skelett (Titelfolie und Schlüsselfolie mit echtem Titel und echten Zahlen), dann Plan. Entwürfe und Skelett gehen in einer Nachricht an den Nutzer; es bleibt bei zwei Runden. `direction.md`, `deck-plan.md`, README angepasst. |
+| A4-K2 Muster gegen Richtungen | `patterns.md`, neuer Abschnitt "What a direction decides": 8 Achsen (Deutung als Linie oder Fläche, Exhibit-Seite, Bildwelt, Dichte, Grund, Titelstimme, Hervorhebung, Strukturmittel), jede mit Belegen aus den echten Decks. Zwei Richtungen unterscheiden sich in mindestens zwei Achsen. Zonen dürfen gespiegelt und um eine Spalte verschoben werden. Plan-Feld `Pattern variants` (auch im Parser). |
+| A4-K3 Prüfskript nicht aufrufbar | `SKILL.md`, neuer Abschnitt "Check script": Befehle mit Skill-Pfad, Abhängigkeiten (Python 3; LibreOffice mit Impress und poppler fürs Rendern), Exit-Code, .odp-Weg, Fallback ohne LibreOffice und ohne Codeausführung. Im Skript: Folienvorlagen mit Namen `P01 …` und `P02 …` sind automatisch von den Titelregeln ausgenommen. |
+| A4-H1 Füllgrad drängt zum Verkleinern | Füllgrad ist bis zur Kalibrierung eine Beobachtung, kein Fail, mit dem Hinweis, nie ein Exhibit unter seine Musterzone zu verkleinern (`check_deck.py`, `profiles.md`, `rules-core.md`). Entscheidung Max auf Empfehlung. |
+| A4-H2 Widersprüche aus 0.12 | `read` erlaubt zwei Ansichten desselben Befunds (P06); Trenner mit Agenda ab 10 Folien, eigenständige Inhaltsfolie ab 15 (`rules-core.md`, `refuse.md`, `patterns.md` einheitlich); Tracker nur `read`/`update`, Statusmarke in jedem Profil; wiederkehrende Positionen gelten je Folienvorlage; native Diagramme, "unless the building tool cannot write the native form". |
+| A4-H3 Statusmarke als Kicker | Detektor nimmt Statusmarken aus (rechts oben oder mit Statuswort: Preliminary, Draft, Confidential, Illustrative, Not exhaustive, Vorläufig, Entwurf, Vertraulich u. a.). |
+| A4-H4 Grafiken | `refuse.md`: Grafiken, die den Sachverhalt zeigen (Reichweitenring, Streckenkarte, Steigflugprofil wie im von Max gelobten `talk`-Deck), sind erwünscht; nur schmückende Grafiken (Maskottchen, Ornament, Fahrzeug auf der Fortschrittsleiste) werden vermieden. Test: Trägt die Grafik eine Tatsache der Folie? |
+| A4-H5 pptxgenjs-Fallen | `SKILL.md`, Werkzeughinweise: eine Folienvorlage je Muster, Hervorhebung über eine Reihe mit Farbe je Punkt, Einheiten und Reihenfolge von `margin`, `lineDash`, Datenbeschriftungen, Grenzen des Validators. |
+| A4-M2 Nachvollziehbarkeit | `research/measure.py` (Messskript der Recherche) im Repo; `check.json` aller Beispieldecks mit dem aktuellen Skript neu erzeugt. |
+
+**Geprüft (Arbeitsregel 1):** .odp-Weg ausgeführt (Musterdeck nach .odp und zurück nach .pptx, LibreOffice 24.2): Folienvorlagen-Namen bleiben erhalten, die Alt-Texte der Diagramme gehen verloren; das steht jetzt in `SKILL.md`. Automatische Ausnahme und Statusmarken mit neuen Tests abgesichert, die Ausnahme zusätzlich per Mutation (Test schlägt ohne sie fehl).
+
+**Offen:** Übrige Werte (Wörter je Folie, Fußnoten ab 8 pt, Fußzeile, Farbrollen) nach den Antworten von Max (`AUDIT-4.md` §7, Fragen 1 und 3); ein ganzes Deck nach dem neuen Ablauf mit echten Entwürfen; Detektor prüft Zonenbudgets noch nicht; Zuordnung von Firmenvorlagen-Namen zu Mustern im Plan (A4-M3).
+
 ## 0.12-draft (2026-09-25)
 
 Schritt 3 aus BRIEF §10 (Musterbibliothek), freigegeben von Max. Neues Testergebnis: 14 Muster als 17 Folien gebaut, gerendert und geprüft. 72 Tests (3 neu), alle grün.

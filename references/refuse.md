@@ -27,7 +27,7 @@ The list has two parts, which the check list treats differently:
 ## Judgement (observed while reading)
 Structure:
 - Cards as the default container for any content, even when not in a grid or nested.
-- Topic-only filler slides ("Overview", "Outlook", "Agenda") without a claim. A contents slide is allowed only in decks of more than 15 slides.
+- Topic-only filler slides ("Overview", "Outlook", "Agenda") without a claim. A stand-alone contents slide is allowed only in decks of more than 15 slides; a divider that shows the agenda with the current section marked (`patterns.md` P02) from 10 slides.
 - Bullet lists of bold keyword, colon and half-sentence as default content.
 - Closing or "Thank you" slides without content.
 - The same composition on every slide, or on every title slide across decks: a template, not a direction.
@@ -36,7 +36,7 @@ Surface:
 - Rounded boxes with soft shadows standing in for content.
 - Mixed icon styles (different libraries or stroke widths).
 - Monospace as a costume for "technical" instead of code, data or measurements.
-- Geometric shapes (circle, polygon) standing in for a real image cut-out, and decorative illustrations built from simple shapes. Real image, the exhibit itself, or pure type.
+- Geometric shapes (circle, polygon) standing in for a real image cut-out, and decorative illustrations built from simple shapes (a mascot, an ornament, a vehicle riding a progress bar). A graphic that shows the subject matter is not decoration and is welcome: a range ring for a range, a route map for a network, a climb profile for fuel burn (the `talk` example deck, liked by Max). Test: does the graphic carry a fact of the slide? Then keep it.
 - Sparklines, progress rings and decorative charts without data behind them.
 - A font used by unexamined default, with no deliberate roles or hierarchy. Font families themselves are not banned: Arial or Calibri with clear roles are fine.
 - Purple-blue gradients as a colour scheme.

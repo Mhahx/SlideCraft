@@ -55,6 +55,8 @@ AUTO_ALT_RE = re.compile(r'(\.(png|jpe?g|gif|svg|bmp|tiff?|webp|emf|wmf)$|[\\/]|
 SOURCE_RE = re.compile(r'^\s*(sources?|quellen?)\s*[:：]', re.I)
 # a date on a source line: a year, a calendar week (KW/CW), a quarter or a month name
 YEAR_RE = re.compile(r'\b(19|20)\d{2}\b|\b(KW|CW)\s?\d{1,2}\b|\bQ[1-4]\b|\b(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember|january|february|march|may|june|july|october|december)\b', re.I)
+# layouts named after the exempt patterns of patterns.md: P01 cover, P02 divider-agenda
+PATTERN_EXEMPT_RE = re.compile(r'^\s*P0?[12](?![0-9])', re.I)
 DASH_VALUES = {'solid', 'dot', 'dash', 'lgDash', 'dashDot', 'lgDashDot', 'lgDashDotDot', 'sysDash', 'sysDot', 'sysDashDot', 'sysDashDotDot'}
 DE_STOP = set('der die das und ist nicht mit für von den dem ein eine wir sie zu im auf als auch sich wird werden'.split())
 
@@ -964,8 +966,9 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
 
     for (i, ctx, shapes, bg, ltype, lname) in slides:
         checks = []
-        exempt = (i in exempt_manual) or (ltype in ('title', 'secHead'))
-        exempt_why = ('--exempt' if i in exempt_manual else 'layout type=%s' % ltype) if exempt else None
+        pattern_exempt = bool(lname and PATTERN_EXEMPT_RE.match(lname))
+        exempt = (i in exempt_manual) or (ltype in ('title', 'secHead')) or pattern_exempt
+        exempt_why = ('--exempt' if i in exempt_manual else ('layout "%s" (patterns.md P01/P02)' % lname if pattern_exempt else 'layout type=%s' % ltype)) if exempt else None
         title = next((s for s in shapes if s.ph and norm_ph_type(s.ph[0]) == 'title' and s.has_text), None)
         # word and character counting (glossary: not source line, not slide number, footer, date, notes)
         words = 0
@@ -1227,9 +1230,12 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                     grid[rr][cc] = True
             contributing.append(s.ref)
         fillv = sum(sum(1 for c in row if c) for row in grid) / float(cols * rows)
+        # observation until calibrated (decision Max 2026-09-25, AUDIT-4 H1): as a fail it pushed builds towards shrinking exhibits
         checks.append(chk('6', 'fill of live area (bounding boxes, union, 8 pt cells)', 'script',
-                          'pass' if fillv <= prof['fill'] else 'fail', value=round(fillv, 3), limit=prof['fill'],
-                          evidence='%d shapes counted; box-based, so text boxes larger than their text overstate the fill' % len(contributing)))
+                          'observation', value=round(fillv, 3), limit=prof['fill'],
+                          evidence='%d shapes counted; %s the starting value; box-based, so text boxes larger than their text overstate the fill. '
+                                   'Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it'
+                                   % (len(contributing), 'within' if fillv <= prof['fill'] else 'above')))
 
         # -- 7 data slides
         has_data = any(s.kind in ('chart', 'table') for s in shapes)

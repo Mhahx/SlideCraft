@@ -4,6 +4,7 @@ A deck plan is written BEFORE any slide is built. It is the single source of tru
 
 ## Rules for the plan
 - Write it as a file next to the deck (`deck-plan.md`), or in the chat if no file system is available (for example inside an office add-in). Keep it short: one screen per section.
+- Sections 3 (story) and 5 (slide plan) are written first, as the story skeleton, before the direction round (`SKILL.md` step 3); the rest follows once the user has picked a draft.
 - Show the plan to the user. Then continue building without waiting, unless (a) the user asked to review the plan first, (b) the user has not picked a draft yet (see `direction.md`, round 2; once the user has picked, show the plan and keep building), or (c) the plan contains an assumption only the user can decide (audience, message, missing data). In cases (b) and (c) ask once, bundled.
 - Changes during the build are made in the plan first, then in the deck. If a slide needs something the plan does not provide (a new layout type, a new colour), extend the plan deck-wide instead of improvising on one slide.
 - For an existing deck without a plan, derive the plan from the file first (read fonts, sizes, colours, layouts), then work against it. Refinement modes keep the derived plan, redesign modes replace it and run `direction.md`.
@@ -36,6 +37,9 @@ Chosen direction:   name and one-line world
 Drafts shown:       each direction with its rendered draft paths and honest risk; which one
                     the user picked, and any change or mix the user asked for
 Colour strategy:    Restrained | Committed | Drenched (pinned: Full palette)
+Pattern variants:   one value per axis of patterns.md "What a direction decides"
+                    (interpretation, exhibit side, image world, density, ground,
+                    title voice, emphasis, structure devices)
 Direction contract: THESIS / OWN-WORLD / STORY / FIRST SLIDES / FORM / FINISH
 Rationale:          one line per major decision (why this palette, why this type pairing)
 Self-check:         could the look be guessed from the category alone? result

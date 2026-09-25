@@ -1,6 +1,6 @@
 # Slide patterns
 
-Proven slide types from real consulting decks, each with zones on the grid and a text budget per zone. Build a slide by picking a pattern and filling its zones, instead of composing from scratch. The pattern fixes structure; the chosen direction (`direction.md`) fixes the look: colours, type, image world. The same pattern looks different in every deck.
+Proven slide types from real consulting decks, each with zones on the grid and a text budget per zone. Build a slide by picking a pattern and filling its zones, instead of composing from scratch. The pattern fixes which slide does which job and where its zones sit; the chosen direction (`direction.md`) decides how the patterns are played (the variants below) and the look: colours, type, image world. The same pattern looks different in every deck.
 
 Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page by page (`research/beratungsdecks.md`, codes like MCK-DC p4 = PDF page 4). Zone sizes and budgets are **starting values**, built, rendered and checked in `examples/patterns/` (no detector finding, no overflow; the fill limit fails on full-size charts and on the `talk` patterns, see there). Real reading decks are denser than those limits (about 200 to 300 words per slide); see the research notes before loosening anything.
 
@@ -28,14 +28,30 @@ Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page b
 | make one to three numbers land | P13 key-numbers |
 | make one statement land, with a picture | P14 statement |
 
+## What a direction decides
+Real decks share the slide types and still look nothing alike: Bain (BAIN-PE, BAIN-RES) plays them with full-bleed photos, black panels and one red on grey; McKinsey (MCK-DC) with Georgia titles, a grey interpretation field and a blue scale. A direction chooses one value on each axis below, deck-wide, and records it in the plan (`Pattern variants`). Two directions differ on at least two axes, not only in colour.
+
+| Axis | Values | Seen in |
+|---|---|---|
+| Interpretation (P04, P08, P12) | rule on the left of a plain text column · light field behind the text column | RB-TREND p11 · MCK-DC p3, p12 |
+| Exhibit side | exhibit left, text right · text left, exhibit right | MCK-DC p3 · BAIN-RES p2, example `pitch` |
+| Image world | type and exhibits only · documentary photos (P01, P12, P14 with photo) · graphics that show the subject (maps, rings, profiles) | MCK-DC p4–p8 · BAIN-PE p1, p2 · example `talk` |
+| Density | budget at the upper end, more panels · budget at the lower end, one exhibit, more space | MCK-DC p6 · BAIN-PE p5 |
+| Ground | light · dark (projection, dimmed room) · colour field on title, dividers and statements only | MCK-DC p3 · BAIN-IABC p15 · MCK-DC p2 |
+| Title voice | sans bold · serif title with sans body · statement with a bold key phrase | BAIN-PE · MCK-DC · BAIN-RES p7 |
+| Emphasis | accent on the focus element only · accent plus a tint band or a highlighted row | BAIN-PE p5 · MCK-DC p4 |
+| Structure devices | rules and space · panels with header bands | BCG-MEDIA p22 · MCK-USPS p3 |
+
+The zones of a pattern may mirror left and right (exhibit side) and shift their split by one column (8/4 to 7/5) when the direction says so; everything else about the zones stays.
+
 ## Frame (all patterns except P01, P02, P14)
 
 Canvas 960 × 540 pt (13.33 × 7.5 in), margin 48 pt, 12 columns with 16 pt gutters (column 57.3 pt). Useful spans: 4 col = 277 pt, 5 = 351, 6 = 424, 7 = 497, 8 = 571, 12 = 864.
 
 | Zone | Position (pt) | Content | Budget |
 |---|---|---|---|
-| Tracker (optional) | x 48, y 48, h 14 | chapter name or number, fixed position, small | 4 words |
-| Status mark (optional) | right-aligned at x 912, y 48 | "Preliminary", "Illustrative", "Not exhaustive" | 3 words |
+| Tracker (optional, `read` and `update`) | x 48, y 48, h 14 | chapter name or number, fixed position, small | 4 words |
+| Status mark (optional, any profile) | right-aligned at x 912, y 48 | "Preliminary", "Illustrative", "Not exhaustive" | 3 words |
 | Title | x 48, y 64, w 864, h 58 | claim sentence, 1 to 2 lines, left | profile ceiling (`read` 15 words) |
 | Measure line (optional) | x 48, y 124, h 18 | what is measured, unit, period: "Buyout deal value, $ billions, 2005–2022" | 10 words |
 | Body | x 48, y 156 to 436 (h 280) | the pattern's zones | per pattern |
@@ -80,7 +96,7 @@ Rules that hold in every pattern (seen in all nine decks):
 ```
 - **Zones:** list in cols 1–7 (or 6–12), vertically centred; the current section in full contrast, the others at reduced contrast (still at least 3:1 against the ground).
 - **Budget:** 3 to 6 sections, 6 words each.
-- **Note:** this is an exempt slide type (no claim title). A contents slide is allowed only in decks over 15 slides (`refuse.md`); the divider version is allowed from 10.
+- **Note:** this is an exempt slide type (no claim title). A stand-alone contents slide is allowed only in decks over 15 slides; this divider version from 10 (`refuse.md`, `rules-core.md` glossary).
 
 ## P03 summary
 **Use:** the whole answer on one page, usually slide 2. **Profiles:** read, update. **Evidence:** BCG-MEDIA p3, BCG-NYCHA p10 (bold lead sentences, bullets under each).

@@ -36,7 +36,7 @@
       "part": "ppt/slides/slide1.xml",
       "layout": "P01 cover",
       "layout_type": null,
-      "exempt_from_action_title": "--exempt",
+      "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
       "title": "Werk Nord wird günstiger",
       "checks": [
         {
@@ -45,7 +45,7 @@
           "method": "file",
           "status": "observation",
           "value": 4,
-          "evidence": "slide1.xml#4 \"Text 0\": exempt slide type (--exempt)"
+          "evidence": "slide1.xml#4 \"Text 0\": exempt slide type (layout \"P01 cover\" (patterns.md P01/P02))"
         },
         {
           "id": "2",
@@ -102,10 +102,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.18,
           "limit": 0.3,
-          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "2 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -176,16 +176,28 @@
       "part": "ppt/slides/slide2.xml",
       "layout": "P05 chart-focus",
       "layout_type": null,
-      "exempt_from_action_title": "--exempt",
+      "exempt_from_action_title": null,
       "title": "Ausschuss verdoppelt seit 2022",
       "checks": [
         {
           "id": "1",
           "name": "title word ceiling",
           "method": "file",
-          "status": "observation",
+          "status": "pass",
           "value": 4,
-          "evidence": "slide2.xml#2 \"Text 0\": exempt slide type (--exempt)"
+          "limit": 8,
+          "evidence": "slide2.xml#2 \"Text 0\" \"Ausschuss verdoppelt seit 2022\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            40.0
+          ],
+          "limit": "40-open pt",
+          "evidence": "slide2.xml#2 \"Text 0\" run rPr"
         },
         {
           "id": "2",
@@ -261,10 +273,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "fail",
+          "status": "observation",
           "value": 0.8,
           "limit": 0.3,
-          "evidence": "2 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "2 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -423,10 +435,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "fail",
+          "status": "observation",
           "value": 0.455,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -582,10 +594,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "fail",
+          "status": "observation",
           "value": 0.642,
           "limit": 0.3,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -871,9 +883,9 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 53,
-    "fail": 3,
-    "observation": 21,
+    "pass": 54,
+    "fail": 0,
+    "observation": 24,
     "not_measured": 4,
     "waived": 0
   }

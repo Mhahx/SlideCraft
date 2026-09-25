@@ -13,17 +13,19 @@ Pick exactly one profile before building. Key question: is the slide read, or do
 | Footnote / source minimum | 10 pt | 12 pt | 10 pt | 10 pt |
 | Words per slide (max, incl. title) | 120 | 15 | 40 | 80 |
 | Characters per slide (max, incl. spaces; use instead of words for German) | 720 | 90 | 240 | 480 |
-| Fill of the live area (max) | 75 % | 30 % | 50 % | 60 % |
+| Fill of the live area (reference, reported only) | 75 % | 30 % | 50 % | 60 % |
 
 The title ceiling comes from a line-capacity estimate, not a measurement: over the live-area width of 873 pt, a bold sans title holds about 43 characters per line at 40 pt, about 47 at 36 pt and about 61 at 28 pt (average glyph width about 0.5 em). A title must fit its role in 2 lines; if it does not, shorten it, do not shrink it below the profile size. Serif titles (for example Cambria) are wider and hold fewer words.
 
 The margin of 0.667 in leaves about 74 % of the slide as live area.
 
+The fill values are reported, not enforced, until they are calibrated (decision Max, 2026-09-25): the pattern test build (`examples/patterns/`) showed that charts at the size real decks use exceed 75 % in `read`, and that the two-line 40 pt title field alone takes 23 % of the live area in `talk`. The zones of `patterns.md` decide exhibit size, not the fill value.
+
 ## read (decision paper, report, leave-behind)
 Model: McKinsey, BCG, Bain. The slide must be understandable without a speaker.
 - Claim title, answer first (pyramid principle).
-- At most 3 to 5 supporting points, one central exhibit.
-- Structure: title on top, one exhibit in the body, source and page number in the footer. Structured text is fine, no running paragraphs.
+- At most 3 to 5 supporting points, one central exhibit, or two views of the same claim side by side (`patterns.md` P06).
+- Structure: title on top, the exhibit in the body, source and page number in the footer. Structured text is fine, no running paragraphs.
 - A tracker (status or chapter marker) is allowed. A kicker is not. Colours come from the chosen direction, not from the profile.
 - Explainable in about 60 seconds.
 

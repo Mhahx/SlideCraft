@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.12 (status: draft), Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.13 (status: draft), Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -15,9 +15,9 @@ Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsreg
 **Wie er arbeitet:**
 1. Eine Rückfragerunde (Zweck, Situation, gewünschte Wirkung, Vorbilder, was würde falsch wirken).
 2. Ein Profil wählen: `read` (Lesedokument, Vorbild McKinsey/BCG/Bain), `talk` (Vortrag, Vorbild Apple/Jobs), `pitch`, `update`.
-3. Look mit dem Nutzer erarbeiten: 2 bis 3 Richtungen aus der Welt des Publikums, jede als gerenderter Entwurf (Titelfolie und typische Inhaltsfolie mit echtem Inhalt); der Nutzer wählt. Kein Standard-Look. Selbsttest gegen typische AI-Looks (aus Impeccable übertragen).
-4. Story: alle Folientitel als Aussagesätze. Der Titelstrang muss die Argumentation allein tragen.
-5. Deck-Plan schreiben (Brief, Richtung, Story, Designsystem mit Textarten, Palette, Raster, Folientabelle mit einem Muster aus `references/patterns.md` je Folie), bevor eine Folie gebaut wird.
+3. Story-Skelett: alle Folientitel als Aussagesätze, je Folie ein Muster aus `references/patterns.md`. Der Titelstrang muss die Argumentation allein tragen (Story vor Design).
+4. Look mit dem Nutzer erarbeiten: 2 bis 3 Richtungen aus der Welt des Publikums, jede als gerenderter Entwurf aus dem Skelett (Titelfolie und Schlüsselfolie mit echtem Inhalt), die Richtungen unterscheiden sich in den Musterungsvarianten, nicht nur in der Farbe. Der Nutzer wählt und prüft dabei das Skelett. Kein Standard-Look. Selbsttest gegen typische AI-Looks (aus Impeccable übertragen).
+5. Deck-Plan vervollständigen (Richtung mit Musterungsvarianten, Designsystem mit Textarten, Palette, Raster, Folientabelle), bevor eine Folie gebaut wird.
 6. Bauen, dann in einem gebündelten Durchgang prüfen, mit Detektor für KI-Muster. Danach ein frischer Reviewer ohne Bauverlauf und der Plan "as built".
 
 **Kernprinzipien:** Regeln statt Stil-Themes. Messbarkeit: Als bestanden oder nicht bestanden gilt nur, was aus der Datei gelesen, berechnet oder per Skript gemessen wird. Vom Nutzer Festgelegtes (Marke, Vorlage) gewinnt und wird im Plan als Waiver geführt.

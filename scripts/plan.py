@@ -12,7 +12,7 @@ Whatever cannot be parsed is reported as not_measured with the reason, never gue
 import re
 
 LABELS = ['Purpose', 'Audience', 'Situation', 'Duration / length', 'Language', 'Pinned by user', 'Waivers', 'Profile',
-          'Scene sentence', 'Mechanism', 'Mode', 'Chosen direction', 'Drafts shown', 'Alternatives', 'Colour strategy',
+          'Scene sentence', 'Mechanism', 'Mode', 'Chosen direction', 'Drafts shown', 'Alternatives', 'Colour strategy', 'Pattern variants',
           'Direction contract', 'Rationale', 'Self-check', 'Governing message', 'Title strand', 'Arc',
           'Fonts', 'Text roles', 'Palette', 'Grid and spacing', 'Layout types', 'Images and icons', 'Charts']
 LABEL_RE = re.compile(r'^\s*(?:[-*]\s*)?\**\s*(%s)\s*\**\s*:\s*\**\s*(.*)$' % '|'.join(re.escape(l) for l in LABELS), re.I)

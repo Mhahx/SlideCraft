@@ -273,6 +273,18 @@ class Structure(unittest.TestCase):
         rep2 = run_on(build_pptx([title]))
         self.assertTrue(find(rep2['slides'][0]['checks'], 'title word ceiling', 'fail'))
 
+    def test_layouts_named_p01_p02_are_exempt(self):
+        global LAYOUT
+        title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'Inhalt', ph='<p:ph type="title"/>')
+        saved = LAYOUT
+        try:
+            for name, exempt in (('P01 cover', True), ('P02 divider-agenda', True), ('P12 case', False)):
+                LAYOUT = saved.replace('name="Content"', 'name="%s"' % name)
+                rep = run_on(build_pptx([title]))
+                self.assertEqual(bool(rep['slides'][0]['exempt_from_action_title']), exempt, name)
+        finally:
+            LAYOUT = saved
+
     def test_german_uses_character_limit(self):
         text = sp_text(3, 'Box', 609600, 1524000, 9000000, 2000000, ('Der Umsatz ist nicht mit den Kosten für die Werke gestiegen ' * 12))
         rep = run_on(build_pptx([text]), profile='talk', lang='de')
@@ -766,6 +778,12 @@ class Detector(unittest.TestCase):
                         + box(10, 48, 60, 300, 24, text='CHAPTER TWO', sz=12)])
         self.assertEqual(detector(run_on(z, 'talk'))['kicker']['status'], 'fail')
         self.assertEqual(detector(run_on(z, 'read'))['kicker']['status'], 'observation')
+
+    def test_status_marks_are_not_kickers(self):
+        # the frame of patterns.md: status mark top right, as in MCK-DC p8
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 90 * PT, 864 * PT, 60 * PT, self.T, rpr_of(40, '111111'), ph='<p:ph type="title"/>')
+                        + box(10, 812, 66, 100, 14, text='Preliminary', sz=10) + box(11, 48, 66, 200, 14, text='Vorläufig', sz=10)])
+        self.assertNotIn('kicker', detector(run_on(z, 'talk')))
 
     def test_buzzword_fails_and_can_be_waived(self):
         body = box(10, 48, 150, 600, 60, text='A seamless and ganzheitliche platform')

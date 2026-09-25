@@ -4,6 +4,8 @@ Stand: 2026-09-25. Gegenstand: Branch `claude/github-audit-slides-1bkz9p` mit Ve
 
 Ziel (unverändert aus `AUDIT.md` §0): Max bekommt mit wenig Aufwand gute Decks. Typische KI-Muster werden verlässlich vermieden, die Gestaltung folgt professionellen Beratungsdecks, und das gilt gleich in Claude, PowerPoint, LibreOffice und Claude Design.
 
+**Umsetzung (Nachtrag, 0.13):** Empfehlung 1 bis 3 aus §6 und der Füllgrad als Beobachtung (H1) sind umgesetzt, siehe CHANGELOG 0.13. Offen sind Empfehlung 4 (übrige Werte) und 5 (ganzes Deck nach neuem Ablauf) sowie die Fragen 1 und 3 in §7.
+
 ## 1. Kurzantwort
 
 Der Stand ist deutlich näher am Ziel als bei Audit 3:
