@@ -2,6 +2,115 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.17-draft (2026-09-25)
+
+Installierbar gemacht, für die Ziele Claude (claude.ai), Claude for PowerPoint und Claude Design (Entscheidung Max).
+
+| Änderung | Warum |
+|---|---|
+| `tools/package.py` baut `dist/slide-craft/` und `dist/slide-craft.zip` mit nur `SKILL.md`, `references/`, `scripts/` (12 Dateien, 73 KB) und prüft Name, Beschreibung, genannte Dateien | das Repo enthält 24 MB Beispiele und Projektdokumente, die nicht in den Skill gehören; claude.ai verlangt den Skill-Ordner als oberste Ebene im ZIP |
+| Beschreibung im YAML-Kopf in Anführungszeichen | der offizielle Validator (`skills-ref validate`) lehnte den Kopf ab: „: “ in der Beschreibung ist ungültiges YAML; das hätte den Upload scheitern lassen können. Jetzt: „Valid skill“ |
+| `SKILL.md`: Pfad zum Prüfskript auch für claude.ai und die Office-Add-ins (Skill-Ordner wird in die Sandbox kopiert, Pfad relativ zu `SKILL.md`) | bisher nur für Claude Code beschrieben |
+| `SKILL.md`: Pfade zu `research/`, `examples/`, `tests/` und BRIEF sind Herkunftsnachweise des Repos, nicht Teil des Skills | im Paket fehlen diese Dateien; ein Modell soll nicht danach suchen |
+| README: Abschnitt „Installieren“ mit Stand je Umgebung | Claude Design nutzt laut Anthropic Design-Systeme statt Skills; offiziell unterstützt sind claude.ai, die Office-Add-ins und Claude Code |
+
+## 0.16-draft (2026-09-25)
+
+Zweiter Lauf des Ablaufs mit Max, diesmal mit einem gepinnten Stil: Pitch für ein fiktives Wasserstoffauto („Norra“), „Stil von Apple, hellblau, weiß“, dann „abgerundet Liquid Glass“ (`examples/norra/`). 14 Folien, Profil `pitch`, Deutsch, Musterzahlen. Ergebnis: 0 Fail, 13 waived. 83 Tests (3 neu), alle grün; jede der drei Änderungen durch einen Mutationstest abgesichert.
+
+| Befund aus dem Lauf | Änderung |
+|---|---|
+| Ein gepinnter Stil (Glas mit Schatten) ließ sich nicht freigeben: die Verbotspunkte Verlauf, Schatten, 3D, Emoji hatten keine ID, das Skript las Waiver nur für Detektorregeln; 14 Fails für einen gewollten Stil | Jeder Verbotspunkt trägt eine ID (`gradient`, `shadow`, `glow`, `soft-edge`, `reflection`, `3d`, `emoji`); eine im Plan genannte ID wird „waived by brief“, alle anderen bleiben Fehler (`check_deck.py`, `refuse.md`) |
+| Eine Farbfläche bis zum Folienrand (Band auf der Titelfolie) galt als Randverstoß | Textlose Flächen über die volle Breite oder Höhe, mindestens ein Sechstel tief, zählen als Grund und werden als „bleed“ beobachtet; dünne Balken und Flächen mit Text bleiben Fehler (`check_deck.py`, `rules-core.md` §3) |
+| Glas kippt leicht ins Kartenraster | Neue Regel und Detektorregel `glass-stack`: höchstens eine durchscheinende Fläche pro Folie, für den Fokus; Licht dahinter als transparentes PNG mit ausgeblendeten Rändern; Kontrast auf Glas im ungünstigsten Fall (`refuse.md`, Abschnitt „Pinned styles“; `detect.py`); Zeile „Liquid Glass“ in der Tabelle der Stilwörter (`direction.md`) |
+
+Beim Gegenlesen gefunden: Jede ID, die in der Waiver-Zeile vorkommt, gilt als freigegeben, auch in einem Satz wie „glass-stack stays active“. Der Norra-Plan ist umformuliert, `refuse.md` warnt davor.
+
+**Grenzen:** Selbstprüfung desselben Modells; Rendering nur in LibreOffice; das Urteil von Max zum fertigen Deck steht aus.
+
+## 0.15-draft (2026-09-25)
+
+Schritt 5: erster kompletter Lauf des Ablaufs mit Max als Nutzer, fiktives Thema "Regionalbank Nordmark, Filialnetz 42 auf 28" (`examples/nordmark/`). Neues Testergebnis: Deck mit 9 Folien, 0 Fail in 136 Prüfungen einschließlich Planabgleich. 80 Tests (1 neu), alle grün.
+
+**Lauf:** Brief (4 Fragen, Antworten von Max: nüchtern, vertrauenswürdig, Blick nach vorn, dunkles Grün, Landschaftsfotos), Profil `read`, Story-Skelett mit 9 Titeln und 8 Mustern, drei gerenderte Richtungen (A Geschäftsbericht, B Flurkarte, C Weitblick) zusammen mit dem Skelett, Wahl von Max: Titelfolie aus C, Inhaltsfolien aus A. Plan mit Musterungsvarianten und Richtungsvertrag, Bau, Prüfung, Selbstprüfung (ein Befund, behoben), Plan as built. Fotos von Wikimedia Commons (CC BY-SA 4.0) mit Nachweis.
+
+**Fehler im Skill, die der Lauf gefunden hat, behoben:**
+
+| Befund | Änderung |
+|---|---|
+| Vorlage in `deck-plan.md` zeigte Rollen- und Folientabelle ohne führendes `|`; das Skript liest nur Markdown-Tabellen, ein Plan nach der Vorlage wurde nicht erkannt | Vorlage zeigt jetzt Markdown-Tabellen und nennt das Format |
+| Planabgleich fand "Rand 48 pt" nicht | `plan.py` liest auch "Rand" und "Ränder" (neuer Test) |
+| Seitenzahl und Quelle im unteren Rand (seit 0.14 erlaubt) ließen "shapes keep the plan margin" fehlschlagen | Fußzeilen-Elemente zählen nicht für den kleinsten Randabstand |
+| pptxgenjs zentriert Titel-Platzhalter ohne `align` | Werkzeughinweis in `SKILL.md` |
+| Rendering ohne maßgleiche Ersatzschriften zeichnet Calibri und Cambria breiter; Titel wirkten zweizeilig | `SKILL.md`, Abschnitt Check script: Carlito, Caladea, Liberation nötig, sonst ist das Rendering unzuverlässig |
+| keine Regel, woher Fotos kommen (AUDIT.md H4) | `rules-core.md` §5: eigene Fotos, genannte Fotos, frei lizenzierte Fotos mit geprüfter Lizenz und Nachweis auf der Folie; Symbolbild benennen; sonst Exhibit oder Typografie |
+
+**Was der Planabgleich im Testdeck fand (Nachweis, dass er trägt):** zu dichte Schriftgrößen (12/14/16, jetzt 11/14/18), fette Texte ohne Rolle, Titelfläche nicht als Hintergrund in der Palette, verborgene Datenbeschriftungen in 12 pt.
+
+**Grenzen:** Selbstprüfung desselben Modells; Rendering nur in LibreOffice; das Urteil von Max zum fertigen Deck steht aus.
+
+## 0.14-draft (2026-09-25)
+
+Schritt 4 aus BRIEF §10 (Werte kalibrieren) für die Lesedecks, freigegeben von Max. Grundlage: die Messwerte aus `research/beratungsdecks.md`. 79 Tests (5 neu), alle grün; alle Beispiel- und Musterdecks neu geprüft, kein Fail.
+
+| Wert | vorher | jetzt | Beleg |
+|---|---|---|---|
+| Wörter je Folie `read` | 120 (720 Zeichen) | 250 (1.500 Zeichen) | Entscheidung Max; Lesedecks p25–p75 von 130 bis 300 Wörtern |
+| Titel `read`, `update` | 24–28 pt | 20–28 pt | Median der Decks 20–25 pt |
+| Fußnote und Quelle `read`, `update`, `pitch` | 10 pt | 8 pt | Quellen in allen Decks 7–8 pt |
+| Fußzeile | innerhalb 48 pt | Fußnoten, Quelle, Seitenzahl bis 18 pt über der Unterkante | Quellenzeilen bei 482–514 von 540 pt |
+| Farben | 1 Akzent + höchstens 1 Signalfarbe | Rollen: Neutrale, 1 Akzent, höchstens ein Signalpaar (positiv/negativ), Abstufungen einer Farbe zählen einmal; Skript erlaubt 3 Farbfamilien | MCK-DC S. 4 (Blauskala plus orange Fokuszeile), BAIN-PE (Rot auf Grau) |
+
+Geändert: `profiles.md`, `rules-core.md` (Glossar, §2, §3, §4, Prüfliste, Provenienz), `deck-plan.md`, `commands.md`, `patterns.md` (Rahmen: Körper bis y 456, Fußzeile y 466–502; Budgets als schlankes Ende, bis 250 Wörter durch mehr Panels, nie durch kleinere Schrift), `check_deck.py` (Profilwerte, Fußzeilen-Rand, Farbrollen), `plan.py` (Plan-Palette mit Signalpaar), Testbau der Muster (Fußzeile neu positioniert).
+
+**Tests:** Der Test mit den absichtlichen Verstößen (`bad.pptx`) erwartet die 8-pt-Fußnote, die 150 Wörter und die drei Farbfamilien nicht mehr als Fehler; dafür prüfen neue Tests die neuen Schwellen (251 Wörter, 7 pt, Fußzeile unter 18 pt, vierte Farbfamilie, Titel ab 20 pt).
+
+**Unverändert, mangels Belegen:** Werte für `talk`, `pitch`, `update` (kein Statusbericht im Korpus, die Bain-Vortragsdecks liegen zwischen `talk` und `pitch`), Füllgrad (bleibt Beobachtung), Körperschrift-Minima.
+
+## 0.13-draft (2026-09-25)
+
+Umsetzung von Audit 4 (`AUDIT-4.md`, IDs hier mit Präfix **A4-**), Empfehlungen 1 bis 3 und A4-H1, freigegeben von Max. 74 Tests (2 neu), alle grün. Alle Beispiel- und Musterdecks neu geprüft: kein Fail.
+
+| Befund | Änderung |
+|---|---|
+| A4-K1 Look vor Story | Neuer Ablauf in `SKILL.md`: Brief, Profil, **Story-Skelett** (Titel als Aussagen, ein Muster je Folie), dann Richtung mit Entwürfen aus dem Skelett (Titelfolie und Schlüsselfolie mit echtem Titel und echten Zahlen), dann Plan. Entwürfe und Skelett gehen in einer Nachricht an den Nutzer; es bleibt bei zwei Runden. `direction.md`, `deck-plan.md`, README angepasst. |
+| A4-K2 Muster gegen Richtungen | `patterns.md`, neuer Abschnitt "What a direction decides": 8 Achsen (Deutung als Linie oder Fläche, Exhibit-Seite, Bildwelt, Dichte, Grund, Titelstimme, Hervorhebung, Strukturmittel), jede mit Belegen aus den echten Decks. Zwei Richtungen unterscheiden sich in mindestens zwei Achsen. Zonen dürfen gespiegelt und um eine Spalte verschoben werden. Plan-Feld `Pattern variants` (auch im Parser). |
+| A4-K3 Prüfskript nicht aufrufbar | `SKILL.md`, neuer Abschnitt "Check script": Befehle mit Skill-Pfad, Abhängigkeiten (Python 3; LibreOffice mit Impress und poppler fürs Rendern), Exit-Code, .odp-Weg, Fallback ohne LibreOffice und ohne Codeausführung. Im Skript: Folienvorlagen mit Namen `P01 …` und `P02 …` sind automatisch von den Titelregeln ausgenommen. |
+| A4-H1 Füllgrad drängt zum Verkleinern | Füllgrad ist bis zur Kalibrierung eine Beobachtung, kein Fail, mit dem Hinweis, nie ein Exhibit unter seine Musterzone zu verkleinern (`check_deck.py`, `profiles.md`, `rules-core.md`). Entscheidung Max auf Empfehlung. |
+| A4-H2 Widersprüche aus 0.12 | `read` erlaubt zwei Ansichten desselben Befunds (P06); Trenner mit Agenda ab 10 Folien, eigenständige Inhaltsfolie ab 15 (`rules-core.md`, `refuse.md`, `patterns.md` einheitlich); Tracker nur `read`/`update`, Statusmarke in jedem Profil; wiederkehrende Positionen gelten je Folienvorlage; native Diagramme, "unless the building tool cannot write the native form". |
+| A4-H3 Statusmarke als Kicker | Detektor nimmt Statusmarken aus (rechts oben oder mit Statuswort: Preliminary, Draft, Confidential, Illustrative, Not exhaustive, Vorläufig, Entwurf, Vertraulich u. a.). |
+| A4-H4 Grafiken | `refuse.md`: Grafiken, die den Sachverhalt zeigen (Reichweitenring, Streckenkarte, Steigflugprofil wie im von Max gelobten `talk`-Deck), sind erwünscht; nur schmückende Grafiken (Maskottchen, Ornament, Fahrzeug auf der Fortschrittsleiste) werden vermieden. Test: Trägt die Grafik eine Tatsache der Folie? |
+| A4-H5 pptxgenjs-Fallen | `SKILL.md`, Werkzeughinweise: eine Folienvorlage je Muster, Hervorhebung über eine Reihe mit Farbe je Punkt, Einheiten und Reihenfolge von `margin`, `lineDash`, Datenbeschriftungen, Grenzen des Validators. |
+| A4-M2 Nachvollziehbarkeit | `research/measure.py` (Messskript der Recherche) im Repo; `check.json` aller Beispieldecks mit dem aktuellen Skript neu erzeugt. |
+
+**Geprüft (Arbeitsregel 1):** .odp-Weg ausgeführt (Musterdeck nach .odp und zurück nach .pptx, LibreOffice 24.2): Folienvorlagen-Namen bleiben erhalten, die Alt-Texte der Diagramme gehen verloren; das steht jetzt in `SKILL.md`. Automatische Ausnahme und Statusmarken mit neuen Tests abgesichert, die Ausnahme zusätzlich per Mutation (Test schlägt ohne sie fehl).
+
+**Offen:** Übrige Werte (Wörter je Folie, Fußnoten ab 8 pt, Fußzeile, Farbrollen) nach den Antworten von Max (`AUDIT-4.md` §7, Fragen 1 und 3); ein ganzes Deck nach dem neuen Ablauf mit echten Entwürfen; Detektor prüft Zonenbudgets noch nicht; Zuordnung von Firmenvorlagen-Namen zu Mustern im Plan (A4-M3).
+
+## 0.12-draft (2026-09-25)
+
+Schritt 3 aus BRIEF §10 (Musterbibliothek), freigegeben von Max. Neues Testergebnis: 14 Muster als 17 Folien gebaut, gerendert und geprüft. 72 Tests (3 neu), alle grün.
+
+**Recherche (`research/beratungsdecks.md`):** 9 öffentliche Decks selbst geladen und angesehen, darunter 5 Kundendecks: McKinsey (Transportation in DC 2020, USPS 2010), BCG (NYCHA 2012, NYC Media 2015, Kongress-Unterlagen 2023), Bain (PE Roadshow 2023, Resilience 2020, IABC 2019), Roland Berger (Trend Compendium 2025). Zusammen rund 400 Seiten; per Code gemessen (Titelgröße, Wörter, kleinste Schrift, Quellenzeilen, Positionen), rund 60 Seiten angesehen. Nicht erreichbar: PDFs von `web-assets.bcg.com` und `mckinsey.com` (Bot-Schutz der Server).
+
+**Musterbibliothek (`references/patterns.md`):** P01 cover, P02 divider-agenda, P03 summary, P04 chart-rail, P05 chart-focus, P06 two-exhibits, P07 table, P08 bridge, P09 before-after, P10 numbered-rows, P11 timeline, P12 case, P13 key-numbers, P14 statement. Jedes Muster mit Einsatz, Profilen, Belegen (Deck und Seite), Skizze, Zonen auf dem 12-Spalten-Raster, Textbudget je Zone und Regeln. Dazu der gemeinsame Rahmen (Tracker, Statusmarke, Titel, Messzeile, Körper, Fußnoten und Quelle, Seitenzahl). Eingebunden in `SKILL.md` (Schritte 5 und 6), `deck-plan.md` (Layout type = Muster-ID), `rules-core.md` §3 und `commands.md`.
+
+**Testbau (`examples/patterns/`, Arbeitsregel 1):** `read.pptx` (P01 bis P13) und `talk.pptx` (P01, P05, P13, P14), eine Folienvorlage je Muster, gerendert per LibreOffice. Ergebnis: kein Detektor-Befund außer der gewollten Beobachtung `stat-row` auf P13, kein Textüberlauf. Fails nur beim Füllgrad: `read` P05 und P06 (82 % bei 75 %), `talk` P05, P13, P14 (80, 46, 64 % bei 30 %). Nicht durch Verkleinern umgangen; Entscheidung in Schritt 4.
+
+**Detektor, korrigiert an echten Decks:**
+
+| Befund | Änderung |
+|---|---|
+| Panels mit Kopfband (MCK-USPS S. 3, 5, 8, 20) wurden als `nested-cards` gemeldet | bündige Kopf- und Fußbänder (volle Breite, höchstens 35 % der Höhe) sind ausgenommen |
+| Zeilenbeschriftungen in grauen Feldern (BCG-NYCHA S. 35) hätten `card-grid` ausgelöst | eine Karte braucht mindestens zwei Textelemente |
+| Eine ungerahmte Reihe großer Zahlen steht in einem echten Bain-Deck (BAIN-IABC S. 4) | `stat-row` ist nur noch ein Fail, wenn die Zahlen in Boxen stehen, sonst eine Beobachtung |
+
+**Prüfskript:** Prüfpunkt 4 ("wiederkehrende Platzhalter an derselben Position") vergleicht jetzt je Folienvorlage statt über das ganze Deck; vorher meldete er das Statement-Muster (Titel unter dem Fotostreifen) als Abweichung.
+
+**Beim Testbau gefundene eigene Fehler, behoben:** Grau 949494 auf hellem Band 2,71:1 (jetzt 858585, 3,3:1), zwei Elemente über dem Rand, Werte in farbigen Balken schlecht lesbar (jetzt eine Reihe mit Farbe je Punkt, Wert über dem Balken), P14-Titel auf dem Foto, Rechenfehler in den Beispielzahlen (0,54 statt 3,9 Mio. €).
+
+**Grenzen:** Muster und Budgets sind Startwerte; die Budgets sind an die heutigen Profilgrenzen angepasst, echte Lesedecks sind dichter. Der Detektor prüft die Budgets je Zone noch nicht. Rendering nur in LibreOffice. P08 aus Formen gebaut (pptxgenjs schreibt kein natives Wasserfalldiagramm). Beurteilung der Testfolien durch dasselbe Modell, keine unabhängige Prüfung.
+
 ## 0.11-draft (2026-09-25)
 
 Umsetzung von Schritt 1 und 2 aus Audit 3 (`AUDIT.md`, IDs hier mit Präfix **A3-**), freigegeben von Max. Neues Testergebnis: Das absichtlich gebaute KI-Deck fällt jetzt auf jeder Folie durch, vorher bestand es die Vermeidungsprüfung. 69 Tests (18 neu), alle grün, auch die 5 Rendertests, die bisher mangels LibreOffice Impress übersprungen wurden.

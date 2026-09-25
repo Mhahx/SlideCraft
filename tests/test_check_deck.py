@@ -273,6 +273,18 @@ class Structure(unittest.TestCase):
         rep2 = run_on(build_pptx([title]))
         self.assertTrue(find(rep2['slides'][0]['checks'], 'title word ceiling', 'fail'))
 
+    def test_layouts_named_p01_p02_are_exempt(self):
+        global LAYOUT
+        title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'Inhalt', ph='<p:ph type="title"/>')
+        saved = LAYOUT
+        try:
+            for name, exempt in (('P01 cover', True), ('P02 divider-agenda', True), ('P12 case', False)):
+                LAYOUT = saved.replace('name="Content"', 'name="%s"' % name)
+                rep = run_on(build_pptx([title]))
+                self.assertEqual(bool(rep['slides'][0]['exempt_from_action_title']), exempt, name)
+        finally:
+            LAYOUT = saved
+
     def test_german_uses_character_limit(self):
         text = sp_text(3, 'Box', 609600, 1524000, 9000000, 2000000, ('Der Umsatz ist nicht mit den Kosten für die Werke gestiegen ' * 12))
         rep = run_on(build_pptx([text]), profile='talk', lang='de')
@@ -304,17 +316,16 @@ class Fixtures(unittest.TestCase):
     def test_bad_deck_fails_exactly_the_planted_violations(self):
         rep = self.report('bad.pptx', 'read')
         expected = {
-            (1, '2', 'no text below footnote minimum'),                       # 8 pt footnote
+            # since 0.14 (calibrated on real decks): the 8 pt footnote, the 150 words and the three hue families
+            # of this deck are within the limits; tests in Calibration cover the new thresholds
             (1, '3', 'shapes inside 48 pt margins'),                          # 8 pt box at y=6.9 in and a shape at x=12 in
             (1, '5', 'text contrast'),                                        # BFBFBF on white
             (1, '8', 'alt text on pictures and charts'),                      # pptxgenjs writes the file path as alt text
             (1, '9', 'detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)'),  # shadow + emoji
             (2, '1', 'title present and non-empty'),
-            (2, '6', 'words per slide'),                                      # 150 filler words + table
             (2, '7', 'data slide has source and date'),
             (2, '8', 'title set'),
             ('deck', '2', 'at most 2 font families'),                         # Arial, Comic Sans MS, Georgia
-            ('deck', '5', 'colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)'),
         }
         self.assertEqual(self.fails(rep), expected)
 
@@ -378,6 +389,10 @@ class PlanParsing(unittest.TestCase):
         self.assertEqual(p['layout_types'], ['main'])
         self.assertEqual([(s['no'], s['layout'], s['title']) for s in p['slides']],
                          [(1, 'main', 'Retention drives the 12 % revenue growth'), (2, 'main', 'Two levers explain most of the gain')])
+
+    def test_german_margin_word_is_read(self):
+        plan = planmod.parse_plan('Grid and spacing:   960 x 540 pt, Rand 48 pt, 12 Spalten\nProfile: read\n')
+        self.assertEqual(plan['margin_pt'], 48.0)
 
     def test_bold_labels_and_bullets_are_accepted(self):
         p = planmod.parse_plan('- **Profile:** talk\n- **Palette:** background #101820 | accent FF5500\n')
@@ -444,7 +459,7 @@ class PlanComparison(unittest.TestCase):
         cases = [
             ('| body | Arial | regular | 16 |', '| body | Arial | regular | 12 |', 'plan: role sizes within profile limits'),
             ('| body | Arial | regular | 16 |', '| body | Arial | regular | 17 |', 'plan: neighbouring role sizes differ by at least 1.25'),
-            ('accent 1F4E79', 'accent 1F4E79, C00000', 'plan: palette has 1 accent and at most 1 signal colour'),
+            ('accent 1F4E79', 'accent 1F4E79, C00000', 'plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)'),
             ('| 333333 | body text |', '| BFBFBF | body text |', 'plan: role colours against palette backgrounds (contrast)'),
             ('| chart | Company data, 2025 |', '| chart | - |', 'plan: every data slide row has a source'),
             ('| 2 | main |', '| 2 | comparison |', 'plan: every slide row uses a layout type defined in the design system'),
@@ -708,10 +723,22 @@ class Detector(unittest.TestCase):
         self.assertNotIn('nested-cards', detector(self.run_slide(body)))
 
     def test_three_equal_cards_fail_two_do_not(self):
-        three = ''.join(box(10 + i, 48 + i * 290, 150, 270, 200, fill='F3F4F6', text='Card %d' % i) for i in range(3))
+        three = ''.join(box(10 + 2 * i, 48 + i * 290, 150, 270, 200, fill='F3F4F6', text='Card %d' % i) +
+                        box(11 + 2 * i, 60 + i * 290, 220, 240, 60, text='Body text of card %d' % i, sz=14) for i in range(3))
         self.assertEqual(detector(self.run_slide(three))['card-grid']['status'], 'fail')
-        two = ''.join(box(10 + i, 48 + i * 440, 150, 420, 200, fill='F3F4F6', text='Option %d' % i) for i in range(2))
+        two = ''.join(box(10 + 2 * i, 48 + i * 440, 150, 420, 200, fill='F3F4F6', text='Option %d' % i) +
+                      box(11 + 2 * i, 60 + i * 440, 220, 380, 60, text='Body text of option %d' % i, sz=14) for i in range(2))
         self.assertNotIn('card-grid', detector(self.run_slide(two)))
+
+    def test_panel_with_header_band_is_not_nested(self):
+        # consulting panel grammar (McKinsey USPS 2010 p3): a panel with a coloured header band holding the panel title
+        body = (box(10, 48, 140, 420, 300, fill='EAF1FB') + box(11, 48, 140, 420, 40, fill='C7DBF3', text='Net profit/loss, $ billions')
+                + box(12, 60, 190, 390, 200, text='Chart area'))
+        self.assertNotIn('nested-cards', detector(self.run_slide(body)))
+
+    def test_row_labels_with_one_text_are_not_cards(self):
+        labels = ''.join(box(10 + i, 48, 150 + i * 100, 120, 80, fill='E5E5E5', text='Row %d' % i) for i in range(3))
+        self.assertNotIn('card-grid', detector(self.run_slide(labels)))
 
     def test_short_header_bars_are_not_cards(self):
         bars = ''.join(box(10 + i, 48 + i * 290, 150, 270, 30, fill='1F4E79', text='Option %d' % i) for i in range(3))
@@ -725,9 +752,11 @@ class Detector(unittest.TestCase):
                        box(11 + 2 * i, 48 + i * 290, 172, 250, 30, text='Q%d 2027' % (i + 1)) for i in range(3))
         self.assertNotIn('icon-tile-stack', detector(self.run_slide(dots)))
 
-    def test_row_of_big_numbers_fails_single_number_passes(self):
-        row = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, text=v, sz=54) for i, v in enumerate(['-18 %', '-60 %', '0 g']))
-        self.assertEqual(detector(self.run_slide(row))['stat-row']['status'], 'fail')
+    def test_row_of_big_numbers_fails_boxed_is_observation_unboxed_single_number_passes(self):
+        row = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, text=v, sz=54) for i, v in enumerate(['20 %', '68 %', '12 %']))
+        self.assertEqual(detector(self.run_slide(row))['stat-row']['status'], 'observation')
+        boxed = ''.join(box(10 + i, 48 + i * 290, 200, 270, 80, fill='F3F4F6', text=v, sz=54) for i, v in enumerate(['-18 %', '-60 %', '0 g']))
+        self.assertEqual(detector(self.run_slide(boxed))['stat-row']['status'], 'fail')
         one = box(10, 48, 200, 400, 80, text='+38 %', sz=60)
         found = detector(self.run_slide(one, 'talk'))
         self.assertNotIn('stat-row', found)
@@ -752,6 +781,12 @@ class Detector(unittest.TestCase):
                         + box(10, 48, 60, 300, 24, text='CHAPTER TWO', sz=12)])
         self.assertEqual(detector(run_on(z, 'talk'))['kicker']['status'], 'fail')
         self.assertEqual(detector(run_on(z, 'read'))['kicker']['status'], 'observation')
+
+    def test_status_marks_are_not_kickers(self):
+        # the frame of patterns.md: status mark top right, as in MCK-DC p8
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 90 * PT, 864 * PT, 60 * PT, self.T, rpr_of(40, '111111'), ph='<p:ph type="title"/>')
+                        + box(10, 812, 66, 100, 14, text='Preliminary', sz=10) + box(11, 48, 66, 200, 14, text='Vorläufig', sz=10)])
+        self.assertNotIn('kicker', detector(run_on(z, 'talk')))
 
     def test_buzzword_fails_and_can_be_waived(self):
         body = box(10, 48, 150, 600, 60, text='A seamless and ganzheitliche platform')
@@ -789,6 +824,113 @@ class Detector(unittest.TestCase):
         c = [c for c in run_on(z)['deck'] if 'default-look' in c['name']]
         self.assertEqual(c[0]['status'], 'observation')
         self.assertNotIn('default-look', ' '.join(c['name'] for c in run_on(build_pptx([title_sp(self.T)]))['deck']))
+
+
+def glass_panel(idn, x, y, w, h, alpha=70000, shadow=True, text=None):
+    """A translucent rounded panel in pt (Liquid Glass): white at alpha, white outline, optional soft shadow."""
+    eff = ('<a:effectLst><a:outerShdw blurRad="304800" dist="76200" dir="5400000"><a:srgbClr val="0A2A4A"><a:alpha val="12000"/>'
+           '</a:srgbClr></a:outerShdw></a:effectLst>') if shadow else ''
+    tx = ('<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr lang="en-US" sz="2000"><a:solidFill><a:srgbClr val="0A2A4A"/></a:solidFill>'
+          '<a:latin typeface="Arial"/></a:rPr><a:t>%s</a:t></a:r></a:p></p:txBody>' % text) if text else ''
+    return ('<p:sp><p:nvSpPr><p:cNvPr id="%d" name="Glass%d"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr>'
+            '<a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm><a:prstGeom prst="roundRect"><a:avLst/></a:prstGeom>'
+            '<a:solidFill><a:srgbClr val="FFFFFF"><a:alpha val="%d"/></a:srgbClr></a:solidFill>'
+            '<a:ln w="19050"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></a:ln>%s</p:spPr>%s</p:sp>'
+            % (idn, idn, x * PT, y * PT, w * PT, h * PT, alpha, eff, tx))
+
+
+class PinnedStyles(unittest.TestCase):
+    """0.16: a pinned style (Liquid Glass) can waive shadows, one glass panel per slide, colour fields may bleed."""
+    T = 'Refuelling 500 km takes 90 seconds, not 35 minutes'
+
+    def refuse_items(self, rep):
+        return find(rep['slides'][0]['checks'], 'detectable refuse items')[0]
+
+    def test_shadow_fails_unless_the_plan_waives_it_by_id(self):
+        z = build_pptx([title_sp(self.T) + glass_panel(10, 600, 184, 312, 136, text='Fleet cars no longer wait')])
+        self.assertEqual(self.refuse_items(run_on(z))['status'], 'fail')
+        plan = 'Waivers: `shadow` (Max: "abgerundet Liquid Glass")\nProfile: read\n'
+        rep = cd.analyse(cd.Package(z), 'synthetic', 'read', set(), 'en', plan)
+        item = self.refuse_items(rep)
+        self.assertEqual(item['status'], 'waived')
+        self.assertIn('(shadow)', item['evidence'])
+        # a waiver for shadows does not release a gradient on the same slide
+        grad = ('<p:sp><p:nvSpPr><p:cNvPr id="11" name="Grad"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="%d" y="%d"/>'
+                '<a:ext cx="%d" cy="%d"/></a:xfrm><a:gradFill><a:gsLst><a:gs pos="0"><a:srgbClr val="FFFFFF"/></a:gs><a:gs pos="100000">'
+                '<a:srgbClr val="8FC9F2"/></a:gs></a:gsLst></a:gradFill></p:spPr></p:sp>') % (48 * PT, 184 * PT, 400 * PT, 200 * PT)
+        z2 = build_pptx([title_sp(self.T) + grad + glass_panel(10, 600, 184, 312, 136, text='Fleet cars no longer wait')])
+        rep2 = cd.analyse(cd.Package(z2), 'synthetic', 'read', set(), 'en', plan)
+        self.assertEqual(self.refuse_items(rep2)['status'], 'fail')
+
+    def test_two_glass_panels_fail_one_passes(self):
+        one = build_pptx([title_sp(self.T) + glass_panel(10, 600, 184, 312, 136, shadow=False, text='Fleet cars no longer wait')])
+        self.assertNotIn('glass-stack', detector(run_on(one)))
+        two = build_pptx([title_sp(self.T) + glass_panel(10, 48, 184, 400, 200, shadow=False, text='Option one')
+                          + glass_panel(11, 512, 184, 400, 200, shadow=False, text='Option two')])
+        self.assertEqual(detector(run_on(two))['glass-stack']['status'], 'fail')
+        # opaque panels are not glass
+        opaque = build_pptx([title_sp(self.T) + glass_panel(10, 48, 184, 400, 200, alpha=100000, shadow=False, text='A')
+                             + glass_panel(11, 512, 184, 400, 200, alpha=100000, shadow=False, text='B')])
+        self.assertNotIn('glass-stack', detector(run_on(opaque)))
+
+    def test_colour_field_to_the_edge_is_bleed_thin_bar_is_not(self):
+        band = box(10, 0, 360, 960, 180, fill='D6ECFA')
+        checks = run_on(build_pptx([title_sp(self.T) + band]))['slides'][0]['checks']
+        self.assertTrue(find(checks, 'inside 48 pt margins', 'pass'))
+        self.assertTrue(find(checks, 'colour fields crossing margins (bleed)', 'observation'))
+        bar = box(10, 0, 0, 960, 12, fill='1668B8')
+        checks = run_on(build_pptx([title_sp(self.T, y=64) + bar]))['slides'][0]['checks']
+        self.assertTrue(find(checks, 'inside 48 pt margins', 'fail'))
+        # a band with text on it is content, not ground
+        labelled = box(10, 0, 360, 960, 180, fill='D6ECFA', text='Series A pitch')
+        checks = run_on(build_pptx([title_sp(self.T) + labelled]))['slides'][0]['checks']
+        self.assertTrue(find(checks, 'inside 48 pt margins', 'fail'))
+
+
+class Calibration(unittest.TestCase):
+    """Thresholds calibrated on the real decks in research/beratungsdecks.md (0.14)."""
+    T = 'Pricing explains most of the 12 % gain'
+
+    def test_read_allows_250_words_not_more(self):
+        ok = box(10, 48, 150, 864, 280, text=' '.join(['word'] * 230), sz=14)
+        over = box(10, 48, 150, 864, 280, text=' '.join(['word'] * 260), sz=14)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + ok]))['slides'][0]['checks'], 'words per slide')[0]['status'], 'pass')
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + over]))['slides'][0]['checks'], 'words per slide')[0]['status'], 'fail')
+
+    def test_footnote_minimum_is_8_pt_in_read_12_in_talk(self):
+        body = box(10, 48, 470, 700, 16, text='Source: company data, 2026', sz=8)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + body]))['slides'][0]['checks'], 'no text below footnote minimum')[0]['status'], 'pass')
+        seven = box(10, 48, 470, 700, 16, text='Source: company data, 2026', sz=7)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + seven]))['slides'][0]['checks'], 'no text below footnote minimum')[0]['status'], 'fail')
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + body]), 'talk')['slides'][0]['checks'], 'no text below footnote minimum')[0]['status'], 'fail')
+
+    def test_footer_items_may_use_the_bottom_margin_body_text_may_not(self):
+        source = box(10, 48, 496, 700, 16, text='Source: company data, 2026', sz=8)
+        body = box(10, 48, 496, 700, 20, text='A body sentence placed far too low', sz=16)
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + source]))['slides'][0]['checks'], 'shapes inside 48 pt margins')[0]['status'], 'pass')
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + body]))['slides'][0]['checks'], 'shapes inside 48 pt margins')[0]['status'], 'fail')
+        below = box(10, 48, 512, 700, 16, text='Source: company data, 2026', sz=8)   # bottom at 528 > 522
+        self.assertEqual(find(run_on(build_pptx([title_sp(self.T) + below]))['slides'][0]['checks'], 'shapes inside 48 pt margins')[0]['status'], 'fail')
+
+    def test_colour_roles_allow_accent_plus_signal_pair_not_a_fourth_hue(self):
+        def deck(hexes):
+            return build_pptx([title_sp(self.T) + ''.join(box(10 + i, 48 + i * 100, 200, 80, 40, fill=h) for i, h in enumerate(hexes))])
+        roles = lambda r: [c for c in r['deck'] if c['name'].startswith('colour roles')][0]['status']
+        self.assertEqual(roles(run_on(deck(['0F5E9C', '2E7D32', 'B42318']))), 'pass')             # accent, positive, negative
+        self.assertEqual(roles(run_on(deck(['0F5E9C', '2E7D32', 'B42318', '7B1FA2']))), 'fail')   # plus a fourth hue
+
+    def test_read_title_from_20_pt(self):
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 64 * PT, 864 * PT, 60 * PT, self.T, rpr_of(20, '111111'), ph='<p:ph type="title"/>')])
+        self.assertEqual(find(run_on(z)['slides'][0]['checks'], 'title size within profile range')[0]['status'], 'pass')
+
+
+class RecurringPositions(unittest.TestCase):
+    def test_title_moving_within_one_layout_fails(self):
+        z = build_pptx([sp_text(2, 'Title', 48 * PT, 64 * PT, 864 * PT, 60 * PT, 'Pricing explains the gain', rpr_of(26, '111111'), ph='<p:ph type="title"/>'),
+                        sp_text(2, 'Title', 48 * PT, 90 * PT, 864 * PT, 60 * PT, 'Churn explains the rest', rpr_of(26, '111111'), ph='<p:ph type="title"/>')])
+        c = [c for c in run_on(z)['deck'] if c['name'].startswith('recurring title placeholder')]
+        self.assertEqual(c[0]['status'], 'fail')
+        self.assertIn('layout "Content"', c[0]['name'])
 
 
 class DetectorFixtures(unittest.TestCase):

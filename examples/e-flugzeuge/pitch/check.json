@@ -6,7 +6,7 @@
     "title_max": 36,
     "title_words": 10,
     "body_min": 18,
-    "foot_min": 10,
+    "foot_min": 8,
     "words": 40,
     "chars": 240,
     "fill": 0.5
@@ -38,6 +38,76 @@
       "layout_type": null,
       "exempt_from_action_title": "--exempt",
       "title": "Voltair: Elektroflug für Regionalstrecken",
+      "shapes": [
+        {
+          "ref": "slide1.xml#2 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            0.0,
+            0.0,
+            960.0,
+            540.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide1.xml#3 \"Shape 0\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            160.0,
+            480.0,
+            160.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "FFFFFF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide1.xml#4 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            160.0,
+            480.0,
+            160.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            44.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide1.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            336.0,
+            480.0,
+            32.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "FFFFFF",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -52,7 +122,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -60,7 +130,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -102,10 +172,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.242,
           "limit": 0.5,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -145,6 +215,13 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
@@ -158,9 +235,9 @@
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 2,
+          "value": 3,
           "limit": 2,
-          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 3 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -171,6 +248,76 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Regionalflüge sind teuer, laut und klimaschädlich",
+      "shapes": [
+        {
+          "ref": "slide2.xml#2 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            0.0,
+            0.0,
+            960.0,
+            540.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#3 \"Shape 0\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "FFFFFF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#4 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            144.0,
+            456.0,
+            160.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "FFFFFF",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -197,7 +344,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -205,7 +352,7 @@
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -247,10 +394,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.283,
           "limit": 0.5,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -290,22 +437,29 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 0,
+          "value": 1,
           "limit": 0,
-          "evidence": "all 26 rendered words lie inside a text box"
+          "evidence": "words drawn outside every text box: klimaschädlich@(48,89)"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -316,6 +470,133 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Ein 19-Sitzer, der 320 Kilometer elektrisch fliegt",
+      "shapes": [
+        {
+          "ref": "slide3.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            128.0,
+            296.0,
+            120.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#4 \"Table 0\"",
+          "kind": "table",
+          "ph": null,
+          "bbox_pt": [
+            384.0,
+            128.0,
+            528.0,
+            192.0
+          ],
+          "bbox_origin": "slide xfrm (extended to the table rows and columns)",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            424.0,
+            296.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide3.xml#6 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            404.0,
+            40.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide3.xml#7 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            336.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide3.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            864.0,
+            456.0,
+            48.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -342,7 +623,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -353,14 +634,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -402,10 +683,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.456,
           "limit": 0.5,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -452,22 +733,29 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 0,
+          "value": 1,
           "limit": 0,
-          "evidence": "all 46 rendered words lie inside a text box"
+          "evidence": "words drawn outside every text box: fliegt@(48,89)"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -478,6 +766,129 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Der Prototyp flog 2026 erstmals 212 Kilometer",
+      "shapes": [
+        {
+          "ref": "slide4.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            128.0,
+            296.0,
+            72.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#4 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            384.0,
+            120.0,
+            528.0,
+            240.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            424.0,
+            296.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#6 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            99.2,
+            404.0,
+            40.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#7 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            336.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide4.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            864.0,
+            456.0,
+            48.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -504,7 +915,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -515,14 +926,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -573,10 +984,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.486,
           "limit": 0.5,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -616,6 +1027,13 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
@@ -642,6 +1060,129 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Vierzig Prozent der Regionalflüge sind erreichbar",
+      "shapes": [
+        {
+          "ref": "slide5.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            128.0,
+            296.0,
+            72.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#4 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            384.0,
+            120.0,
+            528.0,
+            232.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            424.0,
+            296.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#6 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            150.4,
+            404.0,
+            40.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide5.xml#7 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            336.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide5.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            864.0,
+            456.0,
+            48.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -668,7 +1209,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -679,14 +1220,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -737,10 +1278,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.475,
           "limit": 0.5,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -780,22 +1321,29 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 0,
+          "value": 2,
           "limit": 0,
-          "evidence": "all 39 rendered words lie inside a text box"
+          "evidence": "words drawn outside every text box: erreichbar@(48,89), €.@(48,193)"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -806,6 +1354,133 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Wir verkaufen Flugzeuge und Wartung im Abo",
+      "shapes": [
+        {
+          "ref": "slide6.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            128.0,
+            296.0,
+            120.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#7 \"Table 0\"",
+          "kind": "table",
+          "ph": null,
+          "bbox_pt": [
+            384.0,
+            128.0,
+            528.0,
+            160.0
+          ],
+          "bbox_origin": "slide xfrm (extended to the table rows and columns)",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            424.0,
+            296.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#6 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            201.6,
+            404.0,
+            40.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#7 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            336.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide6.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            864.0,
+            456.0,
+            48.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -832,7 +1507,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -843,14 +1518,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -892,10 +1567,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.413,
           "limit": 0.5,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -942,6 +1617,13 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
@@ -968,6 +1650,114 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Ein Team aus Zulassung, Antrieb und Airline-Betrieb",
+      "shapes": [
+        {
+          "ref": "slide7.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#8 \"Table 0\"",
+          "kind": "table",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            128.0,
+            864.0,
+            160.0
+          ],
+          "bbox_origin": "slide xfrm (extended to the table rows and columns)",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#4 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            424.0,
+            296.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#5 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            252.8,
+            404.0,
+            40.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#6 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            336.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide7.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            864.0,
+            456.0,
+            48.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -994,7 +1784,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1005,14 +1795,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1054,10 +1844,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.461,
           "limit": 0.5,
-          "evidence": "3 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "3 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -1104,22 +1894,29 @@
           "evidence": "none found"
         },
         {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
+        },
+        {
           "id": "3",
           "name": "text overflow (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 0,
+          "value": 1,
           "limit": 0,
-          "evidence": "all 29 rendered words lie inside a text box"
+          "evidence": "words drawn outside every text box: Betrieb@(48,89)"
         },
         {
           "id": "1",
           "name": "title lines (rendered)",
           "method": "render (LibreOffice PDF word boxes, observation)",
           "status": "observation",
-          "value": 1,
+          "value": 2,
           "limit": 2,
-          "evidence": "title needs 1 line(s) at its role size; the limit is 2 (not a threshold: render)"
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
         }
       ]
     },
@@ -1130,6 +1927,129 @@
       "layout_type": null,
       "exempt_from_action_title": null,
       "title": "Wir suchen 18 Millionen Euro für die Zulassung",
+      "shapes": [
+        {
+          "ref": "slide8.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            48.0,
+            864.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            32.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            128.0,
+            296.0,
+            56.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            20.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#4 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            384.0,
+            120.0,
+            528.0,
+            232.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            424.0,
+            296.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#6 \"Image 0\"",
+          "kind": "pic",
+          "ph": null,
+          "bbox_pt": [
+            304.0,
+            404.0,
+            40.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "picture",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#7 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            456.0,
+            336.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide8.xml#25 \"Slide Number Placeholder 0\"",
+          "kind": "text",
+          "ph": "sldNum",
+          "bbox_pt": [
+            864.0,
+            456.0,
+            48.0,
+            24.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            10.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
       "checks": [
         {
           "id": "1",
@@ -1156,7 +2076,7 @@
           "name": "no text below footnote minimum",
           "method": "file",
           "status": "pass",
-          "limit": "10 pt",
+          "limit": "8 pt",
           "evidence": "all resolved sizes >= minimum"
         },
         {
@@ -1167,14 +2087,14 @@
           "value": [
             10.0
           ],
-          "limit": "10 pt"
+          "limit": "8 pt"
         },
         {
           "id": "3",
           "name": "shapes inside 48 pt margins",
           "method": "file",
           "status": "pass",
-          "limit": "48 pt",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
           "evidence": "all non-ground shapes inside live area"
         },
         {
@@ -1225,10 +2145,10 @@
           "id": "6",
           "name": "fill of live area (bounding boxes, union, 8 pt cells)",
           "method": "script",
-          "status": "pass",
+          "status": "observation",
           "value": 0.462,
           "limit": 0.5,
-          "evidence": "4 shapes counted; box-based, so text boxes larger than their text overstate the fill"
+          "evidence": "4 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
         },
         {
           "id": "7",
@@ -1266,6 +2186,13 @@
           "status": "pass",
           "value": 0,
           "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 16 detector rules found (all-caps-body, border-on-rounded, buzzword, card-grid, centered-running-text, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, question-title, shape-illustration, side-stripe, stat-row, wide-tracking)"
         },
         {
           "id": "3",
@@ -1323,28 +2250,44 @@
     },
     {
       "id": "5",
-      "name": "colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
       "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
       "status": "pass",
       "value": 1,
-      "limit": 2,
+      "limit": 3,
       "evidence": "hue 332 deg: B0175F"
     },
     {
       "id": "4",
-      "name": "recurring title placeholder at the same position",
+      "name": "recurring title placeholder at the same position (layout \"table\")",
       "method": "file",
       "status": "pass",
       "value": 1,
-      "evidence": "slides [2, 3, 4, 5, 6, 7, 8] share (48.0, 48.0, 864.0, 40.0)"
+      "evidence": "slides [3, 6, 7] share (48.0, 48.0, 864.0, 40.0)"
     },
     {
       "id": "4",
-      "name": "recurring sldNum placeholder at the same position",
+      "name": "recurring sldNum placeholder at the same position (layout \"table\")",
       "method": "file",
       "status": "pass",
       "value": 1,
-      "evidence": "slides [3, 4, 5, 6, 7, 8] share (864.0, 456.0, 48.0, 24.0)"
+      "evidence": "slides [3, 6, 7] share (864.0, 456.0, 48.0, 24.0)"
+    },
+    {
+      "id": "4",
+      "name": "recurring title placeholder at the same position (layout \"chart\")",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [4, 5, 8] share (48.0, 48.0, 864.0, 40.0)"
+    },
+    {
+      "id": "4",
+      "name": "recurring sldNum placeholder at the same position (layout \"chart\")",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [4, 5, 8] share (864.0, 456.0, 48.0, 24.0)"
     },
     {
       "id": "4",
@@ -1379,12 +2322,12 @@
       "id": "3",
       "name": "fonts drawn in the render",
       "method": "render (LibreOffice, pdffonts)",
-      "status": "pass",
+      "status": "observation",
       "value": [
-        "Carlito",
-        "Carlito-Bold"
+        "DejaVuSans",
+        "DejaVuSans-Bold"
       ],
-      "evidence": "Calibri: drawn as carlito (same glyph widths)"
+      "evidence": "Calibri: replaced by another font, glyph widths may differ. Rendered line breaks and overflow are unreliable for: Calibri"
     }
   ],
   "notes": [],
@@ -1429,19 +2372,10 @@
   "render": {
     "ok": true,
     "fonts": [
-      "Carlito",
-      "Carlito-Bold"
+      "DejaVuSans",
+      "DejaVuSans-Bold"
     ],
-    "png": [
-      "examples/e-flugzeuge/pitch/render/deck-1.png",
-      "examples/e-flugzeuge/pitch/render/deck-2.png",
-      "examples/e-flugzeuge/pitch/render/deck-3.png",
-      "examples/e-flugzeuge/pitch/render/deck-4.png",
-      "examples/e-flugzeuge/pitch/render/deck-5.png",
-      "examples/e-flugzeuge/pitch/render/deck-6.png",
-      "examples/e-flugzeuge/pitch/render/deck-7.png",
-      "examples/e-flugzeuge/pitch/render/deck-8.png"
-    ]
+    "png": []
   },
   "facts": {
     "slide_count": 8,
@@ -1467,6 +2401,756 @@
     ],
     "fonts": [
       "Calibri"
+    ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 0\"",
+        "size": 44.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#5 \"Text 2\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#4 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#5 \"Text 2\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#5 \"Text 2\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#5 \"Text 2\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#2 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#7 \"Text 3\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#2 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#7 \"Text 3\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#2 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#7 \"Text 3\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#2 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#7 \"Text 3\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#2 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Table 0\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#6 \"Text 2\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#2 \"Text 0\"",
+        "size": 32.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#3 \"Text 1\"",
+        "size": 20.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "20242B",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#7 \"Text 3\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#25 \"Slide Number Placeholder 0\"",
+        "size": 10.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "5B6470",
+        "title": false,
+        "source": false,
+        "ph": "sldNum"
+      }
     ],
     "colors": {
       "FFFFFF": [
@@ -1626,7 +3310,7 @@
       },
       {
         "id": "P3",
-        "name": "plan: palette has 1 accent and at most 1 signal colour",
+        "name": "plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)",
         "method": "file (plan)",
         "status": "pass",
         "value": {
@@ -1635,7 +3319,7 @@
         },
         "limit": {
           "accent": 1,
-          "signal": 1
+          "signal": 2
         },
         "evidence": "roles are read from the words next to each hex in the Palette block"
       },
@@ -1741,9 +3425,9 @@
     "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
   ],
   "summary": {
-    "pass": 133,
+    "pass": 134,
     "fail": 0,
-    "observation": 29,
+    "observation": 38,
     "not_measured": 3,
     "waived": 0
   }

@@ -31,11 +31,15 @@ RULES = {
     'all-caps-body': 'running text in capitals',
     'wide-tracking': 'letter-spaced running text',
     'shape-illustration': 'picture assembled from many simple shapes',
+    'glass-stack': 'more than one translucent glass panel on a slide',
 }
 
 BIG_NUMBER_PT = 40.0
 NUMBER_RE = re.compile(r'^[\s+\-−–~≈<>]*[\d][\d.,\s]*\s*(%|x|×|k|m|mio\.?|mrd\.?|bn|€|\$|£|db|km|kg|g|t|h|min|pt|ct|p\.?\s?p\.?)?\s*$', re.I)
 LEAD_ZERO_RE = re.compile(r'^\s*0\d[.)]?\s*$')
+# status marks are trackers, not kickers (rules-core glossary; MCK-DC p8, BCG-IRA p10, BAIN-IABC p9)
+STATUS_RE = re.compile(r'(preliminary|draft|confidential|proprietary|pre-decisional|illustrative|not exhaustive|non-exhaustive|for discussion|'
+                       r'vorl\u00e4ufig|entwurf|vertraulich|illustrativ|nicht abschlie\u00dfend|zur diskussion)', re.I)
 BUZZ = [
     r'seamless(ly)?', r'powerful', r'holistic', r'synerg(y|ies|istic)', r'game[- ]?changer', r'cutting[- ]edge',
     r'next[- ]gen(eration)?', r'world[- ]class', r'best[- ]in[- ]class', r'revolutionary', r'market[- ]leading',
@@ -114,6 +118,18 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
     def text_in(c):
         return c.has_text or any(t is not c and t.kind == 'text' and _center_in(t.bbox, c.bbox) for t in texts)
 
+    def text_items(c):
+        """Number of separate text items in a box: its own paragraphs with text plus text shapes centred inside it."""
+        own = sum(1 for p in c.paras if ''.join(r['text'] for r in p).strip())
+        return own + sum(1 for t in texts if t is not c and t.kind == 'text' and _center_in(t.bbox, c.bbox))
+
+    def is_band(inner, outer):
+        """A header or footer band: flush with the top or bottom edge of its panel, (nearly) full width, low."""
+        ix, iy, iw, ih = inner.bbox
+        ox, oy, ow, oh = outer.bbox
+        flush = abs(iy - oy) <= TOL or abs((iy + ih) - (oy + oh)) <= TOL
+        return flush and iw >= 0.9 * ow and ih <= 0.35 * oh
+
     # nested-cards
     pairs = []
     for outer in boxes:
@@ -121,13 +137,16 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
             if inner is outer or not _inside(inner.bbox, outer.bbox) or _area(inner.bbox) >= 0.9 * _area(outer.bbox):
                 continue
             surface = _fill_hex(outer) or bg_hex
+            if is_band(inner, outer):
+                continue    # a panel's header band is panel grammar in consulting decks, not a card in a card
             if _surface_visible(inner, surface, cd) and text_in(inner):
                 pairs.append('%s in %s' % (inner.ref, outer.ref))
     if pairs:
         add('nested-cards', 'fail', '; '.join(pairs[:4]) + (' (+%d more)' % (len(pairs) - 4) if len(pairs) > 4 else ''), len(pairs))
 
     # card-grid: >= 3 equal-sized boxes with text, sharing a row or a column
-    cards = [c for c in boxes if c.bbox[2] >= 72 and c.bbox[3] >= 48 and text_in(c)]
+    # a card holds a heading and more (two or more text items); a row label or a header bar holds one
+    cards = [c for c in boxes if c.bbox[2] >= 72 and c.bbox[3] >= 48 and text_items(c) >= 2]
     groups = []
     for c in sorted(cards, key=lambda c: -_area(c.bbox)):
         for g in groups:
@@ -171,7 +190,14 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
             rows.append(row)
     if rows:
         r0 = max(rows, key=len)
-        add('stat-row', 'fail', '%d big numbers in one row: %s' % (len(r0), ', '.join('%s "%s"' % (o.ref, o.text.strip()) for o in r0[:4])), len(r0))
+        boxed = [o for o in r0 if any(c is not o and _center_in(o.bbox, c.bbox) for c in boxes) or _surface_visible(o, bg_hex, cd)]
+        listing = ', '.join('%s "%s"' % (o.ref, o.text.strip()) for o in r0[:4])
+        if len(boxed) >= 2:
+            add('stat-row', 'fail', '%d big numbers in one row, %d of them boxed: %s' % (len(r0), len(boxed), listing), len(r0))
+        else:
+            # real decks use an unboxed row of numbers when they are parts of one measure (Bain 2019, see research)
+            add('stat-row', 'observation', '%d big numbers in one row: %s; fine when they are parts of one measure with a lead-in '
+                'and a source, the hero-metric template when they are unrelated metrics' % (len(r0), listing), len(r0))
     elif len(bigs) == 1:
         b = bigs[0]
         box = next((c for c in boxes if c is not b and _center_in(b.bbox, c.bbox)), None)
@@ -224,6 +250,9 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
                 continue
             gap = ty - (y + h)
             overlap = min(x + w, tx + tw) - max(x, tx)
+            right_mark = x >= tx + 0.6 * tw or any(p and p[0].get('algn') == 'r' for p in t.paras)
+            if STATUS_RE.search(t.text) or right_mark:
+                continue    # a status mark (top right, or a status word) is a tracker, never a kicker
             if -6 <= gap <= 24 and overlap > 0:
                 runs = t.runs()
                 letters = re.sub(r'[^A-Za-zÄÖÜäöüß]', '', t.text)
@@ -292,6 +321,12 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
         if (x1 - x0) * (y1 - y0) <= 0.5 * sw * sh:
             add('shape-illustration', 'observation', '%d text-less shapes within %.0f x %.0f pt; a picture built from primitives reads as clip art '
                 '(a diagram or chart built from shapes is fine)' % (len(small), x1 - x0, y1 - y0), len(small))
+    # glass-stack: translucent panels (Liquid Glass, glassmorphism). One per slide marks the focus; more read as a card grid
+    glass = [s for s in live if s.kind in ('shape', 'text') and not s.ph and s.fill['kind'] == 'solid'
+             and s.fill.get('alpha', 1.0) < 0.95 and s.bbox[2] >= 72 and s.bbox[3] >= 48]
+    if len(glass) >= 2:
+        add('glass-stack', 'fail', '%d translucent panels: %s; one glass panel per slide marks the focus, more read as a card grid'
+            % (len(glass), ', '.join(g.ref for g in glass[:4])), len(glass))
     return found
 
 

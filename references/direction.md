@@ -25,13 +25,13 @@ Ask for the effect and for references, not for design decisions: never ask for h
 1. **Scene sentence:** who sees the deck, where, on what medium, under what light. It decides light or dark background and the size floor.
 2. **Mechanism:** one sentence on what this deck must make believable or decidable that a generic deck could not.
 3. **The audience's world:** list five to seven concrete visual systems, artifacts or traditions this audience knows by heart (for example annual reports, museum catalogues, scientific journals, timetables and signage, technical drawings, film title cards, trade press, dashboards), each with one line on why it can carry the mechanism, ordered by resonance. Near-duplicates count once. If more than three share one material family, dig until the list spans at least three families.
-4. **Directions:** turn the two or three strongest candidates into complete directions. Each joins a look (colour strategy, type character, grid character, image world) to the exact composition of the title slide and of the deck's most typical content slide. The directions must differ in composition, not only in colour: the same layout in three palettes is one direction.
+4. **Directions:** turn the two or three strongest candidates into complete directions. Each joins a look (colour strategy, type character, image world) to the pattern variants it chooses (`patterns.md`, "What a direction decides"): how the patterns of the story skeleton are played. Two directions differ in at least two pattern variants, not only in colour: the same variants in three palettes are one direction. The patterns themselves (which slide does which job) come from the story skeleton and stay the same in every direction.
 
 ## Round 2: rendered drafts, the user picks
 Always, for a new deck or a redesign (decision by Max, 2026-09-25): the user chooses the look from rendered drafts before the deck is built. Descriptions alone are not enough, because a look is judged by seeing it.
-- **Drafts:** for each direction build two real slides with the deck's real content from the brief: the title slide and the most typical content slide (for example the key chart, the key comparison, the key number). Same effort and finish for every draft; no deliberately weak option. Run the detectable checks (`scripts/check_deck.py`, check 9) on the drafts and fix findings before showing them.
-- **Show:** one compact message with the rendered images side by side, and per direction a one-line world, palette and type character, and an honest risk line. Recommend one and say why. Never pre-select the safe option on the user's behalf.
-- **Pick:** the user picks one, or asks for a named change or a mix (state the mix back in one line). Record the pick, the drafts shown and their paths in the plan. The picked drafts become the title slide and the pattern for the content slides of the full deck.
+- **Drafts:** for each direction build two real slides from the story skeleton (`SKILL.md` step 3): the title slide and the key content slide, meaning the slide with the decisive exhibit or, if none stands out, the pattern the skeleton uses most, with its real title and numbers. Same effort and finish for every draft; no deliberately weak option. Run the check script on the drafts (command in `SKILL.md`, section "Check script") and fix every detector finding (check 9) before showing them.
+- **Show:** one compact message with the rendered images side by side, per direction a one-line world, palette and type character, its pattern variants and an honest risk line, and below them the story skeleton (titles with their patterns) for the user to correct in the same answer. Recommend one direction and say why. Never pre-select the safe option on the user's behalf.
+- **Pick:** the user picks one, or asks for a named change or a mix (state the mix back in one line). Record the pick, its pattern variants, the drafts shown and their paths in the plan. The picked drafts become the title slide and the model for every other slide of the full deck.
 - **Quick** (no drafts) only when the user explicitly hands the decision over ("you decide", "mach du"). Then commit to one direction, say which in one line, and build. The user can always ask for drafts afterwards.
 
 How to render the drafts, by environment:
@@ -59,6 +59,7 @@ How to render the drafts, by environment:
 | dimmed room, projector | dark ground, larger type, contrast computed anyway |
 | PDF or print | light ground, stays legible in greyscale |
 | "not like X" | the plan lists X's typical devices under avoid |
+| glass, "Liquid Glass", "like Apple" | light ground, one translucent rounded panel per slide for the focus, soft light behind it, large bold sans titles; waive `shadow` in the plan with the user's words (`refuse.md`, "Pinned styles") |
 Vibe moves decisions inside the core rules. Contrast, minimum sizes, the colour rule and the ban list stay the floor.
 
 ## Calibration against the AI look

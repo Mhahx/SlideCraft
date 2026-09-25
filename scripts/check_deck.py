@@ -35,14 +35,15 @@ REL = '{http://schemas.openxmlformats.org/package/2006/relationships}'
 
 EMU_PT = 12700.0
 MARGIN_PT = 48.0
+FOOTER_MARGIN_PT = 18.0  # footnotes, source and page number may sit in the bottom margin (research: sources at 482-514 of 540 pt)
 TOL = 0.75  # pt tolerance for geometry comparisons
 
 # Thresholds: copied from references/profiles.md and rules-core.md. Change them there first.
 PROFILES = {
-    'read':   dict(title_min=24, title_max=28, title_words=15, body_min=14, foot_min=10, words=120, chars=720, fill=0.75),
+    'read':   dict(title_min=20, title_max=28, title_words=15, body_min=14, foot_min=8, words=250, chars=1500, fill=0.75),
     'talk':   dict(title_min=40, title_max=None, title_words=8, body_min=24, foot_min=12, words=15, chars=90, fill=0.30),
-    'pitch':  dict(title_min=28, title_max=36, title_words=10, body_min=18, foot_min=10, words=40, chars=240, fill=0.50),
-    'update': dict(title_min=24, title_max=28, title_words=15, body_min=14, foot_min=10, words=80, chars=480, fill=0.60),
+    'pitch':  dict(title_min=28, title_max=36, title_words=10, body_min=18, foot_min=8, words=40, chars=240, fill=0.50),
+    'update': dict(title_min=20, title_max=28, title_words=15, body_min=14, foot_min=8, words=80, chars=480, fill=0.60),
 }
 SAFE_FONTS = {'arial', 'calibri', 'cambria', 'times new roman', 'courier new',
               'bookman old style', 'century schoolbook'}
@@ -55,6 +56,8 @@ AUTO_ALT_RE = re.compile(r'(\.(png|jpe?g|gif|svg|bmp|tiff?|webp|emf|wmf)$|[\\/]|
 SOURCE_RE = re.compile(r'^\s*(sources?|quellen?)\s*[:：]', re.I)
 # a date on a source line: a year, a calendar week (KW/CW), a quarter or a month name
 YEAR_RE = re.compile(r'\b(19|20)\d{2}\b|\b(KW|CW)\s?\d{1,2}\b|\bQ[1-4]\b|\b(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember|january|february|march|may|june|july|october|december)\b', re.I)
+# layouts named after the exempt patterns of patterns.md: P01 cover, P02 divider-agenda
+PATTERN_EXEMPT_RE = re.compile(r'^\s*P0?[12](?![0-9])', re.I)
 DASH_VALUES = {'solid', 'dot', 'dash', 'lgDash', 'dashDot', 'lgDashDot', 'lgDashDotDot', 'sysDash', 'sysDot', 'sysDashDot', 'sysDashDotDot'}
 DE_STOP = set('der die das und ist nicht mit für von den dem ein eine wir sie zu im auf als auch sich wird werden'.split())
 
@@ -810,6 +813,17 @@ def is_ground(s, sw, sh):
     return s.bbox[2] >= 0.95 * sw and s.bbox[3] >= 0.95 * sh
 
 
+def is_bleed_field(s, sw, sh):
+    """A text-less colour field or picture that runs across the whole slide width or height and stays on the
+    slide: a band of ground (a colour field on a cover, light behind glass), not content. Thin bars (under a
+    sixth of the slide) stay content, so a full-width header bar still counts against the margins."""
+    if s.bbox is None or s.has_text or s.kind not in ('shape', 'pic'):
+        return False
+    x, y, w, h = s.bbox
+    on_slide = x >= -TOL and y >= -TOL and x + w <= sw + TOL and y + h <= sh + TOL
+    return on_slide and ((w >= 0.95 * sw and h >= sh / 6) or (h >= 0.95 * sh and w >= sw / 6))
+
+
 def backdrop_for(s, shapes, bg):
     """Surface behind shape s: ('solid', hex_pair_list, origin) or ('unknown', reason)."""
     if s.bbox is None:
@@ -964,8 +978,9 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
 
     for (i, ctx, shapes, bg, ltype, lname) in slides:
         checks = []
-        exempt = (i in exempt_manual) or (ltype in ('title', 'secHead'))
-        exempt_why = ('--exempt' if i in exempt_manual else 'layout type=%s' % ltype) if exempt else None
+        pattern_exempt = bool(lname and PATTERN_EXEMPT_RE.match(lname))
+        exempt = (i in exempt_manual) or (ltype in ('title', 'secHead')) or pattern_exempt
+        exempt_why = ('--exempt' if i in exempt_manual else ('layout "%s" (patterns.md P01/P02)' % lname if pattern_exempt else 'layout type=%s' % ltype)) if exempt else None
         title = next((s for s in shapes if s.ph and norm_ph_type(s.ph[0]) == 'title' and s.has_text), None)
         # word and character counting (glossary: not source line, not slide number, footer, date, notes)
         words = 0
@@ -1074,14 +1089,18 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             if s.kind == 'text' and not s.has_text and s.fill['kind'] != 'solid':
                 continue
             x, y, w, h = s.bbox
-            if s.kind != 'pic':
-                insets.append((min(x, y, sw - x - w, sh - y - h), s.ref))
-            if x < MARGIN_PT - TOL or y < MARGIN_PT - TOL or x + w > sw - MARGIN_PT + TOL or y + h > sh - MARGIN_PT + TOL:
-                (bleed if s.kind == 'pic' else edge_bad).append('%s [%.0f,%.0f,%.0f,%.0f]' % (s.ref, x, y, w, h))
+            footer_item = s.is_source or bool(s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt')) or (
+                s.kind == 'text' and s.has_text and y >= sh - MARGIN_PT - 60 and
+                all(r['size'] is not None and r['size'] < prof['body_min'] - 0.01 for r in s.runs()))
+            if s.kind != 'pic' and not footer_item:
+                insets.append((min(x, y, sw - x - w, sh - y - h), s.ref))     # footer items may use the bottom margin
+            bottom = sh - (FOOTER_MARGIN_PT if footer_item else MARGIN_PT)
+            if x < MARGIN_PT - TOL or y < MARGIN_PT - TOL or x + w > sw - MARGIN_PT + TOL or y + h > bottom + TOL:
+                (bleed if s.kind == 'pic' or is_bleed_field(s, sw, sh) else edge_bad).append('%s [%.0f,%.0f,%.0f,%.0f]' % (s.ref, x, y, w, h))
         checks.append(chk('3', 'shapes inside 48 pt margins', 'file', 'fail' if edge_bad else 'pass',
-                          limit='48 pt', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
+                          limit='48 pt (footer items: 18 pt at the bottom)', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
         if bleed:
-            checks.append(chk('3', 'pictures crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
+            checks.append(chk('3', 'pictures and colour fields crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
         over = []
         for s in shapes:
             if s.kind == 'text' and s.autofit != 'spAutoFit':
@@ -1227,9 +1246,12 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                     grid[rr][cc] = True
             contributing.append(s.ref)
         fillv = sum(sum(1 for c in row if c) for row in grid) / float(cols * rows)
+        # observation until calibrated (decision Max 2026-09-25, AUDIT-4 H1): as a fail it pushed builds towards shrinking exhibits
         checks.append(chk('6', 'fill of live area (bounding boxes, union, 8 pt cells)', 'script',
-                          'pass' if fillv <= prof['fill'] else 'fail', value=round(fillv, 3), limit=prof['fill'],
-                          evidence='%d shapes counted; box-based, so text boxes larger than their text overstate the fill' % len(contributing)))
+                          'observation', value=round(fillv, 3), limit=prof['fill'],
+                          evidence='%d shapes counted; %s the starting value; box-based, so text boxes larger than their text overstate the fill. '
+                                   'Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it'
+                                   % (len(contributing), 'within' if fillv <= prof['fill'] else 'above')))
 
         # -- 7 data slides
         has_data = any(s.kind in ('chart', 'table') for s in shapes)
@@ -1267,23 +1289,31 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             if s.kind == 'chart' and s.chart and s.chart['bad_dash']:
                 checks.append(chk('0', 'chart line dash values are valid', 'file', 'fail', value=sorted(set(s.chart['bad_dash'])),
                                   evidence='%s: prstDash %s is not a preset dash value; PowerPoint may repair or refuse the file' % (s.ref, ', '.join(sorted(set(s.chart['bad_dash']))))))
-        # -- 9 refuse list (detectable items)
+        # -- 9 refuse list (detectable items); each item has an id a plan waiver can quote (`shadow`, `gradient`, ...)
         found = []
+        effect_ids = {'outerShdw': 'shadow', 'innerShdw': 'shadow', 'prstShdw': 'shadow', 'glow': 'glow',
+                      'softEdge': 'soft-edge', 'reflection': 'reflection', '3d': '3d'}
         for s in shapes:
             if s.fill['kind'] == 'gradient':
-                found.append('gradient fill %s' % s.ref)
+                found.append(('gradient', 'gradient fill %s' % s.ref))
             for e in s.effects:
-                if e in ('outerShdw', 'innerShdw', 'prstShdw', 'glow', 'softEdge', 'reflection', '3d'):
-                    found.append('%s on %s' % (e, s.ref))
+                if e in effect_ids:
+                    found.append((effect_ids[e], '%s on %s' % (e, s.ref)))
             if s.kind == 'chart' and s.chart and s.chart['gradient']:
-                found.append('gradient in chart %s' % s.ref)
+                found.append(('gradient', 'gradient in chart %s' % s.ref))
             m = EMOJI_RE.findall(s.text) if s.kind in ('text', 'table') else []
             if m:
-                found.append('emoji/symbol characters %s in %s' % (''.join(sorted(set(m))), s.ref))
+                found.append(('emoji', 'emoji/symbol characters %s in %s' % (''.join(sorted(set(m))), s.ref)))
         if bg['kind'] == 'gradient':
-            found.append('gradient background (%s)' % bg['origin'])
+            found.append(('gradient', 'gradient background (%s)' % bg['origin']))
+        open_items = [e for k, e in found if not detect_mod.is_waived(k, waivers)]
+        waived_items = ['%s (%s)' % (e, k) for k, e in found if detect_mod.is_waived(k, waivers)]
+        st = 'fail' if open_items else ('waived' if waived_items else 'pass')
+        ev = '; '.join(open_items[:6]) if open_items else ('none found' if not waived_items else '')
+        if waived_items:
+            ev = (ev + '; ' if open_items else '') + 'waived by brief: ' + '; '.join(waived_items[:4])
         checks.append(chk('9', 'detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)', 'file',
-                          'fail' if found else 'pass', value=len(found), evidence='; '.join(found[:6]) if found else 'none found'))
+                          st, value=len(found), evidence=ev))
         # heuristic: thin bar under title or thin edge stripe on a shape
         heur = []
         for s in shapes:
@@ -1310,10 +1340,10 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                               evidence='none of the %d detector rules found (%s)' % (len(detect_mod.RULES), ', '.join(sorted(detect_mod.RULES)))))
         grounds.append((i, detect_mod.ground_colour(bg, shapes, sw, sh)[0]))
 
-        # placeholders' positions for the recurring-element check
+        # placeholders' positions for the recurring-element check, per layout: each layout type (pattern) has its own positions
         for s in shapes:
             if s.ph and s.bbox and not exempt:
-                ph_positions.setdefault(norm_ph_type(s.ph[0]), {})[i] = (tuple(round(v, 1) for v in s.bbox), s.ref)
+                ph_positions.setdefault((norm_ph_type(s.ph[0]), lname), {})[i] = (tuple(round(v, 1) for v in s.bbox), s.ref)
 
         slide_facts.append({'n': i, 'exhibits': sorted({s.kind for s in shapes if s.kind in ('chart', 'table', 'pic')}),
                             'source': next((s.text.strip() for s in shapes if s.is_source), '')})
@@ -1345,24 +1375,24 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         deck.append(chk('2', 'steps between neighbouring sizes >= 1.25', 'file', 'observation', value=sizes,
                         evidence=('pairs below factor 1.25: %s. Roles are only known from the deck plan, so this is not a threshold yet.' % ', '.join('%g/%g' % p for p in small_steps)) if small_steps else 'all neighbouring sizes differ by at least 1.25'))
     clusters = cluster_hues(deck_hues)
-    st = 'pass' if len(clusters) <= 2 else 'fail'
-    if profile_name == 'update' and len(clusters) > 2:
+    st = 'pass' if len(clusters) <= 3 else 'fail'
+    if profile_name == 'update' and len(clusters) > 3:
         st = 'observation'
-    deck.append(chk('5', 'colour rule: 1 accent + at most 1 signal (chromatic hue families, neutrals ignored)', 'computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)',
-                    st, value=len(clusters), limit=2,
+    deck.append(chk('5', 'colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)', 'computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)',
+                    st, value=len(clusters), limit=3,
                     evidence='; '.join('hue %d deg: %s' % (round(c['hue']), ','.join(sorted(c['members']))) for c in clusters) or 'no chromatic colours found'
-                    + ('; update profile: status colours are a documented exception' if profile_name == 'update' and len(clusters) > 2 else '')))
+                    + ('; update profile: status colours are a documented exception' if profile_name == 'update' and len(clusters) > 3 else '')))
     for f in detect_mod.default_look(grounds, sys.modules[__name__]):
         deck.append(chk('11', 'refuse [%s]: look matches a default AI look' % f['rule'], 'computed (hue and lightness of the slide ground)',
                         f['status'], value=f['value'], evidence=f['evidence']))
-    for phtype, pos in ph_positions.items():
+    for (phtype, lay), pos in ph_positions.items():
         if len(pos) < 2:
             continue
         uniq = {}
         for n, (bb, ref) in pos.items():
             uniq.setdefault(bb, []).append(n)
         same = len(uniq) == 1
-        deck.append(chk('4', 'recurring %s placeholder at the same position' % phtype, 'file', 'pass' if same else 'fail',
+        deck.append(chk('4', 'recurring %s placeholder at the same position%s' % (phtype, ' (layout "%s")' % lay if lay else ''), 'file', 'pass' if same else 'fail',
                         value=len(uniq), evidence=('slides %s share %s' % (sorted(pos), list(uniq)[0])) if same else
                         '; '.join('slides %s at %s' % (sorted(v), k) for k, v in uniq.items())))
     lefts = {}

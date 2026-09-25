@@ -4,6 +4,7 @@ A deck plan is written BEFORE any slide is built. It is the single source of tru
 
 ## Rules for the plan
 - Write it as a file next to the deck (`deck-plan.md`), or in the chat if no file system is available (for example inside an office add-in). Keep it short: one screen per section.
+- Sections 3 (story) and 5 (slide plan) are written first, as the story skeleton, before the direction round (`SKILL.md` step 3); the rest follows once the user has picked a draft.
 - Show the plan to the user. Then continue building without waiting, unless (a) the user asked to review the plan first, (b) the user has not picked a draft yet (see `direction.md`, round 2; once the user has picked, show the plan and keep building), or (c) the plan contains an assumption only the user can decide (audience, message, missing data). In cases (b) and (c) ask once, bundled.
 - Changes during the build are made in the plan first, then in the deck. If a slide needs something the plan does not provide (a new layout type, a new colour), extend the plan deck-wide instead of improvising on one slide.
 - For an existing deck without a plan, derive the plan from the file first (read fonts, sizes, colours, layouts), then work against it. Refinement modes keep the derived plan, redesign modes replace it and run `direction.md`.
@@ -36,6 +37,9 @@ Chosen direction:   name and one-line world
 Drafts shown:       each direction with its rendered draft paths and honest risk; which one
                     the user picked, and any change or mix the user asked for
 Colour strategy:    Restrained | Committed | Drenched (pinned: Full palette)
+Pattern variants:   one value per axis of patterns.md "What a direction decides"
+                    (interpretation, exhibit side, image world, density, ground,
+                    title voice, emphasis, structure devices)
 Direction contract: THESIS / OWN-WORLD / STORY / FIRST SLIDES / FORM / FINISH
 Rationale:          one line per major decision (why this palette, why this type pairing)
 Self-check:         could the look be guessed from the category alone? result
@@ -48,20 +52,27 @@ Arc:                how the strand builds (for example problem, evidence, decisi
 
 ## 4. Design system (deck-wide)
 Fonts:              title family, body family, fallback (safe-list rule)
-Text roles:         role | family | weight | size pt | colour | use
-                    title, subtitle, body, label, footnote/source, key number
+Text roles:         (a markdown table: every line starts with |, the check script reads it)
+| role | family | weight | size pt | colour | use |
+|---|---|---|---|---|---|
+| title | ... | bold | ... | hex | claim titles |
+                    roles: title, subtitle, body, label, footnote/source, key number
                     (sizes at or above the profile minimums)
-Palette:            background | text | accent | signal (max 1) | neutrals
+Palette:            background | text | accent | signal (max 2: positive, negative) | neutrals
                     each with hex and role; contrast pairs with computed ratio
-Grid and spacing:   slide size, margins, 12 columns, spacing scale
-Layout types:       the layouts this deck uses (title, divider, text, image,
-                    chart, comparison, quote/key number), each with its placeholders
+Grid and spacing:   slide size, margins ("margins 48 pt"; read by the script), 12 columns, spacing scale
+Layout types:       the patterns this deck uses, by id from patterns.md (for example
+                    P01 cover, P04 chart-rail, P07 table), each with its placeholders;
+                    usually 4 to 8 patterns
 Images and icons:   style, crop, icon library and stroke
 Charts:             types used, highlight colour, labelling rule, source line
 
 ## 5. Slide plan
-No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes
-Every slide is one row. Word count per slide stays under the profile limit.
+| No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes |
+|---|---|---|---|---|---|---|
+| 1 | P01 cover | ... | ... | ... | ... | ... |
+A markdown table, one row per slide. Layout type is a pattern id from patterns.md. Word count per slide
+stays under the profile limit and each zone under the pattern's text budget.
 
 ## 6. Avoid list check and assumptions
 Which items from refuse.md were at risk in this deck and how the plan avoids them.
@@ -74,7 +85,7 @@ Real fonts, role sizes, hex colours, margins and layout types as shipped. Deviat
 ## Consistency checks on the plan itself (before building)
 1. Title strand read alone tells the argument; every non-exempt title is a claim.
 2. Each text role has one size and one colour; sizes are at or above the profile minimums; neighbouring sizes differ by at least a factor of 1.25.
-3. Palette follows the colour rule (1 accent + at most 1 signal colour); every text and background pair has a computed contrast at or above the threshold.
+3. Palette follows the colour roles (1 accent + at most a positive/negative signal pair); every text and background pair has a computed contrast at or above the threshold.
 4. Every slide row uses a layout type defined in section 4 and a role defined in the role table.
 5. Every data slide has a source and date.
 6. Word counts fit the profile limit.

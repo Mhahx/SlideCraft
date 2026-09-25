@@ -76,6 +76,8 @@ Ein formales Evaluationsdesign mit Bewertergruppen und Wiederholungsläufen (Fas
 
 ## 7. Recherchestand und Quellen
 
+**Seit 0.12:** 9 echte Decks von McKinsey, BCG, Bain und Roland Berger selbst geladen, gemessen und angesehen (`research/beratungsdecks.md`). Sie sind die Grundlage der Musterbibliothek und ersetzen für Aufbau und Muster die Sekundärquellen unten; die Zahlenwerte der Profile sind daran noch nicht angepasst.
+
 Regeln der Consulting-Häuser (McKinsey, BCG, Bain) nach einer Praktiker-Quelle, [Deckary](https://deckary.com/blog/consulting-slide-standards). Das ist ein Blog des Anbieters eines KI-Folienwerkzeugs, keine offizielle Firmenrichtlinie und kein Konsens mehrerer Quellen. Bestätigt sind die Grundsätze (Aussagetitel, eine Botschaft pro Folie, Quellenzeile). Die Zahlenwerte (15 Wörter, 60 Sekunden) sind nicht unabhängig verifiziert. Als Primärliteratur ergänzen: Barbara Minto, "The Pyramid Principle" (Seitenzahlen noch offen). Aussagetitel bis 15 Wörter und 2 Zeilen, eine Aussage pro Folie, höchstens 2 Schriften, 3 bis 4 Farben, Quelle auf jeder Datenfolie, Titel oben, ein Exhibit, Quelle und Seitenzahl unten, 60-Sekunden-Regel. Unterschiede: McKinsey textlastiger und strukturierter, BCG visueller, Bain mit stärkerem Erzählbogen (Answer-first).
 
 Apple/Jobs (Sekundärquellen: [Presentation Zen](https://presentationzen.com/blog/steve-jobs-and-visual-presentation), [Forbes 3-Sekunden-Regel](https://www.forbes.com/sites/carminegallo/2025/10/29/why-steve-jobs-followed-the-3-second-slide-rule-for-better-presentations/)): eine Idee pro Folie, keine Bullets, eine große Zahl, 60 pt und mehr, Folie in drei Sekunden erfasst.
@@ -111,10 +113,10 @@ Offen:
 Reihenfolge nach `AUDIT.md` §5 (Audit 3, 2026-09-25):
 1. **Aufräumen** (erledigt in 0.11): 600-Nutzer-Annahme, Feature-Stopp, Evaluationsdesign, Standard-Look entfernt; gerenderte Entwürfe in der Richtungsrunde.
 2. **Folien-Detektor** (erste Fassung in 0.11, `scripts/detect.py`): KI-Muster aus der Datei erkennen. Weiter ausbauen, sobald neue Muster auffallen.
-3. **Musterbibliothek:** 10 bis 14 Folienmuster aus der Beratungspraxis, jedes mit Zonen, Rasterposition und Textbudget je Zone, werkzeugneutral beschrieben, mit pptxgenjs-Umsetzung. Der Detektor prüft die Budgets.
-4. **Regeln an Beratungspraxis anpassen** (`AUDIT.md` H1): Farbrollen, mehrteilige Exhibits in `read`, Deutungs-Box erlaubt, Unterzeile mit Maß und Einheit als Rolle. Vorher echte Decks ansehen (Netzwerkfreigabe nötig, siehe `AUDIT.md` §7).
-5. **Werkzeugunabhängigkeit:** Werkzeughinweise aus `SKILL.md` in eine eigene Referenz, Eingang für .odp, Test im PowerPoint-Add-in (lädt der Skill, laufen Skripte).
-6. **Beispieldecks neu bauen** mit Entwürfen, Mustern und Detektor; Max urteilt.
+3. **Musterbibliothek** (erste Fassung in 0.12, `references/patterns.md`): 14 Folienmuster aus 9 echten Beratungsdecks (`research/beratungsdecks.md`), jedes mit Zonen, Rasterposition und Textbudget je Zone, Testbau in `examples/patterns/`. Offen: Der Detektor prüft die Budgets je Zone noch nicht.
+4. **Regeln und Werte an Beratungspraxis anpassen** (0.14: `read` 250 Wörter nach Entscheidung Max, Titel `read`/`update` 20–28 pt, Fußnoten ab 8 pt, Fußzeile im unteren Rand, Farbrollen mit Signalpaar; Füllgrad seit 0.13 nur Beobachtung; offen: Werte für `talk`, `pitch`, `update` mangels passender Decks im Korpus) (`AUDIT.md` H1, Messwerte in `research/beratungsdecks.md`): Wörter je Folie (`read` 120 liegt unter dem Median jedes echten Lesedecks), Füllgrad (schlägt bei Diagrammen in voller Größe und bei allen `talk`-Mustern an, `examples/patterns/README.md`), Fußnoten ab 8 pt, Fußzeile unterhalb des 48-pt-Rands, Farbrollen, Deutungs-Box erlaubt, Unterzeile mit Maß und Einheit als Rolle.
+5. **Werkzeugunabhängigkeit:** Eingang für .odp beschrieben und getestet (0.13, Konvertierung verliert Alt-Texte von Diagrammen); offen: Werkzeughinweise aus `SKILL.md` in eine eigene Referenz, Test im PowerPoint-Add-in (lädt der Skill, laufen Skripte).
+6. **Beispieldecks neu bauen** mit Entwürfen, Mustern und Detektor; Max urteilt. Erster Lauf in 0.15: `examples/nordmark/` (Lesedeck, fiktiv); offen: Urteil von Max, ein Vortragsdeck, Test im PowerPoint-Add-in.
 7. **Verpacken** mit `skill-creator` (`quick_validate.py`, `package_skill.py`). Nicht mit einem Windows-ZIP-Werkzeug packen: `Compress-Archive` erzeugt Pfade mit Backslashes.
 
 ## 11. Arbeitsregeln für dieses Projekt (verbindlich, Freigabe Max 2026-09-25)

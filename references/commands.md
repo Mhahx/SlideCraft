@@ -16,7 +16,7 @@ Report only, no changes. Render the deck and run the check list in `rules-core.m
 | Story | titles are topics, no argument | most titles are claims, argument has gaps | title strand alone tells the argument, answer first |
 | Typography | more than 2 families, no clear roles, sizes below minimum | roles exist but drift between slides | fixed roles, identical everywhere, all minimums met |
 | Layout and grid | elements floating, overflow, uneven margins | grid mostly kept, some drift | shared edges, fixed positions, layouts as real placeholders |
-| Colour and contrast | many colours, unmeasured contrast, text on photos | colour count ok, some contrast unchecked | 1 accent + at most 1 signal colour, contrast computed and passing |
+| Colour and contrast | many colours, unmeasured contrast, text on photos | colour count ok, some contrast unchecked | 1 accent + at most a signal pair, contrast computed and passing |
 | Data and charts | no sources, 3D or legends only | sources mostly present, some default styling | claim in title, direct labels, source and date on every data slide |
 | Accessibility | no titles, colour-only meaning, no alt text | titles and alt text partly present | reading order correct, alt text everywhere, no colour-only meaning |
 
@@ -33,7 +33,7 @@ Fewer slides, less text. Questions: what is the one message of this slide? What 
 Roles, size steps, font pairing, line spacing, contrast. Name roles first (title, body, label, footnote), then apply identically on all slides. Check font availability.
 
 ## layout — refinement (redesign if masters are rebuilt; then confirm)
-Grid, spacing, alignment, layout types, masters and placeholders. Related items tight, separate groups wide. Result: fewer one-off constructions.
+Grid, spacing, alignment, layout types (the patterns in `patterns.md`), masters and placeholders. Related items tight, separate groups wide. Result: fewer one-off constructions.
 
 ## clarify — refinement (changes wording; list every change)
 Rewrite titles as claim sentences, remove filler words and buzzwords, make numbers and units consistent, make labels precise. Values themselves stay unchanged.

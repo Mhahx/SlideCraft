@@ -12,7 +12,7 @@ Whatever cannot be parsed is reported as not_measured with the reason, never gue
 import re
 
 LABELS = ['Purpose', 'Audience', 'Situation', 'Duration / length', 'Language', 'Pinned by user', 'Waivers', 'Profile',
-          'Scene sentence', 'Mechanism', 'Mode', 'Chosen direction', 'Drafts shown', 'Alternatives', 'Colour strategy',
+          'Scene sentence', 'Mechanism', 'Mode', 'Chosen direction', 'Drafts shown', 'Alternatives', 'Colour strategy', 'Pattern variants',
           'Direction contract', 'Rationale', 'Self-check', 'Governing message', 'Title strand', 'Arc',
           'Fonts', 'Text roles', 'Palette', 'Grid and spacing', 'Layout types', 'Images and icons', 'Charts']
 LABEL_RE = re.compile(r'^\s*(?:[-*]\s*)?\**\s*(%s)\s*\**\s*:\s*\**\s*(.*)$' % '|'.join(re.escape(l) for l in LABELS), re.I)
@@ -122,7 +122,7 @@ def parse_plan(text):
     if not plan['palette']:
         notes.append('no hex colours found in the Palette block')
 
-    m = re.search(r'margins?[^0-9\n]{0,25}(\d+(?:[.,]\d+)?)\s*(in\b|inch|"|pt\b)', f.get('grid and spacing', ''), re.I)
+    m = re.search(r'(?:margins?|r\u00e4nder|rand)[^0-9\n]{0,25}(\d+(?:[.,]\d+)?)\s*(in\b|inch|"|pt\b)', f.get('grid and spacing', ''), re.I)
     plan['margin_pt'] = None
     if m:
         v = float(m.group(1).replace(',', '.'))
@@ -223,9 +223,9 @@ def self_checks(plan, prof, cd):
     if pal:
         n_acc = len({p['hex'] for p in pal if p['role'] == 'accent'})
         n_sig = len({p['hex'] for p in pal if p['role'] == 'signal'})
-        ok = n_acc <= 1 and n_sig <= 1
-        out.append(_chk('P3', 'plan: palette has 1 accent and at most 1 signal colour', 'file (plan)', 'pass' if ok else 'fail',
-                        value={'accent': n_acc, 'signal': n_sig}, limit={'accent': 1, 'signal': 1},
+        ok = n_acc <= 1 and n_sig <= 2
+        out.append(_chk('P3', 'plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)', 'file (plan)', 'pass' if ok else 'fail',
+                        value={'accent': n_acc, 'signal': n_sig}, limit={'accent': 1, 'signal': 2},
                         evidence='roles are read from the words next to each hex in the Palette block'))
         unl = [p['hex'] for p in pal if p['role'] == 'unlabelled']
         if unl:
