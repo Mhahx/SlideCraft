@@ -68,7 +68,7 @@ claude plugin validate . && claude plugin validate ./plugin
 bash tests/trigger/run.sh                      # Auslösetest, braucht die Claude-Code-Kommandozeile
 ```
 
-**Release:** Version in `plugin/skills/slide-craft/SKILL.md` (`metadata.version`, zum Beispiel `0.19-draft`) und `plugin/.claude-plugin/plugin.json` (`0.19.0`) anheben, Tag `v0.19.0` setzen und pushen. Der Workflow testet, baut, prüft, dass Tag und Versionen übereinstimmen, und hängt die ZIP an ein GitHub-Release.
+**Release:** Version in `plugin/skills/slide-craft/SKILL.md` (`metadata.version`, zum Beispiel `0.19-draft`) und `plugin/.claude-plugin/plugin.json` (`0.19.0`) anheben und mergen. Dann auf GitHub unter Actions > Release > Run workflow starten (legt den Tag `v0.19.0` selbst an) oder den Tag `v0.19.0` pushen. Der Workflow testet, baut, prüft, dass Tag und Versionen übereinstimmen, und hängt die ZIP an ein GitHub-Release; eine schon vorhandene Version bricht ab.
 
 Für eine neue Claude-Session: zuerst `docs/BRIEF.md` lesen, besonders §10 (nächste Schritte) und §11 (verbindliche Arbeitsregeln).
 
