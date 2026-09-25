@@ -122,7 +122,7 @@ def parse_plan(text):
     if not plan['palette']:
         notes.append('no hex colours found in the Palette block')
 
-    m = re.search(r'margins?[^0-9\n]{0,25}(\d+(?:[.,]\d+)?)\s*(in\b|inch|"|pt\b)', f.get('grid and spacing', ''), re.I)
+    m = re.search(r'(?:margins?|r\u00e4nder|rand)[^0-9\n]{0,25}(\d+(?:[.,]\d+)?)\s*(in\b|inch|"|pt\b)', f.get('grid and spacing', ''), re.I)
     plan['margin_pt'] = None
     if m:
         v = float(m.group(1).replace(',', '.'))

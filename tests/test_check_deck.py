@@ -390,6 +390,10 @@ class PlanParsing(unittest.TestCase):
         self.assertEqual([(s['no'], s['layout'], s['title']) for s in p['slides']],
                          [(1, 'main', 'Retention drives the 12 % revenue growth'), (2, 'main', 'Two levers explain most of the gain')])
 
+    def test_german_margin_word_is_read(self):
+        plan = planmod.parse_plan('Grid and spacing:   960 x 540 pt, Rand 48 pt, 12 Spalten\nProfile: read\n')
+        self.assertEqual(plan['margin_pt'], 48.0)
+
     def test_bold_labels_and_bullets_are_accepted(self):
         p = planmod.parse_plan('- **Profile:** talk\n- **Palette:** background #101820 | accent FF5500\n')
         self.assertEqual(p['profile'], 'talk')

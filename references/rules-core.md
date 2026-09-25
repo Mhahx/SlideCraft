@@ -48,6 +48,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 - One good image beats many. The image carries a point. Consistent crop. No stock clichés (handshake, light bulb, puzzle pieces).
 - Icons only from one library with uniform stroke and size. No emoji or Unicode symbols as icons.
 - Caption or credit where needed. Alt text for every image and chart.
+- Image sources, in this order: the user's own photos; photos the user names; free-licensed photos (for example Wikimedia Commons: check the licence of each file, keep the author and licence as a credit line in the footnote role on the slide, list them in the plan). A photo that does not show the named place or case is labelled as a symbolic image ("Symbolbild") on the slide. Without a suitable photo, use the exhibit itself or pure type, never an illustration built from shapes.
 
 ## 6. Data and charts
 - The slide title or the chart title carries the claim, not both duplicating each other.

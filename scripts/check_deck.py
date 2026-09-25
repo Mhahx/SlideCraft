@@ -1078,11 +1078,11 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             if s.kind == 'text' and not s.has_text and s.fill['kind'] != 'solid':
                 continue
             x, y, w, h = s.bbox
-            if s.kind != 'pic':
-                insets.append((min(x, y, sw - x - w, sh - y - h), s.ref))
             footer_item = s.is_source or bool(s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt')) or (
                 s.kind == 'text' and s.has_text and y >= sh - MARGIN_PT - 60 and
                 all(r['size'] is not None and r['size'] < prof['body_min'] - 0.01 for r in s.runs()))
+            if s.kind != 'pic' and not footer_item:
+                insets.append((min(x, y, sw - x - w, sh - y - h), s.ref))     # footer items may use the bottom margin
             bottom = sh - (FOOTER_MARGIN_PT if footer_item else MARGIN_PT)
             if x < MARGIN_PT - TOL or y < MARGIN_PT - TOL or x + w > sw - MARGIN_PT + TOL or y + h > bottom + TOL:
                 (bleed if s.kind == 'pic' else edge_bad).append('%s [%.0f,%.0f,%.0f,%.0f]' % (s.ref, x, y, w, h))

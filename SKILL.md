@@ -2,7 +2,7 @@
 name: slide-craft
 description: Design and quality rules for presentation slides and decks (Folien, Präsentationen, Slides, Deck, Pitch, Keynote). Load when a presentation is created, restructured, or reviewed and polished for design, even if the user only says "make me 10 slides about X" (mach mir Folien zu X). Do not load for reading, extracting text from, or converting an existing file. This skill does not create files: always load the file-building tool as well (pptx skill, slides artifact type, PowerPoint add-in). Sets context profile, design direction, deck plan, story structure, typography, grid, colour, charts and a ban list against generic AI-looking slides.
 metadata:
-  version: 0.14-draft
+  version: 0.15-draft
   status: draft
 ---
 
@@ -35,7 +35,7 @@ python3 "<skill dir>/scripts/check_deck.py" deck.pptx --plan deck-plan.md --rend
 python3 "<skill dir>/scripts/check_deck.py" drafts/<direction>.pptx --profile read|talk|pitch|update --render-dir drafts/render/
 ```
 
-- Needs Python 3 (standard library only). `--render-dir` also needs LibreOffice with Impress (`soffice`) and poppler (`pdftotext`, `pdffonts`, `pdftoppm`); it writes one PNG per slide, which is also how drafts are shown to the user.
+- Needs Python 3 (standard library only). `--render-dir` also needs LibreOffice with Impress (`soffice`) and poppler (`pdftotext`, `pdffonts`, `pdftoppm`); it writes one PNG per slide, which is also how drafts are shown to the user. For a trustworthy render the deck fonts need metric-compatible substitutes: Carlito for Calibri, Caladea for Cambria, Liberation for Arial, Times New Roman and Courier New (Debian/Ubuntu: `fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation`). The script reports which fonts were drawn; with a wider substitute, line breaks and overflow in the render are wrong and titles look longer than they are.
 - Exit code 1 means at least one fail. Every finding carries its check number, method and evidence; detector findings carry a rule id in brackets (`refuse.md`).
 - Slides on layouts named `P01 …` or `P02 …` are exempt from the claim-title checks automatically; name other exempt slides with `--exempt 3,9`.
 - A LibreOffice deck (.odp): convert first (`soffice --headless --convert-to pptx deck.odp`), check the .pptx. The conversion keeps layout names but drops the alt text of charts (tested with LibreOffice 24.2): report those alt-text findings as caused by the conversion and check the alt text in the .odp itself.
@@ -65,7 +65,7 @@ Only relevant when building .pptx with the pptx skill.
 - Set `pres.layout = 'LAYOUT_WIDE'` (13.33 x 7.5 in) before adding slides. The library default is 10 x 5.625 in and coordinates outside the canvas are silently written off-slide.
 - All absolute measures in this skill assume 13.33 x 7.5 in.
 - Fonts: use a safe font so the QA rendering is trustworthy. Safe list: Arial, Calibri, Cambria, Times New Roman, Courier New, Bookman Old Style, Century Schoolbook. Avoid Aptos as default.
-- Use real slide layouts/placeholders where the tool allows it, not loose text boxes. Define one slide master per pattern and name it after the pattern (`P04 chart-rail`): placeholder position and size cannot be overridden per slide, and the plan comparison matches layouts by name.
+- Set `align: 'left'` in every placeholder definition: pptxgenjs otherwise centres the title. Use real slide layouts/placeholders where the tool allows it, not loose text boxes. Define one slide master per pattern and name it after the pattern (`P04 chart-rail`): placeholder position and size cannot be overridden per slide, and the plan comparison matches layouts by name.
 - Give every picture and chart alt text. Set text boxes as text boxes (`isTextBox: true`).
 - Charts stay native (`addChart`), never a rendered image, unless the building tool cannot write the native form (pptxgenjs has no waterfall: build P08 from shapes and say so in the plan).
 - Highlight one bar with one series and one colour per point (`chartColors: [grey, grey, …, accent]`), not with two stacked series: `dataLabelPosition` has no effect on stacked charts.

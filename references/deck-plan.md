@@ -52,12 +52,15 @@ Arc:                how the strand builds (for example problem, evidence, decisi
 
 ## 4. Design system (deck-wide)
 Fonts:              title family, body family, fallback (safe-list rule)
-Text roles:         role | family | weight | size pt | colour | use
-                    title, subtitle, body, label, footnote/source, key number
+Text roles:         (a markdown table: every line starts with |, the check script reads it)
+| role | family | weight | size pt | colour | use |
+|---|---|---|---|---|---|
+| title | ... | bold | ... | hex | claim titles |
+                    roles: title, subtitle, body, label, footnote/source, key number
                     (sizes at or above the profile minimums)
 Palette:            background | text | accent | signal (max 2: positive, negative) | neutrals
                     each with hex and role; contrast pairs with computed ratio
-Grid and spacing:   slide size, margins, 12 columns, spacing scale
+Grid and spacing:   slide size, margins ("margins 48 pt"; read by the script), 12 columns, spacing scale
 Layout types:       the patterns this deck uses, by id from patterns.md (for example
                     P01 cover, P04 chart-rail, P07 table), each with its placeholders;
                     usually 4 to 8 patterns
@@ -65,8 +68,10 @@ Images and icons:   style, crop, icon library and stroke
 Charts:             types used, highlight colour, labelling rule, source line
 
 ## 5. Slide plan
-No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes
-Every slide is one row. Layout type is a pattern id from patterns.md. Word count per slide
+| No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes |
+|---|---|---|---|---|---|---|
+| 1 | P01 cover | ... | ... | ... | ... | ... |
+A markdown table, one row per slide. Layout type is a pattern id from patterns.md. Word count per slide
 stays under the profile limit and each zone under the pattern's text budget.
 
 ## 6. Avoid list check and assumptions

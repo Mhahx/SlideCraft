@@ -2,6 +2,27 @@
 
 Es gibt zwei statische Audits vom 2026-09-25, beide mit den IDs K1, H1 usw. Zur Unterscheidung heißen die IDs des ersten Audits **A1** (in den Abschnitten 0.2 und darunter ohne Präfix aufgeführt) und die des zweiten **A2-** (Präfix, ab 0.5). Die Prüfpunkt-Nummern in `rules-core.md` sind maßgeblich: Der Planabgleich war in 0.3 Punkt 10 und ist seit 0.5 Punkt 12.
 
+## 0.15-draft (2026-09-25)
+
+Schritt 5: erster kompletter Lauf des Ablaufs mit Max als Nutzer, fiktives Thema "Regionalbank Nordmark, Filialnetz 42 auf 28" (`examples/nordmark/`). Neues Testergebnis: Deck mit 9 Folien, 0 Fail in 136 Prüfungen einschließlich Planabgleich. 80 Tests (1 neu), alle grün.
+
+**Lauf:** Brief (4 Fragen, Antworten von Max: nüchtern, vertrauenswürdig, Blick nach vorn, dunkles Grün, Landschaftsfotos), Profil `read`, Story-Skelett mit 9 Titeln und 8 Mustern, drei gerenderte Richtungen (A Geschäftsbericht, B Flurkarte, C Weitblick) zusammen mit dem Skelett, Wahl von Max: Titelfolie aus C, Inhaltsfolien aus A. Plan mit Musterungsvarianten und Richtungsvertrag, Bau, Prüfung, Selbstprüfung (ein Befund, behoben), Plan as built. Fotos von Wikimedia Commons (CC BY-SA 4.0) mit Nachweis.
+
+**Fehler im Skill, die der Lauf gefunden hat, behoben:**
+
+| Befund | Änderung |
+|---|---|
+| Vorlage in `deck-plan.md` zeigte Rollen- und Folientabelle ohne führendes `|`; das Skript liest nur Markdown-Tabellen, ein Plan nach der Vorlage wurde nicht erkannt | Vorlage zeigt jetzt Markdown-Tabellen und nennt das Format |
+| Planabgleich fand "Rand 48 pt" nicht | `plan.py` liest auch "Rand" und "Ränder" (neuer Test) |
+| Seitenzahl und Quelle im unteren Rand (seit 0.14 erlaubt) ließen "shapes keep the plan margin" fehlschlagen | Fußzeilen-Elemente zählen nicht für den kleinsten Randabstand |
+| pptxgenjs zentriert Titel-Platzhalter ohne `align` | Werkzeughinweis in `SKILL.md` |
+| Rendering ohne maßgleiche Ersatzschriften zeichnet Calibri und Cambria breiter; Titel wirkten zweizeilig | `SKILL.md`, Abschnitt Check script: Carlito, Caladea, Liberation nötig, sonst ist das Rendering unzuverlässig |
+| keine Regel, woher Fotos kommen (AUDIT.md H4) | `rules-core.md` §5: eigene Fotos, genannte Fotos, frei lizenzierte Fotos mit geprüfter Lizenz und Nachweis auf der Folie; Symbolbild benennen; sonst Exhibit oder Typografie |
+
+**Was der Planabgleich im Testdeck fand (Nachweis, dass er trägt):** zu dichte Schriftgrößen (12/14/16, jetzt 11/14/18), fette Texte ohne Rolle, Titelfläche nicht als Hintergrund in der Palette, verborgene Datenbeschriftungen in 12 pt.
+
+**Grenzen:** Selbstprüfung desselben Modells; Rendering nur in LibreOffice; das Urteil von Max zum fertigen Deck steht aus.
+
 ## 0.14-draft (2026-09-25)
 
 Schritt 4 aus BRIEF §10 (Werte kalibrieren) für die Lesedecks, freigegeben von Max. Grundlage: die Messwerte aus `research/beratungsdecks.md`. 79 Tests (5 neu), alle grün; alle Beispiel- und Musterdecks neu geprüft, kein Fail.

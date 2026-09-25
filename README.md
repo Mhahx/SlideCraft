@@ -2,7 +2,7 @@
 
 Regelwerk und Qualitätsprozess für Präsentationsfolien (pptx), gedacht als Claude-Skill neben dem pptx-Skill.
 
-**Stand: Entwurf 0.14 (status: draft), Grenzwerte für Lesedecks an 9 echten Decks kalibriert, Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
+**Stand: Entwurf 0.15 (status: draft), erster kompletter Lauf des Ablaufs mit Max (`examples/nordmark/`), Grenzwerte für Lesedecks an 9 echten Decks kalibriert, Ablauf mit Story-Skelett vor den Entwürfen, Prüfskript mit Planabgleich, Renderprüfung und Detektor für KI-Muster, Look-Auswahl über gerenderte Entwürfe, Musterbibliothek mit 14 Folienmustern aus echten Beratungsdecks. Grenzwerte noch nicht an echten Decks kalibriert.** Alle Zahlenwerte sind Startwerte und müssen an echten Decks kalibriert werden. Änderungen seit 0.1: siehe [CHANGELOG.md](CHANGELOG.md). Skill-Dateien sind englisch, Projektdokumente deutsch.
 
 Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsregeln (§11) stehen in [BRIEF.md](BRIEF.md). Dort zuerst lesen.
 
@@ -26,7 +26,7 @@ Ziel, Umfang, Entscheidungen, nächste Schritte und die verbindlichen Arbeitsreg
 
 Konzept, Regelwerk, Prüfskript (seit 0.6), Planabgleich (0.7), Renderprüfung (0.8), Detektor für KI-Muster (0.11) und Musterbibliothek (0.12, abgeleitet aus 9 echten Decks von McKinsey, BCG, Bain und Roland Berger, `research/beratungsdecks.md`) stehen. Alle Zahlenwerte sind Startwerte. Erprobt nur an selbst gebauten Decks (`examples/e-flugzeuge/`, `audit/slop-test.js`), nicht an echten Decks. Drei Audits: A1 und A2 im CHANGELOG, Audit 3 in [AUDIT.md](AUDIT.md).
 
-**Nächster Schritt:** ein komplettes Deck nach dem neuen Ablauf bauen (Story-Skelett, gerenderte Entwürfe, Wahl durch Max), siehe BRIEF §10 Schritt 6.
+**Nächster Schritt:** Urteil von Max zum Testdeck `examples/nordmark/`; danach Vortragsdeck (`talk`) nach demselben Ablauf und Test im PowerPoint-Add-in.
 
 ## Für eine neue Claude-Session
 
@@ -60,6 +60,7 @@ Nur Python-Standardbibliothek. Ausgabe: JSON pro Folie und für das Deck, jeder 
 - `references/patterns.md`: 14 Folienmuster (Zonen, Raster, Textbudget je Zone), belegt mit echten Beratungsdecks
 - `research/beratungsdecks.md`: Recherche zu 9 echten Decks (Quellen, Messwerte, Beobachtungen mit Seitenangaben)
 - `examples/patterns/`: Testbau aller Muster (gerendert und geprüft)
+- `examples/nordmark/`: erster kompletter Lauf des Ablaufs (Brief, Skelett, drei Entwürfe, Wahl, Deck, Prüfung, Plan as built)
 - `references/rules-core.md`: Kernregeln und Prüfliste
 - `references/profiles.md`: Kontextprofile `read`, `talk`, `pitch`, `update` mit Werte-Tabelle
 - `CHANGELOG.md`: Änderungen je Audit-Befund
