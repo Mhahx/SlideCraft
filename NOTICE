@@ -1,0 +1,28 @@
+SlideCraft
+Copyright 2026 Mhahx
+
+This project contains material adapted from Impeccable.
+
+  Impeccable
+  Copyright 2025 Paul Bakaus
+  https://github.com/pbakaus/impeccable
+  Licensed under the Apache License, Version 2.0
+  https://www.apache.org/licenses/LICENSE-2.0
+
+What was adapted, and how. All of it was rewritten for presentation slides; no file
+was copied verbatim.
+
+- Direction flow (new-work.md, shape.md, init.md): the question round, scene
+  sentence, the audience's visual world, directions, the direction contract, the
+  finish with bounded passes, fresh review and dispositions. Rendered draft slides
+  replace Impeccable's browser comps. -> references/direction.md, references/deck-plan.md
+- Quality floor and refuse list (craft-floor.md), including the four default looks
+  and the calibration against them. -> references/refuse.md, references/rules-core.md
+- Mode names and their intent (audit, critique, polish, distill, typeset, layout,
+  clarify, bolder, quieter). -> references/commands.md
+- Deterministic detector rules (crates/live/assets/antipatterns.json), transferred
+  from HTML/CSS to the geometry of OOXML shapes, with new thresholds.
+  -> scripts/detect.py
+
+SlideCraft's own material: the slide patterns and their evidence, the profiles and
+their values, the deck plan format, the check script and its tests.

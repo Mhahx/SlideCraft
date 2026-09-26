@@ -1,6 +1,6 @@
 # Direction
 
-Decide with the user what the deck should look like, from the audience's world and the deck's purpose, never from a default. There is no default look (decision by Max, 2026-09-25). Adapted from Impeccable's new-work flow; its decision comps become rendered draft slides here, its web machinery (dice script, browser decision page) is left out.
+Decide with the user what the deck should look like, from the audience's world and the deck's purpose, never from a default. There is no default look. Adapted from Impeccable's new-work flow; its decision comps become rendered draft slides here, its web machinery (dice script, browser decision page) is left out.
 
 ## When to run this
 - **New deck or redesign:** run the whole flow.
@@ -28,7 +28,7 @@ Ask for the effect and for references, not for design decisions: never ask for h
 4. **Directions:** turn the two or three strongest candidates into complete directions. Each joins a look (colour strategy, type character, image world) to the pattern variants it chooses (`patterns.md`, "What a direction decides"): how the patterns of the story skeleton are played. Two directions differ in at least two pattern variants, not only in colour: the same variants in three palettes are one direction. The patterns themselves (which slide does which job) come from the story skeleton and stay the same in every direction.
 
 ## Round 2: rendered drafts, the user picks
-Always, for a new deck or a redesign (decision by Max, 2026-09-25): the user chooses the look from rendered drafts before the deck is built. Descriptions alone are not enough, because a look is judged by seeing it.
+Always, for a new deck or a redesign: the user chooses the look from rendered drafts before the deck is built. Descriptions alone are not enough, because a look is judged by seeing it.
 - **Drafts:** for each direction build two real slides from the story skeleton (`SKILL.md` step 3): the title slide and the key content slide, meaning the slide with the decisive exhibit or, if none stands out, the pattern the skeleton uses most, with its real title and numbers. Same effort and finish for every draft; no deliberately weak option. Run the check script on the drafts (command in `SKILL.md`, section "Check script") and fix every detector finding (check 9) before showing them.
 - **Show:** one compact message with the rendered images side by side, per direction a one-line world, palette and type character, its pattern variants and an honest risk line, and below them the story skeleton (titles with their patterns) for the user to correct in the same answer. Recommend one direction and say why. Never pre-select the safe option on the user's behalf.
 - **Pick:** the user picks one, or asks for a named change or a mix (state the mix back in one line). Record the pick, its pattern variants, the drafts shown and their paths in the plan. The picked drafts become the title slide and the model for every other slide of the full deck.

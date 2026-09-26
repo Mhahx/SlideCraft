@@ -2,7 +2,7 @@
 
 Proven slide types from real consulting decks, each with zones on the grid and a text budget per zone. Build a slide by picking a pattern and filling its zones, instead of composing from scratch. The pattern fixes which slide does which job and where its zones sit; the chosen direction (`direction.md`) decides how the patterns are played (the variants below) and the look: colours, type, image world. The same pattern looks different in every deck.
 
-Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page by page (`docs/research/beratungsdecks.md`, codes like MCK-DC p4 = PDF page 4). Zone sizes and budgets are **starting values**, built, rendered and checked in `examples/patterns/` (no detector finding, no overflow; the fill limit fails on full-size charts and on the `talk` patterns, see there). Real reading decks are denser than those limits (about 200 to 300 words per slide); see the research notes before loosening anything.
+Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page by page (`docs/evidence.md`, codes like MCK-DC p4 = PDF page 4). Zone sizes and budgets are **starting values**, built as test slides, rendered and checked (no detector finding, no overflow; the fill limit fails on full-size charts and on the `talk` patterns). Real reading decks are denser than those limits (about 200 to 300 words per slide); see the research notes before loosening anything.
 
 ## How to use
 - In the deck plan, every slide row names its pattern (`Layout type` column: the pattern id, for example `P04 chart-rail`). A deck uses 4 to 8 patterns; each pattern is one layout, identical wherever it recurs. Name the slide layout (master) in the file after the pattern, for example `P04 chart-rail`: the plan comparison (check 12) matches layouts by name, and the recurring-position check compares positions within each layout.
@@ -306,4 +306,4 @@ Rules that hold in every pattern (seen in all nine decks):
 ## What the patterns do not cover
 - The look: colours, type pairing, image style and whether panels are fields or rules come from the chosen direction.
 - Appendix and backup slides: use P07 or P04 at the denser end of the budget.
-- Values that the research found in conflict with the profile limits (words per slide, footnote size, footer position) are listed in `docs/research/beratungsdecks.md` and decided in docs/BRIEF.md §10, step 4.
+- Values that the research found in conflict with the profile limits (words per slide, footnote size, footer position) are listed in `docs/evidence.md`; the profile values in `profiles.md` are the decided result.

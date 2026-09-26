@@ -1,19 +1,19 @@
-# Auslösetest der Skill-Beschreibung (0.17, 2026-09-25)
+# Trigger test of the skill description (0.17)
 
-Frage: Lädt Claude den Skill bei Anfragen nach Folien, und lässt es ihn bei anderen Aufgaben weg? Gemessen mit Claude Code im Headless-Modus (`claude -p`, Version 2.1.282), Skill als Projekt-Skill installiert, jede Anfrage einmal, höchstens 3 bzw. 4 Züge. Andere Skills waren gleichzeitig verfügbar, darunter `anthropic-skills:pptx`, `slides` und `design`. Ablauf: `bash tests/trigger/run.sh`.
+Question: does Claude load the skill for slide requests, and leave it out for other tasks? Measured with Claude Code in headless mode (`claude -p`, version 2.1.282), skill installed as a project skill, each prompt once, at most 3 or 4 turns. Other skills were available at the same time, among them `anthropic-skills:pptx`, `slides` and `design`. Procedure: `bash tests/trigger/run.sh`.
 
-20 Anfragen in `prompts.tsv`: 10 sollen laden (neue Decks auf Deutsch und Englisch, Pitch, Keynote, Vorlesung, Vorstandsvorlage, Design eines bestehenden .pptx überarbeiten oder prüfen), 10 nicht (Text auslesen, konvertieren, Folien zählen, zusammenfassen, E-Mail, Excel, Word, Landingpage, Code, Wissensfrage).
+20 prompts in `prompts.tsv`: 10 should load the skill (new decks in German and English, pitch, keynote, lecture, board paper, redesigning or checking the design of an existing .pptx), 10 should not (extract text, convert, count slides, summarise, email, Excel, Word, landing page, code, a knowledge question).
 
-| Lauf | Beschreibung | soll laden | soll nicht laden | gesamt |
+| Run | Description | Should load | Should not load | Total |
 |---|---|---|---|---|
-| 1 (3 Züge) | Stand 0.17 vor der Änderung | 5 von 10 | 10 von 10 | 15 von 20 |
-| 2 (4 Züge) | geschärft | 10 von 10 | 10 von 10 | 20 von 20 |
-| 3 (4 Züge, `run.sh`) | geschärft | 10 von 10 | 10 von 10 | 20 von 20 |
+| 1 (3 turns) | 0.17 before the change | 5 of 10 | 10 of 10 | 15 of 20 |
+| 2 (4 turns) | sharpened | 10 of 10 | 10 of 10 | 20 of 20 |
+| 3 (4 turns, `run.sh`) | sharpened | 10 of 10 | 10 of 10 | 20 of 20 |
 
-**Befund aus Lauf 1:** Bei vier Anfragen („board update“, „keynote“, „Entscheidungsvorlage“, „Kundenumfrage“) stellte das Modell zuerst eigene Rückfragen zu Inhalt und Zahlen und lud den Skill gar nicht. Die Frage nach dem Aussehen fehlte in diesen Rückfragen; genau sie verlangt Runde 1 des Skills. Zwei weitere Fehlschläge (Design eines bestehenden .pptx überarbeiten oder prüfen) endeten an der Zugbegrenzung, während das Modell nach der Datei suchte; sie sind nicht eindeutig.
+**Finding from run 1:** for four prompts ("board update", "keynote", "decision paper", "customer survey") the model first asked its own questions about content and numbers and never loaded the skill. Those questions left out the look, which is exactly what the skill's first round asks for. Two more misses (redesigning or checking an existing .pptx) ended at the turn limit while the model searched for the file; they are not conclusive.
 
-**Änderung:** Die Beschreibung sagt jetzt, dass der Skill vor der ersten Rückfrage zum Deck lädt, weil er die Fragerunde festlegt, nennt Vortrag, Keynote, Vorlesung, Board- und Status-Update, Entscheidungsvorlage und das gestalterische Prüfen einer bestehenden .pptx, und schließt Zusammenfassen und Zählen ausdrücklich aus. `SKILL.md` Schritt 1: Wurden schon Fragen gestellt, nur die fehlenden Punkte aus Runde 1 nachfragen.
+**Change:** the description now says that the skill loads before the first question about the deck, because it defines that question round; it names talk, keynote, lecture, board and status update, decision paper and checking the design of an existing .pptx; and it explicitly excludes summarising and counting. `SKILL.md` step 1: if questions were already asked, ask only the missing Round 1 items.
 
-**Nach dem Laden** fragte das Modell nach Zweck, Situation und Aussehen und bot gerenderte Richtungen an (Anfragen 06 und 07 gelesen).
+**After loading,** the model asked about purpose, situation and look and offered rendered directions (prompts 06 and 07 read).
 
-**Grenzen:** Jede Anfrage lief nur einmal pro Lauf; Stichprobe klein; gemessen nur in Claude Code mit dem Standardmodell der Kommandozeile, nicht in claude.ai, im PowerPoint-Add-in oder mit anderen Modellen. Lauf 1 hatte einen Zug weniger als die Läufe 2 und 3.
+**Limits:** each prompt ran once per run; small sample; measured only in Claude Code with the CLI's default model, not in the Claude apps, the PowerPoint add-in or with other models. Run 1 had one turn fewer than runs 2 and 3.
