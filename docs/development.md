@@ -101,7 +101,8 @@ These rules keep the skill honest. They apply to every change, by a person or by
 
 ## Open points
 
-- Test in the Claude apps and in the PowerPoint add-in: does the skill load, does the check script run, is LibreOffice available in the sandbox?
+- **PowerPoint add-in, first try:** the add-in skipped the direction round even though the prompt asked for it, and replaced the existing deck with the new one instead of appending drafts at the end as `direction.md` expects. Whether the cause is the add-in's own behaviour or how it loads the skill (does it get the full `SKILL.md`, does code execution run there, is LibreOffice available in its sandbox) cannot be told from outside it. Needs a repeatable test with the exact prompt and a look at what the add-in actually sent the model.
+- Test in the Claude apps: does the skill load, does the check script run, is LibreOffice available in the sandbox?
 - Calibrate `talk`, `pitch` and `update` on real decks of those kinds.
 - Check word budgets per pattern zone and the 8 pt spacing grid in the script.
 - Move the pptxgenjs notes from `SKILL.md` into their own reference file.

@@ -33,8 +33,18 @@ Profile:            read | talk | pitch | update  (values from profiles.md)
 Scene sentence:     who sees it, where, on which medium, under what light
 Mechanism:          what this deck must make believable or decidable
 Mode:               Drafts | Quick (Quick only on explicit hand-over)
+
+Directions considered (round 2, before the user picks; one row per direction, not one field
+each — a repeated "Colour strategy:"/"Pattern variants:" line per direction is read correctly
+(0.22), but a table keeps the comparison readable and keeps every later field below singular):
+| Direction | World | Colour strategy | Accent | Interpretation | Exhibit side | Image world | Density | Ground | Title voice | Emphasis | Structure |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| A ... | ... | Restrained | 1F4A3A | rule | left | photo | dense | light | sans bold | accent only | rules |
+| B ... | ... | Committed | 2E86C1 | field | right | graphic | sparse | dark | serif | tint band | panels |
+
+Everything below is for the picked direction only, filled once, after the user chooses:
 Chosen direction:   name and one-line world
-Drafts shown:       each direction with its rendered draft paths and honest risk; which one
+Drafts shown:       each direction's rendered draft paths and honest risk; which one
                     the user picked, and any change or mix the user asked for
 Colour strategy:    Restrained | Committed | Drenched (pinned: Full palette)
 Pattern variants:   one value per axis of patterns.md "What a direction decides"
@@ -59,7 +69,9 @@ Text roles:         (a markdown table: every line starts with |, the check scrip
                     roles: title, subtitle, body, label, footnote/source, key number
                     (sizes at or above the profile minimums)
 Palette:            background | text | accent | signal (max 2: positive, negative) | neutrals
-                    each with hex and role; contrast pairs with computed ratio
+                    each with hex and role; contrast pairs with computed ratio. The picked
+                    direction's palette only, written once (other directions' swatches belong
+                    in the Directions considered table of section 2, not here)
 Grid and spacing:   slide size, margins ("margins 48 pt"; read by the script), 12 columns, spacing scale
 Layout types:       the patterns this deck uses, by id from patterns.md (for example
                     P01 cover, P04 chart-rail, P07 table), each with its placeholders;
@@ -71,8 +83,11 @@ Charts:             types used, highlight colour, labelling rule, source line
 | No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes |
 |---|---|---|---|---|---|---|
 | 1 | P01 cover | ... | ... | ... | ... | ... |
-A markdown table, one row per slide. Layout type is a pattern id from patterns.md. Word count per slide
-stays under the profile limit and each zone under the pattern's text budget.
+A markdown table, one row per slide, in deck order, no gaps. Layout type is a pattern id from patterns.md.
+Word count per slide stays under the profile limit and each zone under the pattern's text budget. The
+check script matches a row to a deck slide by its **position in the table**, not by the text in the "No."
+column: number the rows plainly (1, 2, 3 …); a scheme such as "A1", "A2" for an appendix is fine to read,
+but is never read as the slide index, so it cannot silently point the comparison at the wrong slide.
 
 ## 6. Avoid list check and assumptions
 Which items from refuse.md were at risk in this deck and how the plan avoids them.

@@ -546,6 +546,12 @@ class RenderAnalysis(unittest.TestCase):
         self.assertIn('Comic Sans MS', ev.split('unreliable for:')[-1])
         self.assertEqual(unreliable, {'comic sans ms'})
 
+    def test_selawik_is_trustworthy_for_segoe_ui(self):
+        st, _, ev, unreliable = rendermod.font_report(['Segoe UI'], ['Selawik'])
+        self.assertEqual(st, 'pass')
+        self.assertEqual(unreliable, set())
+        self.assertIn('drawn as selawik', ev)
+
     def test_missing_renderer_is_not_measured(self):
         orig = rendermod.find_soffice
         rendermod.find_soffice = lambda: None
@@ -1112,6 +1118,71 @@ class AuditFindings(unittest.TestCase):
         c = find(rep['slides'][0]['checks'], 'title reads as a claim')[0]
         self.assertEqual(c['status'], 'observation')
         self.assertTrue(c['value'])
+
+
+class PlanAuditFindings(unittest.TestCase):
+    """0.22: a plan-parser bug and a template gap found by reading a real deck plan."""
+
+    def test_slide_no_column_matched_by_table_position_not_by_its_label(self):
+        text = ('## 5. Slide plan\n| No. | Layout type | Claim title | Content | Exhibit | Source | Speaker notes |\n'
+                '|---|---|---|---|---|---|---|\n'
+                '| A1 | main | First claim | ... | - | - | |\n'
+                '| A2 | main | Second claim | ... | - | - | |\n'
+                'Profile: read\n')
+        p = planmod.parse_plan(text)
+        self.assertEqual([s['no'] for s in p['slides']], [1, 2])              # table position, never "A1"/"A2"
+        self.assertEqual([s['no_label'] for s in p['slides']], ['A1', 'A2'])
+        self.assertFalse(p['slides'][0]['no_clean'])
+        obs = [c for c in planmod.self_checks(p, cd.PROFILES['read'], cd)
+               if c['id'] == 'P4' and 'plain ordinal' in c['name']]
+        self.assertTrue(obs and obs[0]['status'] == 'observation')
+
+    def test_slide_no_labels_do_not_cause_a_false_title_mismatch(self):
+        # before the fix, _num() read the "1" out of "A1" and compared it against deck slide 1
+        title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'First claim', ph='<p:ph type="title"/>')
+        deck = build_pptx([title])
+        plan_text = ('## 5. Slide plan\n| No. | Layout type | Claim title | Content | Exhibit | Source | Speaker notes |\n'
+                     '|---|---|---|---|---|---|---|\n| A1 | main | First claim | ... | - | - | |\nProfile: read\n')
+        rep = cd.analyse(cd.Package(deck), 'synthetic', 'read', set(), 'en', plan_text)
+        self.assertFalse(find(rep['plan']['checks'], 'slide titles equal the plan', 'fail'))
+
+    def test_direction_label_repeated_for_two_or_three_candidates_is_exempt(self):
+        text = ('## 2. Direction\nMode: Drafts\n'
+                'Pattern variants: rule, left, photo, dense, light, sans, accent only, rules\n'
+                'Pattern variants: field, right, graphic, sparse, dark, serif, tint band, panels\n'
+                'Profile: read\n')
+        p = planmod.parse_plan(text)
+        p0 = [c for c in planmod.self_checks(p, cd.PROFILES['read'], cd) if c['id'] == 'P0']
+        self.assertEqual(p0[0]['status'], 'observation')
+
+    def test_unplanned_size_fails_check_12_and_the_per_slide_note_points_at_it(self):
+        plan_text = ('## 4. Design system\nText roles:\n| role | family | weight | size pt | colour | use |\n'
+                     '|---|---|---|---|---|---|\n| title | Arial | bold | 26 | 1A1A1A | slide titles |\n'
+                     '| body | Arial | regular | 16 | 333333 | body text |\n'
+                     '| footnote | Arial | regular | 10 | 595959 | source |\n'
+                     'Palette: background FFFFFF | text 1A1A1A, 333333 | accent 1F4E79\n'
+                     'Grid and spacing: 13.33 x 7.5 in, margins 48 pt\nLayout types: main\nProfile: read\n'
+                     '## 5. Slide plan\n| No. | Layout type | Claim title | Content | Exhibit | Source | Speaker notes |\n'
+                     '|---|---|---|---|---|---|---|\n| 1 | main | Retention drives the 12 % revenue growth | text | - | - | |\n')
+        title = sp_text(2, 'Title 1', 609600, 609600, 8000000, 900000,
+                        'Retention drives the 12 % revenue growth', rpr_of(26, '1A1A1A'), ph='<p:ph type="title"/>')
+        body12 = sp_text(4, 'Box12', 609600, 3000000, 6000000, 500000,
+                         'This paragraph is twelve point, not a planned role size at all here', rpr_of(12, '333333'))
+        z = build_pptx([title + body12])
+        rep = cd.analyse(cd.Package(z), 'synthetic', 'read', set(), 'en', plan_text)
+        deck12 = find(rep['plan']['checks'], 'text sizes are role sizes of the plan', 'fail')
+        self.assertTrue(deck12 and '12 pt' in deck12[0]['evidence'])
+        slide_note = find(rep['slides'][0]['checks'], 'text between footnote and body minimum', 'observation')[0]
+        self.assertNotIn('is only known from the deck plan', slide_note['evidence'])
+        self.assertIn('check 12', slide_note['evidence'])
+
+    def test_palette_evidence_names_every_hex_by_role(self):
+        p = planmod.parse_plan('Palette: accent 1F4A3A, 2E86C1, C0392B\nProfile: read\n')
+        c = [c for c in planmod.self_checks(p, cd.PROFILES['read'], cd) if c['id'] == 'P3' and 'accent' in c['name']][0]
+        self.assertEqual(c['status'], 'fail')
+        self.assertIn('1F4A3A', c['evidence'])
+        self.assertIn('2E86C1', c['evidence'])
+        self.assertIn('C0392B', c['evidence'])
 
 
 if __name__ == '__main__':

@@ -2,6 +2,19 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## 0.22 (0.22.0)
+
+Findings from reading a real deck plan, checked against the code and fixed. 107 tests (7 new), all green.
+
+| Finding | Change |
+|---|---|
+| The plan's "No." column was read by searching the cell for any digit, so "A1"/"A2" (an appendix numbering scheme) were read as slide 1 and 2, comparing an appendix row's title against the deck's real slide 1 and 2 and reporting a false title mismatch | A slide row is now matched to a deck slide by its position in the table, never by digits inside its "No." label; a label that is not a plain ordinal is reported once as an observation, naming the row, not silently misread |
+| Two or three candidate directions each restating "Pattern variants:"/"Colour strategy:" (as direction.md's round 2 asks for) failed check P0 as an ambiguous repeated label; only section 4's design labels had that exemption | Direction labels are now read from section 2 the same way design labels are read from section 4: the last-write-wins rule extends there too |
+| A "Palette:" line covering several candidate directions' accents in one line counted every hex under the sticky role word, correctly by the parser's own rule, but with no way to see why the count was wrong | P3's evidence now names every hex under "accent" and "signal" by value, not just the count; `deck-plan.md` gains a "Directions considered" table for section 2 so a direction's palette during comparison no longer needs to share the singular `Palette:` field with the others |
+| A slide's own "text between footnote and body minimum" observation still said "role is only known from the deck plan" even when a plan was given and had already resolved it — the size correctly failed check 12 elsewhere, but the per-slide wording made it look like nothing had been checked | The per-slide note now points at check 12 by name when a plan exists, instead of repeating a disclaimer that plan makes false |
+| Segoe UI (a pinned Microsoft brand font) had no metric-compatible substitute, so its render observations were always marked unreliable | Selawik (Microsoft's own substitute) added to the render font map, plus the fontconfig alias it needs, documented in `SKILL.md`. Verified by the user with an installed Selawik and alias; this environment has no network access to the font, so it is not independently re-tested here |
+| A first try in the PowerPoint add-in skipped the direction round the prompt asked for and replaced the deck instead of appending drafts | Not fixed: cause unclear from outside the add-in (its own behaviour, or how it loads the skill). Logged in [development.md](docs/development.md) Open points as the next thing to reproduce and diagnose |
+
 ## 0.21 (0.21.0)
 
 Findings from an audit run on a real deck, checked against the code and fixed. 101 tests (13 new), all green.
