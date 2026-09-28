@@ -10,6 +10,7 @@ patterns (scripts/detect.py). Every value carries its origin
 
 Usage:
   check_deck.py deck.pptx --profile read|talk|pitch|update [--plan deck-plan.md] [--render] [--render-dir DIR] [--exempt 1,9] [--lang auto|en|de]
+                          [--placeholders allowed|not-allowed]
                           [--out report.json] [--compact]
   check_deck.py deck.pptx --profile read --derive-plan      (print a plan derived from the deck)
 Exit code: 0 = no fail, 1 = at least one fail, 2 = input error.
@@ -977,7 +978,35 @@ def estimate_lines(s):
     return lines, height + s.insets[1] + s.insets[3]
 
 
-def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts=None):
+def text_x_extent(s):
+    """Where the text of a box can reach horizontally, (x0, x1) in pt, from the same 0.5 em glyph-width estimate
+    as estimate_lines (0.55 em for bold). A box wider than its text is mostly empty: two such boxes may overlap
+    while their words do not (0.24: 250 pt boxes around 130 pt and 57 pt of text were a false fail). Wrapping
+    text fills the inner width. Alignment (left, centre, right) decides which end of the box the text sits at."""
+    x, _, w, _ = s.bbox
+    l, r = s.insets[0], s.insets[2]
+    inner = w - l - r
+    if inner <= 0:
+        return x, x + w
+    widest, algn = 0.0, None
+    for para in s.paras:
+        txt = ''.join(run['text'] for run in para)
+        sizes = [run['size'] for run in para if run['size']]
+        if not sizes:
+            return x, x + w      # size unknown: assume the whole box
+        em = 0.55 if any(run.get('bold') for run in para) else 0.5
+        widest = max(widest, len(txt) * em * max(sizes))
+        algn = algn or (para[0].get('algn') if para else None)
+    widest = min(widest, inner)
+    if algn == 'ctr':
+        c = x + w / 2.0
+        return c - widest / 2.0, c + widest / 2.0
+    if algn == 'r':
+        return x + w - r - widest, x + w - r
+    return x + l, x + l + widest
+
+
+def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts=None, placeholders=None):
     prof = PROFILES[profile_name]
     pres = pkg.xml('ppt/presentation.xml')
     if pres is None:
@@ -1005,12 +1034,14 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     live = (MARGIN_PT, MARGIN_PT, sw - 2 * MARGIN_PT, sh - 2 * MARGIN_PT)
     waivers = ''
     plan_has_roles = False
+    plan_placeholders = False   # brief field `Placeholders: allowed`; the argument overrides the plan
     plan_other_sizes = set()   # role sizes of a plan role whose kind is not title/body/foot (cover, divider, quote, ...)
     if plan is not None:
         import plan as plan_mod
         try:
             _p = plan_mod.parse_plan(plan)
             waivers = _p.get('waivers', '') or ''
+            plan_placeholders = bool(_p.get('placeholders_allowed'))
             plan_roles = [r for r in _p.get('roles', []) if r.get('size')]
             plan_has_roles = bool(plan_roles)
             plan_other_sizes = {round(r['size'], 2) for r in plan_roles if plan_mod._role_kind(r['name']) == 'other'}
@@ -1051,7 +1082,9 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     color_use = {}      # hex -> list of places
     insets = []         # (inset pt, ref) of shapes considered for the margin check
     number_use = {}     # number token (not a bare year) -> set of slide numbers it appears on
-    placeholder_hits = {}   # slide number -> count of placeholder-text hits on that slide
+    placeholder_hits = {}   # slide number -> count of unintended placeholder hits on that slide
+    intended_ph = []        # intentional [[type: label]] placeholders: slide, ref, type, label
+    ph_allowed = plan_placeholders if placeholders is None else bool(placeholders)
     chart_sizes = set()
     slide_facts = []
 
@@ -1205,7 +1238,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                           limit='48 pt (footer items: 18 pt at the bottom)', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
         if bleed:
             checks.append(chk('3', 'pictures and colour fields crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
-        overlaps = []
+        overlaps, box_only = [], []
         texty = [s for s in shapes if s.kind == 'text' and s.has_text and s.bbox is not None and not s.is_source
                  and not (s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt')) and not is_ground(s, sw, sh)]
         for ia, a in enumerate(texty):
@@ -1215,9 +1248,15 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 ox = min(ax + aw, bx + bw) - max(ax, bx)
                 oy = min(ay + ah, by + bh) - max(ay, by)
                 if ox > TOL and oy > TOL:
-                    overlaps.append('%s x %s (%.0f x %.0f pt)' % (a.ref, b.ref, ox, oy))
+                    (ax0, ax1), (bx0, bx1) = text_x_extent(a), text_x_extent(b)
+                    words_meet = min(ax1, bx1) - max(ax0, bx0) > TOL
+                    (overlaps if words_meet else box_only).append('%s x %s (%.0f x %.0f pt)' % (a.ref, b.ref, ox, oy))
         checks.append(chk('3', 'text shapes do not overlap', 'file', 'fail' if overlaps else 'pass',
-                          evidence='; '.join(overlaps[:6]) if overlaps else 'no two text-bearing shapes share an area'))
+                          evidence='; '.join(overlaps[:6]) if overlaps else 'no two text-bearing shapes share an area (by the text-width estimate)'))
+        if box_only:
+            checks.append(chk('3', 'text boxes overlap but their text does not (estimate)', 'estimate (0.5 em glyph width, not a render)',
+                              'observation', value=len(box_only),
+                              evidence='; '.join(box_only[:6]) + '; shrink the boxes to their text so nothing depends on the estimate'))
         bg_graphics = inherited_graphics(ctx)
         bg_overlaps = []
         for g in bg_graphics:
@@ -1477,7 +1516,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         if heur:
             checks.append(chk('9', 'accent line under title / side stripe (heuristic)', 'estimate (geometry heuristic)', 'observation', value=len(heur), evidence='; '.join(heur[:4])))
         # -- 9 detector for typical AI-slide patterns (scripts/detect.py)
-        findings = detect_mod.detect_slide(shapes, bg, sw, sh, title, profile_name, exempt, sys.modules[__name__])
+        findings = detect_mod.detect_slide(shapes, bg, sw, sh, title, profile_name, exempt, sys.modules[__name__], ph_allowed)
         for f in findings:
             st = 'waived' if f['status'] == 'fail' and detect_mod.is_waived(f['rule'], waivers) else f['status']
             checks.append(chk('1' if f['rule'] == 'question-title' else '9', 'refuse [%s]: %s' % (f['rule'], detect_mod.RULES[f['rule']]),
@@ -1485,6 +1524,8 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                               evidence=f['evidence'] + ('; waived by brief' if st == 'waived' else '')))
             if f['rule'] == 'placeholder-text' and f['value']:
                 placeholder_hits[i] = f['value']
+            if f['rule'] == 'placeholder-intentional':
+                intended_ph.extend(dict(slide=i, **it) for it in (f.get('items') or []))
         if not findings:
             checks.append(chk('9', 'refuse patterns (detector)', 'file (detector)', 'pass',
                               evidence='none of the %d detector rules found (%s)' % (len(detect_mod.RULES), ', '.join(sorted(detect_mod.RULES)))))
@@ -1560,8 +1601,18 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     if placeholder_hits:
         total = sum(placeholder_hits.values())
         by_slide = ', '.join('slide %d (%d)' % (n, c) for n, c in sorted(placeholder_hits.items())[:10])
-        deck.append(chk('9', 'placeholder text left in the deck (total)', 'file (detector)', 'fail', value=total,
-                        evidence='%d hit(s) on %d slide(s): %s' % (total, len(placeholder_hits), by_slide)))
+        waived = detect_mod.is_waived('placeholder-text', waivers)   # the total follows the per-slide findings (0.24 fix)
+        deck.append(chk('9', 'unintended placeholder text left in the deck (total)', 'file (detector)',
+                        'waived' if waived else 'fail', value=total,
+                        evidence='%d hit(s) on %d slide(s): %s%s' % (total, len(placeholder_hits), by_slide, '; waived by brief' if waived else '')))
+    if intended_ph:
+        waived = detect_mod.is_waived('placeholder-intentional', waivers)
+        st = 'observation' if ph_allowed else ('waived' if waived else 'fail')
+        deck.append(chk('9', 'intentional placeholders in the deck (total)', 'file (detector)', st, value=len(intended_ph),
+                        evidence='%d on %d slide(s), listed in the report under "placeholders"%s' %
+                        (len(intended_ph), len({i['slide'] for i in intended_ph}),
+                         '' if ph_allowed else '; the brief does not allow placeholders (Placeholders: allowed)')))
+    report['placeholders'] = intended_ph
     if plan is None:
         deck.append(chk('12', 'deck matches its deck plan', 'file', 'not_measured',
                         evidence='no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck'))
@@ -1684,6 +1735,8 @@ def main():
     ap.add_argument('--render-dir', help='also write one PNG per slide here (implies --render)')
     ap.add_argument('--exempt', default='', help='comma-separated slide numbers exempt from the action-title rule')
     ap.add_argument('--lang', default='auto', choices=['auto', 'en', 'de'])
+    ap.add_argument('--placeholders', choices=['allowed', 'not-allowed'],
+                    help='intentional [[type: label]] placeholders: observation when allowed, fail otherwise (default: the plan\'s Placeholders line, else not allowed)')
     ap.add_argument('--out')
     ap.add_argument('--compact', action='store_true', help='omit the per-shape list')
     a = ap.parse_args()
@@ -1708,7 +1761,8 @@ def main():
         return 2
     exempt = {int(x) for x in a.exempt.split(',') if x.strip().isdigit()}
     render_opts = {'dir': a.render_dir} if (a.render or a.render_dir) else None
-    rep = analyse(pkg, a.deck, profile, exempt, a.lang, plan_text, render_opts)
+    rep = analyse(pkg, a.deck, profile, exempt, a.lang, plan_text, render_opts,
+                  None if a.placeholders is None else a.placeholders == 'allowed')
     if a.derive_plan:
         import plan as plan_mod
         print(plan_mod.derive(rep, sys.modules[__name__]))

@@ -32,15 +32,25 @@ RULES = {
     'wide-tracking': 'letter-spaced running text',
     'shape-illustration': 'picture assembled from many simple shapes',
     'glass-stack': 'more than one translucent glass panel on a slide',
-    'placeholder-text': 'placeholder or filler text left on the slide',
+    'placeholder-text': 'unintended placeholder or filler text left on the slide',
+    'placeholder-intentional': 'intentional placeholder [[type: label]] (brief: Placeholders)',
 }
 
 BIG_NUMBER_PT = 40.0
 NUMBER_RE = re.compile(r'^[\s+\-−–~≈<>]*[\d][\d.,\s]*\s*(%|x|×|k|m|mio\.?|mrd\.?|bn|€|\$|£|db|km|kg|g|t|h|min|pt|ct|p\.?\s?p\.?)?\s*$', re.I)
 LEAD_ZERO_RE = re.compile(r'^\s*0\d[.)]?\s*$')
-# unfilled content left in the deck: German/English markers, a bare "XX", or a bracketed stand-in
-PLACEHOLDER_RE = re.compile(r'\bplatzhalter\b|\btodo\b|\btbd\b|lorem\s+ipsum|\bxx\b|'
-                            r'\[\s*(?:\.\.\.|…|xx+|tbd|todo|platzhalter)\s*\]', re.I)
+# An intentional placeholder, allowed only when the brief says `Placeholders: allowed`: double brackets with a
+# type and a label, [[Zahl: Umsatz 2025, EUR Mio.]] (0.24; the whole match is blanked before the unintended scan)
+INTENTIONAL_PH_RE = re.compile(r'\[\[\s*([^:\[\]]{1,30}?)\s*:\s*([^\[\]]{1,80}?)\s*\]\]')
+# Unintended: German/English markers, a bare "XX", "<<value>>", "___", a bracketed instruction ([insert share],
+# [Name einfügen]) and "to be added"-style phrases. "noch zu klären" is left out on purpose: it is ordinary
+# wording on an open-points slide.
+PLACEHOLDER_RE = re.compile(
+    r'\bplatzhalter\b|\btodo\b|\btbd\b|\btbc\b|lorem\s+ipsum|\bxx\b|'
+    r'\[\s*(?:\.\.\.|…|xx+|tbd|todo|platzhalter)\s*\]|'
+    r'<<[^<>]{1,60}>>|_{3,}|'
+    r'\[[^\[\]]{0,40}\b(?:insert|einf\u00fcgen|einfuegen|eintragen|erg\u00e4nzen)\b[^\[\]]{0,40}\]|'
+    r'\bto be (?:added|inserted|filled(?: in)?)\b|\bnoch (?:zu )?(?:erg\u00e4nzen|einf\u00fcgen|eintragen)\b', re.I)
 # status marks are trackers, not kickers (rules-core glossary; MCK-DC p8, BCG-IRA p10, BAIN-IABC p9)
 STATUS_RE = re.compile(r'(preliminary|draft|confidential|proprietary|pre-decisional|illustrative|not exhaustive|non-exhaustive|for discussion|'
                        r'vorl\u00e4ufig|entwurf|vertraulich|illustrativ|nicht abschlie\u00dfend|zur diskussion)', re.I)
@@ -54,6 +64,11 @@ BUZZ = [
     r'zukunftsweisend(e|en|er|es)?', r'gamechanger',
 ]
 BUZZ_RE = re.compile(r'(?<![\w-])(%s)(?![\w-])' % '|'.join(BUZZ), re.I)
+
+
+def _line_like(s):
+    g = (s.geom or '').lower()
+    return s.kind == 'line' or 'connector' in g or g == 'line' or 'arrow' in g or 'chevron' in g or min(s.bbox[2], s.bbox[3]) < 2.5
 
 
 def _area(b):
@@ -105,7 +120,7 @@ def _max_size(s):
     return max(sizes) if sizes else None
 
 
-def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
+def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd, placeholders_allowed=False):
     """Return list of findings: dicts with rule, status, evidence, value."""
     bg_hex = bg.get('hex') if bg.get('kind') == 'solid' else None
     live = [s for s in shapes if s.bbox is not None and not cd.is_ground(s, sw, sh)]
@@ -113,8 +128,8 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
              and not (s.ph and cd.norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt'))]
     found = []
 
-    def add(rule, status, evidence, value=None):
-        found.append({'rule': rule, 'status': status, 'evidence': evidence, 'value': value})
+    def add(rule, status, evidence, value=None, items=None):
+        found.append({'rule': rule, 'status': status, 'evidence': evidence, 'value': value, 'items': items})
 
     # containers: boxes that show on the slide (fill or outline), not placeholders, not lines
     boxes = [s for s in live if s.kind in ('shape', 'text') and not s.ph and s.bbox[2] >= 36 and s.bbox[3] >= 24
@@ -283,13 +298,25 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
     if hits:
         add('buzzword', 'fail', '; '.join(hits[:6]), len(hits))
 
-    # placeholder text left in the deck (PLATZHALTER, TODO, TBD, Lorem ipsum, a bare XX, [...])
-    ph_hits = []
-    for t in texts:
-        for m in PLACEHOLDER_RE.finditer(t.text):
-            ph_hits.append('"%s" in %s' % (m.group(0), t.ref))
+    # placeholders: unintended ones are always a fail; intentional [[type: label]] ones follow the brief
+    ph_hits, intended = [], []
+    for t_ in texts:
+        for m in INTENTIONAL_PH_RE.finditer(t_.text):
+            intended.append({'ref': t_.ref, 'type': m.group(1).strip(), 'label': m.group(2).strip()})
+        for m in PLACEHOLDER_RE.finditer(INTENTIONAL_PH_RE.sub(' ', t_.text)):
+            ph_hits.append('"%s" in %s' % (m.group(0), t_.ref))
     if ph_hits:
         add('placeholder-text', 'fail', '; '.join(ph_hits[:6]), len(ph_hits))
+    if intended:
+        marked = any(STATUS_RE.search(t_.text) for t_ in texts)
+        ev = '; '.join('%s: %s (%s)' % (i['type'], i['label'], i['ref']) for i in intended[:6])
+        if placeholders_allowed:
+            add('placeholder-intentional', 'observation',
+                ev + ('' if marked else '; this slide carries no status mark (Illustrative, Draft): add one'),
+                len(intended), items=intended)
+        else:
+            add('placeholder-intentional', 'fail', ev + '; the brief does not allow placeholders (Placeholders: allowed)',
+                len(intended), items=intended)
 
     # question-title
     if title is not None and not exempt and title.text.strip().endswith('?'):
@@ -327,7 +354,8 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
         add('wide-tracking', 'observation', '; '.join(sorted(set(track))[:4]) + '; tracking above 0.05 em belongs to short labels only', len(set(track)))
 
     # shape-illustration: many small text-less shapes clustered in one region
-    small = [s for s in live if s.kind in ('shape', 'line') and not s.has_text and _area(s.bbox) < 0.05 * sw * sh]
+    small = [s for s in live if s.kind in ('shape', 'line') and not s.has_text and _area(s.bbox) < 0.05 * sw * sh
+             and not _line_like(s)]   # rules, connectors and arrows are diagram grammar, not clip art (0.24)
     if len(small) >= 12:
         x0 = min(s.bbox[0] for s in small); y0 = min(s.bbox[1] for s in small)
         x1 = max(s.bbox[0] + s.bbox[2] for s in small); y1 = max(s.bbox[1] + s.bbox[3] for s in small)

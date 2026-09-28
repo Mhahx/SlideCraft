@@ -2,6 +2,23 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## 0.24 (0.24.0)
+
+Findings of a review run on a real 4-slide board deck (a deck built in the same session as the review), checked against the code: everything that could be reproduced was. 125 tests (11 new), all green.
+
+| Finding | Change |
+|---|---|
+| `SKILL.md` said "missing data becomes a placeholder", `refuse.md` said a placeholder is "always a fail" (the second sentence was mine, 0.21) | New brief field `Placeholders: allowed \| not allowed`. Intentional placeholders have one form, `[[type: label]]`: an observation, listed in the report under `placeholders`, when allowed; a fail otherwise. Their slide needs a status mark, else the observation says so. New rule id `placeholder-intentional` |
+| Only `[XX]` of seven spellings was detected; the proposed `[[...]]` form passed silently | Also detected as unintended: `<<value>>`, `___`, `[insert ..]`, `[.. einfügen]`, "to be added", "noch zu ergänzen", TBC. "noch zu klären" is deliberately not (ordinary wording on an open-points slide) |
+| A waiver on `placeholder-text` turned the per-slide finding into "waived" but the deck-level total stayed `fail` (my 0.23 bug), so the exit code stayed 1 | The total follows the waiver and the mode; `--placeholders allowed\|not-allowed` sets the mode without a plan |
+| Two 250 pt boxes around 130 pt and 57 pt of text were a `fail` for overlap | Boxes that overlap while their estimated text does not are an observation; overlapping words stay a fail |
+| `shape-illustration` counted rules and arrows | Lines, connectors, arrows and shapes thinner than 2.5 pt no longer count |
+| A plan role with weight "regular, bold" was read as bold only, so every regular run failed | A role listing both weights constrains neither |
+| `plan.py` had no command line, so the plan could not be checked before the build | `python3 plan.py deck-plan.md [--profile ..] [--json]` |
+| No place for the user's own workflow wishes, no answer to "what can you do?", no independence protocol for `critique`, no basis per title, no comparison rule, "pitch" in the request led to the wrong profile | Rule texts in `SKILL.md`, `profiles.md`, `commands.md`, `deck-plan.md`, `direction.md` (accent 3:1 on every surface it sits on, checked before the drafts) |
+
+**Declined, with reasons (see [development.md](docs/development.md)):** a `patterns.js` builder (needs Node and pptxgenjs, so absent in the add-in and in Claude Design; turns a rulebook into a builder), `fill_placeholders.py` and `placeholders.csv` (scripts here use only the standard library; `chart.replace_data` is untested), `review_bundle.py` (a reviewer not reading the build script cannot be enforced without a subagent), a fifth profile `decide` (`read` is already the decision-paper profile; the word-to-question table fixes the actual problem), numeric recipes for dark grounds (no source; the 3:1 rule is WCAG). The evidence pass is a conditional step in the story skeleton, not a fixed step: whether a lookup is possible depends on the surface.
+
 ## 0.23 (0.23.0)
 
 Findings from a full audit of a real 26-slide deck (rebuild via the PowerPoint add-in), checked against the code and fixed. 114 tests (7 new), all green.

@@ -2,6 +2,8 @@
 
 Pick exactly one profile before building. Key question: is the slide read, or does it accompany a speaker? Every value below is a **starting value** (unproven, to be calibrated on real decks). Counting rules (words, fill) are in the glossary of `rules-core.md`.
 
+**The word in the request does not decide the profile.** "Pitch", "Vorlage", "Board", "Präsentation" and "Deck" each cover both a slide that is read and one that accompanies a speaker; ask every time: *read, or presented?* A board decision paper that is read is `read`, whatever the request calls it ("Vorstands-Pitch" that goes out as a document: `read`; the same content spoken live: `pitch`). Put the requested decision on the cover or the summary slide (P03).
+
 ## Value table
 
 | Value | `read` | `talk` | `pitch` | `update` |

@@ -74,7 +74,8 @@ Every check in a report carries its method. Only items with a method of *file*, 
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
 | Fill share | script (`scripts/check_deck.py`, bounding-box union); reported as an observation until the profile values are calibrated (project decision, 0.13) |
 | Two text-bearing shapes overlap; a text shape overlaps a non-placeholder picture or shape placed only on the layout or master (a logo) | file (bounding-box geometry, no render needed) |
-| Placeholder or filler text left on the slide (PLATZHALTER, TODO, TBD, Lorem ipsum, XX, `[...]`) | file (`scripts/detect.py`) |
+| Unintended placeholder text (PLATZHALTER, TODO, TBD, Lorem ipsum, XX, `[...]`, `<<..>>`, `___`, `[insert ..]`, "to be added") | file (`scripts/detect.py`) |
+| Intentional placeholder `[[type: label]]` against the brief's `Placeholders:` field | file (`scripts/detect.py`; the report lists them under `placeholders`) |
 | The same number recurs on several slides | file (deck-level, tokens from the body text of every slide); reported as an observation — repetition can be deliberate, a contradiction is a judgement |
 | Title reads as a claim (has a finite verb) | heuristic (fixed German/English verb list); always an observation, never a threshold — the list is incomplete, so a valid claim can still be flagged |
 | Optical alignment | not measured (no script yet) |
@@ -134,5 +135,8 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Extended source-line prefixes (`laut`, `gemäß`, `nach Angaben von`) and the same-number-recurs check | Starting value | found by an audit run (0.21); the prefixes widen check 7, the recurrence check is new at deck level |
 | Overlap check reads layout and master graphics (a logo counts) | Starting value | found by an audit run on a real deck (0.23); direct children of the layout/master spTree only, groups out of scope |
 | A plan role of kind "other" (cover, divider, quote, display) is not held to the profile's title-size range in check 2 | Starting value | found by an audit run (0.23); resolves a contradiction with plan.py's own P2 check, which already excludes these kinds |
-| Placeholder-text deck-level total | Starting value | found by an audit run (0.23); the per-slide count already existed (0.21) |
+| Placeholder-text deck-level total | Starting value | found by an audit run (0.23); the per-slide count already existed (0.21); follows the waiver since 0.24 |
+| Intentional placeholders `[[type: label]]` and the brief field `Placeholders:` | Starting value | found by a review run (0.24): "missing data becomes a placeholder" and "a placeholder is always a fail" contradicted each other |
+| Text boxes that overlap while their estimated text does not are an observation, not a fail | Starting value | found by a review run (0.24); estimate is 0.5 em (0.55 bold) per character, as for the line estimate |
+| Herkunft je Titel (`sourced \| calculated \| hypothesis \| placeholder`), comparisons name their definition | Practitioner | found by a review run (0.24); a claim title was contradicted by the figures once they were looked up |
 | Profile values | Starting value | `profiles.md` |

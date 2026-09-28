@@ -82,7 +82,7 @@ Version **0.20** (draft). What is tested:
 
 - Two full runs with a human user (a `read` decision paper, a `pitch` with a pinned style), one blind run by a fresh agent on a different model with only the installed skill (`talk`), all ending with 0 fails in the check script.
 - Trigger test: the skill loads for 10 of 10 slide requests and stays out of 10 of 10 other tasks (Claude Code, headless). See [tests/trigger/RESULTS.md](tests/trigger/RESULTS.md).
-- 107 unit tests for the check script.
+- 125 unit tests for the check script.
 
 What is not:
 
