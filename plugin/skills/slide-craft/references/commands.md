@@ -23,6 +23,8 @@ Report only, no changes. Render the deck and run the check list in `rules-core.m
 ## critique — read-only
 Design judgement as a design director. Questions: does the title strand tell a story? Is each slide specific to this topic or interchangeable? Does the profile fit the situation? Hierarchy, eye path, text density. At most 3 to 5 prioritised problems and 2 to 3 strengths. Order: first the judgement without measured values, then the measurement from `audit`, so numbers do not steer the judgement. Where subagents are available, run the two as separate passes. Otherwise state that this is a sequence, not independence.
 
+Independence protocol: (1) judge from the renders and the request only; do not read the build script or the plan's rationale. (2) Write down the problems before opening any check output. (3) Then run `audit`, and keep measured values apart from the judgement. (4) Try to falsify every `pass` and every "kept" in the plan: title against exhibit, figure against source, comparison against definition, contrast against the surface it sits on. (5) Report one disposition (`ship | fix | rebuild | recapture`) with its scope, and one line on what was independent and what was not.
+
 ## polish — refinement
 Preserves look and content. Order: (1) defects that hinder understanding (cut-off text, wrong figure, missing source), (2) consistency (roles, spacing, positions), (3) alignment and rhythm, (4) small things (spelling, number format, alt text). Never redesign secretly. If the concept is wrong, say so and propose `bolder` or a redesign.
 

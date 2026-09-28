@@ -11,7 +11,7 @@ Whatever cannot be parsed is reported as not_measured with the reason, never gue
 """
 import re
 
-LABELS = ['Purpose', 'Audience', 'Situation', 'Duration / length', 'Language', 'Pinned by user', 'Waivers', 'Profile',
+LABELS = ['Purpose', 'Audience', 'Situation', 'Duration / length', 'Language', 'Pinned by user', 'Waivers', 'Placeholders', 'Profile',
           'Scene sentence', 'Mechanism', 'Mode', 'Chosen direction', 'Drafts shown', 'Alternatives', 'Colour strategy', 'Pattern variants',
           'Direction contract', 'Rationale', 'Self-check', 'Governing message', 'Title strand', 'Arc',
           'Fonts', 'Text roles', 'Palette', 'Grid and spacing', 'Layout types', 'Images and icons', 'Charts']
@@ -146,6 +146,7 @@ def parse_plan(text):
     m = re.search(r'\b(read|talk|pitch|update)\b', f.get('profile', ''), re.I)
     plan['profile'] = m.group(1).lower() if m else None
     plan['waivers'] = f.get('waivers', '')
+    plan['placeholders_allowed'] = placeholders_allowed(f.get('placeholders', ''))
 
     roles = []
     for header, rows in _tables(text):
@@ -204,6 +205,13 @@ def parse_plan(text):
 
 # ----------------------------------------------------------------- helpers
 
+def placeholders_allowed(value):
+    """Brief field `Placeholders: allowed | not allowed`. Anything but a clear "allowed" means not allowed."""
+    v = (value or '').lower()
+    if re.search(r'\bnot\s+allowed\b|\bnicht\b|\bno\b|\bnone\b', v):
+        return False
+    return bool(re.search(r'\ballowed\b|\berlaubt\b|\byes\b|\bja\b', v))
+
 def _role_kind(name):
     # roles for exempt slide types (title slide, divider, quote) are not bound to the title size range
     if any(k in name for k in ('slide', 'divider', 'quote', 'display', 'cover')):
@@ -220,9 +228,13 @@ def _role_kind(name):
 
 
 def _weight_bold(w):
-    if any(k in w for k in BOLD_WORDS):
+    bold = any(k in w for k in BOLD_WORDS)
+    regular = any(k in w for k in REGULAR_WORDS)
+    if bold and regular:
+        return None   # a role that lists both ("regular, bold": body text with bold lead-ins) constrains neither (0.24)
+    if bold:
         return True
-    if any(k in w for k in REGULAR_WORDS):
+    if regular:
         return False
     return None
 
@@ -517,3 +529,46 @@ def derive(report, cd):
                                                       ', '.join(sf['exhibits']) or '-', (sf['source'] or '-').replace('|', '/')))
     lines.append('')
     return '\n'.join(lines)
+
+
+# ----------------------------------------------------------------- command line: check the plan before building
+
+def main(argv=None):
+    """python3 plan.py deck-plan.md [--profile read] [--json]: the plan's own consistency checks (deck-plan.md,
+    "Consistency checks on the plan itself"), no deck needed. Exit code 1 = at least one fail."""
+    import argparse
+    import json
+    import os
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import check_deck as cd
+    ap = argparse.ArgumentParser(description=main.__doc__)
+    ap.add_argument('plan')
+    ap.add_argument('--profile', choices=sorted(cd.PROFILES), help='default: the plan\'s own Profile line')
+    ap.add_argument('--json', action='store_true', help='print the checks as JSON instead of one line each')
+    a = ap.parse_args(argv)
+    try:
+        with open(a.plan, encoding='utf-8') as fh:
+            text = fh.read()
+    except OSError as e:
+        print('cannot open %s: %s' % (a.plan, e), file=sys.stderr)
+        return 2
+    plan = parse_plan(text)
+    profile = a.profile or plan['profile']
+    if profile is None:
+        print('need --profile (or a "Profile:" line in the plan)', file=sys.stderr)
+        return 2
+    checks = self_checks(plan, cd.PROFILES[profile], cd)
+    if a.json:
+        print(json.dumps({'profile': profile, 'notes': plan['notes'], 'checks': checks}, indent=2, ensure_ascii=False))
+    else:
+        for c in checks:
+            print('[%s] %s: %s%s' % (c['id'], c['status'], c['name'], (' - ' + c['evidence']) if c.get('evidence') else ''))
+        for n in plan['notes']:
+            print('note: %s' % n)
+    return 1 if any(c['status'] == 'fail' for c in checks) else 0
+
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main())

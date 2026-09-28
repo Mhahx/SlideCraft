@@ -28,6 +28,8 @@ Waivers:            each pinned item and the rule it overrides (for example "bra
                     the user's explicit words, quoted here. Checks report waived items as
                     "waived by brief".
 Profile:            read | talk | pitch | update  (values from profiles.md)
+Placeholders:       allowed | not allowed  (allowed only when figures are missing and cannot be
+                    shared, with the reason; form [[type: label]], slide carries a status mark)
 
 ## 2. Direction  (new deck or redesign; see direction.md)
 Scene sentence:     who sees it, where, on which medium, under what light
@@ -84,9 +86,10 @@ Images and icons:   style, crop, icon library and stroke
 Charts:             types used, highlight colour, labelling rule, source line
 
 ## 5. Slide plan
-| No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Speaker notes |
-|---|---|---|---|---|---|---|
-| 1 | P01 cover | ... | ... | ... | ... | ... |
+| No. | Layout type | Claim title | Content (roles used) | Exhibit | Source | Basis | Speaker notes |
+|---|---|---|---|---|---|---|---|
+| 1 | P01 cover | ... | ... | ... | ... | sourced | ... |
+Basis: sourced | calculated | hypothesis | placeholder (hypothesis and placeholder slides carry a status mark).
 A markdown table, one row per slide, in deck order, no gaps. Layout type is a pattern id from patterns.md.
 Word count per slide stays under the profile limit and each zone under the pattern's text budget. The
 check script matches a row to a deck slide by its **position in the table**, not by the text in the "No."
@@ -102,6 +105,7 @@ Real fonts, role sizes, hex colours, margins and layout types as shipped. Deviat
 ```
 
 ## Consistency checks on the plan itself (before building)
+The script runs the machine-readable ones without a deck: `python3 scripts/plan.py deck-plan.md` (role sizes against the profile, size steps, palette roles and contrast, layout types, sources on data rows, repeated labels).
 1. Title strand read alone tells the argument; every non-exempt title is a claim.
 2. Each text role has one size and one colour; sizes are at or above the profile minimums; neighbouring sizes differ by at least a factor of 1.25.
 3. Palette follows the colour roles (1 accent + at most a positive/negative signal pair); every text and background pair has a computed contrast at or above the threshold.

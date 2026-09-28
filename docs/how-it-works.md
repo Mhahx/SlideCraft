@@ -142,9 +142,10 @@ What it checks:
 | `question-title` | fail | a title ending in a question mark |
 | `justified-text`, `centered-running-text`, `all-caps-body` | fail | running text justified, centered or in capitals |
 | `wide-tracking` | observation | letter spacing above 0.05 em on running text |
-| `shape-illustration` | observation | twelve or more small text-less shapes clustered: a picture built from primitives |
+| `shape-illustration` | observation | twelve or more small text-less shapes clustered: a picture built from primitives (rules, connectors and arrows do not count) |
 | `default-look` | observation | a violet-blue, cream or dark navy ground on at least half the slides |
-| `placeholder-text` | fail | unfilled content left on the slide: PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`; also totalled once at deck level |
+| `placeholder-text` | fail | unintended unfilled content: PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<..>>`, `___`, `[insert ..]`, "to be added"; also totalled once at deck level (waivable) |
+| `placeholder-intentional` | observation / fail | `[[type: label]]`: an observation, listed in the report, when the brief allows placeholders (`Placeholders: allowed`), otherwise a fail |
 
 Panels with header bands, row labels in grey fields, status marks ("Preliminary", "Draft") and single functional boxes are deliberately not flagged; these were corrected against real consulting decks.
 

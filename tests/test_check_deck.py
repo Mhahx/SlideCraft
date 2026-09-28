@@ -1273,5 +1273,106 @@ class HCAuditFindings(unittest.TestCase):
         self.assertTrue(c and c[0]['status'] == 'fail' and c[0]['value'] == 3)
 
 
+class ReviewFindings(unittest.TestCase):
+    """0.24: findings of a review run on a real deck (placeholder mode, false alarms, plan command line)."""
+    T = 'Erste Folie erklaert etwas'
+
+    def rep(self, body, **kw):
+        z = build_pptx([title_sp(self.T) + body])
+        return cd.analyse(cd.Package(z), 'synthetic', kw.pop('profile', 'read'), set(), 'en', kw.pop('plan', None), None, kw.pop('placeholders', None))
+
+    def test_unintended_placeholder_spellings_fail(self):
+        for txt in ('Wert [XX] Mio.', 'Kunde [Kundenname einfügen]', 'Anteil &lt;&lt;value&gt;&gt;', 'Umsatz ___ Mio.',
+                    'Share [INSERT SHARE]', 'The date to be added later', 'Zahl noch zu ergänzen'):
+            f = detector(self.rep(box(10, 48, 200, 400, 30, text=txt))).get('placeholder-text')
+            self.assertTrue(f and f['status'] == 'fail', txt)
+
+    def test_ordinary_wording_is_not_a_placeholder(self):
+        for txt in ('Offene Punkte: noch zu klären', 'Quelle [1] und Fußnote [2]', 'Zwei Wochen bis zum Start'):
+            self.assertNotIn('placeholder-text', detector(self.rep(box(10, 48, 200, 400, 30, text=txt))), txt)
+
+    def test_intentional_placeholder_follows_the_brief(self):
+        body = box(10, 48, 200, 400, 30, text='Umsatz [[Zahl: Umsatz 2025, EUR Mio.]]')
+        f = detector(self.rep(body))['placeholder-intentional']
+        self.assertEqual(f['status'], 'fail')                         # not allowed by default
+        rep = self.rep(body, placeholders=True)
+        f = detector(rep)['placeholder-intentional']
+        self.assertEqual(f['status'], 'observation')
+        self.assertIn('no status mark', f['evidence'])
+        self.assertNotIn('placeholder-text', detector(rep))          # the [[...]] form is not an unintended hit
+        self.assertEqual([(i['slide'], i['type'], i['label']) for i in rep['placeholders']], [(1, 'Zahl', 'Umsatz 2025, EUR Mio.')])
+        self.assertEqual(find(rep['deck'], 'intentional placeholders in the deck', 'observation')[0]['value'], 1)
+        marked = box(10, 48, 200, 400, 30, text='Umsatz [[Zahl: Umsatz 2025]]') + box(11, 48, 300, 200, 20, text='Illustrative')
+        self.assertNotIn('no status mark', detector(self.rep(marked, placeholders=True))['placeholder-intentional']['evidence'])
+
+    def test_brief_field_sets_the_mode(self):
+        body = box(10, 48, 200, 400, 30, text='Umsatz [[Zahl: Umsatz 2025]]')
+        self.assertEqual(detector(self.rep(body, plan='Placeholders: allowed\nProfile: read\n'))['placeholder-intentional']['status'], 'observation')
+        self.assertEqual(detector(self.rep(body, plan='Placeholders: not allowed\nProfile: read\n'))['placeholder-intentional']['status'], 'fail')
+
+    def test_instruction_inside_double_brackets_counts_once_as_intentional(self):
+        body = box(10, 48, 200, 400, 30, text='Name [[Name: bitte einfügen]]')
+        self.assertNotIn('placeholder-text', detector(self.rep(body, placeholders=True)))
+
+    def test_deck_total_follows_the_waiver(self):
+        body = box(10, 48, 200, 400, 30, text='Wert PLATZHALTER')
+        rep = self.rep(body, plan='Waivers: placeholder-text (Daten vertraulich)\nProfile: read\n')
+        self.assertEqual(find(rep['deck'], 'unintended placeholder text left in the deck (total)')[0]['status'], 'waived')
+        self.assertEqual(rep['summary']['fail'], 0)
+
+    def test_wide_boxes_with_short_text_overlap_only_as_an_observation(self):
+        # 10 pt text: 'Destination airport' reaches 150 pt; the second box starts at 160 pt, so the boxes overlap but the words do not
+        a = box(10, 48, 140, 250, 20, text='Destination airport', sz=10)
+        b = box(11, 160, 140, 250, 20, text='Consignee', sz=10)
+        c = self.rep(a + b)['slides'][0]['checks']
+        self.assertTrue(find(c, 'text boxes overlap but their text does not', 'observation'))
+        self.assertFalse(find(c, 'text shapes do not overlap', 'fail'))
+        longer = box(10, 48, 140, 250, 20, text='Destination airport with a longer line of words', sz=10)
+        c = self.rep(longer + b)['slides'][0]['checks']
+        self.assertTrue(find(c, 'text shapes do not overlap', 'fail'))      # the words meet: still a fail
+
+    def test_lines_and_arrows_are_not_a_shape_illustration(self):
+        def row(geom, w=20, h=20):
+            return ''.join(box(20 + i, 60 + i * 30, 300, w, h, geom=geom, fill='999999') for i in range(12))
+        self.assertNotIn('shape-illustration', detector(self.rep(row('rightArrow'))))
+        self.assertNotIn('shape-illustration', detector(self.rep(row('rect', w=200, h=1))))
+        self.assertIn('shape-illustration', detector(self.rep(row('rect'))))
+
+    def test_role_listing_regular_and_bold_constrains_neither(self):
+        self.assertIsNone(planmod._weight_bold('regular, bold'))
+        self.assertFalse(planmod._weight_bold('regular'))
+        self.assertTrue(planmod._weight_bold('bold'))
+
+    def test_bold_lead_ins_pass_when_the_plan_lists_both_weights(self):
+        plan_text = ('## 4. Design system\nText roles:\n| role | family | weight | size pt | colour | use |\n'
+                     '|---|---|---|---|---|---|\n| title | Arial | bold | 26 | 1A1A1A | slide titles |\n'
+                     '| body | Arial | regular, bold | 16 | 333333 | body text with bold lead-ins |\n'
+                     'Palette: background FFFFFF | text 1A1A1A, 333333 | accent 1F4E79\n'
+                     'Grid and spacing: 13.33 x 7.5 in, margins 48 pt\nLayout types: main\nProfile: read\n')
+        title = sp_text(2, 'Title 1', 609600, 609600, 8000000, 900000, 'Retention drives the 12 % revenue growth',
+                        rpr_of(26, '1A1A1A'), ph='<p:ph type="title"/>')
+        regular = sp_text(3, 'Body', 609600, 2000000, 6000000, 500000, 'Regular body text at sixteen point', rpr_of(16, '333333'))
+        rep = cd.analyse(cd.Package(build_pptx([title + regular])), 'synthetic', 'read', set(), 'en', plan_text)
+        self.assertFalse(find(rep['plan']['checks'], 'weights match the plan roles', 'fail'))
+
+    def test_plan_command_line(self):
+        import tempfile
+        good = 'Profile: read\nPalette: background FFFFFF | text 1A1A1A | accent 1F4E79\n'
+        bad = 'Profile: read\nPalette: accent 1F4A3A, 2E86C1\n'
+        with tempfile.TemporaryDirectory() as d:
+            gp, bp = os.path.join(d, 'good.md'), os.path.join(d, 'bad.md')
+            for path, text in ((gp, good), (bp, bad)):
+                with open(path, 'w') as fh:
+                    fh.write(text)
+            out = io.StringIO()
+            old, sys.stdout = sys.stdout, out
+            try:
+                self.assertEqual(planmod.main([gp]), 0)
+                self.assertEqual(planmod.main([bp]), 1)
+            finally:
+                sys.stdout = old
+        self.assertIn('[P3] fail', out.getvalue())
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

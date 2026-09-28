@@ -97,6 +97,8 @@ These rules keep the skill honest. They apply to every change, by a person or by
 | Fill share is an observation | as a fail it pushed builds towards shrinking charts below the size real decks use |
 | `read` allows 250 words per slide | real reading decks carry 130 to 300; the earlier 120 sat below every one of them |
 | Waivers by rule id | a pinned style (Liquid Glass needs shadows) must be possible without switching off the rest of the checks |
+| No builder library in the skill (a `patterns.js` that draws the 14 patterns was proposed and declined, 0.24) | it would run only where Node and pptxgenjs exist, not in the PowerPoint add-in or Claude Design, and it would turn a rulebook into a builder; the patterns stay zones and budgets that any building tool executes |
+| Placeholders are a brief decision, not a default (`Placeholders: allowed`, form `[[type: label]]`) | confidential figures must be buildable without the real values, but an unmarked placeholder on a board slide is a defect |
 | Only the skill folder is installed | examples and documents stay out of the user's context |
 
 ## Open points

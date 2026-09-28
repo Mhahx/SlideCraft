@@ -45,6 +45,7 @@ How to render the drafts, by environment:
 ## Commit the look
 - **Colour strategy first, then colours.** Restrained (neutrals plus one accent), Committed (one saturated colour carries 30 to 60 % of the surface), Drenched (the slide surface is the colour). None is a default; the direction decides. The colour count rule in `rules-core.md` still applies. A multi-colour "full palette" is allowed only when the brief pins it.
 - **Light or dark** follows from the scene sentence, never from the industry.
+- **The accent must reach 3:1 on every surface it sits on** (WCAG 1.4.11 for graphic elements, 1.4.3 for large text): compute it for the drafts, before they are shown, not after the build. A yellow that works on a dark ground fails on white.
 - **Fonts** come from the user or brand, otherwise from the safe list of `rules-core.md`. Differentiation then comes from deliberate pairing, size scale, weight contrast, alignment and layout, not from exotic fonts.
 - **Layout character:** strict grid or asymmetric, generous or compact whitespace, rules or fields, image world (documentary photo, illustration, diagram, pure type).
 - The full build is fully committed to the picked drafts. Later passes make the committed look clearer, never blander.

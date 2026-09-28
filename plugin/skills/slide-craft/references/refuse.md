@@ -23,7 +23,8 @@ The list has two parts, which the check list treats differently:
 - `question-title` (check 1): a title that is a question is not a claim.
 - `justified-text`, `centered-running-text`, `all-caps-body`: running text (8, 12 or 5 words and more) justified, centered or in capitals. `wide-tracking` (observation): letter spacing above 0.05 em on running text.
 - `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector.
-- `placeholder-text`: unfilled content left in the deck — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", or a bracketed stand-in such as `[...]`. Always a fail: a placeholder is never something to ship past by accident.
+- `placeholder-text`: unintended unfilled content — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<value>>`, `___`, a bracketed instruction (`[insert share]`, `[Name einfügen]`), "to be added". Always a fail (waivable like every id).
+- `placeholder-intentional`: an intentional placeholder in the form `[[type: label]]`. An observation, listed in the report under `placeholders`, when the brief says `Placeholders: allowed`; a fail when it does not. Its slide needs a status mark (Illustrative, Draft), otherwise the observation says so. Missing data is never invented: with the brief's permission it becomes `[[Zahl: Umsatz 2025, EUR Mio.]]`, never a made-up figure.
 - More than 2 font families (check 2). Text on a photo without a text panel or scrim (check 5, contrast not computable).
 - Two text-bearing shapes that overlap on the slide, for example a kicker or tracker sitting on top of the title box (check 3, read from the shapes' own geometry).
 
