@@ -23,7 +23,9 @@ The list has two parts, which the check list treats differently:
 - `question-title` (check 1): a title that is a question is not a claim.
 - `justified-text`, `centered-running-text`, `all-caps-body`: running text (8, 12 or 5 words and more) justified, centered or in capitals. `wide-tracking` (observation): letter spacing above 0.05 em on running text.
 - `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector.
+- `placeholder-text`: unfilled content left in the deck — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", or a bracketed stand-in such as `[...]`. Always a fail: a placeholder is never something to ship past by accident.
 - More than 2 font families (check 2). Text on a photo without a text panel or scrim (check 5, contrast not computable).
+- Two text-bearing shapes that overlap on the slide, for example a kicker or tracker sitting on top of the title box (check 3, read from the shapes' own geometry).
 
 ## Pinned styles that need the refuse list (for example Liquid Glass)
 A user may pin a style that the list above refuses: Apple's Liquid Glass, glassmorphism, a brand with soft shadows. Then:

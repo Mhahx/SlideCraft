@@ -84,7 +84,7 @@ The check script then reports exactly those items as "waived by brief". Structur
 | `clarify` | refinement | wording of titles and labels; every change is listed |
 | `bolder` / `quieter` | refinement | more or less contrast and emphasis within the identity |
 
-Without a named mode, the skill runs `critique` and proposes next steps. It never redesigns a deck unasked.
+Without a named mode, the skill runs `critique` and proposes next steps. It never redesigns a deck unasked. `audit` and `critique` change nothing, so a condensed plan derivation kept in the report is enough; a building or refining mode still needs the full `deck-plan.md` written first.
 
 ## The check script
 
@@ -105,24 +105,24 @@ check_deck.py DECK [--profile read|talk|pitch|update] [--plan deck-plan.md]
 | `--exempt` | slide numbers exempt from the claim-title rule (layouts named `P01 …`, `P02 …` are exempt automatically) |
 | `--derive-plan` | prints the measurable parts of a plan (fonts, roles, palette, margins, titles) for a deck without one |
 
-The output is JSON per slide and per deck. Every check carries its number from the check list in `rules-core.md`, its method (`file`, `computed`, `script`, `render estimate`, `judgement`) and a status: `pass`, `fail`, `observation`, `not_measured` or `waived`. Exit code 1 means at least one fail.
+The output is JSON per slide and per deck (`--out` or stdout). Every check carries its number from the check list in `rules-core.md`, its method (`file`, `computed`, `script`, `render estimate`, `judgement`) and a status: `pass`, `fail`, `observation`, `not_measured` or `waived`. Exit code 1 means at least one fail. The command line also always prints a short human-readable rollup to stderr — fails grouped by slide, observations counted by check — so a full JSON report is not the only way to see what the script found.
 
 What it checks:
 
 | # | Check | Method |
 |---|---|---|
 | 0 | slide size 13.33 × 7.5 in, valid chart line values | file |
-| 1 | title present, claim titles, word ceiling, at most 2 lines | file; render for line count |
+| 1 | title present, claim titles, word ceiling, at most 2 lines; whether it has a finite verb (observation only, fixed verb list, low recall) | file; render for line count; heuristic |
 | 2 | at most 2 font families on the safe list, title size, size steps of at least 1.25, minimums | file |
-| 3 | margins, bleed fields, table cell margins; overflow and missing text | file; render estimate |
+| 3 | margins, bleed fields, table cell margins; two text-bearing shapes overlapping; overflow and missing text | file; render estimate for overflow |
 | 4 | recurring placeholders at the same position per layout; left edges (observation) | file |
 | 5 | colour roles, text contrast and non-text contrast (WCAG 2.2), glass computed over black and white | computed |
 | 6 | words or characters per slide; fill share (observation) | file; script |
-| 7 | source and date on data slides, no gridlines on charts whose values are labelled | file |
+| 7 | source and date on data slides (a source line starts with "Source:", "Quelle:", "laut" or "gemäß"), no gridlines on charts whose values are labelled; a number in plain text without a chart or table (observation); the same number recurring across slides, deck-level (observation) | file |
 | 8 | title set, reading order with the title first, alt text on pictures and charts | file |
-| 9 | banned effects (`gradient`, `shadow`, `glow`, `soft-edge`, `reflection`, `3d`, `emoji`) and the detector rules | file |
+| 9 | banned effects (`gradient`, `shadow`, `glow`, `soft-edge`, `reflection`, `3d`, `emoji`), placeholder text left in the deck, and the detector rules | file |
 | 12 | deck against plan: fonts, role sizes, weights, palette, margins, layouts, titles, slide count | file |
-| 10, 11, 13 | title strand as a story, direction contract (a default-look ground is reported as an observation), render review | judgement, listed as open items |
+| 10, 11, 13 | title strand as a story, direction contract (a default-look ground is reported as an observation), render review (also: does the title match the exhibit, does the slide contradict another one) | judgement, listed as open items |
 
 ### Detector rules
 
@@ -144,6 +144,7 @@ What it checks:
 | `wide-tracking` | observation | letter spacing above 0.05 em on running text |
 | `shape-illustration` | observation | twelve or more small text-less shapes clustered: a picture built from primitives |
 | `default-look` | observation | a violet-blue, cream or dark navy ground on at least half the slides |
+| `placeholder-text` | fail | unfilled content left on the slide: PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]` |
 
 Panels with header bands, row labels in grey fields, status marks ("Preliminary", "Draft") and single functional boxes are deliberately not flagged; these were corrected against real consulting decks.
 

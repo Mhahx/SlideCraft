@@ -32,11 +32,15 @@ RULES = {
     'wide-tracking': 'letter-spaced running text',
     'shape-illustration': 'picture assembled from many simple shapes',
     'glass-stack': 'more than one translucent glass panel on a slide',
+    'placeholder-text': 'placeholder or filler text left on the slide',
 }
 
 BIG_NUMBER_PT = 40.0
 NUMBER_RE = re.compile(r'^[\s+\-−–~≈<>]*[\d][\d.,\s]*\s*(%|x|×|k|m|mio\.?|mrd\.?|bn|€|\$|£|db|km|kg|g|t|h|min|pt|ct|p\.?\s?p\.?)?\s*$', re.I)
 LEAD_ZERO_RE = re.compile(r'^\s*0\d[.)]?\s*$')
+# unfilled content left in the deck: German/English markers, a bare "XX", or a bracketed stand-in
+PLACEHOLDER_RE = re.compile(r'\bplatzhalter\b|\btodo\b|\btbd\b|lorem\s+ipsum|\bxx\b|'
+                            r'\[\s*(?:\.\.\.|…|xx+|tbd|todo|platzhalter)\s*\]', re.I)
 # status marks are trackers, not kickers (rules-core glossary; MCK-DC p8, BCG-IRA p10, BAIN-IABC p9)
 STATUS_RE = re.compile(r'(preliminary|draft|confidential|proprietary|pre-decisional|illustrative|not exhaustive|non-exhaustive|for discussion|'
                        r'vorl\u00e4ufig|entwurf|vertraulich|illustrativ|nicht abschlie\u00dfend|zur diskussion)', re.I)
@@ -44,7 +48,8 @@ BUZZ = [
     r'seamless(ly)?', r'powerful', r'holistic', r'synerg(y|ies|istic)', r'game[- ]?changer', r'cutting[- ]edge',
     r'next[- ]gen(eration)?', r'world[- ]class', r'best[- ]in[- ]class', r'revolutionary', r'market[- ]leading',
     r'empower(s|ed|ing)?', r'supercharg(e|es|ed|ing)', r'streamlin(e|es|ed|ing)', r'enterprise[- ]grade',
-    r'nahtlos(e|en|er|es)?', r'leistungsstark(e|en|er|es)?', r'ganzheitlich(e|en|er|es)?', r'synergie(n|effekte)?',
+    r'nahtlos(e|en|er|es)?', r'leistungsstark(e|en|er|es)?', r'ganzheitlich(e|en|er|es)?', r'holistisch(e|en|er|es)?',
+    r'synergie(n|effekte)?', r'disruptiv(e|en|er|es)?',
     r'hebeln', r'bahnbrechend(e|en|er|es)?', r'revolutionär(e|en|er|es)?', r'marktführend(e|en|er|es)?',
     r'zukunftsweisend(e|en|er|es)?', r'gamechanger',
 ]
@@ -277,6 +282,14 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd):
             hits.append('"%s" in %s' % (m.group(0), t.ref))
     if hits:
         add('buzzword', 'fail', '; '.join(hits[:6]), len(hits))
+
+    # placeholder text left in the deck (PLATZHALTER, TODO, TBD, Lorem ipsum, a bare XX, [...])
+    ph_hits = []
+    for t in texts:
+        for m in PLACEHOLDER_RE.finditer(t.text):
+            ph_hits.append('"%s" in %s' % (m.group(0), t.ref))
+    if ph_hits:
+        add('placeholder-text', 'fail', '; '.join(ph_hits[:6]), len(ph_hits))
 
     # question-title
     if title is not None and not exempt and title.text.strip().endswith('?'):

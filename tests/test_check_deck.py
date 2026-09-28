@@ -538,11 +538,13 @@ class RenderAnalysis(unittest.TestCase):
         self.assertEqual(rendermod.analyse_page(page, shapes, 960.0, 540.0, None, cd.words_of)['stray'], [])
 
     def test_font_report_metric_compatible_and_replaced(self):
-        st, _, ev = rendermod.font_report(['Arial', 'Calibri'], ['LiberationSans', 'Carlito'])
+        st, _, ev, unreliable = rendermod.font_report(['Arial', 'Calibri'], ['LiberationSans', 'Carlito'])
         self.assertEqual(st, 'pass')
-        st, _, ev = rendermod.font_report(['Arial', 'Comic Sans MS'], ['LiberationSans', 'DejaVuSans'])
+        self.assertEqual(unreliable, set())
+        st, _, ev, unreliable = rendermod.font_report(['Arial', 'Comic Sans MS'], ['LiberationSans', 'DejaVuSans'])
         self.assertEqual(st, 'observation')
         self.assertIn('Comic Sans MS', ev.split('unreliable for:')[-1])
+        self.assertEqual(unreliable, {'comic sans ms'})
 
     def test_missing_renderer_is_not_measured(self):
         orig = rendermod.find_soffice
@@ -592,6 +594,13 @@ class RenderEndToEnd(unittest.TestCase):
         c = find(self.bad['deck'], 'fonts drawn in the render')[0]
         self.assertEqual(c['status'], 'observation')
         self.assertIn('Comic Sans MS', c['evidence'])
+
+    def test_unreliable_font_note_reaches_the_slides_own_render_observations(self):
+        # audit finding: a slide's own render observations (text missing, title lines) did not say
+        # they were on an unreliable font, only the deck-level "fonts drawn" entry did
+        hit = any('replaced in the render' in (c.get('evidence') or '')
+                  for sl in self.bad['slides'] for c in sl['checks'])
+        self.assertTrue(hit, 'no per-slide render observation names the unreliable font (bad.pptx)')
 
     def test_png_export(self):
         import tempfile
@@ -1017,6 +1026,92 @@ class DetectorFixtures(unittest.TestCase):
         rep = cd.analyse(cd.Package(os.path.join(FIX, 'good.pptx')), 'good.pptx', 'read', set(), 'auto')
         for n in range(1, len(rep['slides']) + 1):
             self.assertEqual(detector(rep, n), {}, 'slide %d' % n)
+
+
+class AuditFindings(unittest.TestCase):
+    """0.21: findings from an audit run on a real deck (check_deck.py, detect.py)."""
+    T = 'Pricing explains most of the 12 % gain'
+
+    def run_slide(self, body, profile='read'):
+        return run_on(build_pptx([title_sp(self.T) + body]), profile)
+
+    def test_placeholder_text_fails(self):
+        for txt in ('Growth of XX percent by 2029', 'See [...] for the exact figure',
+                    'TODO: add the chart', 'Lorem ipsum dolor sit amet', 'Wert noch PLATZHALTER'):
+            body = box(10, 48, 200, 400, 60, text=txt)
+            f = detector(self.run_slide(body)).get('placeholder-text')
+            self.assertIsNotNone(f, txt)
+            self.assertEqual(f['status'], 'fail', txt)
+
+    def test_ordinary_text_is_not_a_placeholder(self):
+        body = box(10, 48, 200, 400, 60, text='Revenue grows by 40 percent next year')
+        self.assertNotIn('placeholder-text', detector(self.run_slide(body)))
+
+    def test_buzzword_holistisch_and_disruptiv(self):
+        body = box(10, 48, 200, 400, 60, text='Der Ansatz ist holistisch und disruptiv zugleich')
+        f = detector(self.run_slide(body))['buzzword']
+        self.assertEqual(f['status'], 'fail')
+        self.assertIn('holistisch', f['evidence'])
+        self.assertIn('disruptiv', f['evidence'])
+
+    def test_overlapping_text_shapes_fail(self):
+        # title_sp sits at y=48pt, height 60pt (48-108); this label overlaps its bottom edge by 8pt
+        z = build_pptx([title_sp(self.T) + box(10, 48, 100, 200, 20, text='Status update')])
+        checks = run_on(z)['slides'][0]['checks']
+        self.assertTrue(find(checks, 'text shapes do not overlap', 'fail'))
+
+    def test_non_overlapping_text_shapes_pass(self):
+        z = build_pptx([title_sp(self.T) + box(10, 48, 20, 200, 20, text='Status update')])
+        checks = run_on(z)['slides'][0]['checks']
+        self.assertTrue(find(checks, 'text shapes do not overlap', 'pass'))
+
+    def test_source_line_recognises_laut_and_gemaess_prefixes(self):
+        for prefix in ('laut AESC, Stand 2024', 'gemäß AESC, Stand 2024'):
+            body = table_body() + box(20, 48, 400, 400, 20, text=prefix)
+            checks = self.run_slide(body)['slides'][0]['checks']
+            self.assertTrue(find(checks, 'data slide has source and date', 'pass'), prefix)
+
+    def test_check_7_silent_on_narrative_slides_without_numbers(self):
+        z = build_pptx([title_sp('The team is proud of the milestone') +
+                        box(10, 48, 200, 400, 60, text='Everyone is ready for the next phase')])
+        checks = run_on(z)['slides'][0]['checks']
+        self.assertEqual(find(checks, 'data slide has source and date'), [])
+
+    def test_check_7_observation_when_a_number_appears_without_chart_or_table(self):
+        body = box(10, 48, 200, 400, 60, text='Retention reached 93 % this quarter')
+        checks = self.run_slide(body)['slides'][0]['checks']
+        self.assertTrue(find(checks, 'data slide has source and date', 'observation'))
+
+    def test_duplicate_number_across_slides_is_a_deck_observation(self):
+        s1 = box(10, 48, 200, 400, 60, text='Retention reached 93 % in Berlin')
+        s2 = box(10, 48, 200, 400, 60, text='Retention reached 93 % in Munich too')
+        z = build_pptx([title_sp('Berlin leads the region') + s1, title_sp('Munich follows closely') + s2])
+        rep = run_on(z)
+        c = find(rep['deck'], 'same number recurs across slides')
+        self.assertTrue(c)
+        self.assertEqual(c[0]['status'], 'observation')
+        self.assertIn('93', c[0]['evidence'])
+
+    def test_recurring_milestone_year_is_not_flagged_as_a_repeat(self):
+        s1 = box(10, 48, 200, 400, 60, text='Launch is set for 2029')
+        s2 = box(10, 48, 200, 400, 60, text='By 2029 the network is complete')
+        z = build_pptx([title_sp('Two views of the same date') + s1, title_sp('The same date again') + s2])
+        rep = run_on(z)
+        self.assertEqual(find(rep['deck'], 'same number recurs across slides'), [])
+
+    def test_claim_title_heuristic_flags_a_topic_label(self):
+        title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'Filialnetz Region Nord', ph='<p:ph type="title"/>')
+        rep = run_on(build_pptx([title]))
+        c = find(rep['slides'][0]['checks'], 'title reads as a claim')[0]
+        self.assertEqual(c['status'], 'observation')
+        self.assertFalse(c['value'])
+
+    def test_claim_title_heuristic_accepts_a_claim(self):
+        title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'Retention steigt um 12 Prozent', ph='<p:ph type="title"/>')
+        rep = run_on(build_pptx([title]))
+        c = find(rep['slides'][0]['checks'], 'title reads as a claim')[0]
+        self.assertEqual(c['status'], 'observation')
+        self.assertTrue(c['value'])
 
 
 if __name__ == '__main__':

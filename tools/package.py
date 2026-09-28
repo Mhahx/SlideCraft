@@ -2,8 +2,8 @@
 
 The skill lives in plugin/skills/slide-craft/ (SKILL.md, references/, scripts/); the same folder is what the
 plugin marketplace installs. Project documents (docs/, tests/, tools/) stay in the repository. The ZIP holds the skill folder as its top level,
-as claude.ai expects (<name>/SKILL.md). Also checks that the versions of SKILL.md (0.20-draft), the plugin manifest
-(0.20.0) and, with --tag, the git tag (v0.20.0) agree. Usage: python3 tools/package.py [--tag v0.20.0]
+as claude.ai expects (<name>/SKILL.md). Also checks that the versions of SKILL.md (0.21-draft), the plugin manifest
+(0.21.0) and, with --tag, the git tag (v0.21.0) agree. Usage: python3 tools/package.py [--tag v0.21.0]
 """
 import os
 import re
@@ -53,7 +53,7 @@ def check(skill_md):
 
 
 def versions(tag=None):
-    """Skill version 0.20-draft, plugin version 0.20.0 and tag v0.20.0 must name the same release."""
+    """Skill version 0.21-draft, plugin version 0.21.0 and tag v0.21.0 must name the same release."""
     text = open(os.path.join(SKILL, 'SKILL.md'), encoding='utf-8').read()
     m = re.search(r'^\s+version:\s*(\S+)', text, re.M)
     skill_v = m.group(1) if m else ''
