@@ -55,8 +55,12 @@ STEP_FACTOR = 1.25
 EMOJI_RE = re.compile('[\U0001F000-\U0001FAFF☀-➿⬀-⯿⌀-⏿️]')
 AUTO_ALT_RE = re.compile(r'(\.(png|jpe?g|gif|svg|bmp|tiff?|webp|emf|wmf)$|[\\/]|^(image|picture|graphic|chart|bild|grafik|diagramm|abbildung)\s*\d*$)', re.I)
 SOURCE_RE = re.compile(r'^\s*(sources?|quellen?)\s*[:：]', re.I)
-# an attribution without the Source:/Quelle: prefix, still recognisable as its own line, not running text
-ATTRIB_RE = re.compile(r'^\s*(laut|gemäß|gemaess|nach angaben (von|der|des))\b', re.I)
+# an attribution without the Source:/Quelle: prefix, still recognisable as its own line, not running
+# text: the keyword can carry a short lead-in ("Netzwerkangaben laut AESC, ..."), so it is searched
+# for, not anchored, but only within the first few words, so it never matches deep in a paragraph
+# (0.23: the earlier anchor at position 0 missed exactly this real-world phrasing)
+ATTRIB_RE = re.compile(r'\b(laut|gemäß|gemaess|nach angaben (von|der|des))\b', re.I)
+ATTRIB_LEAD_CHARS = 40
 # a number substantial enough to look like an external figure, not a bare step or slide number
 EXT_NUMBER_RE = re.compile(r'\d[\d.,]*\d|\d\s?%')
 # fixed list of common finite verb/auxiliary forms (German, English): a title with none of them may be a
@@ -337,6 +341,36 @@ def xfrm_of(el):
         return None
     return (int(off.get('x')) / EMU_PT, int(off.get('y')) / EMU_PT,
             int(ext.get('cx')) / EMU_PT, int(ext.get('cy')) / EMU_PT)
+
+
+def inherited_graphics(ctx):
+    """Non-placeholder pictures and shapes that sit only on the layout or the master (a logo, typically):
+    never in the slide's own XML, so parse_slide() cannot see them, but PowerPoint still draws them behind
+    every slide that does not turn them off. A logo placed this way overlapped a title, unflagged, in a
+    real deck (0.23 audit finding). Placeholders are excluded: parse_slide() already accounts for those
+    through the slide's own placeholder inheritance. Shapes nested in a group on the layout/master are out
+    of scope (rare for this kind of graphic); direct children of the layout/master spTree only."""
+    if ctx.root.get('showMasterSp') == '0':
+        return []   # this slide explicitly hides background graphics
+    out = []
+    for label, root in (('layout', ctx.layout), ('master', ctx.master)):
+        if root is None:
+            continue
+        tree = root.find(P + 'cSld/' + P + 'spTree')
+        if tree is None:
+            continue
+        for el in tree:
+            if el.tag not in (P + 'sp', P + 'pic'):
+                continue
+            if ph_of(el) is not None:
+                continue
+            bb = xfrm_of(el)
+            if bb is None:
+                continue
+            nv = el.find((P + 'nvSpPr' if el.tag == P + 'sp' else P + 'nvPicPr') + '/' + P + 'cNvPr')
+            out.append({'bbox': bb, 'ref': '%s %s "%s"' % (label, 'picture' if el.tag == P + 'pic' else 'shape',
+                                                            nv.get('name') if nv is not None else '?')})
+    return out
 
 
 def group_frame(grp):
@@ -799,7 +833,7 @@ def parse_slide(ctx):
             if tag == P + 'sp':
                 s.geom = geom_of(spPr)
                 s.line = get_line(spPr, style, ctx.theme, ctx.clrmap)
-            if s.kind == 'text' and s.has_text and (SOURCE_RE.match(s.text) or ATTRIB_RE.match(s.text)):
+            if s.kind == 'text' and s.has_text and (SOURCE_RE.match(s.text) or ATTRIB_RE.search(s.text.strip()[:ATTRIB_LEAD_CHARS])):
                 s.is_source = True
             shapes.append(s)
 
@@ -970,10 +1004,16 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
 
     live = (MARGIN_PT, MARGIN_PT, sw - 2 * MARGIN_PT, sh - 2 * MARGIN_PT)
     waivers = ''
+    plan_has_roles = False
+    plan_other_sizes = set()   # role sizes of a plan role whose kind is not title/body/foot (cover, divider, quote, ...)
     if plan is not None:
         import plan as plan_mod
         try:
-            waivers = plan_mod.parse_plan(plan).get('waivers', '') or ''
+            _p = plan_mod.parse_plan(plan)
+            waivers = _p.get('waivers', '') or ''
+            plan_roles = [r for r in _p.get('roles', []) if r.get('size')]
+            plan_has_roles = bool(plan_roles)
+            plan_other_sizes = {round(r['size'], 2) for r in plan_roles if plan_mod._role_kind(r['name']) == 'other'}
         except Exception:
             waivers = ''
     grounds = []
@@ -1011,6 +1051,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     color_use = {}      # hex -> list of places
     insets = []         # (inset pt, ref) of shapes considered for the margin check
     number_use = {}     # number token (not a bare year) -> set of slide numbers it appears on
+    placeholder_hits = {}   # slide number -> count of placeholder-text hits on that slide
     chart_sizes = set()
     slide_facts = []
 
@@ -1077,10 +1118,17 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 title_sizes[i] = tsz
                 if tsz and not exempt:
                     lo, hi = prof['title_min'], prof['title_max']
-                    okk = all(v >= lo - 0.01 and (hi is None or v <= hi + 0.01) for v in tsz)
+                    # a size the plan itself declares for a non-title role (cover, divider, quote, ...) is
+                    # not held to the profile's title range: the plan already checked it against nothing
+                    # tighter than the footnote minimum (plan.py self_checks P2), so failing it again here
+                    # under the wrong ceiling was a second, contradicting verdict on the same run (0.23)
+                    plan_exempt_sizes = [v for v in tsz if round(v, 2) in plan_other_sizes]
+                    okk = all(v >= lo - 0.01 and (hi is None or v <= hi + 0.01 or round(v, 2) in plan_other_sizes) for v in tsz)
                     checks.append(chk('2', 'title size within profile range', 'file', 'pass' if okk else 'fail',
                                       value=tsz, limit='%s-%s pt' % (lo, hi if hi else 'open'),
-                                      evidence='; '.join(sorted({r['size_origin'] for r in tr}))))
+                                      evidence='; '.join(sorted({r['size_origin'] for r in tr}))
+                                      + (' (%s pt: the plan\'s own non-title role, not held to this range)'
+                                         % ', '.join('%g' % v for v in plan_exempt_sizes) if plan_exempt_sizes else '')))
                 elif not tsz:
                     checks.append(chk('2', 'title size within profile range', 'file', 'not_measured',
                                       evidence='size unresolved: ' + tr[0]['size_origin']))
@@ -1124,8 +1172,8 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             # 0.22 fix: this used to say "role is only known from the deck plan" even when a plan was
             # given and had already resolved it (check 12 "text sizes are role sizes of the plan" is
             # the one that knows, deck-wide); that made a real fail elsewhere look like nothing was checked
-            note = ('role (body vs label) is only known from the deck plan' if plan is None else
-                    'role (body vs label): see check 12 "text sizes are role sizes of the plan" for whether the plan allows this size')
+            note = ('role (body vs label): see check 12 "text sizes are role sizes of the plan" for whether the plan allows this size'
+                    if plan_has_roles else 'role (body vs label) is only known from the deck plan')
             checks.append(chk('2', 'text between footnote and body minimum', 'file', 'observation',
                               value=sorted({b[0] for b in body_small}), limit='body >= %s pt' % prof['body_min'],
                               evidence=note + ': ' + '; '.join('%s %spt' % (b[1], b[0]) for b in body_small[:5])))
@@ -1170,6 +1218,22 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                     overlaps.append('%s x %s (%.0f x %.0f pt)' % (a.ref, b.ref, ox, oy))
         checks.append(chk('3', 'text shapes do not overlap', 'file', 'fail' if overlaps else 'pass',
                           evidence='; '.join(overlaps[:6]) if overlaps else 'no two text-bearing shapes share an area'))
+        bg_graphics = inherited_graphics(ctx)
+        bg_overlaps = []
+        for g in bg_graphics:
+            gx, gy, gw, gh = g['bbox']
+            for a in texty:
+                ax, ay, aw, ah = a.bbox
+                ox = min(ax + aw, gx + gw) - max(ax, gx)
+                oy = min(ay + ah, gy + gh) - max(ay, gy)
+                if ox > TOL and oy > TOL:
+                    bg_overlaps.append('%s overlaps %s (%.0f x %.0f pt)' % (a.ref, g['ref'], ox, oy))
+        if bg_graphics:
+            checks.append(chk('3', 'text does not overlap a layout or master graphic', 'file', 'fail' if bg_overlaps else 'pass',
+                              evidence=('; '.join(bg_overlaps[:6])
+                                        + '. A picture or shape placed only on the layout or master, not a placeholder, is not '
+                                          'in the slide\'s own XML and went unseen before 0.23') if bg_overlaps else
+                                       '%d layout/master graphic(s) checked, no overlap with a text shape' % len(bg_graphics)))
         over = []
         for s in shapes:
             if s.kind == 'text' and s.autofit != 'spAutoFit':
@@ -1419,6 +1483,8 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             checks.append(chk('1' if f['rule'] == 'question-title' else '9', 'refuse [%s]: %s' % (f['rule'], detect_mod.RULES[f['rule']]),
                               'file (detector)', st, value=f['value'],
                               evidence=f['evidence'] + ('; waived by brief' if st == 'waived' else '')))
+            if f['rule'] == 'placeholder-text' and f['value']:
+                placeholder_hits[i] = f['value']
         if not findings:
             checks.append(chk('9', 'refuse patterns (detector)', 'file (detector)', 'pass',
                               evidence='none of the %d detector rules found (%s)' % (len(detect_mod.RULES), ', '.join(sorted(detect_mod.RULES)))))
@@ -1491,6 +1557,11 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         deck.append(chk('7', 'same number recurs across slides', 'file', 'observation', value=len(repeats),
                         evidence='; '.join('"%s" on slides %s' % (tok, ns) for tok, ns in sorted(repeats.items())[:8])
                         + '. Repetition can be deliberate (a running total); a contradiction (the same figure standing for different things) is a judgement, not scripted.'))
+    if placeholder_hits:
+        total = sum(placeholder_hits.values())
+        by_slide = ', '.join('slide %d (%d)' % (n, c) for n, c in sorted(placeholder_hits.items())[:10])
+        deck.append(chk('9', 'placeholder text left in the deck (total)', 'file (detector)', 'fail', value=total,
+                        evidence='%d hit(s) on %d slide(s): %s' % (total, len(placeholder_hits), by_slide)))
     if plan is None:
         deck.append(chk('12', 'deck matches its deck plan', 'file', 'not_measured',
                         evidence='no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck'))

@@ -1185,5 +1185,93 @@ class PlanAuditFindings(unittest.TestCase):
         self.assertIn('C0392B', c['evidence'])
 
 
+def _logo_pic(x, y, w, h):
+    return ('<p:pic><p:nvPicPr><p:cNvPr id="90" name="Logo"/><p:cNvPicPr/><p:nvPr/></p:nvPicPr>'
+            '<p:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>'
+            '<p:spPr><a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm>'
+            '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic>' % (x * PT, y * PT, w * PT, h * PT))
+
+
+class HCAuditFindings(unittest.TestCase):
+    """0.23: findings from an audit of a real deck (HC_Slides), checked against the code and fixed."""
+
+    def test_title_overlapping_a_layout_only_logo_fails(self):
+        global LAYOUT
+        saved = LAYOUT
+        try:
+            LAYOUT = saved.replace('</p:spTree>', _logo_pic(800, 60, 100, 40) + '</p:spTree>')
+            checks = run_on(build_pptx([title_sp('Wir begleiten Nachfolgen erfolgreich')]))['slides'][0]['checks']
+            self.assertTrue(find(checks, 'layout or master graphic', 'fail'))
+        finally:
+            LAYOUT = saved
+
+    def test_title_clear_of_a_layout_logo_passes(self):
+        global LAYOUT
+        saved = LAYOUT
+        try:
+            LAYOUT = saved.replace('</p:spTree>', _logo_pic(800, 500, 100, 30) + '</p:spTree>')
+            checks = run_on(build_pptx([title_sp('Wir begleiten Nachfolgen erfolgreich')]))['slides'][0]['checks']
+            self.assertTrue(find(checks, 'layout or master graphic', 'pass'))
+        finally:
+            LAYOUT = saved
+
+    def test_hidden_master_graphics_are_not_checked(self):
+        global LAYOUT
+        saved = LAYOUT
+        try:
+            LAYOUT = saved.replace('</p:spTree>', _logo_pic(800, 60, 100, 40) + '</p:spTree>')
+            z = build_pptx([title_sp('Wir begleiten Nachfolgen erfolgreich')])
+            # set showMasterSp="0" on the slide (hides layout/master background graphics)
+            import zipfile as _zf
+            buf = io.BytesIO()
+            with _zf.ZipFile(z) as zin, _zf.ZipFile(buf, 'w') as zout:
+                for item in zin.infolist():
+                    data = zin.read(item.filename)
+                    if item.filename == 'ppt/slides/slide1.xml':
+                        data = data.replace(b'<p:sld ', b'<p:sld showMasterSp="0" ')
+                    zout.writestr(item, data)
+            buf.seek(0)
+            checks = run_on(buf)['slides'][0]['checks']
+            self.assertEqual(find(checks, 'layout or master graphic'), [])
+        finally:
+            LAYOUT = saved
+
+    def test_attribution_prefix_recognised_with_a_lead_in(self):
+        body = table_body() + box(20, 48, 400, 400, 20, text='Netzwerkangaben laut AESC, Stand August 2026')
+        z = build_pptx([title_sp('Pricing explains most of the 12 % gain') + body])
+        checks = run_on(z)['slides'][0]['checks']
+        self.assertTrue(find(checks, 'data slide has source and date', 'pass'))
+
+    def test_role_note_says_only_known_from_plan_when_roles_do_not_parse(self):
+        # a plan is given but its role table cannot be read (no role/size columns): the note must not
+        # falsely point at check 12, which has nothing to say either in that case
+        body = sp_text(3, 'Box12', 609600, 3000000, 6000000, 500000,
+                       'And this one is twelve point running text, unplanned in the role table', rpr_of(12, '333333'))
+        z = build_pptx([title_sp('Pricing explains most of the 12 % gain') + body])
+        rep = cd.analyse(cd.Package(z), 'synthetic', 'read', set(), 'en', 'Profile: read\n')
+        note = find(rep['slides'][0]['checks'], 'text between footnote and body minimum', 'observation')[0]
+        self.assertIn('is only known from the deck plan', note['evidence'])
+
+    def test_cover_role_size_outside_profile_range_is_not_a_fail(self):
+        plan_text = ('## 4. Design system\nText roles:\n| role | family | weight | size pt | colour | use |\n'
+                     '|---|---|---|---|---|---|\n| cover title | Arial | bold | 32 | 1A1A1A | cover statement |\n'
+                     '| body | Arial | regular | 16 | 333333 | body text |\n'
+                     'Palette: background FFFFFF | text 1A1A1A, 333333 | accent 1F4E79\n'
+                     'Grid and spacing: 13.33 x 7.5 in, margins 48 pt\nLayout types: main\nProfile: read\n')
+        title = sp_text(2, 'Title 1', 609600, 609600, 8000000, 900000,
+                        'Wir begleiten Nachfolgen erfolgreich', rpr_of(32, '1A1A1A'), ph='<p:ph type="title"/>')
+        rep = cd.analyse(cd.Package(build_pptx([title])), 'synthetic', 'read', set(), 'en', plan_text)
+        self.assertFalse(find(rep['slides'][0]['checks'], 'title size within profile range', 'fail'))
+        self.assertTrue(find(rep['slides'][0]['checks'], 'title size within profile range', 'pass'))
+
+    def test_placeholder_total_reported_at_deck_level(self):
+        s1 = box(10, 48, 200, 400, 60, text='Wert noch PLATZHALTER und ein zweites PLATZHALTER hier')
+        s2 = box(10, 48, 200, 400, 60, text='TODO: Zahl ergänzen')
+        z = build_pptx([title_sp('Erste Folie') + s1, title_sp('Zweite Folie') + s2])
+        rep = run_on(z)
+        c = find(rep['deck'], 'placeholder text left in the deck (total)')
+        self.assertTrue(c and c[0]['status'] == 'fail' and c[0]['value'] == 3)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

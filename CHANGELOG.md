@@ -2,6 +2,22 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## 0.23 (0.23.0)
+
+Findings from a full audit of a real 26-slide deck (rebuild via the PowerPoint add-in), checked against the code and fixed. 114 tests (7 new), all green.
+
+| Finding | Change |
+|---|---|
+| A logo placed only on the layout or master (not a placeholder) overlapped the title in the rebuild; check 3 never saw it, since it is not in the slide's own XML at all | Check 3 now also reads non-placeholder pictures and shapes on the layout and on the master, and checks them against the slide's text shapes for overlap; a slide with `showMasterSp="0"` is correctly left out |
+| "Netzwerkangaben laut AESC, Stand August 2026." is a valid source but was not recognised: the 0.21 fix for `laut`/`gemäß` required the word at position 0, not after a lead-in phrase | The keyword is now searched for within the first 40 characters, not anchored at the very start |
+| With a plan given but its role table not parsing (an empty role table), the per-slide note still claimed "see check 12", which had nothing to say either in that case | The note distinguishes "no plan" from "plan given, but no roles resolved" and only points at check 12 when it actually resolved something |
+| A cover title at 32 pt, declared in the plan as its own role ("cover title"), failed check 2's profile title range (20–28 for `read`) — a real contradiction, since the plan's own role check (P2) already excludes cover/divider/quote/display roles from that range | Check 2 now recognises the same role kinds as not held to the profile's title range, when a plan declares the role |
+| The placeholder-text detector reported a count per slide, but no deck-wide total | Added: a deck-level fail summing every slide's count |
+| The Palette line's "one role word, sticky until the next" convention had no worked example in the template, only abstract role names | `deck-plan.md` gains a concrete example under the Palette field |
+| A first PowerPoint add-in try never created pattern-named layouts; every slide sat on the generic "Titel und Inhalt" layout | Not fixed, still unclear whether this is a limit of the add-in's own API. Logged in `development.md` with this as the likely explanation for several of the add-in's other symptoms (the P01/P02 exemption, the recurring-placeholder check and the plan's layout-name comparison all key off the layout's name) |
+
+**Checked and confirmed as already correct, not a bug:** unplanned run sizes (14 pt, 12 pt) do fail check 12 "text sizes are role sizes of the plan" when the role table parses; "holistisch"/"Holistischer" and kicker-over-title overlap were already fixed in 0.21; the A1/A2 numbering bug and "Pattern variants appears 2 times" were already fixed in 0.22; Selawik already reports as a close substitute, not "unreliable".
+
 ## 0.22 (0.22.0)
 
 Findings from reading a real deck plan, checked against the code and fixed. 107 tests (7 new), all green.

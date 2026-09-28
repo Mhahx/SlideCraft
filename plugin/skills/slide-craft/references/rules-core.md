@@ -56,7 +56,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 - Label directly instead of a legend where possible. One highlight colour (the accent), everything else neutral and at least 3:1 (see section 4).
 - Several series: tell them apart by direct labels plus position, line style or marker shape, never by colour alone. More than 4 series: split into small multiples or reduce.
 - No 3D, shadows, gradients or decorative gridlines. Honest axes, bars start at zero.
-- Every data slide: source and date in the footer area. The source line starts with `Source:` or `Quelle:` (also `Sources:`, `Quellen:`). The check script recognises it only by this prefix: then it counts as the source (check 7) and is left out of the words per slide (check 6); a source written differently is counted as body text and the source check fails.
+- Every data slide: source and date in the footer area. The source line starts with `Source:` or `Quelle:` (also `Sources:`, `Quellen:`), or carries `laut`/`gemäß`/`nach Angaben von` within its first few words (a short lead-in before the keyword is fine: "Netzwerkangaben laut AESC, Stand 2026" counts). The check script recognises exactly these forms: then it counts as the source (check 7) and is left out of the words per slide (check 6); a source written differently is counted as body text and the source check fails.
 - Tables: numbers right-aligned, tabular figures, rules instead of zebra stripes where enough.
 
 ## 7. Accessibility
@@ -73,7 +73,7 @@ Every check in a report carries its method. Only items with a method of *file*, 
 | Typical AI patterns (nested cards, card grid, icon tiles, stat row, stripes, kicker, buzzwords, text alignment) | file (`scripts/detect.py`: geometry, fill, outline and text of each shape) |
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
 | Fill share | script (`scripts/check_deck.py`, bounding-box union); reported as an observation until the profile values are calibrated (project decision, 0.13) |
-| Two text-bearing shapes overlap | file (bounding-box geometry, no render needed) |
+| Two text-bearing shapes overlap; a text shape overlaps a non-placeholder picture or shape placed only on the layout or master (a logo) | file (bounding-box geometry, no render needed) |
 | Placeholder or filler text left on the slide (PLATZHALTER, TODO, TBD, Lorem ipsum, XX, `[...]`) | file (`scripts/detect.py`) |
 | The same number recurs on several slides | file (deck-level, tokens from the body text of every slide); reported as an observation — repetition can be deliberate, a contradiction is a judgement |
 | Title reads as a claim (has a finite verb) | heuristic (fixed German/English verb list); always an observation, never a threshold — the list is incomplete, so a valid claim can still be flagged |
@@ -101,7 +101,7 @@ Name evidence for each item (slide number, value, method). A bare "ok" is not ev
 
 1. Every non-exempt title is a claim sentence, at most 2 lines. [file, render estimate for line count]. Whether it has a finite verb from a fixed list is reported too, as an observation only: the list is incomplete, so treat a flag as a prompt to look, not as a verdict. [heuristic]
 2. Font families at most 2, sizes match the roles, body and footnote at or above the profile minimum. [file]
-3. No text overflows, is cut off, or overlaps. Margins respected. [render estimate for overflow; overlap and margins: file]
+3. No text overflows, is cut off, or overlaps — including a non-placeholder picture or shape placed only on the layout or master (a logo), which is not in the slide's own XML but is still drawn behind it. Margins respected. [render estimate for overflow; overlap and margins: file]
 4. Alignment on shared edges, recurring elements at the same position. [file; optical alignment: script]
 5. Colour roles respected (1 accent + at most a signal pair; hue families counted by script). Text contrast and non-text contrast computed. [file, computed]
 6. Words per slide within the profile limit [file]; fill reported against the profile value [script, observation until calibrated; never shrink an exhibit below its pattern zone to meet it].
@@ -132,4 +132,7 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Text-shape overlap as a file check (was render estimate only) | Starting value | bounding-box geometry from the file; found by an audit run (0.21) |
 | Claim-title heuristic (finite verb list) | Starting value, low recall by design | own fixed German/English verb list; never more than an observation, since many valid claims use a verb outside the list (0.21) |
 | Extended source-line prefixes (`laut`, `gemäß`, `nach Angaben von`) and the same-number-recurs check | Starting value | found by an audit run (0.21); the prefixes widen check 7, the recurrence check is new at deck level |
+| Overlap check reads layout and master graphics (a logo counts) | Starting value | found by an audit run on a real deck (0.23); direct children of the layout/master spTree only, groups out of scope |
+| A plan role of kind "other" (cover, divider, quote, display) is not held to the profile's title-size range in check 2 | Starting value | found by an audit run (0.23); resolves a contradiction with plan.py's own P2 check, which already excludes these kinds |
+| Placeholder-text deck-level total | Starting value | found by an audit run (0.23); the per-slide count already existed (0.21) |
 | Profile values | Starting value | `profiles.md` |

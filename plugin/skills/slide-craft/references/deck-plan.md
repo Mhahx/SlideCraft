@@ -71,7 +71,11 @@ Text roles:         (a markdown table: every line starts with |, the check scrip
 Palette:            background | text | accent | signal (max 2: positive, negative) | neutrals
                     each with hex and role; contrast pairs with computed ratio. The picked
                     direction's palette only, written once (other directions' swatches belong
-                    in the Directions considered table of section 2, not here)
+                    in the Directions considered table of section 2, not here). One role word
+                    per hex or comma-separated group of hexes of that same role; a new role
+                    word ends the previous one. Worked example:
+                    Palette: background FFFFFF | text 1A1A1A, 333333 | accent 1F4E79 | neutrals 595959
+                    (one background, two text shades, one accent, one neutral — not five accents)
 Grid and spacing:   slide size, margins ("margins 48 pt"; read by the script), 12 columns, spacing scale
 Layout types:       the patterns this deck uses, by id from patterns.md (for example
                     P01 cover, P04 chart-rail, P07 table), each with its placeholders;
