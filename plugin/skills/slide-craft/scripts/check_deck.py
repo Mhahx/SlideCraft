@@ -1121,9 +1121,14 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                              if r['size'] is not None and prof['foot_min'] - 0.01 <= r['size'] < prof['body_min'] - 0.01
                              and not s.is_source and not (s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt'))})
         if body_small:
+            # 0.22 fix: this used to say "role is only known from the deck plan" even when a plan was
+            # given and had already resolved it (check 12 "text sizes are role sizes of the plan" is
+            # the one that knows, deck-wide); that made a real fail elsewhere look like nothing was checked
+            note = ('role (body vs label) is only known from the deck plan' if plan is None else
+                    'role (body vs label): see check 12 "text sizes are role sizes of the plan" for whether the plan allows this size')
             checks.append(chk('2', 'text between footnote and body minimum', 'file', 'observation',
                               value=sorted({b[0] for b in body_small}), limit='body >= %s pt' % prof['body_min'],
-                              evidence='role (body vs label) is only known from the deck plan: ' + '; '.join('%s %spt' % (b[1], b[0]) for b in body_small[:5])))
+                              evidence=note + ': ' + '; '.join('%s %spt' % (b[1], b[0]) for b in body_small[:5])))
         if src_runs:
             bad = [r for r in src_runs if r['size'] is not None and r['size'] < prof['foot_min'] - 0.01]
             checks.append(chk('2', 'source line at or above footnote minimum', 'file', 'fail' if bad else 'pass',

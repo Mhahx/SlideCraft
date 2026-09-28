@@ -18,6 +18,10 @@ METRIC_COMPATIBLE = {
     'arial': 'liberationsans', 'helvetica': 'liberationsans',
     'times new roman': 'liberationserif', 'courier new': 'liberationmono',
     'calibri': 'carlito', 'cambria': 'caladea',
+    # Microsoft's own metric-compatible substitute for the Windows UI font; needs the Selawik release
+    # installed plus a fontconfig alias mapping "Segoe UI" to it (SKILL.md, Tool notes). User-verified
+    # (0.22); not independently re-tested here, since this environment has no network access to the font.
+    'segoe ui': 'selawik',
 }
 WORD_RE = re.compile(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">(.*?)</word>')
 PAGE_RE = re.compile(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', re.S)

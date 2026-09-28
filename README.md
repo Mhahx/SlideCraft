@@ -37,7 +37,7 @@ The repository is private. Everyone who installs SlideCraft from GitHub needs re
 | **Claude Code** | `claude plugin marketplace add Mhahx/SlideCraft`, then `claude plugin install slide-craft@slidecraft`. Invoke as `/slide-craft:slide-craft` or just ask for slides | tested |
 | **Claude Code on this repository** | nothing to install: the skill loads from `.claude/skills/slide-craft`. Invoke as `/slide-craft` | tested in the CLI |
 | **Claude apps** (claude.ai, desktop) | Turn on code execution in the settings. Then Customize > Skills > Upload a skill and choose `slide-craft.zip`. Or Customize > Plugins > Add marketplace with `https://github.com/Mhahx/SlideCraft` | supported by Anthropic; not yet tested here |
-| **Claude for PowerPoint** | skills enabled in your Claude settings are available in the add-in; call them with `/` | supported by Anthropic; whether the add-in runs the check script is untested |
+| **Claude for PowerPoint** | skills enabled in your Claude settings are available in the add-in; call them with `/` | tried once: the add-in skipped the direction round the prompt asked for and replaced the deck instead of appending drafts. Whether that is the add-in or how it loads the skill there is unclear from outside it; see [development.md](docs/development.md) |
 | **Claude Design** | not supported (it uses design systems, not custom skills) | – |
 
 The skill loads by itself when you ask for slides. Updates arrive through the marketplace when the version in `plugin/.claude-plugin/plugin.json` goes up; a ZIP install has to be replaced by hand.
@@ -82,12 +82,12 @@ Version **0.20** (draft). What is tested:
 
 - Two full runs with a human user (a `read` decision paper, a `pitch` with a pinned style), one blind run by a fresh agent on a different model with only the installed skill (`talk`), all ending with 0 fails in the check script.
 - Trigger test: the skill loads for 10 of 10 slide requests and stays out of 10 of 10 other tasks (Claude Code, headless). See [tests/trigger/RESULTS.md](tests/trigger/RESULTS.md).
-- 88 unit tests for the check script.
+- 107 unit tests for the check script.
 
 What is not:
 
 - The `read` values are calibrated on real decks; the `talk`, `pitch` and `update` values are starting values.
-- Tested only in Claude Code and rendered only in LibreOffice. The Claude apps and the PowerPoint add-in are untested.
+- Rendered only in LibreOffice. A first try in the PowerPoint add-in skipped the direction round and replaced the deck instead of extending it (see the install table above); the Claude apps are untested.
 - The detector reads shapes, not pixels: it cannot judge pictures embedded as images, and it cannot see whether a slide is beautiful. That is what the rendered review and the human are for.
 - It is an aid for building decks with a human in the loop, not an autopilot. Design choices stay with the user.
 

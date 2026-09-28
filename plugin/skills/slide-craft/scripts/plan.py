@@ -21,12 +21,19 @@ NUM_RE = re.compile(r'\d+(?:[.,]\d+)?')
 BOLD_WORDS = ('bold', 'semibold', 'semi-bold', 'heavy', 'black', 'extrabold', 'demibold')
 REGULAR_WORDS = ('regular', 'normal', 'book', 'light', 'medium', 'roman')
 EMPTY_TITLE = {'', '-', '—', '–', 'n/a', 'n.a.', 'tbd', 'none'}
+CLEAN_NO_RE = re.compile(r'^\**\s*\d+[.)]?\s*\**$')  # a plain ordinal, e.g. "3" or "3."; not "A1" or "P04"
 
 
 # ----------------------------------------------------------------- parsing
 
 DESIGN_LABELS = ('fonts', 'text roles', 'palette', 'grid and spacing', 'layout types', 'images and icons', 'charts')
 DESIGN_HEADING_RE = re.compile(r'^#+\s*(4\b|4\.|design system)', re.I)
+# direction.md round 2 shows 2 to 3 candidate directions before the user picks one; describing each with its
+# own "Pattern variants:"/"Colour strategy:" line repeats those labels legitimately (0.22 fix). The template's
+# "Directions considered" table is the documented way to do this without repeating labels at all; this
+# exemption is the fallback for a plan that still writes it as repeated fields under the Direction heading.
+DIRECTION_LABELS = ('pattern variants', 'colour strategy', 'rationale', 'self-check')
+DIRECTION_HEADING_RE = re.compile(r'^#+\s*(2\b|2\.|direction\b)', re.I)
 AS_BUILT_RE = re.compile(r'^#+\s*(7\b|7\.)?\s*as built', re.I)
 
 
@@ -54,8 +61,10 @@ def _fields_all(text):
 
 def _fields(text, duplicates=None):
     """One value per label. A label that occurs more than once is resolved, never silently: design-system labels
-    (Palette, Fonts, ...) come from section 4 (Design system) when they occur there, all others from their first
-    occurrence. Every repeated label is listed in `duplicates` as (label, count, heading used, design label?)."""
+    (Palette, Fonts, ...) come from section 4 (Design system) when they occur there; direction labels (Pattern
+    variants, Colour strategy, Rationale, Self-check) come from section 2 (Direction), where round 2 of
+    direction.md legitimately repeats them once per candidate direction; all others from their first
+    occurrence. Every repeated label is listed in `duplicates` as (label, count, heading used, exempt?)."""
     by = {}
     for label, value, head in _fields_all(text):
         by.setdefault(label, []).append((value, head))
@@ -67,13 +76,16 @@ def _fields(text, duplicates=None):
     out = {}
     for label, occ in by.items():
         pick = occ[0]
-        if label in DESIGN_LABELS:
-            in_design = [o for o in occ if DESIGN_HEADING_RE.match(o[1])]
-            if in_design:
-                pick = in_design[0]
+        exempt_re = DESIGN_HEADING_RE if label in DESIGN_LABELS else DIRECTION_HEADING_RE if label in DIRECTION_LABELS else None
+        exempt = False
+        if exempt_re:
+            in_section = [o for o in occ if exempt_re.match(o[1])]
+            if in_section:
+                pick = in_section[0]
+                exempt = True   # still exempt even if the section itself repeats the label (e.g. 3 directions)
         out[label] = pick[0]
         if len(occ) > 1 and duplicates is not None:
-            duplicates.append((label, len(occ), pick[1] or '(no heading)', label in DESIGN_LABELS))
+            duplicates.append((label, len(occ), pick[1] or '(no heading)', exempt))
     return out
 
 
@@ -177,8 +189,11 @@ def parse_plan(text):
                                                        exhibit=('exhibit',), source=('source',)).items()}
             for idx, r in enumerate(rows, 1):
                 get = lambda k: r[ci[k]] if ci[k] is not None and ci[k] < len(r) else ''
-                n = _num(get('no'))
-                slides.append({'no': int(n) if n else idx, 'layout': get('layout').strip('* ').lower(),
+                label = get('no').strip()
+                # the row's position in the table is the slide index; a label like "A1" contains a digit
+                # too, but is not that index, so it is never used to pick a deck slide (0.22 fix)
+                slides.append({'no': idx, 'no_label': label, 'no_clean': bool(CLEAN_NO_RE.match(label)),
+                               'layout': get('layout').strip('* ').lower(),
                                'title': get('title').strip('* "'), 'exhibit': get('exhibit'), 'source': get('source')})
             break
     plan['slides'] = slides
@@ -235,9 +250,11 @@ def self_checks(plan, prof, cd):
     out = []
     dups = plan.get('duplicate_labels') or []
     if dups:
-        # a repeated design label is resolved by section 4; any other repeated label is ambiguous
-        amb = [d for d in dups if not (d[3] and DESIGN_HEADING_RE.match(d[2]))]
-        out.append(_chk('P0', 'plan: every label appears once (or design labels are read from section 4)', 'file (plan)',
+        # a repeated design label is resolved by section 4, a repeated direction label by section 2 (0.22: was
+        # hardcoded to section 4 only, so 2-3 candidate directions each restating "Pattern variants:" failed)
+        amb = [d for d in dups if not d[3]]
+        out.append(_chk('P0', 'plan: every label appears once (or is read from its owning section: design labels '
+                        'from section 4, direction labels from section 2)', 'file (plan)',
                         'fail' if amb else 'observation', value=[d[0] for d in dups],
                         evidence='; '.join('"%s:" appears %d times, used the one under %s' % (d[0].capitalize(), d[1], d[2]) for d in dups)
                         + ('' if amb else '; write other sections without these label words to silence this (section 7, As built, is exempt)')))
@@ -262,12 +279,18 @@ def self_checks(plan, prof, cd):
 
     pal = plan['palette']
     if pal:
-        n_acc = len({p['hex'] for p in pal if p['role'] == 'accent'})
-        n_sig = len({p['hex'] for p in pal if p['role'] == 'signal'})
+        acc_hex = sorted({p['hex'] for p in pal if p['role'] == 'accent'})
+        sig_hex = sorted({p['hex'] for p in pal if p['role'] == 'signal'})
+        n_acc, n_sig = len(acc_hex), len(sig_hex)
         ok = n_acc <= 1 and n_sig <= 2
+        # name every hex under its role, not just the count: a role word stays in effect for later
+        # comma-separated hexes until the next role word (intended for one role's own shades), so an
+        # unexpected count is otherwise invisible until someone re-reads the raw Palette text (0.22)
         out.append(_chk('P3', 'plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)', 'file (plan)', 'pass' if ok else 'fail',
                         value={'accent': n_acc, 'signal': n_sig}, limit={'accent': 1, 'signal': 2},
-                        evidence='roles are read from the words next to each hex in the Palette block'))
+                        evidence='accent: %s; signal: %s. A role word stays in effect for the hexes after it until the next role '
+                                 'word or line break; one direction\'s whole palette per "Palette:" line, written once, avoids this'
+                                 % (', '.join(acc_hex) or 'none', ', '.join(sig_hex) or 'none')))
         unl = [p['hex'] for p in pal if p['role'] == 'unlabelled']
         if unl:
             out.append(_chk('P3', 'plan: palette entries without a role word', 'file (plan)', 'observation', value=unl,
@@ -306,6 +329,11 @@ def self_checks(plan, prof, cd):
         nosrc = ['slide %s' % s['no'] for s in data_rows if len(s['source'].strip(' -—–')) < 3]
         out.append(_chk('P5', 'plan: every data slide row has a source', 'file (plan)', 'fail' if nosrc else 'pass',
                         value=len(data_rows), evidence=('no source in: ' + ', '.join(nosrc)) if nosrc else 'checked %d data rows' % len(data_rows)))
+        odd_no = ['row %d: "No." reads "%s"' % (s['no'], s['no_label']) for s in plan['slides'] if not s['no_clean']]
+        if odd_no:
+            out.append(_chk('P4', 'plan: the "No." column is a plain ordinal', 'file (plan)', 'observation',
+                            evidence='matched by the row\'s position in the table, not by this label, so it never picks the wrong deck slide: '
+                                     + '; '.join(odd_no[:6])))
     return out
 
 
