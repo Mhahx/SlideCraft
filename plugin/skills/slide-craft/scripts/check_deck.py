@@ -15,6 +15,7 @@ Usage:
 Exit code: 0 = no fail, 1 = at least one fail, 2 = input error.
 """
 import argparse
+import collections
 import colorsys
 import json
 import math
@@ -54,6 +55,30 @@ STEP_FACTOR = 1.25
 EMOJI_RE = re.compile('[\U0001F000-\U0001FAFF☀-➿⬀-⯿⌀-⏿️]')
 AUTO_ALT_RE = re.compile(r'(\.(png|jpe?g|gif|svg|bmp|tiff?|webp|emf|wmf)$|[\\/]|^(image|picture|graphic|chart|bild|grafik|diagramm|abbildung)\s*\d*$)', re.I)
 SOURCE_RE = re.compile(r'^\s*(sources?|quellen?)\s*[:：]', re.I)
+# an attribution without the Source:/Quelle: prefix, still recognisable as its own line, not running text
+ATTRIB_RE = re.compile(r'^\s*(laut|gemäß|gemaess|nach angaben (von|der|des))\b', re.I)
+# a number substantial enough to look like an external figure, not a bare step or slide number
+EXT_NUMBER_RE = re.compile(r'\d[\d.,]*\d|\d\s?%')
+# fixed list of common finite verb/auxiliary forms (German, English): a title with none of them may be a
+# topic label, not a claim sentence. Low recall by construction (many valid German verbs are not on it);
+# never more than an observation (rules-core.md check 1).
+FINITE_VERB_RE = re.compile(
+    r'\b(ist|sind|war|waren|wird|werden|hat|haben|hatte|hatten|kann|können|muss|müssen|soll|sollen|'
+    r'darf|dürfen|will|wollen|bleibt|bleiben|gilt|gelten|gibt|zeigt|zeigen|steigt|steigen|sinkt|sinken|'
+    r'fällt|fallen|wächst|wachsen|spart|sparen|kostet|kosten|senkt|senken|erhöht|erhöhen|trägt|tragen|'
+    r'bringt|bringen|braucht|brauchen|fehlt|fehlen|reicht|reichen|tankt|tanken|kippt|kippen|entscheidet|'
+    r'entscheiden|startet|starten|beginnt|beginnen|endet|enden|schafft|schaffen|macht|machen|treibt|treiben|'
+    r'stärkt|stärken|sichert|sichern|ermöglicht|ermöglichen|verbessert|verbessern|reduziert|reduzieren|'
+    r'erreicht|erreichen|verdoppelt|verdoppeln|halbiert|halbieren|gewinnt|gewinnen|verliert|verlieren|'
+    r'hilft|helfen|folgt|folgen|entsteht|entstehen|sorgt|sorgen|bedeutet|bedeuten|heißt|heißen|lohnt|lohnen|'
+    r'überzeugt|überzeugen|schützt|schützen|wandelt|wandeln|prägt|prägen|definiert|definieren|'
+    r'is|are|was|were|will|can|must|should|need|needs|has|have|shows?|drives?|cuts?|saves?|'
+    r'costs?|raises?|lowers?|boosts?|grows?|falls?|rises?|drops?|builds?|'
+    r'becomes?|remains?|stays?|delivers?|enables?|unlocks?|wins?|loses?|'
+    r'beats?|closes?|opens?|starts?|ends?|doubles?|halves?|reaches?|meets?|'
+    r'requires?|proves?|means?|matters?|works?|fails?|breaks?|changes?|'
+    r'leads?|brings?|gives?|takes?|makes?|creates?|protects?|secures?|'
+    r'helps?|supports?)\b', re.I)
 # a date on a source line: a year, a calendar week (KW/CW), a quarter or a month name
 YEAR_RE = re.compile(r'\b(19|20)\d{2}\b|\b(KW|CW)\s?\d{1,2}\b|\bQ[1-4]\b|\b(januar|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember|january|february|march|may|june|july|october|december)\b', re.I)
 # layouts named after the exempt patterns of patterns.md: P01 cover, P02 divider-agenda
@@ -774,7 +799,7 @@ def parse_slide(ctx):
             if tag == P + 'sp':
                 s.geom = geom_of(spPr)
                 s.line = get_line(spPr, style, ctx.theme, ctx.clrmap)
-            if s.kind == 'text' and s.has_text and SOURCE_RE.match(s.text):
+            if s.kind == 'text' and s.has_text and (SOURCE_RE.match(s.text) or ATTRIB_RE.match(s.text)):
                 s.is_source = True
             shapes.append(s)
 
@@ -985,6 +1010,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     run_facts = []      # one record per text run, for the plan comparison
     color_use = {}      # hex -> list of places
     insets = []         # (inset pt, ref) of shapes considered for the margin check
+    number_use = {}     # number token (not a bare year) -> set of slide numbers it appears on
     chart_sizes = set()
     slide_facts = []
 
@@ -998,6 +1024,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         words = 0
         chars = 0
         counted = []
+        ext_numbers = []   # tokens found in this slide's own text, for check 7 and the duplicate-number check
         for s in shapes:
             if s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt'):
                 continue
@@ -1008,11 +1035,16 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 words += len(words_of(t))
                 chars += len(t.replace('\n', ''))
                 counted.append(s.ref)
+                ext_numbers.extend(EXT_NUMBER_RE.findall(t))
             elif s.kind == 'chart' and s.chart:
                 for t in s.chart['texts']:
                     words += len(words_of(t))
                     chars += len(t)
                 counted.append(s.ref + ' (chart text)')
+        for tok in ext_numbers:
+            if YEAR_RE.fullmatch(tok.strip()):
+                continue   # a recurring milestone year is normal, not a repeated figure
+            number_use.setdefault(tok.strip(), set()).add(i)
 
         # -- 1 title
         if title is None:
@@ -1032,6 +1064,13 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 checks.append(chk('1', 'title fits 2 lines', 'estimate (0.5 em glyph width, not a render)',
                                   'observation', value=est[0], limit=2,
                                   evidence='%s; estimate only, not a threshold' % title.ref))
+            if not exempt:
+                has_verb = bool(FINITE_VERB_RE.search(title.text))
+                checks.append(chk('1', 'title reads as a claim (has a finite verb)', 'heuristic (fixed verb list, low recall)',
+                                  'observation', value=has_verb,
+                                  evidence=('%s "%s"' % (title.ref, title.text.strip()[:80])) if has_verb else
+                                  '%s "%s": no word from the fixed verb list found; check by hand whether this is a topic label, not a claim '
+                                  '(heuristic on an incomplete verb list — many valid claims will still trigger it)' % (title.ref, title.text.strip()[:80])))
             tr = title.runs()
             if tr:
                 tsz = sorted({r['size'] for r in tr if r['size']})
@@ -1113,6 +1152,19 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                           limit='48 pt (footer items: 18 pt at the bottom)', evidence='; '.join(edge_bad[:6]) if edge_bad else 'all non-ground shapes inside live area'))
         if bleed:
             checks.append(chk('3', 'pictures and colour fields crossing margins (bleed)', 'file', 'observation', evidence='; '.join(bleed[:4]) + ' (allowed only if deliberate)'))
+        overlaps = []
+        texty = [s for s in shapes if s.kind == 'text' and s.has_text and s.bbox is not None and not s.is_source
+                 and not (s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt')) and not is_ground(s, sw, sh)]
+        for ia, a in enumerate(texty):
+            ax, ay, aw, ah = a.bbox
+            for b in texty[ia + 1:]:
+                bx, by, bw, bh = b.bbox
+                ox = min(ax + aw, bx + bw) - max(ax, bx)
+                oy = min(ay + ah, by + bh) - max(ay, by)
+                if ox > TOL and oy > TOL:
+                    overlaps.append('%s x %s (%.0f x %.0f pt)' % (a.ref, b.ref, ox, oy))
+        checks.append(chk('3', 'text shapes do not overlap', 'file', 'fail' if overlaps else 'pass',
+                          evidence='; '.join(overlaps[:6]) if overlaps else 'no two text-bearing shapes share an area'))
         over = []
         for s in shapes:
             if s.kind == 'text' and s.autofit != 'spAutoFit':
@@ -1267,13 +1319,19 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
 
         # -- 7 data slides
         has_data = any(s.kind in ('chart', 'table') for s in shapes)
+        has_ext_number = bool(ext_numbers)
         if has_data:
             srcs = [s for s in shapes if s.is_source]
             ok = any(YEAR_RE.search(s.text) for s in srcs)
             checks.append(chk('7', 'data slide has source and date', 'file', 'pass' if ok else 'fail',
-                              evidence=('source line: "%s"' % srcs[0].text.strip()[:80]) if srcs else 'no line starting with Source:/Quelle: found'))
-        else:
-            checks.append(chk('7', 'data slide has source and date', 'file', 'observation', evidence='no chart or table; slides with outside numbers in plain text are a judgement'))
+                              evidence=('source line: "%s"' % srcs[0].text.strip()[:80]) if srcs else
+                              'no source line found (a line starting with Source:/Quelle:/laut/gemäß)'))
+        elif has_ext_number:
+            srcs = [s for s in shapes if s.is_source]
+            checks.append(chk('7', 'data slide has source and date', 'file', 'observation',
+                              evidence=(('source line: "%s"' % srcs[0].text.strip()[:80]) if srcs else
+                              'a number in plain text (%s) without a chart or table: judgement, source it if it comes from outside the deck' % ', '.join(ext_numbers[:3]))))
+        # else: no chart or table, no external-looking number in the text — nothing to judge, no entry
 
         # -- 8 accessibility
         checks.append(chk('8', 'title set', 'file', 'pass' if title is not None else 'fail',
@@ -1423,6 +1481,11 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 lefts.setdefault(round(s['bbox_pt'][0]), set()).add(sl['n'])
     deck.append(chk('4', 'distinct left edges of text shapes', 'file', 'observation', value=len(lefts),
                     evidence='x positions (pt): %s. Optical alignment is not measured.' % sorted(lefts)[:12]))
+    repeats = {tok: sorted(ns) for tok, ns in number_use.items() if len(ns) >= 2}
+    if repeats:
+        deck.append(chk('7', 'same number recurs across slides', 'file', 'observation', value=len(repeats),
+                        evidence='; '.join('"%s" on slides %s' % (tok, ns) for tok, ns in sorted(repeats.items())[:8])
+                        + '. Repetition can be deliberate (a running total); a contradiction (the same figure standing for different things) is a judgement, not scripted.'))
     if plan is None:
         deck.append(chk('12', 'deck matches its deck plan', 'file', 'not_measured',
                         evidence='no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck'))
@@ -1446,27 +1509,31 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             if npages != len(slides):
                 report['deck'].append(chk('3', 'rendered page count equals slide count', 'render (LibreOffice)', 'observation',
                                           value=npages, limit=len(slides), evidence='hidden slides are not exported; pages are matched by position'))
-            fstatus, fvalue, fevid = render_mod.font_report(sorted(deck_fonts), rr['fonts'])
+            fstatus, fvalue, fevid, funreliable = render_mod.font_report(sorted(deck_fonts), rr['fonts'])
             report['deck'].append(chk('3', 'fonts drawn in the render', 'render (LibreOffice, pdffonts)', fstatus, value=fvalue, evidence=fevid))
             for k, (i, ctx, shapes, bg, ltype, lname) in enumerate(slides):
                 sl = report['slides'][k]
                 if k >= npages:
                     sl['checks'].append(chk('3', 'rendered page', 'render (LibreOffice)', 'not_measured', evidence='no page %d in the PDF' % (k + 1)))
                     continue
+                slide_fonts = {r['font'].lower() for s in shapes for r in s.runs() if r['font']}
+                unreliable_note = (' (unreliable: this slide uses %s, replaced in the render, see "fonts drawn in the render")'
+                                   % ', '.join(sorted(slide_fonts & funreliable))) if (slide_fonts & funreliable) else ''
                 ttl = next((s for s in shapes if s.ph and norm_ph_type(s.ph[0]) == 'title' and s.has_text), None)
                 res = render_mod.analyse_page(rr['pages'][k], shapes, sw, sh, ttl, words_of)
                 sl['checks'] = [c for c in sl['checks'] if not (c['name'] in ('text overflow', 'title fits 2 lines') and c['method'].startswith('estimate'))]
                 bad = res['stray'] + ['outside slide: ' + w for w in res['outside']]
                 sl['checks'].append(chk('3', 'text overflow (rendered)', 'render (LibreOffice PDF word boxes, observation)', 'observation',
                                         value=len(res['stray']), limit=0,
-                                        evidence=('words drawn outside every text box: ' + ', '.join(bad[:6])) if bad else 'all %d rendered words lie inside a text box' % res['words']))
+                                        evidence=(('words drawn outside every text box: ' + ', '.join(bad[:6])) if bad else
+                                                  'all %d rendered words lie inside a text box' % res['words']) + unreliable_note))
                 if res['missing']:
                     sl['checks'].append(chk('3', 'text missing in the render', 'render (LibreOffice PDF word boxes, observation)', 'observation',
-                                            value=len(res['missing']), evidence='in the file but not in the PDF: ' + ', '.join(res['missing'][:8])))
+                                            value=len(res['missing']), evidence='in the file but not in the PDF: ' + ', '.join(res['missing'][:8]) + unreliable_note))
                 if res['title_lines'] is not None:
                     sl['checks'].append(chk('1', 'title lines (rendered)', 'render (LibreOffice PDF word boxes, observation)', 'observation',
                                             value=res['title_lines'], limit=2,
-                                            evidence='title needs %d line(s) at its role size; the limit is 2 (not a threshold: render)' % res['title_lines']))
+                                            evidence=('title needs %d line(s) at its role size; the limit is 2 (not a threshold: render)' % res['title_lines']) + unreliable_note))
     facts = {
         'slide_count': len(report['slides']),
         'layouts': [sl['layout'] for sl in report['slides']],
@@ -1497,6 +1564,38 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     counts[report['slide_size_check']['status']] += 1
     report['summary'] = counts
     return report
+
+
+def format_summary(rep):
+    """Compact, human-readable rollup of a report: fails grouped by slide, observations counted by check.
+    The JSON (--out or stdout) stays the full record; this is only a console aid (audit finding: too much
+    noise, no readable summary)."""
+    s = rep['summary']
+    lines = ['%s (profile: %s)' % (rep.get('file', '?'), rep.get('profile', '?')),
+             'fail %d  observation %d  pass %d  not_measured %d  waived %d' %
+             (s.get('fail', 0), s.get('observation', 0), s.get('pass', 0), s.get('not_measured', 0), s.get('waived', 0))]
+    deck_fails = [c for c in rep['deck'] if c['status'] == 'fail']
+    slide_fails = [(sl['n'], c) for sl in rep['slides'] for c in sl['checks'] if c['status'] == 'fail']
+    if not deck_fails and not slide_fails:
+        lines.append('no fails.')
+    else:
+        for n, c in slide_fails:
+            lines.append('slide %d [%s] %s: %s' % (n, c['id'], c['name'], (c.get('evidence') or '')[:160]))
+        for c in deck_fails:
+            lines.append('deck [%s] %s: %s' % (c['id'], c['name'], (c.get('evidence') or '')[:160]))
+    obs = collections.Counter()
+    for sl in rep['slides']:
+        for c in sl['checks']:
+            if c['status'] == 'observation':
+                obs[(c['id'], c['name'])] += 1
+    for c in rep['deck']:
+        if c['status'] == 'observation':
+            obs[(c['id'], c['name'])] += 1
+    if obs:
+        lines.append('observations by check:')
+        for (cid, name), n in sorted(obs.items(), key=lambda kv: -kv[1]):
+            lines.append('  [%s] %s x%d' % (cid, name, n))
+    return '\n'.join(lines)
 
 
 def main():
@@ -1538,6 +1637,7 @@ def main():
         import plan as plan_mod
         print(plan_mod.derive(rep, sys.modules[__name__]))
         return 0
+    print(format_summary(rep), file=sys.stderr)   # always: a short console rollup; stdout stays plain JSON
     if a.compact:
         for s in rep['slides']:
             s.pop('shapes', None)

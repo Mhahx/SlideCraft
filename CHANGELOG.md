@@ -2,6 +2,25 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## 0.21 (0.21.0)
+
+Findings from an audit run on a real deck, checked against the code and fixed. 101 tests (13 new), all green.
+
+| Finding | Change |
+|---|---|
+| No placeholder detector: PLATZHALTER, TODO, Lorem ipsum passed silently | New detector rule `placeholder-text` (fail): PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]` |
+| A kicker overlapping the title box was never flagged (check 3 promised it as a render estimate, but nothing implemented it) | Check 3 now compares every text-bearing shape's geometry directly from the file: two overlapping text shapes is a fail |
+| "holistisch" (a common German loanword) was missing from the buzzword list, though "ganzheitlich" was in it | Added `holistisch` and `disruptiv` |
+| Only a line starting with "Source:"/"Quelle:" counted as a source; "laut AESC, Stand 2024" did not | `laut`, `gemäß`, `nach Angaben von` recognised as source-line prefixes too |
+| Check 7 produced the same boilerplate observation on every text-only slide, most of them without any number | Check 7 is silent on narrative slides with no number in the text; still an observation when a number appears without a chart or table |
+| No detection of the same figure repeating across slides (a possible sign of a contradiction) | New deck-level check: the same number recurring on several slides is reported as an observation (a recurring milestone year is excluded, since that's normal) |
+| No lesson for the JSON's own volume: a real deck produced 187 observations with no readable summary | The command line now always prints a compact rollup to stderr — fails grouped by slide, observations counted by check — the full JSON is unchanged |
+| No check for whether a title is a claim, only for its word count | New observation-only heuristic (check 1): a fixed German/English verb list; deliberately never a fail, since the list is incomplete and would otherwise flag valid claims |
+| A slide's own render observations (missing text, title line count) did not say when they ran on a font LibreOffice had to replace, only the deck-level "fonts drawn" entry did | Slides using an unreliable font substitute now carry that note on their own render observations |
+| `audit`/`critique` required a fully written `deck-plan.md` even for a read-only judgement | Read-only modes may keep a condensed plan derivation in the report; the written file is required once a building or refining mode needs it |
+
+**Checked and not changed:** Selawik as a metric-compatible substitute for Segoe UI could not be tested in this environment (no network access to the font, no package for it); Segoe UI stays off the safe font list until it is verified. Title-content contradiction and cross-checking whether an exhibit backs its title stay a judgement (render review, check list item 13), extended with two explicit questions; they are not mechanically decidable.
+
 ## 0.20 (0.20.0)
 
 Documentation and clean-up for sharing. No rule change.

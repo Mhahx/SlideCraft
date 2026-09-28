@@ -1,6 +1,6 @@
 # Modes
 
-Every mode works against the deck plan (`deck-plan.md`). Without a plan, derive one from the deck first. `audit` and `critique` report deviations from the plan as findings, `polish` restores the plan's system, refinement modes keep the plan, redesign modes replace it.
+Every mode works against the deck plan (`deck-plan.md`). Without a plan, derive one from the deck first, in full and in writing, before building, refining or redesigning anything. `audit` and `critique` are the exception: they change nothing, so a condensed derivation held in the report is enough — write the full `deck-plan.md` only when a later mode will build against it. `audit` and `critique` report deviations from the plan as findings, `polish` restores the plan's system, refinement modes keep the plan, redesign modes replace it.
 
 Refinement modes inherit the deck's look. Redesign modes run the direction flow in `direction.md` first. `critique` and the final review follow the fresh-review rules there.
 

@@ -73,8 +73,12 @@ Every check in a report carries its method. Only items with a method of *file*, 
 | Typical AI patterns (nested cards, card grid, icon tiles, stat row, stripes, kicker, buzzwords, text alignment) | file (`scripts/detect.py`: geometry, fill, outline and text of each shape) |
 | Contrast of text and of graphic elements on a solid surface or scrim | computed (relative luminance per WCAG from file colours) |
 | Fill share | script (`scripts/check_deck.py`, bounding-box union); reported as an observation until the profile values are calibrated (project decision, 0.13) |
+| Two text-bearing shapes overlap | file (bounding-box geometry, no render needed) |
+| Placeholder or filler text left on the slide (PLATZHALTER, TODO, TBD, Lorem ipsum, XX, `[...]`) | file (`scripts/detect.py`) |
+| The same number recurs on several slides | file (deck-level, tokens from the body text of every slide); reported as an observation — repetition can be deliberate, a contradiction is a judgement |
+| Title reads as a claim (has a finite verb) | heuristic (fixed German/English verb list); always an observation, never a threshold — the list is incomplete, so a valid claim can still be flagged |
 | Optical alignment | not measured (no script yet) |
-| Overflow, text density, overall impression | render estimate (`check_deck.py --render`: LibreOffice PDF word boxes; unreliable where the font is replaced, the script reports which fonts were drawn) |
+| Overflow, text density, overall impression | render estimate (`check_deck.py --render`: LibreOffice PDF word boxes; unreliable where the font is replaced, the script reports which fonts were drawn and links the affected slides' own render observations to that font) |
 | Title strand reads as a story, look not guessable, direction contract held | judgement |
 
 Contrast rules:
@@ -95,19 +99,19 @@ Environments (source of values):
 
 Name evidence for each item (slide number, value, method). A bare "ok" is not evidence. Rules waived by the brief (see the plan's waiver list) are reported as "waived by brief", except contrast and accessibility, which are waived only on explicit user instruction.
 
-1. Every non-exempt title is a claim sentence, at most 2 lines. [file, render estimate for line count]
+1. Every non-exempt title is a claim sentence, at most 2 lines. [file, render estimate for line count]. Whether it has a finite verb from a fixed list is reported too, as an observation only: the list is incomplete, so treat a flag as a prompt to look, not as a verdict. [heuristic]
 2. Font families at most 2, sizes match the roles, body and footnote at or above the profile minimum. [file]
-3. No text overflows, is cut off, or overlaps. Margins respected. [render estimate; margins: file]
+3. No text overflows, is cut off, or overlaps. Margins respected. [render estimate for overflow; overlap and margins: file]
 4. Alignment on shared edges, recurring elements at the same position. [file; optical alignment: script]
 5. Colour roles respected (1 accent + at most a signal pair; hue families counted by script). Text contrast and non-text contrast computed. [file, computed]
 6. Words per slide within the profile limit [file]; fill reported against the profile value [script, observation until calibrated; never shrink an exhibit below its pattern zone to meet it].
-7. Every data slide has source and date; charts labelled directly; no gridlines on a chart whose values are labelled. [file]
+7. Every data slide has source and date (a source line starts with "Source:", "Quelle:", "laut" or "gemäß"); charts labelled directly; no gridlines on a chart whose values are labelled. A number in plain text without a chart or table is reported the same way, as an observation: give it a source if it comes from outside the deck. The same number recurring on several slides is reported at deck level, as an observation (deliberate repetition and a contradiction both produce it; telling them apart is a judgement). [file]
 8. Accessibility: every slide has a title, reading order correct, every picture and chart has alt text. [file]
-9. No detectable item from `refuse.md`: gradient, shadow, 3D, emoji icons, and the detector rules (nested cards, card grid, icon tiles, stat row, edge stripes, kicker, buzzwords, justified, centered or capitalised running text, among others; ids in `refuse.md`). [file, `scripts/detect.py`]
+9. No detectable item from `refuse.md`: gradient, shadow, 3D, emoji icons, placeholder text left in the deck, and the detector rules (nested cards, card grid, icon tiles, stat row, edge stripes, kicker, buzzwords, justified, centered or capitalised running text, among others; ids in `refuse.md`). [file, `scripts/detect.py`]
 10. The title strand reads as a story. [judgement]
 11. The deck holds its direction contract (thesis, own-world), and the look is not guessable from the category alone (see `direction.md`). [judgement; a default-look ground colour is reported by script as an observation]
 12. The deck matches its deck plan: fonts, role sizes, palette, margins and layout types are those of the plan. Every deviation is a finding, or the plan is extended deck-wide. [file]
-13. Render review: open every rendered slide once and answer for each (the script cannot see these; the blind test in 0.17 passed the script with all three): (a) Is anything a picture built from shapes (a tree from an ellipse and a rectangle, a vehicle, a person)? Remove it or replace it with an exhibit, a real photo or type. (b) Does every exhibit show its measure and unit on the slide itself, in a measure line or axis title, not only in the source line? (c) Do more than two slides share the same composition (for example big number left, label right)? Change the pattern or the variant of all but one. (d) Does any element touch or overlap another? [judgement on the render]
+13. Render review: open every rendered slide once and answer for each (the script cannot see these; the blind test in 0.17 passed the script with all three): (a) Is anything a picture built from shapes (a tree from an ellipse and a rectangle, a vehicle, a person)? Remove it or replace it with an exhibit, a real photo or type. (b) Does every exhibit show its measure and unit on the slide itself, in a measure line or axis title, not only in the source line? (c) Do more than two slides share the same composition (for example big number left, label right)? Change the pattern or the variant of all but one. (d) Does any picture or shape overlap another (check 3 already finds text-bearing shapes that overlap; this is for pictures and decoration)? (e) Does the title match what the slide actually shows, or does it claim something the exhibit does not support? (f) Does this slide contradict another one (the same figure standing for two different things, two descriptions of one process that disagree) — see check 7's "same number recurs" for the mechanical half of this. [judgement on the render]
 
 ## Provenance of the rules
 
@@ -124,4 +128,8 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
 | Refuse list, calibration against AI looks, direction flow, fresh review | Transferred | Impeccable (`craft-floor.md`, `new-work.md`), untested on slides |
 | Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on a synthetic AI-style deck (`tests/fixtures/slop.pptx`) and four example decks only |
+| Placeholder-text detector (`platzhalter`, `todo`, `tbd`, `lorem ipsum`, a bare `xx`, bracketed stand-ins) | Practitioner, starting value | own fixed list; a placeholder is always a fail (0.21) |
+| Text-shape overlap as a file check (was render estimate only) | Starting value | bounding-box geometry from the file; found by an audit run (0.21) |
+| Claim-title heuristic (finite verb list) | Starting value, low recall by design | own fixed German/English verb list; never more than an observation, since many valid claims use a verb outside the list (0.21) |
+| Extended source-line prefixes (`laut`, `gemäß`, `nach Angaben von`) and the same-number-recurs check | Starting value | found by an audit run (0.21); the prefixes widen check 7, the recurrence check is new at deck level |
 | Profile values | Starting value | `profiles.md` |

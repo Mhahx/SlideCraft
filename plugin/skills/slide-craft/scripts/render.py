@@ -70,7 +70,7 @@ def render(deck, outdir=None, png_dpi=60):
 
 
 def font_report(requested, pdf_fonts):
-    """requested: family names from the file. Returns (status, value, evidence)."""
+    """requested: family names from the file. Returns (status, value, evidence, unreliable_families_lower)."""
     low = [f.lower().replace('-', '').replace(' ', '') for f in pdf_fonts]
     rows, unreliable = [], []
     for fam in sorted(requested):
@@ -85,7 +85,8 @@ def font_report(requested, pdf_fonts):
             unreliable.append(fam)
             rows.append('%s: replaced by another font, glyph widths may differ' % fam)
     return ('observation' if unreliable else 'pass'), sorted(pdf_fonts), '; '.join(rows) + \
-        ('. Rendered line breaks and overflow are unreliable for: %s' % ', '.join(unreliable) if unreliable else '')
+        ('. Rendered line breaks and overflow are unreliable for: %s' % ', '.join(unreliable) if unreliable else ''), \
+        {f.lower() for f in unreliable}
 
 
 def toks(text):
