@@ -1137,6 +1137,37 @@ class PlanAuditFindings(unittest.TestCase):
                if c['id'] == 'P4' and 'plain ordinal' in c['name']]
         self.assertTrue(obs and obs[0]['status'] == 'observation')
 
+    def test_pattern_profile_fit_and_rows_family(self):
+        # test run A: a 6-slide pitch built P10, P09 and P07 back to back; P07 is a read/update pattern
+        def plan_text(profile, waivers='keine'):
+            return ('Profile: %s\nWaivers: %s\nLayout types: P01, P10, P09, P07, P11, P14\n'
+                    '## 5. Slide plan\n| No. | Layout type | Claim title | Content | Exhibit | Source | Speaker notes |\n'
+                    '|---|---|---|---|---|---|---|\n'
+                    '| 1 | P01 | Cover | | | | |\n| 2 | P10 | A | | | | |\n| 3 | P09 before-after | B | | | | |\n'
+                    '| 4 | P07 | C | | table | Quelle: x, 2026 | |\n| 5 | P11 | D | | | | |\n| 6 | P14 | E | | | | |\n'
+                    % (profile, waivers))
+
+        def p4(profile, **kw):
+            p = planmod.parse_plan(plan_text(profile, **kw))
+            return {c['name']: c for c in planmod.self_checks(p, cd.PROFILES[profile], cd, profile) if c['id'] == 'P4'}
+        fit = 'plan: every pattern is meant for the profile (patterns.md, Profiles line)'
+        fam = 'plan: at most 2 slides of the rows family (P07, P09, P10) in talk or pitch'
+        pitch = p4('pitch')
+        self.assertEqual(pitch[fit]['status'], 'fail')
+        self.assertIn('slide 4: P07', pitch[fit]['evidence'])
+        self.assertEqual(pitch[fam]['status'], 'observation')
+        self.assertEqual(pitch[fam]['value'], 3)
+        self.assertEqual(p4('pitch', waivers='P07 table (user: "als Tabelle")')[fit]['status'], 'pass')
+        read = p4('read')                               # P14 statement is talk/pitch only
+        self.assertEqual(read[fit]['status'], 'fail')
+        self.assertIn('slide 6: P14', read[fit]['evidence'])
+        self.assertNotIn(fam, read)                     # the family limit applies to talk and pitch only
+        talk = p4('talk')                               # test run A2: P09 has a talk budget, so it fits talk
+        self.assertNotIn('slide 3: P09', talk[fit]['evidence'])
+        self.assertIn('slide 2: P10', talk[fit]['evidence'])
+        self.assertEqual(planmod.pattern_id('p07'), 7)
+        self.assertIsNone(planmod.pattern_id('main'))
+
     def test_slide_no_labels_do_not_cause_a_false_title_mismatch(self):
         # before the fix, _num() read the "1" out of "A1" and compared it against deck slide 1
         title = sp_text(2, 'Title 1', 0, 0, 0, 0, 'First claim', ph='<p:ph type="title"/>')

@@ -1,6 +1,6 @@
 # Direction
 
-Decide with the user what the deck should look like, from the audience's world and the deck's purpose, never from a default. There is no default look. Adapted from Impeccable's new-work flow; its decision comps become rendered draft slides here, its web machinery (dice script, browser decision page) is left out.
+Decide with the user what the deck should look like, from the audience's world and the deck's purpose, never from a default. There is no default look.
 
 ## When to run this
 - **New deck or redesign:** run the whole flow.
@@ -14,7 +14,7 @@ Decide with the user what the deck should look like, from the audience's world a
 A user- or brief-pinned choice (font, colour, tone words, a reference) always beats anything derived here. Vibe words the user volunteers ("calm, credible", "not like a consulting deck") are pinned constraints. Translate them with the table below.
 
 ## Round 1: ask what will change the work
-This is the first of the two rounds before building (SKILL.md step 1). Three or four related questions in one message. A precise brief needs only a short confirmation. State the likely reading and invite correction.
+This is the first of the two rounds before building (SKILL.md step 1). Three or four related questions in one message. A precise brief needs only a short confirmation. State the likely reading and invite correction. For a short request ("make me 10 slides about X"), add one line offering the hand-over: "or say 'mach du' and I pick the look myself" (Quick, see round 2).
 - Purpose and outcome: what should the audience decide, believe or do? What proves it?
 - Situation: who sees it, where, on which medium, in what state of mind?
 - Look: is there a brand, template or font that must be used? What effect should the deck have, in the user's own words? Is there a deck, a publication or a brand they like, or one it must not resemble?
@@ -32,7 +32,7 @@ Always, for a new deck or a redesign: the user chooses the look from rendered dr
 - **Drafts:** for each direction build two real slides from the story skeleton (`SKILL.md` step 3): the title slide and the key content slide, meaning the slide with the decisive exhibit or, if none stands out, the pattern the skeleton uses most, with its real title and numbers. Same effort and finish for every draft; no deliberately weak option. Run the check script on the drafts (command in `SKILL.md`, section "Check script") and fix every detector finding (check 9) before showing them.
 - **Show:** one compact message with the rendered images side by side, per direction a one-line world, palette and type character, its pattern variants and an honest risk line, and below them the story skeleton (titles with their patterns) for the user to correct in the same answer. Recommend one direction and say why. Never pre-select the safe option on the user's behalf.
 - **Pick:** the user picks one, or asks for a named change or a mix (state the mix back in one line). Record the pick, its pattern variants, the drafts shown and their paths in the plan. The picked drafts become the title slide and the model for every other slide of the full deck.
-- **Quick** (no drafts) only when the user explicitly hands the decision over ("you decide", "mach du"). Then commit to one direction, say which in one line, and build. The user can always ask for drafts afterwards.
+- **Quick** (no drafts) only when the user explicitly hands the decision over ("you decide", "mach du"). Then commit to one direction, say which in one line, and build. The user can always ask for drafts afterwards. The hand-over covers the look only: content stays the user's. Open questions on purpose, audience, missing figures and placeholders are asked once, bundled, before the build (`deck-plan.md`, case c); never decide them yourself because the user said "mach du". The hand-over is not a waiver either: a waiver quotes what the user said about that very item.
 
 How to render the drafts, by environment:
 | Environment | Drafts |
@@ -69,22 +69,19 @@ Generated decks cluster around a few looks whatever the subject:
 2. Warm cream ground, high-contrast serif titles and a terracotta or red accent.
 3. White ground, blue-purple gradient, rounded cards with icons.
 4. Editorial hairlines, italic serif titles and small tracked capitals as labels.
-All are legitimate when the brief calls for them. Where the brief leaves the look free, landing in one of them means the self-check failed. Self-check: could someone guess the look from the category alone (a sustainability deck, so green and cream; a fintech pitch, so navy and neon)? Then rework until neither the category nor the category plus its obvious avoidance predicts it. Warm, bookish, sustainability and child-facing subjects are the strongest pull towards cream plus serif: treat that first palette as already spent. Energy is not the enemy of trust: a brief's negative constraints rule out devices, not exuberance.
+All are legitimate when the brief calls for them. Where the brief leaves the look free, landing in one of them means the self-check failed. Self-check: could someone guess the look from the category alone (a sustainability deck, so green and cream; a fintech pitch, so navy and neon)? The category is the deck's topic as the user named it (an Excel-to-BI deck, so green and table grids), never a genus such as "business deck", which almost any look passes. Then rework until neither the category nor the category plus its obvious avoidance predicts it. Warm, bookish, sustainability and child-facing subjects are the strongest pull towards cream plus serif: treat that first palette as already spent. Energy is not the enemy of trust: a brief's negative constraints rule out devices, not exuberance.
 
 ## Direction contract
-Before the plan is finished, write the chosen direction as six short blocks, about 150 words in total. A block that reads like a mood means the direction is not decided.
+Before the plan is finished, write the chosen direction as three short blocks, about 100 words in total. A block that reads like a mood means the direction is not decided. Story and drafts shown have their own plan fields (`deck-plan.md` sections 2 and 3).
 - **THESIS:** the one idea this deck owns and the default arrangement it refuses.
 - **OWN-WORLD:** palette and component language, specific enough to be recognisable with all content removed.
-- **STORY:** what the audience understands, believes and does.
-- **FIRST SLIDES:** the exact composition of the title slide and one key data slide: what is where, at what scale.
-- **FORM:** the chosen form, the drafts shown and why this one was picked.
-- **FINISH:** "no slide before the plan; this deck ends with the fresh review and the plan as built".
+- **FIRST SLIDES:** the exact composition of the title slide and one key data slide: what is where, at what scale. In Quick mode, without drafts, this block is the only description of the look.
 The contract lives in the plan only. Never put it into slide text, notes or file metadata.
 
 ## Finish
-1. **Capture validity:** render every slide and open each image once. A blank, cut-off or half-loaded render is not evidence. Recapture before judging. Then answer the render review (item 13 of the check list in `rules-core.md`) for every slide.
+1. **Capture validity:** render every slide and open each image once. A blank or cut-off render is not evidence. Recapture before judging. Then answer the render review (item 13 of the check list in `rules-core.md`) for every slide.
 2. **Bounded passes:** build fully, inspect once in a batched round, fix everything found in one batch, confirm with at most one more round. Then stop polishing. Two rounds is the ceiling for an unattended run. In an attended session the ceiling belongs to the user.
-3. **Fresh review:** where subagents are available, spawn a reviewer with no build history. Inputs: the request and confirmed answers, the deck plan with the direction contract, the file path, the render paths, and the check results with their methods. Without subagents, do a fresh pass after stepping out of the build context and say so in one line. The reviewer returns exactly one disposition:
+3. **Fresh review:** where subagents are available, spawn a reviewer with no build history. Inputs: the request and confirmed answers, the deck plan with the direction contract, the file path, the render paths, and the check results with their methods. Without subagents, do a fresh pass after stepping out of the build context; it is a self-check by the same model, not an independent review: say so in one line and report it as such. The reviewer returns exactly one disposition:
    - **recapture:** the evidence failed, not the deck. Re-render, then review again in full.
    - **rebuild:** the direction failed wholesale. Re-derive the named parts and review in full again. Tell the user, do not ask permission.
    - **fix:** material fixes in one batch, rebuild once, re-render the same slides, send back for a verdict pass that scores only the listed fixes as resolved, partial or unresolved.

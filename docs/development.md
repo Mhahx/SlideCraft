@@ -8,8 +8,8 @@
 plugin/                             the plugin: the only part that gets installed (about 75 KB)
   .claude-plugin/plugin.json        name, version, description
   skills/slide-craft/
-    SKILL.md                        workflow, precedence, hard limits, tool notes
-    references/                     direction, patterns, profiles, rules-core, refuse, deck-plan, commands
+    SKILL.md                        workflow, precedence, hard limits (always in context: keep it short)
+    references/                     direction, patterns, profiles, rules-core, refuse, deck-plan, commands, tools
     scripts/                        check_deck.py (entry point), plan.py, detect.py, render.py
 docs/                               documentation (not part of the skill)
 tests/                              unit tests, test decks, trigger test
@@ -76,7 +76,7 @@ These rules keep the skill honest. They apply to every change, by a person or by
 
 1. **Run every new or changed rule.** Build a minimal deck, render it and check that the rule can be met and measured by code. Note the result in the CHANGELOG. If no tools are available, say so there.
 2. **Check combinations.** Every number must be satisfiable together with all other numbers of the same profile (title size × word limit × line limit × live area). Compute, do not estimate.
-3. **Every rule has a provenance tag:** cited (source with page or section), practitioner, transferred (untested) or starting value. The table is at the end of `references/rules-core.md`.
+3. **Every rule has a provenance tag:** cited (source with page or section), practitioner, transferred (untested) or starting value. The table is in `docs/evidence.md` ("Provenance of the rules"), not in the skill: the model does not need project history at build time.
 4. **Pass or fail only for what the file or a script measures.** Everything else is an observation or "not measured", never a threshold.
 5. **Never write an instruction a model cannot carry out.** Where a capability may be missing (subagents, code execution), name the fallback honestly.
 6. **Check consistency beyond text search.** After a change, put all thresholds in one table and compare them pairwise. Resolve cross-references (check numbers, pattern ids).

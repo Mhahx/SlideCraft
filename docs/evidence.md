@@ -85,3 +85,34 @@ Not calibrated: `talk`, `pitch` and `update` word limits (the corpus has no stat
 - A row of big numbers without boxes appears in a real Bain deck (BAIN-IABC p4): `stat-row` fails only when the numbers sit in boxes.
 - Boxes are not banned: two framed panels (MCK-DC p25, MCK-USPS p20) and one dark callout box (MCK-DC p3) are common. The AI pattern is the card as the default container, not a single box with a function.
 - Violet as a brand colour (RB-TREND): `default-look` is an observation; with a brand it is a waiver, not a finding.
+
+## Provenance of the rules
+
+Moved here from the end of `references/rules-core.md` after 0.24: project history, not needed by the model at build time. Every rule group carries a tag. `Practitioner` means a practitioner source, not primary literature. `Transferred` means taken from another domain without a test on slides. `Starting value` means unproven and to be calibrated.
+
+| Rule group | Tag | Source / note |
+|---|---|---|
+| Action titles, one claim per slide, source line | Practitioner | Deckary blog (vendor of an AI slide tool), Highbridge Academy; primary source to add: Minto, *The Pyramid Principle* (pages open) |
+| Title word ceilings, words per slide, fill limits, 60-second and 3-second rules | Starting value | Consulting rule of "about 15 words" is practitioner only; 3-second rule: Gallo / Forbes |
+| Text contrast 4.5:1 and 3:1 thresholds | Cited | W3C WCAG 2.2 SC 1.4.3 (pt sizes approximated for projection) |
+| Non-text contrast 3:1 | Cited | W3C WCAG 2.2 SC 1.4.11 |
+| Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (this file) |
+| `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, this file; 250 words is a project decision (the reading decks show 130 to 300); titles: medians 20 to 25 pt; all decks set sources in 7 to 8 pt. `talk`, `pitch` and `update` word limits unchanged: the corpus has no status report, and the presented Bain decks sit between `talk` and `pitch` |
+| Fill values reported, not enforced | Project decision (0.13) | the pattern test build showed charts at real-deck size exceed 75 % in `read` |
+| Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
+| Refuse list, calibration against AI looks, direction flow, fresh review, modes | Transferred | Impeccable (`craft-floor.md`, `new-work.md`, its commands), untested on slides; not adopted: `harden`, `optimize`, `adapt`, `onboard`, `live`, `overdrive` and the web detectors (HTML, CSS, responsive behaviour, interaction) |
+| Direction contract, three blocks (after 0.24) | Transferred, shortened | Impeccable's six blocks; STORY, FORM and FINISH dropped because the deck plan already holds them (story section, drafts shown, workflow steps 7 and 8) |
+| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on a synthetic AI-style deck (`tests/fixtures/slop.pptx`) and four example decks only |
+| Placeholder-text detector (`platzhalter`, `todo`, `tbd`, `lorem ipsum`, a bare `xx`, bracketed stand-ins) | Practitioner, starting value | own fixed list; a placeholder is always a fail (0.21) |
+| Text-shape overlap as a file check (was render estimate only) | Starting value | bounding-box geometry from the file; found by an audit run (0.21) |
+| Claim-title heuristic (finite verb list) | Starting value, low recall by design | own fixed German/English verb list; never more than an observation, since many valid claims use a verb outside the list (0.21) |
+| Extended source-line prefixes (`laut`, `gemäß`, `nach Angaben von`) and the same-number-recurs check | Starting value | found by an audit run (0.21); the prefixes widen check 7, the recurrence check is new at deck level |
+| Overlap check reads layout and master graphics (a logo counts) | Starting value | found by an audit run on a real deck (0.23); direct children of the layout/master spTree only, groups out of scope |
+| A plan role of kind "other" (cover, divider, quote, display) is not held to the profile's title-size range in check 2 | Starting value | found by an audit run (0.23); resolves a contradiction with plan.py's own P2 check, which already excludes these kinds |
+| Placeholder-text deck-level total | Starting value | found by an audit run (0.23); the per-slide count already existed (0.21); follows the waiver since 0.24 |
+| Intentional placeholders `[[type: label]]` and the brief field `Placeholders:` | Starting value | found by a review run (0.24): "missing data becomes a placeholder" and "a placeholder is always a fail" contradicted each other |
+| Text boxes that overlap while their estimated text does not are an observation, not a fail | Starting value | found by a review run (0.24); estimate is 0.5 em (0.55 bold) per character, as for the line estimate |
+| Basis per title (`sourced \| calculated \| hypothesis \| placeholder`), comparisons name their definition | Practitioner | found by a review run (0.24); a claim title was contradicted by the figures once they were looked up |
+| Pattern fits its profile (plan check P4) | Rule check | the Profiles line of each pattern in `references/patterns.md`; found by test run A (after 0.24), a P07 table in a `pitch` deck |
+| Composition family "rows" (P07, P09, P10), at most two in `talk` and `pitch` | Starting value, observation | found by test run A (after 0.24): three row slides back to back passed the render review because their pattern ids differed |
+| Profile values | Starting value | `references/profiles.md` |

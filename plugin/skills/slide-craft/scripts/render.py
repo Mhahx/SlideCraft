@@ -19,7 +19,7 @@ METRIC_COMPATIBLE = {
     'times new roman': 'liberationserif', 'courier new': 'liberationmono',
     'calibri': 'carlito', 'cambria': 'caladea',
     # Microsoft's own metric-compatible substitute for the Windows UI font; needs the Selawik release
-    # installed plus a fontconfig alias mapping "Segoe UI" to it (SKILL.md, Tool notes). User-verified
+    # installed plus a fontconfig alias mapping "Segoe UI" to it (references/tools.md). User-verified
     # (0.22); not independently re-tested here, since this environment has no network access to the font.
     'segoe ui': 'selawik',
 }

@@ -2,11 +2,13 @@
 
 Proven slide types from real consulting decks, each with zones on the grid and a text budget per zone. Build a slide by picking a pattern and filling its zones, instead of composing from scratch. The pattern fixes which slide does which job and where its zones sit; the chosen direction (`direction.md`) decides how the patterns are played (the variants below) and the look: colours, type, image world. The same pattern looks different in every deck.
 
-Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page by page (`docs/evidence.md`, codes like MCK-DC p4 = PDF page 4). Zone sizes and budgets are **starting values**, built as test slides, rendered and checked (no detector finding, no overflow; the fill limit fails on full-size charts and on the `talk` patterns). Real reading decks are denser than those limits (about 200 to 300 words per slide); see the research notes before loosening anything.
+Evidence: 9 public decks by McKinsey, BCG, Bain and Roland Berger, viewed page by page (codes like MCK-DC p4 = deck MCK-DC, PDF page 4). Zone sizes and budgets are **starting values**, built as test slides, rendered and checked (no detector finding, no overflow; the fill limit fails on full-size charts and on the `talk` patterns). Real reading decks are denser than those limits (about 200 to 300 words per slide); the profile limits in `profiles.md` still apply.
 
 ## How to use
 - In the deck plan, every slide row names its pattern (`Layout type` column: the pattern id, for example `P04 chart-rail`). A deck uses 4 to 8 patterns; each pattern is one layout, identical wherever it recurs. Name the slide layout (master) in the file after the pattern, for example `P04 chart-rail`: the plan comparison (check 12) matches layouts by name, and the recurring-position check compares positions within each layout.
 - Pick by the job of the slide (table below), not by variety. Repetition of a pattern is recognition; a new pattern needs a new job.
+- Use a pattern only in the profiles its **Profiles:** line names (`plan.py` check P4 reports any other use; a user who wants one anyway records it as a waiver with the pattern id).
+- **Composition family "rows":** P07 table, P09 before-after and P10 numbered-rows all look alike (a label column, rows separated by rules). In `talk` and `pitch` at most two slides of a deck come from this family; `plan.py` counts it, and the render review (check 13c) treats the family as one composition. A deck without figures is not a reason to fill the gap with rows: ask for the figures or placeholders (`direction.md`, Quick).
 - Text budgets are per zone for `read` at the lean end (words; for German use about 6 characters per word). A dense reading deck may go up to the profile limit (250 words) by adding panels, rows or a second exhibit, never by shrinking type below the role size. `update` uses the same zones at about two thirds of the budget. `talk` and `pitch` use the patterns marked for them.
 - **In `talk` and `pitch` the profile ceiling for the whole slide wins over the zone budgets** (`talk` 15 words or 90 characters, `pitch` 40 words or 240 characters, title included). The zone budgets below are written for `read`; following them literally in a `talk` deck fails every slide. Counted are all words on the slide: title, labels, chart categories and data labels; not counted is the source line (`rules-core.md` §6). Budgets for the patterns used in presentations:
 
@@ -212,7 +214,7 @@ Rules that hold in every pattern (seen in all nine decks):
 - **Rules:** start and end bars neutral dark, increases and decreases in two fixed colours (the signal colour for the negative), every step labelled with its value.
 
 ## P09 before-after
-**Use:** today versus target, or two options, along the same rows. **Profiles:** read, update, pitch. **Evidence:** BCG-NYCHA p35 (row labels left, current state and future state, chevron between), MCK-USPS p20 (upside and downside as two panels).
+**Use:** today versus target, or two options, along the same rows. **Profiles:** read, update, pitch, talk (budget above). **Evidence:** BCG-NYCHA p35 (row labels left, current state and future state, chevron between), MCK-USPS p20 (upside and downside as two panels).
 ```
 ┌──────────────────────────────────────────┐
 │ Title (claim about the change)           │
@@ -306,4 +308,4 @@ Rules that hold in every pattern (seen in all nine decks):
 ## What the patterns do not cover
 - The look: colours, type pairing, image style and whether panels are fields or rules come from the chosen direction.
 - Appendix and backup slides: use P07 or P04 at the denser end of the budget.
-- Values that the research found in conflict with the profile limits (words per slide, footnote size, footer position) are listed in `docs/evidence.md`; the profile values in `profiles.md` are the decided result.
+- Where the real decks and the profile limits differ (words per slide, footnote size, footer position), the profile values in `profiles.md` are the decided result.

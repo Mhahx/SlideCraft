@@ -36,9 +36,7 @@ Scene sentence:     who sees it, where, on which medium, under what light
 Mechanism:          what this deck must make believable or decidable
 Mode:               Drafts | Quick (Quick only on explicit hand-over)
 
-Directions considered (round 2, before the user picks; one row per direction, not one field
-each — a repeated "Colour strategy:"/"Pattern variants:" line per direction is read correctly
-(0.22), but a table keeps the comparison readable and keeps every later field below singular):
+Directions considered (round 2, before the user picks; one row per direction, not one field each):
 | Direction | World | Colour strategy | Accent | Interpretation | Exhibit side | Image world | Density | Ground | Title voice | Emphasis | Structure |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | A ... | ... | Restrained | 1F4A3A | rule | left | photo | dense | light | sans bold | accent only | rules |
@@ -52,7 +50,7 @@ Colour strategy:    Restrained | Committed | Drenched (pinned: Full palette)
 Pattern variants:   one value per axis of patterns.md "What a direction decides"
                     (interpretation, exhibit side, image world, density, ground,
                     title voice, emphasis, structure devices)
-Direction contract: THESIS / OWN-WORLD / STORY / FIRST SLIDES / FORM / FINISH
+Direction contract: THESIS / OWN-WORLD / FIRST SLIDES
 Rationale:          one line per major decision (why this palette, why this type pairing)
 Self-check:         could the look be guessed from the category alone? result
 
@@ -112,4 +110,4 @@ The script runs the machine-readable ones without a deck: `python3 scripts/plan.
 4. Every slide row uses a layout type defined in section 4 and a role defined in the role table.
 5. Every data slide has a source and date.
 6. Word counts fit the profile limit.
-7. The direction contract has six blocks and none reads like a mood. The self-check against the AI-default looks was done.
+7. The direction contract has its three blocks and none reads like a mood. The self-check against the AI-default looks was done.

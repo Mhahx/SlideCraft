@@ -59,7 +59,7 @@ The patterns fix structure, not look. A direction sets one value on each of eigh
 
 A direction is derived, not picked from a menu: a scene sentence (who sees the deck, where, in what state), the mechanism the deck must work by, and five to seven things from the audience's own visual world. The skill then checks each direction against four looks that generated decks drift to (dark navy with neon, cream with serif and terracotta, white with a blue-purple gradient and icon cards, editorial hairlines with italic serif). If the look could be guessed from the topic alone, it is reworked.
 
-The chosen direction is written down as a six-block contract in the plan (thesis, own world, story, first slides, form, finish). It never appears on the slides.
+The chosen direction is written down as a three-block contract in the plan (thesis, own world, first slides); story and the drafts shown have their own plan fields. It never appears on the slides.
 
 ## Pinned styles
 

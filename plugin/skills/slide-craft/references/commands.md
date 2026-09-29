@@ -4,7 +4,7 @@ Every mode works against the deck plan (`deck-plan.md`). Without a plan, derive 
 
 Refinement modes inherit the deck's look. Redesign modes run the direction flow in `direction.md` first. `critique` and the final review follow the fresh-review rules there.
 
-Modelled on Impeccable's commands. Each mode is a working instruction and is labelled **read-only**, **refinement** (keeps the existing look and content) or **redesign** (replaces it). Never mix refinement and redesign in one pass. Clarify brief and profile first (SKILL.md).
+Each mode is a working instruction and is labelled **read-only**, **refinement** (keeps the existing look and content) or **redesign** (replaces it). Never mix refinement and redesign in one pass. Clarify brief and profile first (SKILL.md).
 
 Every change to wording, cuts or number format is listed for the user. Facts and values are never changed.
 
@@ -43,5 +43,8 @@ Rewrite titles as claim sentences, remove filler words and buzzwords, make numbe
 ## bolder / quieter — refinement (redesign if the identity changes; then confirm)
 `bolder`: make a safe, interchangeable slide braver (size, contrast, bleed, key number) without breaking core rules. `quieter`: calm an overloaded slide (fewer colours, fewer elements). Both change intensity, not the message.
 
-## Not adopted from Impeccable
-`animate` (only a simple transition in `talk`), `harden`, `optimize`, `adapt`, `onboard`, `live`, `overdrive` and the web detectors. They concern HTML, CSS, responsive behaviour and interaction.
+## Not offered
+`animate`: only a simple transition in `talk`, nothing more.
+
+## Without a task
+If the skill is called without a deck task ("what can you do?"), answer in five lines and ask for the task: it decides how slides look and argue (profile, look from rendered drafts, story of claim titles, one deck plan); it checks a finished .pptx with a script (contrast, sizes, margins, sources, AI patterns, plan deviations); modes for an existing deck are `audit`, `critique`, `polish`, `distill`, `typeset`, `layout`, `clarify`, `bolder`, `quieter`; it does not create the file itself, the building tool does.

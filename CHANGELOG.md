@@ -2,6 +2,41 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## Unreleased
+
+Slimming review: what must always be in context (`SKILL.md`), what is loaded on demand (references), what is duplicated or does nothing. No rule was dropped that prevents a specific AI pattern or error; only duplicates, project history and a ritual block. No script logic changed.
+
+| Change | Why |
+|---|---|
+| `SKILL.md` tool notes and check-script setup (font substitutes, Segoe UI, .odp) moved to the new `references/tools.md`; `SKILL.md` keeps the 13.33 x 7.5 in canvas and a pointer | They were always in context but only needed when building with pptxgenjs or setting up the render. Safe fonts, native charts, `isTextBox` and validation were duplicates of `rules-core.md` §2 or the pptx skill's own gotchas and are gone from the notes |
+| Duplicates removed from `SKILL.md`: placeholder details in step 1 (kept in Hard limits), step 4 details (in `direction.md`), the fresh-review fallback and "contract lives in the plan" (both in `direction.md`); "Invocation without a task" moved to `commands.md` | Always-loaded text said the same thing twice |
+| Precedence names three more pptx-skill design ideas to ignore: cards set apart with a drop shadow, "don't repeat the same layout", its named palettes | They contradict `refuse.md` and `patterns.md`; two of the palettes are default looks 1 and 2 of `direction.md` |
+| Round 1 offers "mach du" for short requests | Quick mode existed but the user never learned about it |
+| Direction contract: three blocks (THESIS, OWN-WORLD, FIRST SLIDES) instead of six | STORY duplicated plan section 3, FORM the "Drafts shown" field, FINISH was the same sentence in every deck |
+| `refuse.md`: every detectable item names what to build instead; "purple-blue gradients" removed from the judgement list | A ban without a replacement leaves the model to improvise; gradients are already detected, and the look is default look 3 |
+| Provenance table moved from `rules-core.md` to `docs/evidence.md`; version notes, Impeccable mentions and pointers to `docs/` removed from the references | Project history, not needed at build time; the installed skill could not resolve the repository paths |
+| `rules-core.md` check 4 said optical alignment is measured by script; the method table and the script say it is not | Marked "not measured" together with the 8 pt spacing scale |
+| `rules-core.md` check 7 listed fewer source-line forms than §6; §4 stated "same meaning, same colour" twice | Check 7 points to §6; the duplicate sentence is gone |
+
+**Test run A** (Sonnet 5.5, fresh cloud session on the slimmed skill, prompt "Mach mir 6 Folien, warum unser Team von Excel auf ein BI-Tool wechseln sollte", answer "mach du"). Round 1, the hand-over offer, the three-block contract, `LAYOUT_WIDE`, pattern-named masters and 0 script fails all held. Findings and changes:
+
+| Finding | Change |
+|---|---|
+| Slides 2 to 4 all looked like tables (P10, P09, P07: label column, rows, hairlines); the render review passed them because the pattern ids differ | `patterns.md`: composition family "rows" (P07, P09, P10), at most two slides of it in `talk` and `pitch`; check 13(c) says different pattern ids are not different compositions. `plan.py` reports more than two as an observation |
+| P07 table (a `read`/`update` pattern) in a `pitch` deck, unreported | `plan.py` check P4: every pattern must be meant for the profile (Profiles line of `patterns.md`), fail unless the pattern id is waived |
+| "mach du" was taken to hand over the content too: the model set `Placeholders: not allowed` itself and built a pitch without a single figure, though its plan listed assumptions only the user can decide | `SKILL.md` step 4 and `direction.md` Quick: the hand-over covers the look only; open content questions are asked once, bundled, before the build |
+| The agent tool was available, the fresh review was still a self-check | `SKILL.md` step 7: with an agent or subagent tool the fresh reviewer is mandatory |
+| Self-check against the default looks used the genus "business deck", so the green table look of an Excel deck passed | `direction.md`: the category is the topic as the user named it |
+
+**Test run A2** (same prompt, fresh Sonnet 5.5 session on the fixes above). The user's answers differed from the script (among them a request to make up figures), which made the run harder, not easier. All five fixes held: content questions stayed with the user after the hand-over, the made-up figures were refused in favour of `[[Zahl: Std./Bericht]]` with a draft mark, one slide of the rows family, a fresh reviewer subagent (disposition `fix`, five of seven findings applied), a self-check against the topic, 0 script fails. The session also carried the user's personal preferences (announce, wait for "go", guiding questions), so A's "builds only after your go" was the preference, not the skill.
+
+| Finding | Change |
+|---|---|
+| P09 had a `talk` budget in `patterns.md` but no `talk` in its Profiles line; the new plan check enforced the Profiles line, so the model waived P09 to use it | P09's Profiles line and `plan.py` include `talk` |
+| The waiver line quoted "mach du" as the user's words for P09 | `direction.md` Quick: the hand-over is not a waiver; a waiver quotes what the user said about that very item |
+
+Measured with `wc -w` before the test-run fixes: `SKILL.md` 2,294 → 1,718 words (−25 %). References 13,318 → 13,152 words including the new `tools.md` (346); `rules-core.md` −633, `refuse.md` +168 for the replacement actions. 125 tests green, `tools/package.py` and `agentskills validate` pass.
+
 ## 0.24 (0.24.0)
 
 Findings of a review run on a real 4-slide board deck (a deck built in the same session as the review), checked against the code: everything that could be reproduced was. 125 tests (11 new), all green.
