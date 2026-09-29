@@ -146,6 +146,11 @@ What it checks:
 | `default-look` | observation | a violet-blue, cream or dark navy ground on at least half the slides |
 | `placeholder-text` | fail | unintended unfilled content: PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<..>>`, `___`, `[insert ..]`, "to be added"; also totalled once at deck level (waivable) |
 | `placeholder-intentional` | observation / fail | `[[type: label]]`: an observation, listed in the report, when the brief allows placeholders (`Placeholders: allowed`), otherwise a fail |
+| `thank-you-slide` | observation | a title that is only "Danke", "Thank you" or "Fragen?" with hardly anything else on the slide |
+| `bold-colon-list` | observation | three or more paragraphs opening with a bold "keyword:" and a half-sentence |
+| `photo-count` | observation | two or more pictures of at least 5 % of the slide each (P12 and P14 exempt) |
+| `heading-spacing` | observation | a short bold heading closer to what is above it than to what it heads |
+| `grey-on-colour` | observation | neutral grey secondary text on a coloured surface |
 
 Panels with header bands, row labels in grey fields, status marks ("Preliminary", "Draft") and single functional boxes are deliberately not flagged; these were corrected against real consulting decks.
 

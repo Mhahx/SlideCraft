@@ -2,7 +2,7 @@
 
 ## Check script: setup and special cases
 
-- **Fonts for a trustworthy render.** The deck fonts need metric-compatible substitutes: Carlito for Calibri, Caladea for Cambria, Liberation for Arial, Times New Roman and Courier New (Debian/Ubuntu: `fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation`). With a wider substitute, line breaks and overflow in the render are wrong and titles look longer than they are.
+- **Fonts for a trustworthy render.** The deck fonts need metric-compatible substitutes: Carlito for Calibri, Caladea for Cambria, Liberation for Arial, Times New Roman and Courier New (Debian/Ubuntu: `fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation`). With a wider substitute, line breaks and overflow in the render are wrong and titles look longer than they are. The check script names the missing package in its font finding.
 - **Segoe UI** (a pinned Microsoft brand font, not on the safe list): install Selawik (Microsoft's own release, github.com/microsoft/Selawik) and add a fontconfig alias mapping "Segoe UI" to it. Without Selawik, treat Segoe UI like any other font outside the safe list.
 - **A LibreOffice deck (.odp):** convert first (`soffice --headless --convert-to pptx deck.odp`), check the .pptx. The conversion keeps layout names but drops the alt text of charts (tested with LibreOffice 24.2): report those alt-text findings as caused by the conversion and check the alt text in the .odp itself.
 

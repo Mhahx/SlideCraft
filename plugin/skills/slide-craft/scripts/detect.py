@@ -34,7 +34,21 @@ RULES = {
     'glass-stack': 'more than one translucent glass panel on a slide',
     'placeholder-text': 'unintended placeholder or filler text left on the slide',
     'placeholder-intentional': 'intentional placeholder [[type: label]] (brief: Placeholders)',
+    'thank-you-slide': 'closing slide without content (thank you, questions)',
+    'bold-colon-list': 'bullets of bold keyword, colon and half-sentence as default content',
+    'photo-count': 'more than one photo on a slide',
+    'heading-spacing': 'less space above a heading than below it',
+    'grey-on-colour': 'neutral grey secondary text on a coloured surface',
 }
+# Added after 0.24 (slimming review, pass 2): judgement items of refuse.md and rules-core.md made measurable.
+# All are observations until calibrated on real decks; thresholds below are starting values.
+THANKS_RE = re.compile(r'^\W*(vielen\s+dank|danke(\s+schön|\s+sehr)?|thank\s+you(\s+very\s+much)?|thanks|'
+                       r'fragen|questions|q\s*&\s*a|noch\s+fragen|any\s+questions|ende|the\s+end)\W*$', re.I)
+BOLD_COLON_MIN = 3          # paragraphs per slide that open with a bold "keyword:"
+PHOTO_MIN_SHARE = 0.05      # a picture covering 5 % of the slide or more counts as a photo, smaller ones are logos/icons
+PHOTO_LAYOUT_RE = re.compile(r'^\s*P1[24](?![0-9])', re.I)   # P12 case and P14 statement may carry several photos
+HEADING_MAX_WORDS = 8
+HEADING_REACH_PT = 96.0     # neighbours further away than this are not "above" or "below" the heading
 
 BIG_NUMBER_PT = 40.0
 NUMBER_RE = re.compile(r'^[\s+\-−–~≈<>]*[\d][\d.,\s]*\s*(%|x|×|k|m|mio\.?|mrd\.?|bn|€|\$|£|db|km|kg|g|t|h|min|pt|ct|p\.?\s?p\.?)?\s*$', re.I)
@@ -120,7 +134,7 @@ def _max_size(s):
     return max(sizes) if sizes else None
 
 
-def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd, placeholders_allowed=False):
+def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd, placeholders_allowed=False, layout=None):
     """Return list of findings: dicts with rule, status, evidence, value."""
     bg_hex = bg.get('hex') if bg.get('kind') == 'solid' else None
     live = [s for s in shapes if s.bbox is not None and not cd.is_ground(s, sw, sh)]
@@ -368,6 +382,90 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd, placeholders_al
     if len(glass) >= 2:
         add('glass-stack', 'fail', '%d translucent panels: %s; one glass panel per slide marks the focus, more read as a card grid'
             % (len(glass), ', '.join(g.ref for g in glass[:4])), len(glass))
+
+    # thank-you-slide: the title is only a thank-you or "questions", and hardly anything else is on the slide
+    if title is not None and THANKS_RE.match(title.text.strip()):
+        rest = sum(len(_words(t.text)) for t in texts if t is not title)
+        if rest <= 6 and not any(s.kind in ('chart', 'table') for s in live):
+            add('thank-you-slide', 'observation', '%s "%s" with %d further words; end on the decision, the ask or the next step '
+                '(P14 statement) instead' % (title.ref, title.text.strip()[:40], rest), rest)
+
+    # bold-colon-list: paragraphs that open with a bold keyword ending in a colon, followed by regular text
+    bc = []
+    for t in texts:
+        if t is title or t.kind != 'text':
+            continue
+        for p in t.paras:
+            rs = [r for r in p if r['text'].strip()]
+            if len(rs) < 2 or not rs[0]['bold']:
+                continue
+            k = next((i for i, x in enumerate(rs) if not x['bold']), len(rs))   # first regular run
+            head, tail = ''.join(r['text'] for r in rs[:k]), ''.join(r['text'] for r in rs[k:])
+            if tail.lstrip().startswith(':'):                                   # bold "Keyword" + regular ": text"
+                head, tail = head + ':', tail.lstrip()[1:]
+            if head.rstrip().endswith(':') and len(_words(head)) <= 4 and _words(tail):
+                bc.append('%s "%s"' % (t.ref, head.strip()[:30]))
+    if len(bc) >= BOLD_COLON_MIN:
+        add('bold-colon-list', 'observation', '%d paragraphs open with a bold "keyword:": %s; write the point as a sentence, '
+            'or use rows with a label column (P10) when the items are parallel' % (len(bc), '; '.join(bc[:4])), len(bc))
+
+    # photo-count: more than one photo on a slide (P12 case and P14 statement excepted)
+    photos = [s for s in shapes if s.kind == 'pic' and s.bbox is not None and _area(s.bbox) >= PHOTO_MIN_SHARE * sw * sh]
+    if len(photos) >= 2 and not PHOTO_LAYOUT_RE.match(layout or ''):
+        add('photo-count', 'observation', '%d photos (each at least %d %% of the slide): %s; one good image carries the point, '
+            'several belong to P12 case' % (len(photos), round(PHOTO_MIN_SHARE * 100), ', '.join(p.ref for p in photos[:4])), len(photos))
+
+    # heading-spacing: a short bold heading sits closer to what is above it than to what it heads
+    blocks = [s for s in live if s.kind in ('text', 'table', 'chart', 'pic') or (s.kind == 'shape' and not _line_like(s))]
+    heads = [t for t in texts if t is not title and t.kind == 'text' and len(t.paras) >= 1
+             and sum(1 for p in t.paras if ''.join(r['text'] for r in p).strip()) == 1
+             and 0 < len(_words(t.text)) <= HEADING_MAX_WORDS and t.runs() and all(r['bold'] for r in t.runs())]
+
+    def overlaps_x(a, b):
+        return min(a.bbox[0] + a.bbox[2], b.bbox[0] + b.bbox[2]) - max(a.bbox[0], b.bbox[0]) > 0
+
+    tight = []
+    for hd in heads:
+        hx, hy, hw, hh = hd.bbox
+        # a heading inside a panel heads what is in that panel: the next panel below is not its content
+        holders = [c for c in boxes if c is not hd and _inside(hd.bbox, c.bbox) and _area(c.bbox) > _area(hd.bbox)]
+        holder = min(holders, key=lambda c: _area(c.bbox)) if holders else None
+        near = [b for b in blocks if b is not hd and b is not holder and overlaps_x(b, hd)
+                and (holder is None or _inside(b.bbox, holder.bbox))]
+        # what a heading heads: an exhibit, or regular (not all-bold) text, starting on the heading's left edge;
+        # a bold cell above a page number or a highlighted timeline station is not a heading (test runs A, A2)
+        body = [b for b in near if abs(b.bbox[0] - hx) <= 8 and b in texts + [s for s in live if s.kind in ('chart', 'table', 'pic')]
+                and not (b.kind == 'text' and b.runs() and all(r['bold'] for r in b.runs()))]
+        below = [b.bbox[1] - (hy + hh) for b in body if 0 <= b.bbox[1] - (hy + hh) <= HEADING_REACH_PT]
+        above = [hy - (a.bbox[1] + a.bbox[3]) for a in near if 0 <= hy - (a.bbox[1] + a.bbox[3]) <= HEADING_REACH_PT]
+        if below and above and min(above) + cd.TOL < min(below):
+            tight.append('%s "%s": %.0f pt above, %.0f pt below' % (hd.ref, hd.text.strip()[:30], min(above), min(below)))
+    if tight:
+        add('heading-spacing', 'observation', '; '.join(tight[:4]) + '; more space above a heading than below groups it with '
+            'what it heads', len(tight))
+
+    # grey-on-colour: secondary text in a neutral grey on a chromatic surface (rules-core.md §4)
+    greys = []
+    for t in texts:
+        if t.kind != 'text':
+            continue
+        back = cd.backdrop_for(t, shapes, bg)
+        if back[0] != 'solid' or not back[1].get('hex'):
+            continue
+        surface = back[1]['hex']
+        if cd.hue_family_key(surface) is None:
+            continue     # neutral surface: grey text is fine there
+        for r in t.runs():
+            c = (r.get('color') or {}).get('hex')
+            if not c:
+                continue     # inherited or unresolved colour: not judged
+            _h, l, s = cd.hls_of(c)
+            if s < 0.15 and 0.15 < l < 0.85:
+                greys.append('%s grey %s on %s' % (t.ref, c, surface))
+                break
+    if greys:
+        add('grey-on-colour', 'observation', '; '.join(greys[:4]) + '; derive secondary text from the surface\'s own hue '
+            '(a lighter or darker shade of it), not from a neutral grey', len(greys))
     return found
 
 

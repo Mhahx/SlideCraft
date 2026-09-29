@@ -25,6 +25,11 @@ The list has two parts, which the check list treats differently:
 - `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector. **Instead:** the exhibit itself, a real photo (credited) or pure type (`rules-core.md` §5).
 - `placeholder-text`: unintended unfilled content — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<value>>`, `___`, a bracketed instruction (`[insert share]`, `[Name einfügen]`), "to be added". Always a fail (waivable like every id).
 - `placeholder-intentional`: an intentional placeholder in the form `[[type: label]]`. An observation, listed in the report under `placeholders`, when the brief says `Placeholders: allowed`; a fail when it does not. Its slide needs a status mark (Illustrative, Draft), otherwise the observation says so. Missing data is never invented: with the brief's permission it becomes `[[Zahl: Umsatz 2025, EUR Mio.]]`, never a made-up figure.
+- `thank-you-slide` (observation): a title that is only "Danke", "Thank you" or "Fragen?" with hardly anything else on the slide. **Instead:** end on the decision, the ask or the next step (P14 statement).
+- `bold-colon-list` (observation): three or more paragraphs on a slide that open with a bold "keyword:" followed by a half-sentence. **Instead:** write the point as a sentence, or rows with a label column (P10) when the items are parallel.
+- `photo-count` (observation): two or more pictures on one slide, each covering at least 5 % of it (smaller ones count as logos); P12 case and P14 statement are exempt. **Instead:** one image that carries the point; several belong to P12.
+- `heading-spacing` (observation): a short bold heading sits closer to what is above it than to the text or exhibit it heads (same left edge). **Instead:** more space above a heading than below (`rules-core.md` §3).
+- `grey-on-colour` (observation): secondary text in a neutral grey on a coloured surface. **Instead:** a lighter or darker shade of the surface's own hue (`rules-core.md` §4).
 - More than 2 font families (check 2). Text on a photo without a text panel or scrim (check 5, contrast not computable).
 - Two text-bearing shapes that overlap on the slide, for example a kicker or tracker sitting on top of the title box (check 3, read from the shapes' own geometry).
 
@@ -39,8 +44,6 @@ A user may pin a style that the list above refuses: Apple's Liquid Glass, glassm
 Structure:
 - Cards as the default container for any content, even when not in a grid or nested.
 - Topic-only filler slides ("Overview", "Outlook", "Agenda") without a claim. A stand-alone contents slide is allowed only in decks of more than 15 slides; a divider that shows the agenda with the current section marked (`patterns.md` P02) from 10 slides.
-- Bullet lists of bold keyword, colon and half-sentence as default content.
-- Closing or "Thank you" slides without content.
 - The same composition on every slide, or on every title slide across decks: a template, not a direction.
 
 Surface:

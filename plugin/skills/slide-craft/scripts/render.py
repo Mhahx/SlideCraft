@@ -23,6 +23,12 @@ METRIC_COMPATIBLE = {
     # (0.22); not independently re-tested here, since this environment has no network access to the font.
     'segoe ui': 'selawik',
 }
+# what to install when a metric-compatible substitute is missing (Debian/Ubuntu package names)
+INSTALL_HINT = {
+    'liberationsans': 'fonts-liberation', 'liberationserif': 'fonts-liberation', 'liberationmono': 'fonts-liberation',
+    'carlito': 'fonts-crosextra-carlito', 'caladea': 'fonts-crosextra-caladea',
+    'selawik': 'Selawik (github.com/microsoft/Selawik) plus a fontconfig alias "Segoe UI" -> Selawik',
+}
 WORD_RE = re.compile(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">(.*?)</word>')
 PAGE_RE = re.compile(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', re.S)
 
@@ -87,7 +93,9 @@ def font_report(requested, pdf_fonts):
             rows.append('%s: drawn as %s (same glyph widths)' % (fam, want))
         else:
             unreliable.append(fam)
-            rows.append('%s: replaced by another font, glyph widths may differ' % fam)
+            rows.append('%s: replaced by another font, glyph widths may differ' % fam
+                        + ('; install %s and render again' % INSTALL_HINT[want] if want in INSTALL_HINT else
+                           '; no metric-compatible substitute is known: leave about 10 %% slack in its text boxes'))
     return ('observation' if unreliable else 'pass'), sorted(pdf_fonts), '; '.join(rows) + \
         ('. Rendered line breaks and overflow are unreliable for: %s' % ', '.join(unreliable) if unreliable else ''), \
         {f.lower() for f in unreliable}
