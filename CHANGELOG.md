@@ -4,6 +4,10 @@ All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` 
 
 ## 0.25 (0.25.0)
 
+### Test run B1: fewer questions on a complete brief
+
+A board paper with a complete brief (purpose, audience, "vorab als PDF", "keine Vorlage oder Marke", all figures, the decision) still drew four Round 1 questions, among them the brand and print-or-screen, which the brief settles, and an alternative to the stated decision that came back a second time in Round 2. `direction.md` said a precise brief needs only a short confirmation, but only questions asked *before* the skill loaded were barred from repetition. Now `SKILL.md` step 1 and `direction.md` Round 1: ask only what neither the brief nor earlier answers settle; what the brief settles is stated as the reading in one line; a question the user left unanswered is decided and marked as an assumption, not asked again. The draft round itself stays: "Go" is not a hand-over of the look.
+
 ### Pass 2: judgement rules made measurable
 
 Five judgement items of `refuse.md` and `rules-core.md` became detector rules, all observations until calibrated; the render finding names the font package to install. 133 tests (7 new), all green.
