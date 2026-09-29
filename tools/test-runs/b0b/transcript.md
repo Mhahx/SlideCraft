@@ -28,3 +28,7 @@ Ich baue eine 8-seitige Beiratsvorlage im Querformat (16:9) als PDF. Sie ist ohn
 
 Sag "Go", dann lege ich los. Antworte gern auch nur auf die zwei Rückfragen.
 
+## Turn 2
+
+Beiratsvorlage als PDF erstellt: tools/test-runs/b0b/Beiratsvorlage_Q3_2026.pdf (8 Folien, Quelle vorlage.html, Rendering render.js). Datenstand 06.10.2026 wie vorgegeben übernommen, Beschlusstext neutral formuliert.
+
