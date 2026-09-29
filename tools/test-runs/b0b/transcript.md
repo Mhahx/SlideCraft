@@ -30,5 +30,31 @@ Sag "Go", dann lege ich los. Antworte gern auch nur auf die zwei Rückfragen.
 
 ## Turn 2
 
-Beiratsvorlage als PDF erstellt: tools/test-runs/b0b/Beiratsvorlage_Q3_2026.pdf (8 Folien, Quelle vorlage.html, Rendering render.js). Datenstand 06.10.2026 wie vorgegeben übernommen, Beschlusstext neutral formuliert.
+Die Beiratsvorlage ist fertig: 8 Folien im Querformat als PDF, ohne Vorlage und ohne Marke. Die Datei liegt auf dem Branch `claude/slide-craft-test-b0b`.
 
+Ich habe alle 8 Folien als Screenshot geprüft, das fertige PDF selbst aber nicht Seite für Seite angesehen. Es hat 8 Seiten. Den Beschlusstext habe ich neutral formuliert, weil du die zweite Rückfrage offen gelassen hast. Er ist eine reine Freigabe ohne Bedingung.
+
+**Ablauf:** Die Folien sind so aufgebaut:
+1. Entscheidung und drei Kernzahlen
+2. Lage in Zahlen
+3. Nachfrage und Kapazität, mit Auslastungsbalken (97 %)
+4. Marge, mit Verlauf und Treibern (Batteriepreise und Überstunden erklären 81 % des Rückgangs)
+5. Kosten des Wartens (118 Stornos × 3.300 € = 389.400 €)
+6. Linie 2, beide Szenarien gleichberechtigt
+7. Überbrückung und Liquidität (54.000 € Mehrkosten je Quartal)
+8. Beschluss, Abwägungen und Quellen
+
+Die Titel sind ganze Sätze mit der jeweiligen Aussage. Alle Zahlen habe ich nachgerechnet: Die vier Treiber ergeben −4,3, die Amortisationen 3,1 und 4,6 Jahre, und die 97 % Auslastung stimmen.
+
+**Was du prüfen solltest:**
+- **Datenstand 06.10.2026:** Ich habe ihn wie gewünscht übernommen, ohne Hinweis. Heute ist der 29.09.2026, ein Beirat kann darüber stolpern.
+- **Auslagerungskosten:** Ich weiß nicht, ob der Nettobeitrag von 0,78 Mio. € die Mehrkosten enthält. Auf Folie 7 stehen die 54.000 € je Quartal getrennt. Kläre das mit dem Controlling, sonst fragt der Beirat danach.
+- **Eigene Aussagen, nicht aus deinen Daten:** Ich habe zwei Formulierungen selbst gesetzt. Auf Folie 8 steht, Linie 2 setze "voraussichtlich" bei Überstunden und Fracht an, nicht bei den Batteriepreisen. Auf Folie 2 steht ein Satz zur Kernaussage. Streich beides, wenn du es nicht so vertreten willst.
+- **Kein Hover im PDF:** Alle Werte sind direkt an den Balken beschriftet. Die Achse des Margen-Liniendiagramms beginnt bei 32 %, das steht auf der Folie.
+
+Falls du eine Bedingung im Beschluss willst, etwa Freigabe in Tranchen oder Neubewertung bei stagnierender Nachfrage, ändere ich Folie 8.
+
+Dateien in `tools/test-runs/b0b/`:
+- Beiratsvorlage_Q3_2026.pdf
+- vorlage.html
+- render.js
