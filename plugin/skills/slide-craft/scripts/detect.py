@@ -40,7 +40,7 @@ RULES = {
     'heading-spacing': 'less space above a heading than below it',
     'grey-on-colour': 'neutral grey secondary text on a coloured surface',
 }
-# Added after 0.24 (slimming review, pass 2): judgement items of refuse.md and rules-core.md made measurable.
+# Added in 0.25 (slimming review, pass 2): judgement items of refuse.md and rules-core.md made measurable.
 # All are observations until calibrated on real decks; thresholds below are starting values.
 THANKS_RE = re.compile(r'^\W*(vielen\s+dank|danke(\s+schön|\s+sehr)?|thank\s+you(\s+very\s+much)?|thanks|'
                        r'fragen|questions|q\s*&\s*a|noch\s+fragen|any\s+questions|ende|the\s+end)\W*$', re.I)

@@ -2,7 +2,7 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
-## Unreleased
+## 0.25 (0.25.0)
 
 ### Pass 2: judgement rules made measurable
 
@@ -17,7 +17,7 @@ Five judgement items of `refuse.md` and `rules-core.md` became detector rules, a
 | `grey-on-colour` | a run in neutral grey (saturation under 0.15) on a chromatic surface | "secondary text derived from the surface's hue" without a check |
 | font report | a missing metric-compatible substitute names its package (`fonts-crosextra-carlito`, Selawik …); no known substitute: leave 10 % slack | the install list in `SKILL.md` (moved to `tools.md` in pass 1) |
 
-Two false alarms of `heading-spacing` found on the test-run decks before release (a bold table cell above the page number, a highlighted timeline station) led to the left-edge and panel conditions. Not done, with reasons: the neon accent (no decks to calibrate on), edge alignment, the 8 pt scale and cards as default container (tolerances need real decks first).
+Two false alarms of `heading-spacing` found on the test-run decks before release (a bold table cell above the page number, a highlighted timeline station) led to the left-edge and panel conditions. Not done, with reasons: edge alignment, the 8 pt scale and cards as default container (tolerances need real decks first). **Dropped:** a neon-accent detector. The skill bans no single colour: `direction.md` lists "dark navy ground with one neon accent and glowing edges" as a default look that is legitimate when the brief calls for it, and only the unexamined default is a finding. A detector for neon itself would flag legitimate choices (an event in a dimmed hall, a brand).
 
 ### Pass 1 and test runs
 
