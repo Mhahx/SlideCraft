@@ -2,6 +2,24 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## Unreleased
+
+Slimming review: what must always be in context (`SKILL.md`), what is loaded on demand (references), what is duplicated or does nothing. No rule was dropped that prevents a specific AI pattern or error; only duplicates, project history and a ritual block. No script logic changed.
+
+| Change | Why |
+|---|---|
+| `SKILL.md` tool notes and check-script setup (font substitutes, Segoe UI, .odp) moved to the new `references/tools.md`; `SKILL.md` keeps the 13.33 x 7.5 in canvas and a pointer | They were always in context but only needed when building with pptxgenjs or setting up the render. Safe fonts, native charts, `isTextBox` and validation were duplicates of `rules-core.md` §2 or the pptx skill's own gotchas and are gone from the notes |
+| Duplicates removed from `SKILL.md`: placeholder details in step 1 (kept in Hard limits), step 4 details (in `direction.md`), the fresh-review fallback and "contract lives in the plan" (both in `direction.md`); "Invocation without a task" moved to `commands.md` | Always-loaded text said the same thing twice |
+| Precedence names three more pptx-skill design ideas to ignore: cards set apart with a drop shadow, "don't repeat the same layout", its named palettes | They contradict `refuse.md` and `patterns.md`; two of the palettes are default looks 1 and 2 of `direction.md` |
+| Round 1 offers "mach du" for short requests | Quick mode existed but the user never learned about it |
+| Direction contract: three blocks (THESIS, OWN-WORLD, FIRST SLIDES) instead of six | STORY duplicated plan section 3, FORM the "Drafts shown" field, FINISH was the same sentence in every deck |
+| `refuse.md`: every detectable item names what to build instead; "purple-blue gradients" removed from the judgement list | A ban without a replacement leaves the model to improvise; gradients are already detected, and the look is default look 3 |
+| Provenance table moved from `rules-core.md` to `docs/evidence.md`; version notes, Impeccable mentions and pointers to `docs/` removed from the references | Project history, not needed at build time; the installed skill could not resolve the repository paths |
+| `rules-core.md` check 4 said optical alignment is measured by script; the method table and the script say it is not | Marked "not measured" together with the 8 pt spacing scale |
+| `rules-core.md` check 7 listed fewer source-line forms than §6; §4 stated "same meaning, same colour" twice | Check 7 points to §6; the duplicate sentence is gone |
+
+Measured with `wc -w`: `SKILL.md` 2,294 → 1,718 words (−25 %). References 13,318 → 13,152 words including the new `tools.md` (346); `rules-core.md` −633, `refuse.md` +168 for the replacement actions. 125 tests green, `tools/package.py` and `agentskills validate` pass.
+
 ## 0.24 (0.24.0)
 
 Findings of a review run on a real 4-slide board deck (a deck built in the same session as the review), checked against the code: everything that could be reproduced was. 125 tests (11 new), all green.

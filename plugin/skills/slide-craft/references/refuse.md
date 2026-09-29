@@ -1,28 +1,28 @@
 # Avoid: typical AI reflexes
 
-Derived from the refuse list of the Impeccable design skill (`craft-floor.md`), adapted to slides (**transferred, untested on slides**). The user's brief can release any item; a release is recorded as a waiver in the plan. Reaching for an item without the brief asking means no decision was made. Then rewrite the element, do not soften it.
+Transferred from a web design skill (**untested on slides**). The user's brief can release any item; a release is recorded as a waiver in the plan. Reaching for an item without the brief asking means no decision was made. Then rewrite the element, do not soften it.
 
 The list has two parts, which the check list treats differently:
 - **Detectable** items can be found in the file by code. They are reported as findings (pass or fail); a few, where the file cannot tell a legitimate use from the reflex, as observations with the reason.
 - **Judgement** items need reading the slide. They are reported as observations, never as thresholds.
 
 ## Detectable (checked from the file)
-`scripts/check_deck.py` reports these under check 9 with the rule id in brackets (`scripts/detect.py`, transferred from Impeccable's detector rules). A rule id quoted in the plan's Waivers line turns the finding into "waived".
-- Gradient fills or gradient text (`gradient`). Glass and blur effects as decoration.
-- Shadows and glow effects without function, especially hard offset shadows (`shadow`, `glow`, `soft-edge`, `reflection`). 3D effects (`3d`).
-- Emoji or Unicode symbols as icons (`emoji`).
-- `glass-stack`: more than one translucent panel (fill with transparency, at least 72 x 48 pt) on one slide. Glass marks the focus; several glass panels are a card grid in another material.
-- `nested-cards`: a box inside a box, the inner one with text. Nested cards are always wrong.
-- `card-grid`: three or more equal-sized boxes with heading and text as slide structure. Short header bars (under 48 pt) are not cards.
-- `icon-tile-stack`: a small square tile or icon (20 to 72 pt) right above a heading, repeated.
-- `stat-row`: two or more big numbers (40 pt and up) in one row, each with a small label: the hero-metric template. `number-card` (observation): a single big number boxed in a card. A single number with context in `talk` is fine.
-- `side-stripe`: a thin coloured bar flush with the edge of a box. `border-on-rounded`: an outline of 2 pt or more on a rounded box. Header or footer bars and accent lines under titles are reported by the heuristic of check 9 as observations.
-- `kicker`: a short label (up to 5 words, capitals, tracked or small) directly above the title. Fail in `talk` and `pitch`; observation in `read` and `update`, where a tracker (status or chapter, fixed position) is allowed.
-- `numbered-labels` (observation): 01 / 02 / 03 as labels. Allowed when the sequence carries information (steps), then without the leading zero.
-- `buzzword`: filler vocabulary from the language list below (except "leverage", which is a normal word in finance).
-- `question-title` (check 1): a title that is a question is not a claim.
-- `justified-text`, `centered-running-text`, `all-caps-body`: running text (8, 12 or 5 words and more) justified, centered or in capitals. `wide-tracking` (observation): letter spacing above 0.05 em on running text.
-- `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector.
+`scripts/check_deck.py` reports these under check 9 with the rule id in brackets (`scripts/detect.py`). A rule id quoted in the plan's Waivers line turns the finding into "waived". **Instead:** says what to build in its place.
+- Gradient fills or gradient text (`gradient`). Glass and blur effects as decoration. **Instead:** solid fills; emphasis by the accent colour.
+- Shadows and glow effects without function, especially hard offset shadows (`shadow`, `glow`, `soft-edge`, `reflection`). 3D effects (`3d`). **Instead:** separate by space, a rule or a light field; charts flat.
+- Emoji or Unicode symbols as icons (`emoji`). **Instead:** icons from one library, or no icon.
+- `glass-stack`: more than one translucent panel (fill with transparency, at least 72 x 48 pt) on one slide. Glass marks the focus; several glass panels are a card grid in another material. **Instead:** one panel for the focus, the rest on the ground.
+- `nested-cards`: a box inside a box, the inner one with text. Nested cards are always wrong. **Instead:** one panel; structure inside it by rules, space and type roles.
+- `card-grid`: three or more equal-sized boxes with heading and text as slide structure. Short header bars (under 48 pt) are not cards. **Instead:** rows separated by rules (P10 numbered-rows) or a table (P07).
+- `icon-tile-stack`: a small square tile or icon (20 to 72 pt) right above a heading, repeated. **Instead:** P10 with numbers that carry an order, or plain headings.
+- `stat-row`: two or more big numbers (40 pt and up) in one row, each with a small label: the hero-metric template. `number-card` (observation): a single big number boxed in a card. A single number with context in `talk` is fine. **Instead:** P13 key-numbers: parts of one measure, a lead-in sentence, no boxes.
+- `side-stripe`: a thin coloured bar flush with the edge of a box. `border-on-rounded`: an outline of 2 pt or more on a rounded box. Header or footer bars and accent lines under titles are reported by the heuristic of check 9 as observations. **Instead:** a rule to the left of a plain text column or a light field (P04 interpretation variants); boxes without outline or with a hairline.
+- `kicker`: a short label (up to 5 words, capitals, tracked or small) directly above the title. Fail in `talk` and `pitch`; observation in `read` and `update`, where a tracker (status or chapter, fixed position) is allowed. **Instead:** put the point into the claim title; in `read` and `update` a tracker at its fixed position (`patterns.md` frame).
+- `numbered-labels` (observation): 01 / 02 / 03 as labels. Allowed when the sequence carries information (steps), then without the leading zero. **Instead:** no numbers, or 1 / 2 / 3 when the order matters.
+- `buzzword`: filler vocabulary from the language list below (except "leverage", which is a normal word in finance). **Instead:** the concrete fact, number or mechanism the word stands in for.
+- `question-title` (check 1): a title that is a question is not a claim. **Instead:** the claim sentence that answers it.
+- `justified-text`, `centered-running-text`, `all-caps-body`: running text (8, 12 or 5 words and more) justified, centered or in capitals. `wide-tracking` (observation): letter spacing above 0.05 em on running text. **Instead:** left-aligned, sentence case, default tracking.
+- `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector. **Instead:** the exhibit itself, a real photo (credited) or pure type (`rules-core.md` §5).
 - `placeholder-text`: unintended unfilled content — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<value>>`, `___`, a bracketed instruction (`[insert share]`, `[Name einfügen]`), "to be added". Always a fail (waivable like every id).
 - `placeholder-intentional`: an intentional placeholder in the form `[[type: label]]`. An observation, listed in the report under `placeholders`, when the brief says `Placeholders: allowed`; a fail when it does not. Its slide needs a status mark (Illustrative, Draft), otherwise the observation says so. Missing data is never invented: with the brief's permission it becomes `[[Zahl: Umsatz 2025, EUR Mio.]]`, never a made-up figure.
 - More than 2 font families (check 2). Text on a photo without a text panel or scrim (check 5, contrast not computable).
@@ -50,7 +50,6 @@ Surface:
 - Geometric shapes (circle, polygon) standing in for a real image cut-out, and decorative illustrations built from simple shapes (a mascot, an ornament, a vehicle riding a progress bar). A graphic that shows the subject matter is not decoration and is welcome: a range ring for a range, a route map for a network, a climb profile for fuel burn (tested in a `talk` deck). Test: does the graphic carry a fact of the slide? Then keep it.
 - Sparklines, progress rings and decorative charts without data behind them.
 - A font used by unexamined default, with no deliberate roles or hierarchy. Font families themselves are not banned: Arial or Calibri with clear roles are fine.
-- Purple-blue gradients as a colour scheme.
 
 Language:
 - Filler vocabulary: "seamless", "powerful", "holistic", "synergies", "leverage", "game changer", "cutting-edge", "next-generation", "world-class", "best-in-class", "revolutionary", "market-leading", "empower", "supercharge", "streamline", "enterprise-grade" (and German equivalents: "nahtlos", "leistungsstark", "ganzheitlich", "Synergien", "hebeln", "bahnbrechend", "revolutionär", "marktführend", "zukunftsweisend", "Gamechanger"). Detected, see above.

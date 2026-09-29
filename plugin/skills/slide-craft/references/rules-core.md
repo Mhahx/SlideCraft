@@ -1,6 +1,6 @@
 # Core rules (apply in every profile)
 
-All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and are to be calibrated on real decks (see the provenance table at the end). A profile may tighten a value, never loosen it, unless the profile says so explicitly. Thresholds live in this file and in `profiles.md` only.
+All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and are to be calibrated on real decks. Only the contrast thresholds are cited (WCAG 2.2); the `read` values are measured on nine real decks; everything else is a starting value. A profile may tighten a value, never loosen it, unless the profile says so explicitly. Thresholds live in this file and in `profiles.md` only.
 
 ## Glossary (counting rules)
 - **Live area:** slide minus margins (13.33 x 7.5 in minus 0.667 in on every side; about 74 % of the slide).
@@ -37,7 +37,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 
 ## 4. Colour
 - Roles, deck-wide: **neutrals** for data that is context (background, text, greys; not counted), **1 accent** for the focus the title talks about, **at most a signal pair** (positive, negative) with a fixed meaning. Tints of one hue for a value scale count as that hue (MCK-DC p4: a blue scale plus an orange focus row). Every colour has a role; the same meaning has the same colour on every slide.
-- Colour carries meaning, not decoration. The same meaning has the same colour on every slide.
+- Colour carries meaning, not decoration.
 - The `update` profile may use status colours (red/amber/green) as a documented exception, always with a text label as well.
 - Text contrast: normal text at least 4.5:1, large text (at least 18 pt, or at least 14 pt bold) at least 3:1 (WCAG 2.2 SC 1.4.3). The pt sizes of WCAG refer to screens; applying them to projected slides is an approximation. Secondary text on a coloured surface is derived from that surface's hue, not neutral grey.
 - Non-text contrast: graphic elements that carry meaning (bars, lines, markers, icons needed to understand a slide) at least 3:1 against adjacent colours (WCAG 2.2 SC 1.4.11). This includes the neutral colour used for de-emphasised chart elements: on a white background the neutral must be as dark as `949494` (3.03:1) or darker (`959595` computes to 2.995:1 and does not pass). Decorative rules and gridlines are exempt.
@@ -103,40 +103,13 @@ Name evidence for each item (slide number, value, method). A bare "ok" is not ev
 1. Every non-exempt title is a claim sentence, at most 2 lines. [file, render estimate for line count]. Whether it has a finite verb from a fixed list is reported too, as an observation only: the list is incomplete, so treat a flag as a prompt to look, not as a verdict. [heuristic]
 2. Font families at most 2, sizes match the roles, body and footnote at or above the profile minimum. [file]
 3. No text overflows, is cut off, or overlaps — including a non-placeholder picture or shape placed only on the layout or master (a logo), which is not in the slide's own XML but is still drawn behind it. Margins respected. [render estimate for overflow; overlap and margins: file]
-4. Alignment on shared edges, recurring elements at the same position. [file; optical alignment: script]
+4. Alignment on shared edges, recurring elements at the same position. [file; optical alignment and the 8 pt spacing scale: not measured, no script yet]
 5. Colour roles respected (1 accent + at most a signal pair; hue families counted by script). Text contrast and non-text contrast computed. [file, computed]
 6. Words per slide within the profile limit [file]; fill reported against the profile value [script, observation until calibrated; never shrink an exhibit below its pattern zone to meet it].
-7. Every data slide has source and date (a source line starts with "Source:", "Quelle:", "laut" or "gemäß"); charts labelled directly; no gridlines on a chart whose values are labelled. A number in plain text without a chart or table is reported the same way, as an observation: give it a source if it comes from outside the deck. The same number recurring on several slides is reported at deck level, as an observation (deliberate repetition and a contradiction both produce it; telling them apart is a judgement). [file]
+7. Every data slide has source and date (a source line in one of the forms of §6); charts labelled directly; no gridlines on a chart whose values are labelled. A number in plain text without a chart or table is reported the same way, as an observation: give it a source if it comes from outside the deck. The same number recurring on several slides is reported at deck level, as an observation (deliberate repetition and a contradiction both produce it; telling them apart is a judgement). [file]
 8. Accessibility: every slide has a title, reading order correct, every picture and chart has alt text. [file]
 9. No detectable item from `refuse.md`: gradient, shadow, 3D, emoji icons, placeholder text left in the deck, and the detector rules (nested cards, card grid, icon tiles, stat row, edge stripes, kicker, buzzwords, justified, centered or capitalised running text, among others; ids in `refuse.md`). [file, `scripts/detect.py`]
 10. The title strand reads as a story. [judgement]
 11. The deck holds its direction contract (thesis, own-world), and the look is not guessable from the category alone (see `direction.md`). [judgement; a default-look ground colour is reported by script as an observation]
 12. The deck matches its deck plan: fonts, role sizes, palette, margins and layout types are those of the plan. Every deviation is a finding, or the plan is extended deck-wide. [file]
 13. Render review: open every rendered slide once and answer for each (the script cannot see these; the blind test in 0.17 passed the script with all three): (a) Is anything a picture built from shapes (a tree from an ellipse and a rectangle, a vehicle, a person)? Remove it or replace it with an exhibit, a real photo or type. (b) Does every exhibit show its measure and unit on the slide itself, in a measure line or axis title, not only in the source line? (c) Do more than two slides share the same composition (for example big number left, label right)? Change the pattern or the variant of all but one. (d) Does any picture or shape overlap another (check 3 already finds text-bearing shapes that overlap; this is for pictures and decoration)? (e) Does the title match what the slide actually shows, or does it claim something the exhibit does not support? (f) Does this slide contradict another one (the same figure standing for two different things, two descriptions of one process that disagree) — see check 7's "same number recurs" for the mechanical half of this. [judgement on the render]
-
-## Provenance of the rules
-
-Every rule group carries a tag. `Practitioner` means a practitioner source, not primary literature. `Transferred` means taken from another domain without a test on slides. `Starting value` means unproven and to be calibrated.
-
-| Rule group | Tag | Source / note |
-|---|---|---|
-| Action titles, one claim per slide, source line | Practitioner | Deckary blog (vendor of an AI slide tool), Highbridge Academy; primary source to add: Minto, *The Pyramid Principle* (pages open) |
-| Title word ceilings, words per slide, fill limits, 60-second and 3-second rules | Starting value | Consulting rule of "about 15 words" is practitioner only; 3-second rule: Gallo / Forbes |
-| Text contrast 4.5:1 and 3:1 thresholds | Cited | W3C WCAG 2.2 SC 1.4.3 (pt sizes approximated for projection) |
-| Non-text contrast 3:1 | Cited | W3C WCAG 2.2 SC 1.4.11 |
-| Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (`docs/evidence.md`) |
-| `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, `docs/evidence.md`; 250 words is a project decision |
-| Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
-| Refuse list, calibration against AI looks, direction flow, fresh review | Transferred | Impeccable (`craft-floor.md`, `new-work.md`), untested on slides |
-| Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on a synthetic AI-style deck (`tests/fixtures/slop.pptx`) and four example decks only |
-| Placeholder-text detector (`platzhalter`, `todo`, `tbd`, `lorem ipsum`, a bare `xx`, bracketed stand-ins) | Practitioner, starting value | own fixed list; a placeholder is always a fail (0.21) |
-| Text-shape overlap as a file check (was render estimate only) | Starting value | bounding-box geometry from the file; found by an audit run (0.21) |
-| Claim-title heuristic (finite verb list) | Starting value, low recall by design | own fixed German/English verb list; never more than an observation, since many valid claims use a verb outside the list (0.21) |
-| Extended source-line prefixes (`laut`, `gemäß`, `nach Angaben von`) and the same-number-recurs check | Starting value | found by an audit run (0.21); the prefixes widen check 7, the recurrence check is new at deck level |
-| Overlap check reads layout and master graphics (a logo counts) | Starting value | found by an audit run on a real deck (0.23); direct children of the layout/master spTree only, groups out of scope |
-| A plan role of kind "other" (cover, divider, quote, display) is not held to the profile's title-size range in check 2 | Starting value | found by an audit run (0.23); resolves a contradiction with plan.py's own P2 check, which already excludes these kinds |
-| Placeholder-text deck-level total | Starting value | found by an audit run (0.23); the per-slide count already existed (0.21); follows the waiver since 0.24 |
-| Intentional placeholders `[[type: label]]` and the brief field `Placeholders:` | Starting value | found by a review run (0.24): "missing data becomes a placeholder" and "a placeholder is always a fail" contradicted each other |
-| Text boxes that overlap while their estimated text does not are an observation, not a fail | Starting value | found by a review run (0.24); estimate is 0.5 em (0.55 bold) per character, as for the line estimate |
-| Herkunft je Titel (`sourced \| calculated \| hypothesis \| placeholder`), comparisons name their definition | Practitioner | found by a review run (0.24); a claim title was contradicted by the figures once they were looked up |
-| Profile values | Starting value | `profiles.md` |
