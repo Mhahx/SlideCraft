@@ -4,6 +4,29 @@ All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` 
 
 ## 0.25 (0.25.0)
 
+### Test run B: with and without the skill
+
+Same board-paper brief with complete figures, Sonnet 5.5, once with the skill (B1) and once without it (B0b: repository checked out without `.claude/`, so the skill was not loaded; the pptx skill was present in both). One run each: a direction, not evidence.
+
+| | B1 with skill | B0b without |
+|---|---|---|
+| Cost, time, model replies | 4.68 $, about 20 min, 4 | 0.71 $, about 4.5 min, 2 |
+| Output | .pptx and PDF, plan, two drafts, fresh reviewer | PDF from HTML |
+| Figures correct, none invented; margin decline honest; revenue and gross profit kept apart | yes | yes |
+| AI patterns of `refuse.md` | none | kicker on every slide, a row of four number tiles, stacked number tiles, a callout with an edge stripe, titles up to 20 words |
+| Sources | precise, including "no named source" for three items | attributes the outsourcing figures to sources that do not cover them |
+| Data date after today in the brief | missed | caught |
+| Risks on the decision slide | the objections raised in Round 1 were mostly lost | a trade-off column, including "line 2 does not fix battery prices" |
+| Honest axes | waterfall with start and end bars cut at 30 % (noted, but against the skill's own rule) | bars from zero |
+
+The skill made the form clearly better and the content judgement no better. Changes:
+
+| Finding | Change |
+|---|---|
+| Objections raised to the user did not reach the deck | `SKILL.md` step 5: every objection or risk raised goes onto a slide or into the plan's assumptions; `deck-plan.md` section 6 lists each with its slide, consistency check 8 |
+| Waterfall start and end bars cut at 30 % | `patterns.md` P08: start and end bars from zero, never cut; small steps against a large total are shown from a zero line or as a separate labelled zoom |
+| Sums were checked, the data date after today was not | `SKILL.md` step 3: check the brief's totals, units and dates (a data date after today, a quarter not yet closed) and raise any mismatch |
+
 ### Test run B1: fewer questions on a complete brief
 
 A board paper with a complete brief (purpose, audience, "vorab als PDF", "keine Vorlage oder Marke", all figures, the decision) still drew four Round 1 questions, among them the brand and print-or-screen, which the brief settles, and an alternative to the stated decision that came back a second time in Round 2. `direction.md` said a precise brief needs only a short confirmation, but only questions asked *before* the skill loaded were barred from repetition. Now `SKILL.md` step 1 and `direction.md` Round 1: ask only what neither the brief nor earlier answers settle; what the brief settles is stated as the reading in one line; a question the user left unanswered is decided and marked as an assumption, not asked again. The draft round itself stays: "Go" is not a hand-over of the look.
