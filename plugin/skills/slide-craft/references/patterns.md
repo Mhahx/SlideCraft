@@ -211,7 +211,7 @@ Rules that hold in every pattern (seen in all nine decks):
 ```
 - **Zones:** bridge cols 1–8, driver notes cols 9–12 aligned with the bars' order; or bridge cols 1–12 with notes under the bars.
 - **Budget:** 4 to 7 steps; notes up to 12 words each.
-- **Rules:** start and end bars neutral dark, increases and decreases in two fixed colours (the signal colour for the negative), every step labelled with its value.
+- **Rules:** start and end bars neutral dark and drawn from zero, never cut; increases and decreases in two fixed colours (the signal colour for the negative), every step labelled with its value. When the steps are small against the total (4 points on 38 %), show the steps alone from a zero line, or add the zoom as a separate, labelled exhibit, never a start or end bar with a cut axis.
 
 ## P09 before-after
 **Use:** today versus target, or two options, along the same rows. **Profiles:** read, update, pitch, talk (budget above). **Evidence:** BCG-NYCHA p35 (row labels left, current state and future state, chevron between), MCK-USPS p20 (upside and downside as two panels).

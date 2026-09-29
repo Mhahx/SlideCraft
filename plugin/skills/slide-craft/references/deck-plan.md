@@ -97,6 +97,7 @@ but is never read as the slide index, so it cannot silently point the comparison
 ## 6. Avoid list check and assumptions
 Which items from refuse.md were at risk in this deck and how the plan avoids them.
 Facts, numbers or sources that are missing and marked as placeholders. Assumptions the user has not confirmed.
+Objections and risks raised to the user during the rounds, each with the slide that carries it (or "assumption" and why it stays off the slides).
 
 ## 7. As built (filled after the fresh review)
 Real fonts, role sizes, hex colours, margins and layout types as shipped. Deviations from sections 2 to 5 and why. Review disposition and its scope.
@@ -111,3 +112,4 @@ The script runs the machine-readable ones without a deck: `python3 scripts/plan.
 5. Every data slide has a source and date.
 6. Word counts fit the profile limit.
 7. The direction contract has its three blocks and none reads like a mood. The self-check against the AI-default looks was done.
+8. Every objection or risk raised to the user appears in section 6 with the slide that carries it.
