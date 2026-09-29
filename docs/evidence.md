@@ -88,7 +88,7 @@ Not calibrated: `talk`, `pitch` and `update` word limits (the corpus has no stat
 
 ## Provenance of the rules
 
-Moved here from the end of `references/rules-core.md` after 0.24: project history, not needed by the model at build time. Every rule group carries a tag. `Practitioner` means a practitioner source, not primary literature. `Transferred` means taken from another domain without a test on slides. `Starting value` means unproven and to be calibrated.
+Moved here from the end of `references/rules-core.md` in 0.25: project history, not needed by the model at build time. Every rule group carries a tag. `Practitioner` means a practitioner source, not primary literature. `Transferred` means taken from another domain without a test on slides. `Starting value` means unproven and to be calibrated.
 
 | Rule group | Tag | Source / note |
 |---|---|---|
@@ -101,7 +101,7 @@ Moved here from the end of `references/rules-core.md` after 0.24: project histor
 | Fill values reported, not enforced | Project decision (0.13) | the pattern test build showed charts at real-deck size exceed 75 % in `read` |
 | Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
 | Refuse list, calibration against AI looks, direction flow, fresh review, modes | Transferred | Impeccable (`craft-floor.md`, `new-work.md`, its commands), untested on slides; not adopted: `harden`, `optimize`, `adapt`, `onboard`, `live`, `overdrive` and the web detectors (HTML, CSS, responsive behaviour, interaction) |
-| Direction contract, three blocks (after 0.24) | Transferred, shortened | Impeccable's six blocks; STORY, FORM and FINISH dropped because the deck plan already holds them (story section, drafts shown, workflow steps 7 and 8) |
+| Direction contract, three blocks (0.25) | Transferred, shortened | Impeccable's six blocks; STORY, FORM and FINISH dropped because the deck plan already holds them (story section, drafts shown, workflow steps 7 and 8) |
 | Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on a synthetic AI-style deck (`tests/fixtures/slop.pptx`) and four example decks only |
 | Placeholder-text detector (`platzhalter`, `todo`, `tbd`, `lorem ipsum`, a bare `xx`, bracketed stand-ins) | Practitioner, starting value | own fixed list; a placeholder is always a fail (0.21) |
 | Text-shape overlap as a file check (was render estimate only) | Starting value | bounding-box geometry from the file; found by an audit run (0.21) |
@@ -113,7 +113,7 @@ Moved here from the end of `references/rules-core.md` after 0.24: project histor
 | Intentional placeholders `[[type: label]]` and the brief field `Placeholders:` | Starting value | found by a review run (0.24): "missing data becomes a placeholder" and "a placeholder is always a fail" contradicted each other |
 | Text boxes that overlap while their estimated text does not are an observation, not a fail | Starting value | found by a review run (0.24); estimate is 0.5 em (0.55 bold) per character, as for the line estimate |
 | Basis per title (`sourced \| calculated \| hypothesis \| placeholder`), comparisons name their definition | Practitioner | found by a review run (0.24); a claim title was contradicted by the figures once they were looked up |
-| Pattern fits its profile (plan check P4) | Rule check | the Profiles line of each pattern in `references/patterns.md`; found by test run A (after 0.24), a P07 table in a `pitch` deck |
-| Composition family "rows" (P07, P09, P10), at most two in `talk` and `pitch` | Starting value, observation | found by test run A (after 0.24): three row slides back to back passed the render review because their pattern ids differed |
-| Detector rules `thank-you-slide`, `bold-colon-list`, `photo-count`, `heading-spacing`, `grey-on-colour` | Starting value, observation | judgement items of `refuse.md` and `rules-core.md` made measurable (pass 2 after 0.24); thresholds are own guesses (3 bold-colon paragraphs, photo at 5 % of the slide, 96 pt reach, grey = saturation under 0.15); quiet on the five fixtures and on the decks of test runs A and A2, not calibrated on real decks |
+| Pattern fits its profile (plan check P4) | Rule check | the Profiles line of each pattern in `references/patterns.md`; found by test run A (0.25), a P07 table in a `pitch` deck |
+| Composition family "rows" (P07, P09, P10), at most two in `talk` and `pitch` | Starting value, observation | found by test run A (0.25): three row slides back to back passed the render review because their pattern ids differed |
+| Detector rules `thank-you-slide`, `bold-colon-list`, `photo-count`, `heading-spacing`, `grey-on-colour` | Starting value, observation | judgement items of `refuse.md` and `rules-core.md` made measurable (pass 2, 0.25); thresholds are own guesses (3 bold-colon paragraphs, photo at 5 % of the slide, 96 pt reach, grey = saturation under 0.15); quiet on the five fixtures and on the decks of test runs A and A2, not calibrated on real decks |
 | Profile values | Starting value | `references/profiles.md` |
