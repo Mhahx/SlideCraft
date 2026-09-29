@@ -1,0 +1,4829 @@
+{
+  "file": "kessler-beiratsvorlage-q3-2026.pptx",
+  "profile": "read",
+  "thresholds": {
+    "title_min": 20,
+    "title_max": 28,
+    "title_words": 15,
+    "body_min": 14,
+    "foot_min": 8,
+    "words": 250,
+    "chars": 1500,
+    "fill": 0.75
+  },
+  "slide_size_pt": [
+    960.0,
+    540.0
+  ],
+  "slide_size_check": {
+    "id": "0",
+    "name": "slide size is 13.33 x 7.5 in (960 x 540 pt)",
+    "method": "file",
+    "status": "pass",
+    "value": [
+      960.0,
+      540.0
+    ],
+    "limit": [
+      960.0,
+      540.0
+    ],
+    "evidence": "ppt/presentation.xml sldSz"
+  },
+  "slides": [
+    {
+      "n": 1,
+      "part": "ppt/slides/slide1.xml",
+      "layout": "P01 cover",
+      "layout_type": null,
+      "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
+      "title": "Linie 2 freigeben, Rahmenschweißen auslagern",
+      "shapes": [
+        {
+          "ref": "slide1.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            190.0,
+            700.0,
+            130.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide1.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            64.0,
+            424.0,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide1.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            340.0,
+            700.0,
+            70.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 5,
+          "evidence": "slide1.xml#2 \"Text 0\": exempt slide type (layout \"P01 cover\" (patterns.md P01/P02))"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide1.xml#3 \"Text 1\" 11.0pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 11.0 pt (slide1.xml#3 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 154,
+          "limit": 1500,
+          "evidence": "counted: slide1.xml#2 \"Text 0\", slide1.xml#3 \"Text 1\", slide1.xml#4 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 20,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.427,
+          "limit": 0.75,
+          "evidence": "3 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "a number in plain text (2026, 2,4) without a chart or table: judgement, source it if it comes from outside the deck"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide1.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 21 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "part": "ppt/slides/slide2.xml",
+      "layout": "P03 summary",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Linie 1 ist voll und Kunden stornieren:\nWir empfehlen Linie 2 und eine Überbrückung",
+      "shapes": [
+        {
+          "ref": "slide2.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            717.0,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide2.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 14,
+          "limit": 15,
+          "evidence": "slide2.xml#2 \"Text 0\" \"Linie 1 ist voll und Kunden stornieren:\nWir empfehlen Linie 2 und eine Überbrück\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": true,
+          "evidence": "slide2.xml#2 \"Text 0\" \"Linie 1 ist voll und Kunden stornieren:\nWir empfehlen Linie 2 und eine Überbrück\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide2.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide2.xml#5 \"Text 3\" 8.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 8.0 pt (slide2.xml#4 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 829,
+          "limit": 1500,
+          "evidence": "counted: slide2.xml#2 \"Text 0\", slide2.xml#3 \"Text 1\", slide2.xml#5 \"Text 3\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 123,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.721,
+          "limit": 0.75,
+          "evidence": "3 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "source line: \"Quellen: ERP-Export Controlling, Stand 06.10.2026; Vertriebs-CRM, Stand 06.10.20\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide2.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 175 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "part": "ppt/slides/slide3.xml",
+      "layout": "P06 two-exhibits",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Der Umsatz wächst um 26 %,\nder Auftragsbestand hat sich mehr als verdoppelt",
+      "shapes": [
+        {
+          "ref": "slide3.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            423.8,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            178.0,
+            423.8,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            487.8,
+            156.0,
+            423.8,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            487.8,
+            178.0,
+            423.8,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#7 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            204.0,
+            423.8,
+            252.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide3.xml#8 \"Chart 1\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            487.8,
+            204.0,
+            423.8,
+            252.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide3.xml#9 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide3.xml#10 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 12,
+          "limit": 15,
+          "evidence": "slide3.xml#2 \"Text 0\" \"Der Umsatz wächst um 26 %,\nder Auftragsbestand hat sich mehr als verdoppelt\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": true,
+          "evidence": "slide3.xml#2 \"Text 0\" \"Der Umsatz wächst um 26 %,\nder Auftragsbestand hat sich mehr als verdoppelt\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide3.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0,
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide3.xml#10 \"Text 6\" 8.0pt; slide3.xml#4 \"Text 2\" 11.0pt; slide3.xml#6 \"Text 4\" 11.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 11.0 pt (slide3.xml#4 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.54,
+          "limit": "3.0:1",
+          "evidence": "slide3.xml#7 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.54,
+          "limit": "3.0:1",
+          "evidence": "slide3.xml#8 \"Chart 1\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 236,
+          "limit": 1500,
+          "evidence": "counted: slide3.xml#2 \"Text 0\", slide3.xml#3 \"Text 1\", slide3.xml#4 \"Text 2\", slide3.xml#5 \"Text 3\", slide3.xml#6 \"Text 4\", slide3.xml#7 \"Chart 0\" (chart text)"
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 39,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.83,
+          "limit": 0.75,
+          "evidence": "8 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quellen: ERP-Export Controlling, Stand 06.10.2026; Vertriebs-CRM, Stand 06.10.20\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 2,
+          "evidence": "all 2 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide3.xml#2 \"Text 0\""
+        },
+        {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "slide3.xml#7 \"Chart 0\": 0 visible gridline set(s)"
+        },
+        {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "slide3.xml#8 \"Chart 1\": 0 visible gridline set(s)"
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 68 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "part": "ppt/slides/slide4.xml",
+      "layout": "P04 chart-rail",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Linie 1 läuft mit 97 % Auslastung,\ndie Lieferzeit hat sich auf 12 Wochen verdoppelt",
+      "shapes": [
+        {
+          "ref": "slide4.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide4.xml#3 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            570.4,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#4 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            634.4,
+            156.0,
+            0.0,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide4.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.4,
+            156.0,
+            261.2,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide4.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            132.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide4.xml#7 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide4.xml#8 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 14,
+          "limit": 15,
+          "evidence": "slide4.xml#2 \"Text 0\" \"Linie 1 läuft mit 97 % Auslastung,\ndie Lieferzeit hat sich auf 12 Wochen verdopp\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": true,
+          "evidence": "slide4.xml#2 \"Text 0\" \"Linie 1 läuft mit 97 % Auslastung,\ndie Lieferzeit hat sich auf 12 Wochen verdopp\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide4.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0,
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide4.xml#8 \"Text 5\" 8.0pt; slide4.xml#6 \"Text 3\" 11.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 11.0 pt (slide4.xml#6 \"Text 3\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.54,
+          "limit": "3.0:1",
+          "evidence": "slide4.xml#3 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 359,
+          "limit": 1500,
+          "evidence": "counted: slide4.xml#2 \"Text 0\", slide4.xml#3 \"Chart 0\" (chart text), slide4.xml#5 \"Text 2\", slide4.xml#6 \"Text 3\", slide4.xml#8 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 60,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.872,
+          "limit": 0.75,
+          "evidence": "5 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quellen: ERP-Export Controlling, Stand 06.10.2026; Vertriebs-CRM, Stand 06.10.20\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide4.xml#2 \"Text 0\""
+        },
+        {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "slide4.xml#3 \"Chart 0\": 0 visible gridline set(s)"
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 85 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "part": "ppt/slides/slide5.xml",
+      "layout": "P13 key-numbers",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Stornos wegen Lieferzeit haben sich fast verdoppelt\nund kosten im Q3 rund 0,39 Mio. € Umsatz",
+      "shapes": [
+        {
+          "ref": "slide5.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            863.6,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            240.0,
+            277.2,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            60.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            330.0,
+            253.2,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            341.2,
+            240.0,
+            277.2,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            60.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#7 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            341.2,
+            330.0,
+            253.2,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            634.4,
+            240.0,
+            277.2,
+            80.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            60.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#9 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            634.4,
+            330.0,
+            253.2,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#10 \"Text 8\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide5.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 15,
+          "limit": 15,
+          "evidence": "slide5.xml#2 \"Text 0\" \"Stornos wegen Lieferzeit haben sich fast verdoppelt\nund kosten im Q3 rund 0,39 M\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": true,
+          "evidence": "slide5.xml#2 \"Text 0\" \"Stornos wegen Lieferzeit haben sich fast verdoppelt\nund kosten im Q3 rund 0,39 M\""
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide5.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide5.xml#11 \"Text 9\" 8.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 4.54,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 767676 on FFFFFF at 60.0 pt (slide5.xml#4 \"Text 2\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 286,
+          "limit": 1500,
+          "evidence": "counted: slide5.xml#2 \"Text 0\", slide5.xml#3 \"Text 1\", slide5.xml#4 \"Text 2\", slide5.xml#5 \"Text 3\", slide5.xml#6 \"Text 4\", slide5.xml#7 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 43,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.509,
+          "limit": 0.75,
+          "evidence": "9 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "source line: \"Quelle: Vertriebs-CRM, Stand 06.10.2026. Berechnet: +84 % (118 / 64), 0,39 Mio. \""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide5.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse [stat-row]: row of big numbers with small labels (hero-metric template)",
+          "method": "file (detector)",
+          "status": "observation",
+          "value": 3,
+          "evidence": "3 big numbers in one row: slide5.xml#4 \"Text 2\" \"64\", slide5.xml#6 \"Text 4\" \"118\", slide5.xml#8 \"Text 6\" \"0,39\"; fine when they are parts of one measure with a lead-in and a source, the hero-metric template when they are unrelated metrics"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 69 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "part": "ppt/slides/slide6.xml",
+      "layout": "P08 bridge",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Die Bruttomarge fiel um 4,3 Punkte,\n3,5 davon durch Batteriepreise und Überstunden",
+      "shapes": [
+        {
+          "ref": "slide6.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#3 \"Shape 1\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            84.0,
+            208.8,
+            72.0,
+            131.2
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "404040",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#4 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            82.0,
+            316.0,
+            76.0,
+            4.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "FFFFFF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#5 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            74.0,
+            188.8,
+            92.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            64.0,
+            348.0,
+            112.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#7 \"Shape 5\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            227.9,
+            208.8,
+            72.0,
+            33.6
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "C2410C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            217.9,
+            188.8,
+            92.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#9 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            207.9,
+            348.0,
+            112.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#10 \"Shape 8\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            371.8,
+            242.4,
+            72.0,
+            22.4
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "C2410C",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            361.8,
+            222.4,
+            92.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            351.8,
+            348.0,
+            112.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#13 \"Shape 11\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            515.8,
+            264.8,
+            72.0,
+            8.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "949494",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#14 \"Text 12\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            505.8,
+            244.8,
+            92.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#15 \"Text 13\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            495.8,
+            348.0,
+            112.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#16 \"Shape 14\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            659.7,
+            272.8,
+            72.0,
+            4.8
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "949494",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#17 \"Text 15\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            649.7,
+            252.8,
+            92.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#18 \"Text 16\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            639.7,
+            348.0,
+            112.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#19 \"Shape 17\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            803.6,
+            277.6,
+            72.0,
+            62.4
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "404040",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#20 \"Shape 18\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            801.6,
+            316.0,
+            76.0,
+            4.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "FFFFFF",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#21 \"Text 19\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            793.6,
+            257.6,
+            92.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#22 \"Text 20\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            783.6,
+            348.0,
+            112.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#23 \"Shape 21\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            340.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide6.xml#24 \"Text 22\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            160.0,
+            300.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#25 \"Text 23\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            388.0,
+            261.2,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#26 \"Text 24\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            341.2,
+            388.0,
+            261.2,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#27 \"Text 25\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            634.4,
+            388.0,
+            261.2,
+            60.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#29 \"Text 26\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            132.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#30 \"Text 27\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide6.xml#31 \"Text 28\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 12,
+          "limit": 15,
+          "evidence": "slide6.xml#2 \"Text 0\" \"Die Bruttomarge fiel um 4,3 Punkte,\n3,5 davon durch Batteriepreise und Überstund\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": false,
+          "evidence": "slide6.xml#2 \"Text 0\" \"Die Bruttomarge fiel um 4,3 Punkte,\n3,5 davon durch Batteriepreise und Überstund\": no word from the fixed verb list found; check by hand whether this is a topic label, not a claim (heuristic on an incomplete verb list — many valid claims will still trigger it)"
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide6.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0,
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide6.xml#31 \"Text 28\" 8.0pt; slide6.xml#11 \"Text 9\" 11.0pt; slide6.xml#12 \"Text 10\" 11.0pt; slide6.xml#14 \"Text 12\" 11.0pt; slide6.xml#15 \"Text 13\" 11.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 11.0 pt (slide6.xml#6 \"Text 4\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 475,
+          "limit": 1500,
+          "evidence": "counted: slide6.xml#2 \"Text 0\", slide6.xml#5 \"Text 3\", slide6.xml#6 \"Text 4\", slide6.xml#8 \"Text 6\", slide6.xml#9 \"Text 7\", slide6.xml#11 \"Text 9\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 70,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.492,
+          "limit": 0.75,
+          "evidence": "27 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "source line: \"Quelle: ERP-Export Controlling, Stand 06.10.2026. Berechnet: Summe 3,5 (2,1 + 1,\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide6.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide6.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 95 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "part": "ppt/slides/slide7.xml",
+      "layout": "P04 chart-rail",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahren",
+      "shapes": [
+        {
+          "ref": "slide7.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#3 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            420.4,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            474.4,
+            162.0,
+            140.0,
+            34.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            474.4,
+            252.0,
+            140.0,
+            34.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#6 \"Shape 3\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            634.4,
+            156.0,
+            0.0,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide7.xml#7 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            650.4,
+            156.0,
+            261.2,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#8 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            132.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#9 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide7.xml#10 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 13,
+          "limit": 15,
+          "evidence": "slide7.xml#2 \"Text 0\" \"Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahre\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": false,
+          "evidence": "slide7.xml#2 \"Text 0\" \"Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahre\": no word from the fixed verb list found; check by hand whether this is a topic label, not a claim (heuristic on an incomplete verb list — many valid claims will still trigger it)"
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide7.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0,
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide7.xml#10 \"Text 7\" 8.0pt; slide7.xml#4 \"Text 1\" 11.0pt; slide7.xml#5 \"Text 2\" 11.0pt; slide7.xml#8 \"Text 5\" 11.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 5.18,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair C2410C on FFFFFF at 11.0 pt (slide7.xml#4 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.54,
+          "limit": "3.0:1",
+          "evidence": "slide7.xml#3 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 596,
+          "limit": 1500,
+          "evidence": "counted: slide7.xml#2 \"Text 0\", slide7.xml#3 \"Chart 0\" (chart text), slide7.xml#4 \"Text 1\", slide7.xml#5 \"Text 2\", slide7.xml#7 \"Text 4\", slide7.xml#8 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 103,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.78,
+          "limit": 0.75,
+          "evidence": "7 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quellen: Szenariorechnung Controlling, 02.10.2026; Angebot Anlagenlieferant, 18.\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide7.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide7.xml#2 \"Text 0\""
+        },
+        {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide7.xml#3 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 141 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "part": "ppt/slides/slide8.xml",
+      "layout": "P09 before-after",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Wir beantragen 2,4 Mio. € für Linie 2\nund bis Q2/27 die Auslagerung des Schweißens",
+      "shapes": [
+        {
+          "ref": "slide8.xml#2 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#3 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.6,
+            156.0,
+            350.5,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#4 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.1,
+            156.0,
+            350.5,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#5 \"Shape 3\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            184.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#6 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            194.0,
+            130.6,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#7 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.6,
+            194.0,
+            350.5,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#8 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.1,
+            194.0,
+            350.5,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#9 \"Shape 7\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            250.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#10 \"Text 8\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            260.0,
+            130.6,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#11 \"Text 9\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.6,
+            260.0,
+            350.5,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#12 \"Text 10\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.1,
+            260.0,
+            350.5,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#13 \"Shape 11\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            316.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#14 \"Text 12\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            326.0,
+            130.6,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#15 \"Text 13\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            194.6,
+            326.0,
+            350.5,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#16 \"Text 14\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            561.1,
+            326.0,
+            350.5,
+            48.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#17 \"Shape 15\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            382.0,
+            864.0,
+            0.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide8.xml#18 \"Text 16\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            392.0,
+            864.0,
+            64.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#19 \"Text 17\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        },
+        {
+          "ref": "slide8.xml#20 \"Text 18\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Arial"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 14,
+          "limit": 15,
+          "evidence": "slide8.xml#2 \"Text 0\" \"Wir beantragen 2,4 Mio. € für Linie 2\nund bis Q2/27 die Auslagerung des Schweiße\""
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": false,
+          "evidence": "slide8.xml#2 \"Text 0\" \"Wir beantragen 2,4 Mio. € für Linie 2\nund bis Q2/27 die Auslagerung des Schweiße\": no word from the fixed verb list found; check by hand whether this is a topic label, not a claim (heuristic on an incomplete verb list — many valid claims will still trigger it)"
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide8.xml#2 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label): see check 12 \"text sizes are role sizes of the plan\" for whether the plan allows this size: slide8.xml#20 \"Text 18\" 8.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 7.0,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 595959 on FFFFFF at 8.0 pt (slide8.xml#19 \"Text 17\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 615,
+          "limit": 1500,
+          "evidence": "counted: slide8.xml#2 \"Text 0\", slide8.xml#3 \"Text 1\", slide8.xml#4 \"Text 2\", slide8.xml#6 \"Text 4\", slide8.xml#7 \"Text 5\", slide8.xml#8 \"Text 6\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 92,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.679,
+          "limit": 0.75,
+          "evidence": "14 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "source line: \"Quellen: Angebot Anlagenlieferant, 18.09.2026; Szenariorechnung Controlling, 02.\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide8.xml#2 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide8.xml#2 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 0,
+          "limit": 0,
+          "evidence": "all 126 rendered words lie inside a text box"
+        },
+        {
+          "id": "1",
+          "name": "title lines (rendered)",
+          "method": "render (LibreOffice PDF word boxes, observation)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "title needs 2 line(s) at its role size; the limit is 2 (not a threshold: render)"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "2",
+      "name": "at most 2 font families",
+      "method": "file",
+      "status": "pass",
+      "value": [
+        "Arial"
+      ],
+      "limit": 2,
+      "evidence": "families used on slides: Arial (slides [1, 2, 3, 4, 5, 6, 7, 8])"
+    },
+    {
+      "id": "2",
+      "name": "fonts on the safe list",
+      "method": "file",
+      "status": "pass",
+      "evidence": "all on safe list"
+    },
+    {
+      "id": "2",
+      "name": "steps between neighbouring sizes >= 1.25",
+      "method": "file",
+      "status": "observation",
+      "value": [
+        8.0,
+        11.0,
+        14.0,
+        18.0,
+        24.0,
+        40.0,
+        60.0
+      ],
+      "evidence": "all neighbouring sizes differ by at least 1.25"
+    },
+    {
+      "id": "5",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
+      "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
+      "status": "pass",
+      "value": 1,
+      "limit": 3,
+      "evidence": "hue 17 deg: C2410C"
+    },
+    {
+      "id": "4",
+      "name": "recurring title placeholder at the same position (layout \"P04 chart-rail\")",
+      "method": "file",
+      "status": "pass",
+      "value": 1,
+      "evidence": "slides [4, 7] share (48.0, 64.0, 864.0, 58.0)"
+    },
+    {
+      "id": "4",
+      "name": "distinct left edges of text shapes",
+      "method": "file",
+      "status": "observation",
+      "value": 20,
+      "evidence": "x positions (pt): [48, 64, 74, 195, 208, 218, 341, 352, 362, 474, 488, 496]. Optical alignment is not measured."
+    },
+    {
+      "id": "7",
+      "name": "same number recurs across slides",
+      "method": "file",
+      "status": "observation",
+      "value": 22,
+      "evidence": "\"0,39\" on slides [2, 5]; \"0,52\" on slides [7, 8]; \"0,78\" on slides [7, 8]; \"1.380\" on slides [2, 4]; \"118\" on slides [2, 5]; \"12\" on slides [2, 4]; \"2,0\" on slides [2, 7, 8]; \"2,4\" on slides [1, 2, 7, 8]. Repetition can be deliberate (a running total); a contradiction (the same figure standing for different things) is a judgement, not scripted."
+    },
+    {
+      "id": "3",
+      "name": "spacing in multiples of 8 pt",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "not implemented yet"
+    },
+    {
+      "id": "10",
+      "name": "title strand reads as a story",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "11",
+      "name": "direction contract held, look not guessable",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "13",
+      "name": "render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "open every rendered slide once (rules-core.md check list item 13); not scripted"
+    },
+    {
+      "id": "3",
+      "name": "fonts drawn in the render",
+      "method": "render (LibreOffice, pdffonts)",
+      "status": "pass",
+      "value": [
+        "LiberationSans",
+        "LiberationSans-Bold",
+        "OpenSymbol"
+      ],
+      "evidence": "Arial: drawn as liberationsans (same glyph widths)"
+    }
+  ],
+  "notes": [],
+  "language": {
+    "used": "de",
+    "note": "auto: German stop-word share 11.4 %"
+  },
+  "placeholders": [],
+  "title_strand": [
+    {
+      "n": 1,
+      "t": "Linie 2 freigeben, Rahmenschweißen auslagern"
+    },
+    {
+      "n": 2,
+      "t": "Linie 1 ist voll und Kunden stornieren:\nWir empfehlen Linie 2 und eine Überbrückung"
+    },
+    {
+      "n": 3,
+      "t": "Der Umsatz wächst um 26 %,\nder Auftragsbestand hat sich mehr als verdoppelt"
+    },
+    {
+      "n": 4,
+      "t": "Linie 1 läuft mit 97 % Auslastung,\ndie Lieferzeit hat sich auf 12 Wochen verdoppelt"
+    },
+    {
+      "n": 5,
+      "t": "Stornos wegen Lieferzeit haben sich fast verdoppelt\nund kosten im Q3 rund 0,39 Mio. € Umsatz"
+    },
+    {
+      "n": 6,
+      "t": "Die Bruttomarge fiel um 4,3 Punkte,\n3,5 davon durch Batteriepreise und Überstunden"
+    },
+    {
+      "n": 7,
+      "t": "Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahren"
+    },
+    {
+      "n": 8,
+      "t": "Wir beantragen 2,4 Mio. € für Linie 2\nund bis Q2/27 die Auslagerung des Schweißens"
+    }
+  ],
+  "render": {
+    "ok": true,
+    "fonts": [
+      "LiberationSans",
+      "LiberationSans-Bold",
+      "OpenSymbol"
+    ],
+    "png": [
+      "render/kessler-beiratsvorlage-q3-2026-1.png",
+      "render/kessler-beiratsvorlage-q3-2026-2.png",
+      "render/kessler-beiratsvorlage-q3-2026-3.png",
+      "render/kessler-beiratsvorlage-q3-2026-4.png",
+      "render/kessler-beiratsvorlage-q3-2026-5.png",
+      "render/kessler-beiratsvorlage-q3-2026-6.png",
+      "render/kessler-beiratsvorlage-q3-2026-7.png",
+      "render/kessler-beiratsvorlage-q3-2026-8.png"
+    ]
+  },
+  "facts": {
+    "slide_count": 8,
+    "layouts": [
+      "P01 cover",
+      "P03 summary",
+      "P06 two-exhibits",
+      "P04 chart-rail",
+      "P13 key-numbers",
+      "P08 bridge",
+      "P04 chart-rail",
+      "P09 before-after"
+    ],
+    "titles": [
+      "Linie 2 freigeben, Rahmenschweißen auslagern",
+      "Linie 1 ist voll und Kunden stornieren:\nWir empfehlen Linie 2 und eine Überbrückung",
+      "Der Umsatz wächst um 26 %,\nder Auftragsbestand hat sich mehr als verdoppelt",
+      "Linie 1 läuft mit 97 % Auslastung,\ndie Lieferzeit hat sich auf 12 Wochen verdoppelt",
+      "Stornos wegen Lieferzeit haben sich fast verdoppelt\nund kosten im Q3 rund 0,39 Mio. € Umsatz",
+      "Die Bruttomarge fiel um 4,3 Punkte,\n3,5 davon durch Batteriepreise und Überstunden",
+      "Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahren",
+      "Wir beantragen 2,4 Mio. € für Linie 2\nund bis Q2/27 die Auslagerung des Schweißens"
+    ],
+    "fonts": [
+      "Arial"
+    ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#2 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#3 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 2\"",
+        "size": 18.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 2\"",
+        "size": 18.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "C2410C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 2\"",
+        "size": 18.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 2\"",
+        "size": 18.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#4 \"Text 2\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#5 \"Text 3\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#4 \"Text 2\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#5 \"Text 3\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#6 \"Text 4\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#9 \"Text 5\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 3,
+        "ref": "slide3.xml#10 \"Text 6\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#5 \"Text 2\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#5 \"Text 2\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#5 \"Text 2\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#6 \"Text 3\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#7 \"Text 4\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 4,
+        "ref": "slide4.xml#8 \"Text 5\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#4 \"Text 2\"",
+        "size": 60.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "767676",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#5 \"Text 3\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#6 \"Text 4\"",
+        "size": 60.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "C2410C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#7 \"Text 5\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#8 \"Text 6\"",
+        "size": 60.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "C2410C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#9 \"Text 7\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#10 \"Text 8\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 5,
+        "ref": "slide5.xml#11 \"Text 9\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#5 \"Text 3\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#6 \"Text 4\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#8 \"Text 6\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#9 \"Text 7\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#11 \"Text 9\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#12 \"Text 10\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#14 \"Text 12\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#15 \"Text 13\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#17 \"Text 15\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#18 \"Text 16\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#21 \"Text 19\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#22 \"Text 20\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#24 \"Text 22\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#25 \"Text 23\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#26 \"Text 24\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#27 \"Text 25\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#29 \"Text 26\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#30 \"Text 27\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 6,
+        "ref": "slide6.xml#31 \"Text 28\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#4 \"Text 1\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "C2410C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#4 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "C2410C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#5 \"Text 2\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#5 \"Text 2\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#7 \"Text 4\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#8 \"Text 5\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#9 \"Text 6\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 7,
+        "ref": "slide7.xml#10 \"Text 7\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#2 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#3 \"Text 1\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#4 \"Text 2\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#6 \"Text 4\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#7 \"Text 5\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#8 \"Text 6\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#10 \"Text 8\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#11 \"Text 9\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#12 \"Text 10\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#14 \"Text 12\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#15 \"Text 13\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#16 \"Text 14\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#18 \"Text 16\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "C2410C",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#18 \"Text 16\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#18 \"Text 16\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "1A1A1A",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#19 \"Text 17\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 8,
+        "ref": "slide8.xml#20 \"Text 18\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Arial",
+        "color": "595959",
+        "title": false,
+        "source": false,
+        "ph": null
+      }
+    ],
+    "colors": {
+      "FFFFFF": [
+        "slide 1 background",
+        "slide 2 background",
+        "slide 3 background",
+        "slide 4 background",
+        "slide 5 background",
+        "slide 6 background"
+      ],
+      "1A1A1A": [
+        "slide 1 text slide1.xml#2 \"Text 0\"",
+        "slide 2 text slide2.xml#2 \"Text 0\"",
+        "slide 2 text slide2.xml#3 \"Text 1\"",
+        "slide 3 text slide3.xml#2 \"Text 0\"",
+        "slide 3 text slide3.xml#3 \"Text 1\"",
+        "slide 3 text slide3.xml#5 \"Text 3\""
+      ],
+      "595959": [
+        "slide 1 text slide1.xml#3 \"Text 1\"",
+        "slide 1 text slide1.xml#4 \"Text 2\"",
+        "slide 2 text slide2.xml#4 \"Text 2\"",
+        "slide 2 text slide2.xml#5 \"Text 3\"",
+        "slide 3 text slide3.xml#10 \"Text 6\"",
+        "slide 3 text slide3.xml#4 \"Text 2\""
+      ],
+      "C2410C": [
+        "slide 1 text slide1.xml#4 \"Text 2\"",
+        "slide 3 chart series 1",
+        "slide 4 chart series 1",
+        "slide 5 text slide5.xml#6 \"Text 4\"",
+        "slide 5 text slide5.xml#8 \"Text 6\"",
+        "slide 6 fill slide6.xml#10 \"Shape 8\""
+      ],
+      "767676": [
+        "slide 3 chart series 1",
+        "slide 4 chart series 1",
+        "slide 5 text slide5.xml#4 \"Text 2\"",
+        "slide 7 chart series 2"
+      ],
+      "404040": [
+        "slide 6 fill slide6.xml#19 \"Shape 17\"",
+        "slide 6 fill slide6.xml#3 \"Shape 1\""
+      ],
+      "949494": [
+        "slide 6 fill slide6.xml#13 \"Shape 11\"",
+        "slide 6 fill slide6.xml#16 \"Shape 14\""
+      ]
+    },
+    "min_inset_pt": 48.0,
+    "min_inset_at": "slide1.xml#2 \"Text 0\"",
+    "profile": "read",
+    "chart_sizes": [
+      11.0
+    ],
+    "slide_facts": [
+      {
+        "n": 1,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 2,
+        "exhibits": [],
+        "source": "Quellen: ERP-Export Controlling, Stand 06.10.2026; Vertriebs-CRM, Stand 06.10.2026; Angebot Anlagenlieferant, 18.09.2026; Szenariorechnung Controlling, 02.10.2026. Angaben zu Auslagerung, Kasse und Kreditlinie ohne benannte Quelle. Berechnet: Umsatzwachstum (3,9 / 3,1), Mehrkosten Auslagerung (300 Stück × 180 €)."
+      },
+      {
+        "n": 3,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quellen: ERP-Export Controlling, Stand 06.10.2026; Vertriebs-CRM, Stand 06.10.2026. Berechnet: +26 % (3,9 / 3,1), 2,3-fach (1.380 / 610)."
+      },
+      {
+        "n": 4,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quellen: ERP-Export Controlling, Stand 06.10.2026; Vertriebs-CRM, Stand 06.10.2026. Berechnet: 30 Stück (1.150 − 1.120), Auslastung 97 % (1.120 / 1.150)."
+      },
+      {
+        "n": 5,
+        "exhibits": [],
+        "source": "Quelle: Vertriebs-CRM, Stand 06.10.2026. Berechnet: +84 % (118 / 64), 0,39 Mio. € (118 × 3.300 € = 389.400 €)."
+      },
+      {
+        "n": 6,
+        "exhibits": [],
+        "source": "Quelle: ERP-Export Controlling, Stand 06.10.2026. Berechnet: Summe 3,5 (2,1 + 1,4) und 0,8 (0,5 + 0,3)."
+      },
+      {
+        "n": 7,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quellen: Szenariorechnung Controlling, 02.10.2026; Angebot Anlagenlieferant, 18.09.2026. Angaben zu Kasse und Kreditlinie ohne benannte Quelle. Verlauf berechnet: −2,4 Mio. € Invest plus Nettobeitrag × Jahre, linear ab Produktionsstart (Vereinfachung)."
+      },
+      {
+        "n": 8,
+        "exhibits": [],
+        "source": "Quellen: Angebot Anlagenlieferant, 18.09.2026; Szenariorechnung Controlling, 02.10.2026. Angaben zu Auslagerung, Kasse und Kreditlinie ohne benannte Quelle. Berechnet: 54 T€ pro Quartal (300 Stück × 180 €)."
+      }
+    ]
+  },
+  "plan": {
+    "parsed": {
+      "profile": "read",
+      "roles": 10,
+      "palette": 8,
+      "margin_pt": 48.0,
+      "layout_types": [
+        "p01 cover",
+        "p03 summary",
+        "p04 chart-rail",
+        "p06 two-exhibits",
+        "p08 bridge",
+        "p09 before-after",
+        "p13 key-numbers"
+      ],
+      "slide_rows": 8,
+      "waivers": "keine",
+      "notes": []
+    },
+    "checks": [
+      {
+        "id": "P2",
+        "name": "plan: role sizes within profile limits",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": [
+          60.0,
+          40.0,
+          24.0,
+          18.0,
+          14.0,
+          14.0,
+          18.0,
+          11.0,
+          11.0,
+          8.0
+        ],
+        "evidence": "all 10 roles within limits"
+      },
+      {
+        "id": "P2",
+        "name": "plan: neighbouring role sizes differ by at least 1.25",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": [
+          8.0,
+          11.0,
+          14.0,
+          18.0,
+          24.0,
+          40.0,
+          60.0
+        ],
+        "limit": 1.25,
+        "evidence": "all steps >= 1.25"
+      },
+      {
+        "id": "P3",
+        "name": "plan: palette has 1 accent and at most 2 signal colours (a positive/negative pair)",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": {
+          "accent": 1,
+          "signal": 0
+        },
+        "limit": {
+          "accent": 1,
+          "signal": 2
+        },
+        "evidence": "accent: C2410C; signal: none. A role word stays in effect for the hexes after it until the next role word or line break; one direction's whole palette per \"Palette:\" line, written once, avoids this"
+      },
+      {
+        "id": "P3",
+        "name": "plan: role colours against palette backgrounds (contrast)",
+        "method": "computed",
+        "status": "pass",
+        "value": 5.18,
+        "evidence": "10 pairs computed"
+      },
+      {
+        "id": "P4",
+        "name": "plan: every slide row uses a layout type defined in the design system",
+        "method": "file (plan)",
+        "status": "pass",
+        "evidence": "all rows match"
+      },
+      {
+        "id": "P4",
+        "name": "plan: every pattern is meant for the profile (patterns.md, Profiles line)",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": 0,
+        "evidence": "all 8 pattern rows fit read"
+      },
+      {
+        "id": "P5",
+        "name": "plan: every data slide row has a source",
+        "method": "file (plan)",
+        "status": "pass",
+        "value": 3,
+        "evidence": "checked 3 data rows"
+      },
+      {
+        "id": "12",
+        "name": "slide count equals plan rows",
+        "method": "file",
+        "status": "pass",
+        "value": 8,
+        "limit": 8,
+        "evidence": "deck has 8 slides, plan lists 8"
+      },
+      {
+        "id": "12",
+        "name": "slide titles equal the plan",
+        "method": "file",
+        "status": "pass",
+        "evidence": "titles match (0 rows without a plan title skipped)"
+      },
+      {
+        "id": "12",
+        "name": "slide layouts match the plan layout types by name",
+        "method": "file",
+        "status": "pass",
+        "evidence": "all layout names match"
+      },
+      {
+        "id": "12",
+        "name": "fonts are those of the plan",
+        "method": "file",
+        "status": "pass",
+        "value": [
+          "Arial"
+        ],
+        "evidence": "plan families: arial"
+      },
+      {
+        "id": "12",
+        "name": "text sizes are role sizes of the plan",
+        "method": "file",
+        "status": "pass",
+        "limit": [
+          8.0,
+          11.0,
+          14.0,
+          18.0,
+          24.0,
+          40.0,
+          60.0
+        ],
+        "evidence": "every run size is a role size"
+      },
+      {
+        "id": "12",
+        "name": "weights match the plan roles (bold or regular)",
+        "method": "file",
+        "status": "pass",
+        "evidence": "checked runs whose size identifies a role"
+      },
+      {
+        "id": "12",
+        "name": "colours used are palette colours of the plan",
+        "method": "file",
+        "status": "pass",
+        "evidence": "all 7 colours are in the palette"
+      },
+      {
+        "id": "12",
+        "name": "shapes keep the plan margin",
+        "method": "file",
+        "status": "pass",
+        "value": 48.0,
+        "limit": 48.0,
+        "evidence": "smallest edge distance 48.0 pt at slide1.xml#2 \"Text 0\""
+      }
+    ]
+  },
+  "not_measured_here": [
+    "overflow: render observation only",
+    "optical alignment",
+    "spacing scale",
+    "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
+  ],
+  "summary": {
+    "pass": 135,
+    "fail": 0,
+    "observation": 62,
+    "not_measured": 4,
+    "waived": 0
+  }
+}
