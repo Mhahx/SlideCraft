@@ -27,3 +27,9 @@
 4. Ist der Beschluss unstrittig als 2,4 Mio. € plus Auslagerung zu formulieren, oder soll auch die Alternative „nur Auslagerung, Linie 2 später“ als Option auftauchen?
 
 Danach zeige ich dir zwei bis drei Looks als gerenderte Musterfolien (Titelfolie + Folie 7) samt diesem Gerüst. Sagst du „mach du“, wähle ich den Look selbst, die Inhaltsfragen (v. a. 4) bleiben trotzdem offen.
+
+## Turn 2
+
+Das ist der Name des Branches, auf den ich pushe. Das Gerüst und meine Fragen von eben liegen dort in `test-runs/b1/transcript.md`. Gebaut habe ich noch nichts.
+
+Meintest du damit etwas Bestimmtes, etwa einen anderen Branch oder ein „Go“? Ein „Go“ lese ich das nicht, weil du meine vier Fragen (Marke, Wirkung, Druck oder Bildschirm, Optionen im Beschluss) noch nicht beantwortet hast. Antworte kurz darauf, oder sag „mach du“, dann wähle ich den Look selbst. Frage 4 bleibt in beiden Fällen offen.
