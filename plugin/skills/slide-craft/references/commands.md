@@ -23,6 +23,8 @@ Report only, no changes. Render the deck and run the check list in `rules-core.m
 ## critique — read-only
 Design judgement as a design director. Questions: does the title strand tell a story? Is each slide specific to this topic or interchangeable? Does the profile fit the situation? Hierarchy, eye path, text density. At most 3 to 5 prioritised problems and 2 to 3 strengths. Order: first the judgement without measured values, then the measurement from `audit`, so numbers do not steer the judgement. Where subagents are available, run the two as separate passes. Otherwise state that this is a sequence, not independence.
 
+First line of the report: the assumed profile and the assumed purpose ("Profile read, purpose: general first-contact deck"). If the purpose is unknown and a story verdict depends on it (is this slide in scope? is the deck too long?), ask exactly one question before the story judgement, or mark each affected finding "depends on purpose". Apply the rule of thumb of `refuse.md` to the cover too: the cover is exempt from the claim rule, not from "could this stand in another deck?".
+
 Independence protocol: (1) judge from the renders and the request only; do not read the build script or the plan's rationale. (2) Write down the problems before opening any check output. (3) Then run `audit`, and keep measured values apart from the judgement. (4) Try to falsify every `pass` and every "kept" in the plan: title against exhibit, figure against source, comparison against definition, contrast against the surface it sits on. (5) Report one disposition (`ship | fix | rebuild | recapture`) with its scope, and one line on what was independent and what was not.
 
 ## polish — refinement

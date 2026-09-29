@@ -23,7 +23,8 @@ The list has two parts, which the check list treats differently:
 - `question-title` (check 1): a title that is a question is not a claim.
 - `justified-text`, `centered-running-text`, `all-caps-body`: running text (8, 12 or 5 words and more) justified, centered or in capitals. `wide-tracking` (observation): letter spacing above 0.05 em on running text.
 - `shape-illustration` (observation): twelve or more small text-less shapes clustered in one region, a picture built from primitives. Diagrams and charts built from shapes are fine. Pictures embedded as PNG are not seen by the detector.
-- `placeholder-text`: unintended unfilled content — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<value>>`, `___`, a bracketed instruction (`[insert share]`, `[Name einfügen]`), "to be added". Always a fail (waivable like every id).
+- `placeholder-text`: unintended unfilled content — PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<value>>`, `___`, "to be added". Always a fail (waivable like every id).
+- `placeholder-foreign-format` (0.25): the same in single brackets — `[PLATZHALTER: Umsatz]`, `[XX]`, `[TBD]`, a bracketed instruction (`[insert share]`, `[Name einfügen]`). One finding per slide with the count; the fix is to convert them to `[[type: label]]` when the brief allows placeholders. A waiver of `placeholder-text` covers it too. The console rollup prints placeholders as one line for the whole deck.
 - `placeholder-intentional`: an intentional placeholder in the form `[[type: label]]`. An observation, listed in the report under `placeholders`, when the brief says `Placeholders: allowed`; a fail when it does not. Its slide needs a status mark (Illustrative, Draft), otherwise the observation says so. Missing data is never invented: with the brief's permission it becomes `[[Zahl: Umsatz 2025, EUR Mio.]]`, never a made-up figure.
 - More than 2 font families (check 2). Text on a photo without a text panel or scrim (check 5, contrast not computable).
 - Two text-bearing shapes that overlap on the slide, for example a kicker or tracker sitting on top of the title box (check 3, read from the shapes' own geometry).
@@ -62,4 +63,4 @@ Language:
 Four whole-deck looks that generated decks converge on (dark navy with neon accent, cream with serif and terracotta, white with blue-purple gradient and icon cards, editorial hairlines with italic serif and tracked labels) are listed with their self-check in `direction.md`. They are legitimate only when the brief calls for them. The check script reports a violet-blue, cream or dark navy ground on at least half the slides as an observation (`default-look`, check 11).
 
 ## Rule of thumb
-Could this slide stand unchanged in a deck on a completely different topic? Then it is too generic. Rethink it. (Judgement.)
+Could this slide stand unchanged in a deck on a completely different topic? Then it is too generic. Rethink it. (Judgement.) This includes the cover: the cover title is exempt from the claim rule, not from this question ("Ihr Partner für Personalentscheidungen" fits any firm).

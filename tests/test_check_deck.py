@@ -1284,7 +1284,8 @@ class ReviewFindings(unittest.TestCase):
     def test_unintended_placeholder_spellings_fail(self):
         for txt in ('Wert [XX] Mio.', 'Kunde [Kundenname einfügen]', 'Anteil &lt;&lt;value&gt;&gt;', 'Umsatz ___ Mio.',
                     'Share [INSERT SHARE]', 'The date to be added later', 'Zahl noch zu ergänzen'):
-            f = detector(self.rep(box(10, 48, 200, 400, 30, text=txt))).get('placeholder-text')
+            found = detector(self.rep(box(10, 48, 200, 400, 30, text=txt)))
+            f = found.get('placeholder-text') or found.get('placeholder-foreign-format')   # bracketed forms: own rule since 0.25
             self.assertTrue(f and f['status'] == 'fail', txt)
 
     def test_ordinary_wording_is_not_a_placeholder(self):
@@ -1372,6 +1373,107 @@ class ReviewFindings(unittest.TestCase):
             finally:
                 sys.stdout = old
         self.assertIn('[P3] fail', out.getvalue())
+
+
+def wide_table(rows, text, y=150, row_h=30, col_w=2540000):
+    """A two-column table whose rows are `row_h` pt tall (declared) and hold `text` at 12 pt in both cells."""
+    cell = ('<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr sz="1200"/><a:t>%s</a:t></a:r></a:p></a:txBody><a:tcPr/></a:tc>' % text)
+    tr = '<a:tr h="%d">%s%s</a:tr>' % (row_h * PT, cell, cell)
+    return ('<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="4" name="Table"/><p:cNvGraphicFramePr/><p:nvPr/></p:nvGraphicFramePr>'
+            '<p:xfrm><a:off x="609600" y="%d"/><a:ext cx="%d" cy="%d"/></p:xfrm><a:graphic>'
+            '<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/table"><a:tbl><a:tblGrid><a:gridCol w="%d"/><a:gridCol w="%d"/></a:tblGrid>%s'
+            '</a:tbl></a:graphicData></a:graphic></p:graphicFrame>' % (y * PT, 2 * col_w, rows * row_h * PT, col_w, col_w, tr * rows))
+
+
+class Release025(unittest.TestCase):
+    """0.25: findings of a critique run on a real 13-slide draft (Segoe UI without Selawik, placeholder flood, tracker noise)."""
+
+    def rep(self, *bodies, profile='read', plan=None):
+        return cd.analyse(cd.Package(build_pptx(list(bodies))), 'synthetic', profile, set(), 'en', plan)
+
+    # -- table height from the file, no render needed
+    def test_wrapping_cells_push_a_table_past_the_source_line(self):
+        long_text = 'Eine Zelle mit 55 Zeichen, die zweizeilig umbricht.'   # 51 characters: two lines at 12 pt in a 200 pt column
+        body = title_sp('Die Tabelle zeigt zehn Besetzungen im Jahr') + wide_table(10, long_text) + box(20, 48, 466, 600, 14, text='Quelle: Eigene Erhebung, 2026', sz=10)
+        c = find(self.rep(body)['slides'][0]['checks'], 'table height with wrapped cell text')
+        self.assertEqual(c[0]['status'], 'observation')
+        self.assertIn('grows from 300 to ~360', c[0]['evidence'])
+        self.assertEqual(c[0]['limit'], 466)
+
+    def test_short_cells_keep_the_table_above_the_source_line(self):
+        body = title_sp('Die Tabelle zeigt zehn Besetzungen im Jahr') + wide_table(10, 'Kurz') + box(20, 48, 466, 600, 14, text='Quelle: Eigene Erhebung, 2026', sz=10)
+        c = find(self.rep(body)['slides'][0]['checks'], 'table height with wrapped cell text')
+        self.assertEqual(c[0]['status'], 'pass')
+
+    # -- placeholders: one line per slide, one line in the console rollup
+    def test_bracketed_placeholders_are_one_finding_per_slide_with_their_own_rule(self):
+        txt = 'Umsatz [PLATZHALTER: Zahl] und Marge [PLATZHALTER: Zahl] und Dauer [XX] Monate'
+        rep = self.rep(title_sp('Erste Folie') + box(10, 48, 200, 600, 30, text=txt), title_sp('Zweite Folie') + box(10, 48, 200, 600, 30, text=txt))
+        f = detector(rep)['placeholder-foreign-format']
+        self.assertEqual((f['status'], f['value']), ('fail', 3))
+        self.assertIn('[[type: label]]', f['evidence'])
+        self.assertNotIn('placeholder-text', detector(rep))
+        total = find(rep['deck'], 'unintended placeholder text left in the deck (total)')[0]
+        self.assertEqual((total['status'], total['value']), ('fail', 6))
+        lines = cd.format_summary(rep).splitlines()
+        self.assertEqual(len([l for l in lines if 'placeholder' in l]), 1)      # the deck line only, not one per slide
+
+    def test_placeholder_text_waiver_covers_the_bracketed_form(self):
+        rep = self.rep(title_sp('Erste Folie') + box(10, 48, 200, 600, 30, text='Wert [PLATZHALTER]'),
+                       plan='Waivers: placeholder-text (Daten fehlen)\nProfile: read\n')
+        self.assertEqual(detector(rep)['placeholder-foreign-format']['status'], 'waived')
+        self.assertEqual(find(rep['deck'], 'unintended placeholder text left in the deck (total)')[0]['status'], 'waived')
+
+    def test_editorial_brackets_are_not_placeholders(self):
+        body = box(10, 48, 200, 600, 30, text='Die [Antwort des Kunden] und [1] Fußnote')
+        self.assertNotIn('placeholder-foreign-format', detector(self.rep(title_sp('Erste Folie') + body)))
+
+    # -- chapter tracker
+    def tracker_deck(self, labels, titles):
+        return [sp_text(2, 'Title', 48 * PT, 90 * PT, 864 * PT, 60 * PT, t, rpr_of(26, '111111'), ph='<p:ph type="title"/>')
+                + box(10, 48, 60, 300, 24, text=lab, sz=12) for lab, t in zip(labels, titles)]
+
+    def test_label_at_a_fixed_position_on_three_slides_is_a_tracker_in_read(self):
+        rep = self.rep(*self.tracker_deck(['BELEG', 'REICHWEITE', 'PREIS'], ['Wir zeigen zehn Referenzen', 'Wir erreichen drei Märkte', 'Der Preis liegt fest']))
+        for n in (1, 2, 3):
+            self.assertNotIn('kicker', detector(rep, n))
+        self.assertTrue(find(rep['deck'], 'chapter tracker at a fixed position', 'pass'))
+
+    def test_two_slides_are_not_enough_and_talk_keeps_the_rule(self):
+        two = self.rep(*self.tracker_deck(['BELEG', 'PREIS'], ['Wir zeigen zehn Referenzen', 'Der Preis liegt fest']))
+        self.assertEqual(detector(two, 1)['kicker']['status'], 'observation')
+        three = self.rep(*self.tracker_deck(['BELEG', 'REICHWEITE', 'PREIS'], ['Wir zeigen zehn Referenzen', 'Wir erreichen drei Märkte', 'Der Preis liegt fest']), profile='talk')
+        self.assertEqual(detector(three, 1)['kicker']['status'], 'fail')
+
+    def test_tracker_repeating_the_start_of_the_title_is_an_observation(self):
+        rep = self.rep(*self.tracker_deck(['Nächster Schritt', 'BELEG', 'PREIS'],
+                                          ['Nächster Schritt: ein Gespräch von 30 Minuten', 'Wir zeigen zehn Referenzen', 'Der Preis liegt fest']))
+        self.assertTrue(find(rep['slides'][0]['checks'], 'chapter tracker repeats the start of the title', 'observation'))
+        self.assertFalse(find(rep['slides'][1]['checks'], 'chapter tracker repeats the start of the title'))
+
+    # -- cross-slide consistency, text only
+    def test_hyphen_and_space_variants_of_one_term_are_reported(self):
+        rep = self.rep(title_sp('Erste Folie') + box(10, 48, 200, 600, 30, text='Unsere Management Diagnostik zeigt das'),
+                       title_sp('Zweite Folie') + box(10, 48, 200, 600, 30, text='Die Management-Diagnostik dauert zwei Tage'))
+        c = find(rep['deck'], 'one term written in two ways', 'observation')
+        self.assertTrue(c and 'Management-Diagnostik' in c[0]['evidence'] and 'Management Diagnostik' in c[0]['evidence'])
+
+    def test_one_spelling_everywhere_is_silent(self):
+        rep = self.rep(title_sp('Erste Folie') + box(10, 48, 200, 600, 30, text='Die Management-Diagnostik zeigt das'),
+                       title_sp('Zweite Folie') + box(10, 48, 200, 600, 30, text='Die Management-Diagnostik dauert zwei Tage'))
+        self.assertFalse(find(rep['deck'], 'one term written in two ways'))
+
+    def test_same_sentence_on_three_slides_is_reported_two_slides_are_not(self):
+        key = 'Wir besetzen Schlüsselpositionen im Mittelstand diskret und schnell'
+        slides = [title_sp('Folie %s' % w) + box(10, 48, 200, 700, 30, text=key + ' und %s' % w) for w in ('eins', 'zwei', 'drei')]
+        c = find(self.rep(*slides)['deck'], 'the same sentence or phrase')
+        self.assertTrue(c and 'slides [1, 2, 3]' in c[0]['evidence'] and 'schlüsselpositionen' in c[0]['evidence'])
+        self.assertFalse(find(self.rep(*slides[:2])['deck'], 'the same sentence or phrase'))
+
+    def test_repeated_source_and_footer_lines_are_not_a_refrain(self):
+        foot = 'Quelle: Eigene Erhebung der Firma, Stand Juni 2026'
+        slides = [title_sp('Folie %d' % n) + box(10, 48, 200, 700, 30, text='Inhalt Nummer %d' % n) + box(20, 48, 470, 700, 14, text=foot, sz=10) for n in range(1, 4)]
+        self.assertFalse(find(self.rep(*slides)['deck'], 'the same sentence or phrase'))
 
 
 if __name__ == '__main__':

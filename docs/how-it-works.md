@@ -114,7 +114,7 @@ What it checks:
 | 0 | slide size 13.33 × 7.5 in, valid chart line values | file |
 | 1 | title present, claim titles, word ceiling, at most 2 lines; whether it has a finite verb (observation only, fixed verb list, low recall) | file; render for line count; heuristic |
 | 2 | at most 2 font families on the safe list, title size, size steps of at least 1.25, minimums | file |
-| 3 | margins, bleed fields, table cell margins; two text-bearing shapes overlapping, including a picture or shape placed only on the layout or master (a logo); overflow and missing text | file; render estimate for overflow |
+| 3 | margins, bleed fields, table cell margins; two text-bearing shapes overlapping, including a picture or shape placed only on the layout or master (a logo); overflow and missing text; table height from the wrapped cell text against the next shape or the margin (observation, works without a render) | file; render estimate for overflow |
 | 4 | recurring placeholders at the same position per layout; left edges (observation) | file |
 | 5 | colour roles, text contrast and non-text contrast (WCAG 2.2), glass computed over black and white | computed |
 | 6 | words or characters per slide; fill share (observation) | file; script |
@@ -122,7 +122,7 @@ What it checks:
 | 8 | title set, reading order with the title first, alt text on pictures and charts | file |
 | 9 | banned effects (`gradient`, `shadow`, `glow`, `soft-edge`, `reflection`, `3d`, `emoji`), placeholder text left in the deck, and the detector rules | file |
 | 12 | deck against plan: fonts, role sizes, weights, palette, margins, layouts, titles, slide count | file |
-| 10, 11, 13 | title strand as a story, direction contract (a default-look ground is reported as an observation), render review (also: does the title match the exhibit, does the slide contradict another one) | judgement, listed as open items |
+| 10, 11, 13 | title strand as a story, direction contract (a default-look ground is reported as an observation), render review (also: does the title match the exhibit, does the slide contradict another one, do title and exhibit count the same unit, does the source line cover every external fact); deck-level observations: one term with a hyphen and with a space, the same sentence of five or more words on three or more slides | judgement, listed as open items; the two observations from the file |
 
 ### Detector rules
 
@@ -136,7 +136,7 @@ What it checks:
 | `stat-row` / `number-card` | fail / observation | two or more big numbers (40 pt and up) in boxes in a row / one big number in a card |
 | `side-stripe`, `border-on-rounded` | fail | a thin colour bar flush with a box edge / a 2 pt outline on a rounded box |
 | `glass-stack` | fail | more than one translucent panel on a slide |
-| `kicker` | fail in `talk`/`pitch`, observation otherwise | a short capitalised or tracked label directly above the title |
+| `kicker` | fail in `talk`/`pitch`, observation otherwise | a short capitalised or tracked label directly above the title; in `read` and `update` a label at the same position on three or more slides is a chapter tracker and produces no finding (a tracker that repeats the start of its title is an observation) |
 | `numbered-labels` | observation | labels 01, 02, 03 |
 | `buzzword` | fail | filler words from a German and English list |
 | `question-title` | fail | a title ending in a question mark |
@@ -145,6 +145,7 @@ What it checks:
 | `shape-illustration` | observation | twelve or more small text-less shapes clustered: a picture built from primitives (rules, connectors and arrows do not count) |
 | `default-look` | observation | a violet-blue, cream or dark navy ground on at least half the slides |
 | `placeholder-text` | fail | unintended unfilled content: PLATZHALTER, TODO, TBD, Lorem ipsum, a bare "XX", `[...]`, `<<..>>`, `___`, `[insert ..]`, "to be added"; also totalled once at deck level (waivable) |
+| `placeholder-foreign-format` | fail | the same in single brackets: `[PLATZHALTER: ..]`, `[XX]`, `[TBD]`, `[insert ..]`, `[Name einfügen]`; one finding per slide, one line in the console rollup, fix is conversion to `[[type: label]]` (a `placeholder-text` waiver covers it) |
 | `placeholder-intentional` | observation / fail | `[[type: label]]`: an observation, listed in the report, when the brief allows placeholders (`Placeholders: allowed`), otherwise a fail |
 
 Panels with header bands, row labels in grey fields, status marks ("Preliminary", "Draft") and single functional boxes are deliberately not flagged; these were corrected against real consulting decks.

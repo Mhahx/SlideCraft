@@ -624,6 +624,7 @@ class Shape:
         self.is_source = False
         self.chart = None        # dict for charts
         self.table_margin_issues = []
+        self.table_rows = []     # per table row: {'h': declared height pt, 'need': estimated height pt of its text, or None}
         self.cell_fills = []
         self.ref = ''
 
@@ -778,6 +779,8 @@ def parse_slide(ctx):
                             if width and ml + mr >= 0.6 * width and ''.join(t.text or '' for t in tc.iter(A + 't')).strip():
                                 s.table_margin_issues.append('column %d: margins %.0f + %.0f pt in a %.0f pt wide cell' % (ci + 1, ml / EMU_PT, mr / EMU_PT, width / EMU_PT))
                             ci += span
+                    for tr in gd.iter(A + 'tr'):
+                        s.table_rows.append({'h': int(tr.get('h') or 0) / EMU_PT, 'need': table_row_need(ctx, tr, col_w, s.ref)})
                     rows_h = sum(int(tr.get('h') or 0) for tr in gd.iter(A + 'tr')) / EMU_PT
                     cols_w = sum(int(gc.get('w') or 0) for gc in gd.iter(A + 'gridCol')) / EMU_PT
                     if s.bbox is not None and (rows_h > s.bbox[3] or cols_w > s.bbox[2]):
@@ -978,6 +981,116 @@ def estimate_lines(s):
     return lines, height + s.insets[1] + s.insets[3]
 
 
+def tracker_groups(cands):
+    """cands: {slide: {'x','y',..}} of kicker candidates. Groups of at least three slides whose label sits at the same
+    position (2 pt): a chapter tracker rather than a kicker."""
+    groups = []
+    for n, it in sorted(cands.items()):
+        for g in groups:
+            if abs(g['x'] - it['x']) <= 2.0 and abs(g['y'] - it['y']) <= 2.0:
+                g['slides'].append(n)
+                break
+        else:
+            groups.append({'x': it['x'], 'y': it['y'], 'slides': [n]})
+    return [g for g in groups if len(g['slides']) >= 3]
+
+
+def _plain_words(text):
+    return re.findall(r'[^\W_]+', text.lower())
+
+
+def starts_with_words(title, label):
+    lw, tw = _plain_words(label), _plain_words(title)
+    return bool(lw) and tw[:len(lw)] == lw
+
+
+HYPHEN_TERM_RE = re.compile(r'(?<![\w-])([^\W\d_]{3,})-([^\W\d_]{3,})(?![\w-])')
+
+
+def term_variants(slide_texts):
+    """Two-part terms written with a hyphen on one slide and with a space on another ('Management-Diagnostik' /
+    'Management Diagnostik'). Returns [(hyphen form, slides, space form, slides)]."""
+    joined = {n: '\n'.join(ts) for n, ts in slide_texts.items()}
+    hyph = {}
+    for n, t in joined.items():
+        for m in HYPHEN_TERM_RE.finditer(t):
+            hyph.setdefault((m.group(1).lower(), m.group(2).lower()), {}).setdefault(m.group(0), set()).add(n)
+    out = []
+    for (a, b), forms in sorted(hyph.items()):
+        rx = re.compile(r'(?<![\w-])%s[  ]+%s(?![\w-])' % (re.escape(a), re.escape(b)), re.I)
+        spaced = {}
+        for n, t in joined.items():
+            for m in rx.finditer(t):
+                spaced.setdefault(re.sub(r'\s+', ' ', m.group(0)), set()).add(n)
+        if spaced:
+            h_form = sorted(forms)[0]
+            s_form = sorted(spaced)[0]
+            out.append((h_form, sorted(set().union(*forms.values())), s_form, sorted(set().union(*spaced.values()))))
+    return out
+
+
+def repeated_phrases(slide_paras, n=5, min_slides=3):
+    """Runs of at least n words that occur on min_slides or more slides. Returns [(phrase, [slides])], longest first."""
+    toks = {sl: [_plain_words(p) for p in ps] for sl, ps in slide_paras.items()}
+    seen = {}
+    for sl, plist in toks.items():
+        for t in plist:
+            for k in range(len(t) - n + 1):
+                seen.setdefault(tuple(t[k:k + n]), set()).add(sl)
+    freq = {g for g, s in seen.items() if len(s) >= min_slides}
+    if not freq:
+        return []
+    runs = {}
+    for sl, plist in toks.items():
+        for t in plist:
+            k = 0
+            while k <= len(t) - n:
+                if tuple(t[k:k + n]) in freq:
+                    e = k + n
+                    while e < len(t) and tuple(t[e - n + 1:e + 1]) in freq:
+                        e += 1
+                    runs.setdefault(' '.join(t[k:e]), set()).add(sl)
+                    k = e
+                else:
+                    k += 1
+    keep = {p: s for p, s in runs.items() if len(s) >= min_slides}
+    keep = {p: s for p, s in keep.items() if not any(q != p and p in q and keep[q] >= s for q in keep)}
+    return sorted(((p, sorted(s)) for p, s in keep.items()), key=lambda kv: (-len(kv[0]), kv[0]))
+
+
+def table_row_need(ctx, tr, col_w, ref):
+    """Estimated height in pt that the text of one table row needs (0.5 em glyph width, 1.2 line height, cell margins),
+    or None when a cell's size is unknown. A row is at least as tall as its declared height and grows with its
+    tallest cell; cells that span rows are left out (they would overstate the row)."""
+    need, ci = 0.0, 0
+    for tc in tr.findall(A + 'tc'):
+        span = int(tc.get('gridSpan') or 1)
+        width = sum(col_w[ci:ci + span])
+        ci += span
+        if tc.get('vMerge') or tc.get('hMerge') or int(tc.get('rowSpan') or 1) > 1:
+            continue
+        tx = tc.find(A + 'txBody')
+        if tx is None or not width:
+            continue
+        pr = tc.find(A + 'tcPr')
+        def edge(name, default):
+            return (int(pr.get(name)) if pr is not None and pr.get(name) else default) / EMU_PT
+        inner = width / EMU_PT - edge('marL', 91440) - edge('marR', 91440)
+        height = edge('marT', 45720) + edge('marB', 45720)
+        for para in read_paragraphs(ctx, tx, None, None, None, ref):
+            txt = ''.join(r['text'] for r in para)
+            sizes = [r['size'] for r in para if r['size']]
+            if not txt.strip():
+                continue
+            if not sizes or inner <= 0:
+                return None
+            sz = max(sizes)
+            lines = max(1, math.ceil(len(txt) / max(1.0, inner / (0.5 * sz))))
+            height += lines * sz * 1.2
+        need = max(need, height)
+    return need
+
+
 def text_x_extent(s):
     """Where the text of a box can reach horizontally, (x0, x1) in pt, from the same 0.5 em glyph-width estimate
     as estimate_lines (0.55 em for bold). A box wider than its text is mostly empty: two such boxes may overlap
@@ -1083,10 +1196,14 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     insets = []         # (inset pt, ref) of shapes considered for the margin check
     number_use = {}     # number token (not a bare year) -> set of slide numbers it appears on
     placeholder_hits = {}   # slide number -> count of unintended placeholder hits on that slide
+    placeholder_rules = set()   # which unintended-placeholder rules fired anywhere in the deck
     intended_ph = []        # intentional [[type: label]] placeholders: slide, ref, type, label
     ph_allowed = plan_placeholders if placeholders is None else bool(placeholders)
     chart_sizes = set()
     slide_facts = []
+    slide_texts = {}        # slide number -> texts of its text and table shapes, for the cross-slide consistency checks
+    slide_paras = {}        # slide number -> paragraphs outside the footnote zone (for repeated sentences)
+    kicker_cands = {}       # slide number -> the kicker finding's item (ref, text, x, y), for the tracker rule
 
     for (i, ctx, shapes, bg, ltype, lname) in slides:
         checks = []
@@ -1110,6 +1227,9 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 chars += len(t.replace('\n', ''))
                 counted.append(s.ref)
                 ext_numbers.extend(EXT_NUMBER_RE.findall(t))
+                slide_texts.setdefault(i, []).append(t)
+                if s.bbox is not None and s.bbox[1] < sh - MARGIN_PT - 60:
+                    slide_paras.setdefault(i, []).extend(''.join(r['text'] for r in p) for p in s.paras)
             elif s.kind == 'chart' and s.chart:
                 for t in s.chart['texts']:
                     words += len(words_of(t))
@@ -1281,6 +1401,29 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                     over.append('%s needs ~%.0f pt, box %.0f pt' % (s.ref, est[1], s.bbox[3]))
         checks.append(chk('3', 'text overflow', 'estimate (0.5 em glyph width, not a render)', 'observation',
                           value=len(over), evidence='; '.join(over[:5]) if over else 'no estimated overflow (unreliable for non-safe fonts)'))
+        # a table row is as tall as its tallest cell needs, whatever the stored row height says (0.25: the one real overflow
+        # risk of a draft was a table whose fixed 30 pt rows would grow past the source line, and a substituted font made every
+        # render finding unreliable, so this is read from the file)
+        for s in shapes:
+            if s.kind != 'table' or not s.table_rows or s.bbox is None or any(r['need'] is None for r in s.table_rows):
+                continue
+            declared = sum(r['h'] for r in s.table_rows)
+            grown = sum(max(r['h'], r['need']) for r in s.table_rows)
+            top = s.bbox[1]
+            below = [o.bbox[1] for o in shapes if o is not s and o.bbox is not None and o.kind not in ('other',) and not is_ground(o, sw, sh)
+                     and o.bbox[1] >= top + declared - TOL and min(s.bbox[0] + s.bbox[2], o.bbox[0] + o.bbox[2]) - max(s.bbox[0], o.bbox[0]) > TOL]
+            limit_y = min(below) if below else sh - MARGIN_PT
+            grew = [n + 1 for n, r in enumerate(s.table_rows) if r['need'] > r['h'] + 0.5]
+            if top + grown > limit_y + 1.0:
+                checks.append(chk('3', 'table height with wrapped cell text', 'estimate (0.5 em glyph width, not a render)', 'observation',
+                                  value=round(top + grown), limit=round(limit_y),
+                                  evidence='%s: %d row(s) (%s) need more than their fixed height, the table grows from %.0f to ~%.0f pt and ends at ~%.0f pt, '
+                                           'the next shape or the margin starts at %.0f pt; cut the text, widen the column or lower the size'
+                                           % (s.ref, len(grew), ', '.join(str(n) for n in grew[:6]), declared, grown, top + grown, limit_y)))
+            else:
+                checks.append(chk('3', 'table height with wrapped cell text', 'estimate (0.5 em glyph width, not a render)', 'pass',
+                                  value=round(top + grown), limit=round(limit_y),
+                                  evidence='%s ends at ~%.0f pt, the next shape or the margin starts at %.0f pt' % (s.ref, top + grown, limit_y)))
 
         # -- 5 colour and contrast
         pairs = []
@@ -1522,8 +1665,11 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             checks.append(chk('1' if f['rule'] == 'question-title' else '9', 'refuse [%s]: %s' % (f['rule'], detect_mod.RULES[f['rule']]),
                               'file (detector)', st, value=f['value'],
                               evidence=f['evidence'] + ('; waived by brief' if st == 'waived' else '')))
-            if f['rule'] == 'placeholder-text' and f['value']:
-                placeholder_hits[i] = f['value']
+            if f['rule'] in ('placeholder-text', 'placeholder-foreign-format') and f['value']:
+                placeholder_hits[i] = placeholder_hits.get(i, 0) + f['value']
+                placeholder_rules.add(f['rule'])
+            if f['rule'] == 'kicker' and f.get('items'):
+                kicker_cands[i] = f['items'][0]
             if f['rule'] == 'placeholder-intentional':
                 intended_ph.extend(dict(slide=i, **it) for it in (f.get('items') or []))
         if not findings:
@@ -1551,6 +1697,21 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
 
     # ---- deck-level checks
     deck = report['deck']
+    # a short label at the same position on three or more slides is a chapter tracker (read, update): no kicker finding
+    # (0.25: 12 observations for one tracker); the talk and pitch profiles keep the kicker rule
+    if profile_name in ('read', 'update'):
+        for g in tracker_groups(kicker_cands):
+            for sl in report['slides']:
+                if sl['n'] not in g['slides']:
+                    continue
+                sl['checks'] = [c for c in sl['checks'] if not c['name'].startswith('refuse [kicker]')]
+                label = kicker_cands[sl['n']]['text']
+                if sl.get('title') and starts_with_words(sl['title'], label):
+                    sl['checks'].append(chk('9', 'chapter tracker repeats the start of the title', 'file', 'observation',
+                                            evidence='%s "%s" opens the title "%s" too; the tracker should name the chapter, the title the claim'
+                                                     % (kicker_cands[sl['n']]['ref'], label[:40], sl['title'][:60])))
+            deck.append(chk('9', 'chapter tracker at a fixed position (not a kicker)', 'file', 'pass', value=len(g['slides']),
+                            evidence='slides %s carry a short label at x %.0f, y %.0f pt: a tracker, allowed in %s' % (g['slides'], g['x'], g['y'], profile_name)))
     if deck_fonts:
         fam = sorted(deck_fonts)
         deck.append(chk('2', 'at most 2 font families', 'file', 'pass' if len(fam) <= 2 else 'fail', value=fam, limit=2,
@@ -1593,6 +1754,16 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 lefts.setdefault(round(s['bbox_pt'][0]), set()).add(sl['n'])
     deck.append(chk('4', 'distinct left edges of text shapes', 'file', 'observation', value=len(lefts),
                     evidence='x positions (pt): %s. Optical alignment is not measured.' % sorted(lefts)[:12]))
+    variants = term_variants(slide_texts)
+    if variants:
+        deck.append(chk('13', 'one term written in two ways (hyphen and space)', 'file (text)', 'observation', value=len(variants),
+                        evidence='; '.join('"%s" on slides %s, "%s" on slides %s' % (h, hs, sp, ss) for h, hs, sp, ss in variants[:4])
+                        + '. Pick one spelling and use it everywhere (render review item 13f, the mechanical half).'))
+    phrases = repeated_phrases(slide_paras)
+    if phrases:
+        deck.append(chk('13', 'the same sentence or phrase (5 words or more) on three or more slides', 'file (text)', 'observation', value=len(phrases),
+                        evidence='; '.join('"%s" on slides %s' % (p[:70] + ('...' if len(p) > 70 else ''), ns) for p, ns in phrases[:4])
+                        + '. A refrain can be deliberate; usually it is a lead sentence copied instead of written for each slide.'))
     repeats = {tok: sorted(ns) for tok, ns in number_use.items() if len(ns) >= 2}
     if repeats:
         deck.append(chk('7', 'same number recurs across slides', 'file', 'observation', value=len(repeats),
@@ -1601,7 +1772,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     if placeholder_hits:
         total = sum(placeholder_hits.values())
         by_slide = ', '.join('slide %d (%d)' % (n, c) for n, c in sorted(placeholder_hits.items())[:10])
-        waived = detect_mod.is_waived('placeholder-text', waivers)   # the total follows the per-slide findings (0.24 fix)
+        waived = all(detect_mod.is_waived(r, waivers) for r in placeholder_rules)   # the total follows the per-slide findings (0.24 fix)
         deck.append(chk('9', 'unintended placeholder text left in the deck (total)', 'file (detector)',
                         'waived' if waived else 'fail', value=total,
                         evidence='%d hit(s) on %d slide(s): %s%s' % (total, len(placeholder_hits), by_slide, '; waived by brief' if waived else '')))
@@ -1702,14 +1873,17 @@ def format_summary(rep):
              'fail %d  observation %d  pass %d  not_measured %d  waived %d' %
              (s.get('fail', 0), s.get('observation', 0), s.get('pass', 0), s.get('not_measured', 0), s.get('waived', 0))]
     deck_fails = [c for c in rep['deck'] if c['status'] == 'fail']
-    slide_fails = [(sl['n'], c) for sl in rep['slides'] for c in sl['checks'] if c['status'] == 'fail']
+    # placeholders are one line for the whole deck (the deck total names the slides), not one line per slide (0.25)
+    collapsed = any(c['name'].startswith('unintended placeholder') and c['status'] == 'fail' for c in rep['deck'])
+    slide_fails = [(sl['n'], c) for sl in rep['slides'] for c in sl['checks'] if c['status'] == 'fail'
+                   and not (collapsed and c['name'].startswith(('refuse [placeholder-text]', 'refuse [placeholder-foreign-format]')))]
     if not deck_fails and not slide_fails:
         lines.append('no fails.')
     else:
         for n, c in slide_fails:
             lines.append('slide %d [%s] %s: %s' % (n, c['id'], c['name'], (c.get('evidence') or '')[:160]))
         for c in deck_fails:
-            lines.append('deck [%s] %s: %s' % (c['id'], c['name'], (c.get('evidence') or '')[:160]))
+            lines.append('deck [%s] %s: %s' % (c['id'], c['name'], (c.get('evidence') or '')[:300 if c['name'].startswith('unintended placeholder') else 160]))
     obs = collections.Counter()
     for sl in rep['slides']:
         for c in sl['checks']:

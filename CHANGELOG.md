@@ -2,6 +2,22 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## 0.25 (0.25.0)
+
+Findings of a critique run of 0.24 on a real 13-slide German draft (Segoe UI, profile `read`), checked against the code. The run showed noise, not missing checks, as the larger problem: 61 placeholder hits and 12 kicker observations covered the 5 or 6 real findings. 137 tests (12 new), all green.
+
+| Finding | Change |
+|---|---|
+| Selawik could not be installed in the sandbox, so every render overflow finding was unreliable, including the one real risk (a table on slide 8 whose fixed 30 pt rows would grow past the source line) | New check 3 "table height with wrapped cell text", read from the file: each row is as tall as its tallest cell needs (0.5 em glyph width, 1.2 line height, cell margins), the sum is compared with the next shape below the table or the bottom margin. Observation, no render needed. `SKILL.md` says to read the file-based estimates when the font cannot be installed |
+| 61 bracketed `[PLATZHALTER ..]` hits drowned the report | Bracketed placeholders (`[PLATZHALTER ..]`, `[XX]`, `[TBD]`, `[insert ..]`, `[Name einfügen]`) are their own rule `placeholder-foreign-format`: one finding per slide with the count and two examples, the fix (conversion to `[[type: label]]`) in the evidence. Still a fail. The console rollup prints placeholders as one deck line naming the slides. A `placeholder-text` waiver covers the new rule |
+| 12 `kicker` observations for one chapter tracker | In `read` and `update`, a short label at the same position (2 pt) on three or more slides is a tracker and produces no kicker finding (a deck-level pass entry names the slides). New observation when the tracker repeats the start of its title ("Nächster Schritt" over "Nächster Schritt: ein Gespräch …"). `talk` and `pitch` keep the kicker fail |
+| "Management Diagnostik" and "Management-Diagnostik" on two slides went unnoticed | New deck-level observation (check 13, mechanical half of 13f): a two-part term written with a hyphen on one slide and with a space on another |
+| The same key sentence on slides 2, 3 and 5 went unnoticed | New deck-level observation: a run of five or more words on three or more slides. Five, not four: source lines and lead-ins repeat four words on every deck. Source lines, footers and anything in the footnote zone are left out |
+| The verdict of a critique flipped once the purpose turned out to be "general first-contact deck" | `commands.md`: the report opens with the assumed profile and purpose; if the story verdict depends on an unknown purpose, one question or "depends on purpose" on each affected finding |
+| Title counted "Mandate", the table column "Besetzungen"; a source line covered one external fact of two; a generic cover title was exempt from everything | Render review 13g (same unit in title and exhibit) and 13h (source line covers every external fact), and the rule of thumb of `refuse.md` applies to the cover explicitly. Judgement items, not scripted |
+
+**Declined, with reasons:** a pinned Selawik download URL in `SKILL.md` (the failure was a blocked network, not a missing address; a hard-coded release URL goes stale and could not be tested from the sandbox where it failed); resolving "im Anhang" / "auf Folie N" against the slide order (needs to know where the appendix starts, low recall, fragile); a composition signature per slide for repeated layouts (thresholds would be guessed without the deck as a fixture; 13c stays a render judgement); contrast between category colours (the map in the report was a JPG, which the script would not see; legend swatches made of shapes cannot be told from other small shapes reliably). Not started from the earlier list of 21 items: claim-title naming, evidence block per key number, `--baseline`, `Terminology:` and `Tailoring:` plan fields, `pre-send`, the second-model review prompt.
+
 ## 0.24 (0.24.0)
 
 Findings of a review run on a real 4-slide board deck (a deck built in the same session as the review), checked against the code: everything that could be reproduced was. 125 tests (11 new), all green.

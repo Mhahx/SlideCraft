@@ -33,6 +33,7 @@ RULES = {
     'shape-illustration': 'picture assembled from many simple shapes',
     'glass-stack': 'more than one translucent glass panel on a slide',
     'placeholder-text': 'unintended placeholder or filler text left on the slide',
+    'placeholder-foreign-format': 'placeholder in a bracketed foreign format ([PLATZHALTER ..], [XX], [insert ..]) instead of [[type: label]]',
     'placeholder-intentional': 'intentional placeholder [[type: label]] (brief: Placeholders)',
 }
 
@@ -47,10 +48,13 @@ INTENTIONAL_PH_RE = re.compile(r'\[\[\s*([^:\[\]]{1,30}?)\s*:\s*([^\[\]]{1,80}?)
 # wording on an open-points slide.
 PLACEHOLDER_RE = re.compile(
     r'\bplatzhalter\b|\btodo\b|\btbd\b|\btbc\b|lorem\s+ipsum|\bxx\b|'
-    r'\[\s*(?:\.\.\.|…|xx+|tbd|todo|platzhalter)\s*\]|'
+    r'\[\s*(?:\.\.\.|…)\s*\]|'
     r'<<[^<>]{1,60}>>|_{3,}|'
-    r'\[[^\[\]]{0,40}\b(?:insert|einf\u00fcgen|einfuegen|eintragen|erg\u00e4nzen)\b[^\[\]]{0,40}\]|'
     r'\bto be (?:added|inserted|filled(?: in)?)\b|\bnoch (?:zu )?(?:erg\u00e4nzen|einf\u00fcgen|eintragen)\b', re.I)
+# 0.25: the same idea in single brackets, [PLATZHALTER: Umsatz 2025], [XX] Mio., [Kundenname einf\u00fcgen]. Reported as one
+# finding per slide with its own rule id, because the fix is a conversion to [[type: label]], not a rewrite.
+FOREIGN_PH_RE = re.compile(
+    r'\[[^\[\]]{0,80}?\b(?:platzhalter|placeholder|tbd|todo|xx+|insert|einf\u00fcgen|einfuegen|eintragen|erg\u00e4nzen)\b[^\[\]]{0,80}\]', re.I)
 # status marks are trackers, not kickers (rules-core glossary; MCK-DC p8, BCG-IRA p10, BAIN-IABC p9)
 STATUS_RE = re.compile(r'(preliminary|draft|confidential|proprietary|pre-decisional|illustrative|not exhaustive|non-exhaustive|for discussion|'
                        r'vorl\u00e4ufig|entwurf|vertraulich|illustrativ|nicht abschlie\u00dfend|zur diskussion)', re.I)
@@ -281,7 +285,8 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd, placeholders_al
                 if style:
                     st = 'fail' if profile in ('talk', 'pitch') else 'observation'
                     add('kicker', st, '%s "%s" sits %.0f pt above the title%s' % (t.ref, t.text.strip()[:40], gap,
-                        '' if st == 'fail' else '; allowed in %s only as a tracker (status or chapter, fixed position)' % profile))
+                        '' if st == 'fail' else '; allowed in %s only as a tracker (status or chapter, fixed position)' % profile),
+                        items=[{'ref': t.ref, 'text': t.text.strip(), 'x': x, 'y': y}])
                     break
 
     # numbered-labels
@@ -299,12 +304,19 @@ def detect_slide(shapes, bg, sw, sh, title, profile, exempt, cd, placeholders_al
         add('buzzword', 'fail', '; '.join(hits[:6]), len(hits))
 
     # placeholders: unintended ones are always a fail; intentional [[type: label]] ones follow the brief
-    ph_hits, intended = [], []
+    ph_hits, foreign, intended = [], [], []
     for t_ in texts:
         for m in INTENTIONAL_PH_RE.finditer(t_.text):
             intended.append({'ref': t_.ref, 'type': m.group(1).strip(), 'label': m.group(2).strip()})
-        for m in PLACEHOLDER_RE.finditer(INTENTIONAL_PH_RE.sub(' ', t_.text)):
+        rest = INTENTIONAL_PH_RE.sub(' ', t_.text)
+        for m in FOREIGN_PH_RE.finditer(rest):
+            foreign.append('"%s" in %s' % (m.group(0)[:50], t_.ref))
+        for m in PLACEHOLDER_RE.finditer(FOREIGN_PH_RE.sub(' ', rest)):
             ph_hits.append('"%s" in %s' % (m.group(0), t_.ref))
+    if foreign:
+        add('placeholder-foreign-format', 'fail',
+            '%d bracketed placeholder(s), e.g. %s; if the brief allows placeholders, convert them to [[type: label]], otherwise fill or cut them'
+            % (len(foreign), '; '.join(foreign[:2])), len(foreign))
     if ph_hits:
         add('placeholder-text', 'fail', '; '.join(ph_hits[:6]), len(ph_hits))
     if intended:
@@ -427,4 +439,7 @@ def _is_navy(h, cd):
 
 
 def is_waived(rule, waivers):
-    return bool(waivers) and re.search(r'(?<![\w-])%s(?![\w-])' % re.escape(rule), waivers, re.I) is not None
+    if not waivers:
+        return False
+    rules = [rule] + (['placeholder-text'] if rule == 'placeholder-foreign-format' else [])   # 0.25: a waiver of placeholder-text still covers the bracketed form
+    return any(re.search(r'(?<![\w-])%s(?![\w-])' % re.escape(r), waivers, re.I) is not None for r in rules)
