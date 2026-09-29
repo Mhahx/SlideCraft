@@ -4,7 +4,24 @@ All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` 
 
 ## Unreleased
 
-Slimming review: what must always be in context (`SKILL.md`), what is loaded on demand (references), what is duplicated or does nothing. No rule was dropped that prevents a specific AI pattern or error; only duplicates, project history and a ritual block. No script logic changed.
+### Pass 2: judgement rules made measurable
+
+Five judgement items of `refuse.md` and `rules-core.md` became detector rules, all observations until calibrated; the render finding names the font package to install. 133 tests (7 new), all green.
+
+| Rule | Measures | Replaces |
+|---|---|---|
+| `thank-you-slide` | title is only "Danke", "Thank you", "Fragen?" and at most 6 further words, no chart or table | judgement "closing or thank-you slides without content" |
+| `bold-colon-list` | 3 or more paragraphs opening with a bold "keyword:" (up to 4 words) and regular text | judgement "bold keyword, colon and half-sentence" |
+| `photo-count` | 2 or more pictures of at least 5 % of the slide; P12 and P14 exempt | "one good image beats many" without a number |
+| `heading-spacing` | a single-paragraph bold heading (up to 8 words) closer to the block above than to the text or exhibit it heads on its own left edge, within its panel | "more space above a heading than below" without a check |
+| `grey-on-colour` | a run in neutral grey (saturation under 0.15) on a chromatic surface | "secondary text derived from the surface's hue" without a check |
+| font report | a missing metric-compatible substitute names its package (`fonts-crosextra-carlito`, Selawik …); no known substitute: leave 10 % slack | the install list in `SKILL.md` (moved to `tools.md` in pass 1) |
+
+Two false alarms of `heading-spacing` found on the test-run decks before release (a bold table cell above the page number, a highlighted timeline station) led to the left-edge and panel conditions. Not done, with reasons: the neon accent (no decks to calibrate on), edge alignment, the 8 pt scale and cards as default container (tolerances need real decks first).
+
+### Pass 1 and test runs
+
+Slimming review: what must always be in context (`SKILL.md`), what is loaded on demand (references), what is duplicated or does nothing. No rule was dropped that prevents a specific AI pattern or error; only duplicates, project history and a ritual block. Pass 1 changed no script logic.
 
 | Change | Why |
 |---|---|

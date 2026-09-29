@@ -552,6 +552,12 @@ class RenderAnalysis(unittest.TestCase):
         self.assertEqual(unreliable, set())
         self.assertIn('drawn as selawik', ev)
 
+    def test_missing_substitute_names_what_to_install(self):
+        _, _, ev, _ = rendermod.font_report(['Calibri', 'Segoe UI', 'Comic Sans MS'], ['DejaVuSans'])
+        self.assertIn('install fonts-crosextra-carlito', ev)
+        self.assertIn('install Selawik', ev)
+        self.assertIn('no metric-compatible substitute is known', ev)       # Comic Sans: slack, not an install hint
+
     def test_missing_renderer_is_not_measured(self):
         orig = rendermod.find_soffice
         rendermod.find_soffice = lambda: None
@@ -1403,6 +1409,74 @@ class ReviewFindings(unittest.TestCase):
             finally:
                 sys.stdout = old
         self.assertIn('[P3] fail', out.getvalue())
+
+
+def _pic(idn, x, y, w, h):
+    return ('<p:pic><p:nvPicPr><p:cNvPr id="%d" name="Photo %d"/><p:cNvPicPr/><p:nvPr/></p:nvPicPr>'
+            '<p:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>'
+            '<p:spPr><a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm>'
+            '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic>' % (idn, idn, x * PT, y * PT, w * PT, h * PT))
+
+
+def _runs_sp(idn, x, y, w, h, paras, color='111111', fill=None):
+    """A text box in pt; paras: list of paragraphs, each a list of (text, bold)."""
+    f = '<a:solidFill><a:srgbClr val="%s"/></a:solidFill>' % fill if fill else '<a:noFill/>'
+    ps = ''.join('<a:p>%s</a:p>' % ''.join(
+        '<a:r><a:rPr lang="de-DE" sz="1800" b="%d"><a:solidFill><a:srgbClr val="%s"/></a:solidFill><a:latin typeface="Arial"/>'
+        '</a:rPr><a:t xml:space="preserve">%s</a:t></a:r>' % (1 if b else 0, color, t) for t, b in p) for p in paras)
+    return ('<p:sp><p:nvSpPr><p:cNvPr id="%d" name="T%d"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr>'
+            '<a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom>%s</p:spPr>'
+            '<p:txBody><a:bodyPr/><a:lstStyle/>%s</p:txBody></p:sp>' % (idn, idn, x * PT, y * PT, w * PT, h * PT, f, ps))
+
+
+class MeasurableJudgements(unittest.TestCase):
+    """Pass 2 of the slimming review: judgement items of refuse.md and rules-core.md made measurable.
+    Every new rule is an observation; each is shown to fire on a synthetic slide and to stay quiet on its fix."""
+
+    def rules(self, body, title='Pricing explains most of the 12 % gain'):
+        return detector(run_on(build_pptx([title_sp(title) + body])))
+
+    def test_thank_you_slide(self):
+        r = self.rules('', title='Vielen Dank!')
+        self.assertEqual(r['thank-you-slide']['status'], 'observation')
+        self.assertNotIn('thank-you-slide', self.rules(_runs_sp(10, 48, 160, 600, 60, [[('Heute entscheiden: welcher Report', False)]]),
+                                                        title='Wir starten mit einem Pilot'))
+
+    def test_bold_colon_list(self):
+        items = [[('Versionen:', True), (' mehrere Dateien', False)], [('Stand', True), (': von Hand kopiert', False)],
+                 [('Fehler:', True), (' fallen spät auf', False)]]
+        r = self.rules(_runs_sp(10, 48, 160, 700, 200, items))
+        self.assertEqual(r['bold-colon-list']['status'], 'observation')
+        self.assertEqual(r['bold-colon-list']['value'], 3)
+        sentences = [[('Mehrere Dateien erzeugen mehrere Wahrheiten.', False)]] * 3
+        self.assertNotIn('bold-colon-list', self.rules(_runs_sp(10, 48, 160, 700, 200, sentences)))
+
+    def test_photo_count(self):
+        two = _pic(20, 48, 160, 400, 260) + _pic(21, 480, 160, 400, 260)
+        self.assertEqual(self.rules(two)['photo-count']['value'], 2)
+        logo = _pic(20, 48, 160, 400, 260) + _pic(21, 840, 480, 60, 30)      # a logo is not a second photo
+        self.assertNotIn('photo-count', self.rules(logo))
+
+    def test_heading_spacing(self):
+        above = _runs_sp(10, 48, 150, 600, 46, [[('Context paragraph above the group.', False)]])
+        head = _runs_sp(11, 48, 200, 600, 24, [[('Second group', True)]])
+        tight = self.rules(above + head + _runs_sp(12, 48, 240, 600, 60, [[('Body text of the second group.', False)]]))
+        self.assertEqual(tight['heading-spacing']['status'], 'observation')
+        roomy = self.rules(_runs_sp(10, 48, 150, 600, 26, [[('Context paragraph above the group.', False)]]) + head
+                           + _runs_sp(12, 48, 232, 600, 60, [[('Body text of the second group.', False)]]))
+        self.assertNotIn('heading-spacing', roomy)
+
+    def test_grey_on_colour(self):
+        on_blue = _runs_sp(10, 48, 160, 600, 60, [[('Secondary note on the blue panel', False)]], color='777777', fill='1F6FB2')
+        self.assertEqual(self.rules(on_blue)['grey-on-colour']['status'], 'observation')
+        on_white = _runs_sp(10, 48, 160, 600, 60, [[('Secondary note on white', False)]], color='595959')
+        self.assertNotIn('grey-on-colour', self.rules(on_white))
+
+    def test_no_new_rule_fires_on_the_good_fixture(self):
+        new = {'thank-you-slide', 'bold-colon-list', 'photo-count', 'heading-spacing', 'grey-on-colour'}
+        rep = cd.analyse(cd.Package(os.path.join(FIX, 'good.pptx')), 'good', 'read', set(), 'auto')
+        for n in range(1, len(rep['slides']) + 1):
+            self.assertFalse(new & set(detector(rep, n)), n)
 
 
 if __name__ == '__main__':

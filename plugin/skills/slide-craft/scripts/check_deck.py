@@ -1516,7 +1516,8 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         if heur:
             checks.append(chk('9', 'accent line under title / side stripe (heuristic)', 'estimate (geometry heuristic)', 'observation', value=len(heur), evidence='; '.join(heur[:4])))
         # -- 9 detector for typical AI-slide patterns (scripts/detect.py)
-        findings = detect_mod.detect_slide(shapes, bg, sw, sh, title, profile_name, exempt, sys.modules[__name__], ph_allowed)
+        findings = detect_mod.detect_slide(shapes, bg, sw, sh, title, profile_name, exempt, sys.modules[__name__], ph_allowed,
+                                           layout=lname)
         for f in findings:
             st = 'waived' if f['status'] == 'fail' and detect_mod.is_waived(f['rule'], waivers) else f['status']
             checks.append(chk('1' if f['rule'] == 'question-title' else '9', 'refuse [%s]: %s' % (f['rule'], detect_mod.RULES[f['rule']]),
