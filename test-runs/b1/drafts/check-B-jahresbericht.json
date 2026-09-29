@@ -1,0 +1,989 @@
+{
+  "file": "B-jahresbericht.pptx",
+  "profile": "read",
+  "thresholds": {
+    "title_min": 20,
+    "title_max": 28,
+    "title_words": 15,
+    "body_min": 14,
+    "foot_min": 8,
+    "words": 250,
+    "chars": 1500,
+    "fill": 0.75
+  },
+  "slide_size_pt": [
+    960.0,
+    540.0
+  ],
+  "slide_size_check": {
+    "id": "0",
+    "name": "slide size is 13.33 x 7.5 in (960 x 540 pt)",
+    "method": "file",
+    "status": "pass",
+    "value": [
+      960.0,
+      540.0
+    ],
+    "limit": [
+      960.0,
+      540.0
+    ],
+    "evidence": "ppt/presentation.xml sldSz"
+  },
+  "slides": [
+    {
+      "n": 1,
+      "part": "ppt/slides/slide1.xml",
+      "layout": "P01 cover",
+      "layout_type": null,
+      "exempt_from_action_title": "layout \"P01 cover\" (patterns.md P01/P02)",
+      "title": "Linie 2 freigeben, Rahmenschweißen auslagern",
+      "shapes": [
+        {
+          "ref": "slide1.xml#3 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            190.0,
+            700.0,
+            130.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            40.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide1.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            64.0,
+            424.0,
+            20.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide1.xml#5 \"Text 2\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            356.0,
+            560.0,
+            70.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            18.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "observation",
+          "value": 5,
+          "evidence": "slide1.xml#3 \"Text 0\": exempt slide type (layout \"P01 cover\" (patterns.md P01/P02))"
+        },
+        {
+          "id": "1",
+          "name": "title fits 2 lines",
+          "method": "estimate (0.5 em glyph width, not a render)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "slide1.xml#3 \"Text 0\"; estimate only, not a threshold"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide1.xml#4 \"Text 1\" 11.0pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow",
+          "method": "estimate (0.5 em glyph width, not a render)",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no estimated overflow (unreliable for non-safe fonts)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 12.01,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 111111 on FFC629 at 11.0 pt (slide1.xml#4 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFC629",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 157,
+          "limit": 1500,
+          "evidence": "counted: slide1.xml#3 \"Text 0\", slide1.xml#4 \"Text 1\", slide1.xml#5 \"Text 2\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 20,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.396,
+          "limit": 0.75,
+          "evidence": "3 shapes counted; within the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "observation",
+          "evidence": "a number in plain text (2026, 2,4) without a chart or table: judgement, source it if it comes from outside the deck"
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide1.xml#3 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no pictures or charts"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide1.xml#3 \"Text 0\""
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "part": "ppt/slides/slide2.xml",
+      "layout": "P04 chart-rail",
+      "layout_type": null,
+      "exempt_from_action_title": null,
+      "title": "Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahren",
+      "shapes": [
+        {
+          "ref": "slide2.xml#3 \"Text 0\"",
+          "kind": "text",
+          "ph": "title",
+          "bbox_pt": [
+            48.0,
+            64.0,
+            864.0,
+            58.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            24.0
+          ],
+          "fonts": [
+            "Cambria"
+          ]
+        },
+        {
+          "ref": "slide2.xml#4 \"Text 1\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            124.0,
+            864.0,
+            18.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#5 \"Shape 2\"",
+          "kind": "shape",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            156.0,
+            277.0,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "EBEBEB",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#6 \"Text 3\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            64.0,
+            172.0,
+            245.0,
+            284.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            14.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#7 \"Chart 0\"",
+          "kind": "chart",
+          "ph": null,
+          "bbox_pt": [
+            341.2,
+            156.0,
+            421.0,
+            300.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [],
+          "fonts": []
+        },
+        {
+          "ref": "slide2.xml#8 \"Text 4\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            768.2,
+            162.0,
+            144.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#9 \"Text 5\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            768.2,
+            252.0,
+            144.0,
+            40.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            11.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#10 \"Text 6\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            48.0,
+            466.0,
+            700.0,
+            36.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        },
+        {
+          "ref": "slide2.xml#11 \"Text 7\"",
+          "kind": "text",
+          "ph": null,
+          "bbox_pt": [
+            872.0,
+            488.0,
+            40.0,
+            16.0
+          ],
+          "bbox_origin": "slide xfrm",
+          "fill": "none",
+          "sizes_pt": [
+            8.0
+          ],
+          "fonts": [
+            "Calibri"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": "1",
+          "name": "title word ceiling",
+          "method": "file",
+          "status": "pass",
+          "value": 13,
+          "limit": 15,
+          "evidence": "slide2.xml#3 \"Text 0\" \"Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahre\""
+        },
+        {
+          "id": "1",
+          "name": "title fits 2 lines",
+          "method": "estimate (0.5 em glyph width, not a render)",
+          "status": "observation",
+          "value": 2,
+          "limit": 2,
+          "evidence": "slide2.xml#3 \"Text 0\"; estimate only, not a threshold"
+        },
+        {
+          "id": "1",
+          "name": "title reads as a claim (has a finite verb)",
+          "method": "heuristic (fixed verb list, low recall)",
+          "status": "observation",
+          "value": false,
+          "evidence": "slide2.xml#3 \"Text 0\" \"Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahre\": no word from the fixed verb list found; check by hand whether this is a topic label, not a claim (heuristic on an incomplete verb list — many valid claims will still trigger it)"
+        },
+        {
+          "id": "2",
+          "name": "title size within profile range",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            24.0
+          ],
+          "limit": "20-28 pt",
+          "evidence": "slide2.xml#3 \"Text 0\" run rPr"
+        },
+        {
+          "id": "2",
+          "name": "no text below footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "limit": "8 pt",
+          "evidence": "all resolved sizes >= minimum"
+        },
+        {
+          "id": "2",
+          "name": "text between footnote and body minimum",
+          "method": "file",
+          "status": "observation",
+          "value": [
+            8.0,
+            11.0
+          ],
+          "limit": "body >= 14 pt",
+          "evidence": "role (body vs label) is only known from the deck plan: slide2.xml#11 \"Text 7\" 8.0pt; slide2.xml#4 \"Text 1\" 11.0pt; slide2.xml#8 \"Text 4\" 11.0pt; slide2.xml#9 \"Text 5\" 11.0pt"
+        },
+        {
+          "id": "2",
+          "name": "source line at or above footnote minimum",
+          "method": "file",
+          "status": "pass",
+          "value": [
+            8.0
+          ],
+          "limit": "8 pt"
+        },
+        {
+          "id": "3",
+          "name": "shapes inside 48 pt margins",
+          "method": "file",
+          "status": "pass",
+          "limit": "48 pt (footer items: 18 pt at the bottom)",
+          "evidence": "all non-ground shapes inside live area"
+        },
+        {
+          "id": "3",
+          "name": "text shapes do not overlap",
+          "method": "file",
+          "status": "pass",
+          "evidence": "no two text-bearing shapes share an area (by the text-width estimate)"
+        },
+        {
+          "id": "3",
+          "name": "text overflow",
+          "method": "estimate (0.5 em glyph width, not a render)",
+          "status": "observation",
+          "value": 0,
+          "evidence": "no estimated overflow (unreliable for non-safe fonts)"
+        },
+        {
+          "id": "5",
+          "name": "text contrast",
+          "method": "computed (WCAG relative luminance from file colours)",
+          "status": "pass",
+          "value": 10.37,
+          "limit": "4.5:1 (large 3.0:1)",
+          "evidence": "worst pair 404040 on FFFFFF at 11.0 pt (slide2.xml#4 \"Text 1\")"
+        },
+        {
+          "id": "5",
+          "name": "chart series contrast (WCAG 1.4.11)",
+          "method": "computed",
+          "status": "pass",
+          "value": 4.54,
+          "limit": "3.0:1",
+          "evidence": "slide2.xml#7 \"Chart 0\" series colours vs surface"
+        },
+        {
+          "id": "5",
+          "name": "slide background resolved",
+          "method": "file",
+          "status": "pass",
+          "value": "FFFFFF",
+          "evidence": "layout bgPr"
+        },
+        {
+          "id": "6",
+          "name": "characters per slide (German rule)",
+          "method": "file",
+          "status": "pass",
+          "value": 596,
+          "limit": 1500,
+          "evidence": "counted: slide2.xml#3 \"Text 0\", slide2.xml#4 \"Text 1\", slide2.xml#6 \"Text 3\", slide2.xml#7 \"Chart 0\" (chart text), slide2.xml#8 \"Text 4\", slide2.xml#9 \"Text 5\""
+        },
+        {
+          "id": "6",
+          "name": "words per slide",
+          "method": "file",
+          "status": "observation",
+          "value": 103,
+          "limit": 250,
+          "evidence": "reported only; character limit applies for German"
+        },
+        {
+          "id": "6",
+          "name": "fill of live area (bounding boxes, union, 8 pt cells)",
+          "method": "script",
+          "status": "observation",
+          "value": 0.788,
+          "limit": 0.75,
+          "evidence": "8 shapes counted; above the starting value; box-based, so text boxes larger than their text overstate the fill. Reported, not a threshold, until the value is calibrated: never shrink an exhibit below its pattern zone to meet it"
+        },
+        {
+          "id": "7",
+          "name": "data slide has source and date",
+          "method": "file",
+          "status": "pass",
+          "evidence": "source line: \"Quelle: Szenariorechnung Controlling, 02.10.2026; Angebot Anlagenlieferant, 18.0\""
+        },
+        {
+          "id": "8",
+          "name": "title set",
+          "method": "file",
+          "status": "pass",
+          "evidence": "slide2.xml#3 \"Text 0\""
+        },
+        {
+          "id": "8",
+          "name": "alt text on pictures and charts",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "all 1 have alt text (whether it describes the content is a judgement)"
+        },
+        {
+          "id": "8",
+          "name": "reading order: title first",
+          "method": "file",
+          "status": "pass",
+          "evidence": "first text object in z-order: slide2.xml#3 \"Text 0\""
+        },
+        {
+          "id": "7",
+          "name": "no decorative gridlines (gridlines only where values are not labelled)",
+          "method": "file",
+          "status": "pass",
+          "value": 1,
+          "evidence": "slide2.xml#7 \"Chart 0\": 1 visible gridline set(s) as reading aid, values not labelled"
+        },
+        {
+          "id": "9",
+          "name": "detectable refuse items (gradient, shadow, 3D, emoji/symbol icons)",
+          "method": "file",
+          "status": "pass",
+          "value": 0,
+          "evidence": "none found"
+        },
+        {
+          "id": "9",
+          "name": "refuse patterns (detector)",
+          "method": "file (detector)",
+          "status": "pass",
+          "evidence": "none of the 24 detector rules found (all-caps-body, bold-colon-list, border-on-rounded, buzzword, card-grid, centered-running-text, glass-stack, grey-on-colour, heading-spacing, icon-tile-stack, justified-text, kicker, nested-cards, number-card, numbered-labels, photo-count, placeholder-intentional, placeholder-text, question-title, shape-illustration, side-stripe, stat-row, thank-you-slide, wide-tracking)"
+        }
+      ]
+    }
+  ],
+  "deck": [
+    {
+      "id": "2",
+      "name": "at most 2 font families",
+      "method": "file",
+      "status": "pass",
+      "value": [
+        "Calibri",
+        "Cambria"
+      ],
+      "limit": 2,
+      "evidence": "families used on slides: Calibri (slides [1, 2]), Cambria (slides [1, 2])"
+    },
+    {
+      "id": "2",
+      "name": "fonts on the safe list",
+      "method": "file",
+      "status": "pass",
+      "evidence": "all on safe list"
+    },
+    {
+      "id": "2",
+      "name": "steps between neighbouring sizes >= 1.25",
+      "method": "file",
+      "status": "observation",
+      "value": [
+        8.0,
+        11.0,
+        14.0,
+        18.0,
+        24.0,
+        40.0
+      ],
+      "evidence": "all neighbouring sizes differ by at least 1.25"
+    },
+    {
+      "id": "5",
+      "name": "colour roles: 1 accent + at most a positive/negative signal pair (chromatic hue families, tints of one hue count once, neutrals ignored)",
+      "method": "computed (hue clusters within 20 deg; saturation < 0.15 or near black/white counts as neutral)",
+      "status": "pass",
+      "value": 0,
+      "limit": 3,
+      "evidence": "no chromatic colours found"
+    },
+    {
+      "id": "4",
+      "name": "distinct left edges of text shapes",
+      "method": "file",
+      "status": "observation",
+      "value": 4,
+      "evidence": "x positions (pt): [48, 64, 768, 872]. Optical alignment is not measured."
+    },
+    {
+      "id": "7",
+      "name": "same number recurs across slides",
+      "method": "file",
+      "status": "observation",
+      "value": 1,
+      "evidence": "\"2,4\" on slides [1, 2]. Repetition can be deliberate (a running total); a contradiction (the same figure standing for different things) is a judgement, not scripted."
+    },
+    {
+      "id": "12",
+      "name": "deck matches its deck plan",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck"
+    },
+    {
+      "id": "3",
+      "name": "spacing in multiples of 8 pt",
+      "method": "file",
+      "status": "not_measured",
+      "evidence": "not implemented yet"
+    },
+    {
+      "id": "10",
+      "name": "title strand reads as a story",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "11",
+      "name": "direction contract held, look not guessable",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "judgement item, not scripted"
+    },
+    {
+      "id": "13",
+      "name": "render review: no picture built from shapes, measure and unit on every exhibit, no composition on more than two slides, no overlap",
+      "method": "judgement",
+      "status": "not_measured",
+      "evidence": "open every rendered slide once (rules-core.md check list item 13); not scripted"
+    }
+  ],
+  "notes": [],
+  "language": {
+    "used": "de",
+    "note": "auto: German stop-word share 12.4 %"
+  },
+  "placeholders": [],
+  "title_strand": [
+    {
+      "n": 1,
+      "t": "Linie 2 freigeben, Rahmenschweißen auslagern"
+    },
+    {
+      "n": 2,
+      "t": "Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahren"
+    }
+  ],
+  "render": null,
+  "facts": {
+    "slide_count": 2,
+    "layouts": [
+      "P01 cover",
+      "P04 chart-rail"
+    ],
+    "titles": [
+      "Linie 2 freigeben, Rahmenschweißen auslagern",
+      "Linie 2 amortisiert sich in 3,1 Jahren,\nbei stagnierender Nachfrage in 4,6 Jahren"
+    ],
+    "fonts": [
+      "Calibri",
+      "Cambria"
+    ],
+    "runs": [
+      {
+        "slide": 1,
+        "ref": "slide1.xml#3 \"Text 0\"",
+        "size": 40.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "111111",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#4 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 1,
+        "ref": "slide1.xml#5 \"Text 2\"",
+        "size": 18.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "111111",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#3 \"Text 0\"",
+        "size": 24.0,
+        "bold": true,
+        "font": "Cambria",
+        "color": "111111",
+        "title": true,
+        "source": false,
+        "ph": "title"
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#4 \"Text 1\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "404040",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#6 \"Text 3\"",
+        "size": 14.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#6 \"Text 3\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#6 \"Text 3\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#6 \"Text 3\"",
+        "size": 14.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#8 \"Text 4\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#8 \"Text 4\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "111111",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#9 \"Text 5\"",
+        "size": 11.0,
+        "bold": true,
+        "font": "Calibri",
+        "color": "404040",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#9 \"Text 5\"",
+        "size": 11.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "404040",
+        "title": false,
+        "source": false,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#10 \"Text 6\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "404040",
+        "title": false,
+        "source": true,
+        "ph": null
+      },
+      {
+        "slide": 2,
+        "ref": "slide2.xml#11 \"Text 7\"",
+        "size": 8.0,
+        "bold": false,
+        "font": "Calibri",
+        "color": "404040",
+        "title": false,
+        "source": false,
+        "ph": null
+      }
+    ],
+    "colors": {
+      "FFC629": [
+        "slide 1 background"
+      ],
+      "111111": [
+        "slide 1 text slide1.xml#3 \"Text 0\"",
+        "slide 1 text slide1.xml#4 \"Text 1\"",
+        "slide 1 text slide1.xml#5 \"Text 2\"",
+        "slide 2 chart series 1",
+        "slide 2 text slide2.xml#3 \"Text 0\"",
+        "slide 2 text slide2.xml#6 \"Text 3\""
+      ],
+      "FFFFFF": [
+        "slide 2 background"
+      ],
+      "404040": [
+        "slide 2 text slide2.xml#10 \"Text 6\"",
+        "slide 2 text slide2.xml#11 \"Text 7\"",
+        "slide 2 text slide2.xml#4 \"Text 1\"",
+        "slide 2 text slide2.xml#9 \"Text 5\""
+      ],
+      "EBEBEB": [
+        "slide 2 fill slide2.xml#5 \"Shape 2\""
+      ],
+      "767676": [
+        "slide 2 chart series 2"
+      ]
+    },
+    "min_inset_pt": 47.8,
+    "min_inset_at": "slide2.xml#8 \"Text 4\"",
+    "profile": "read",
+    "chart_sizes": [
+      11.0
+    ],
+    "slide_facts": [
+      {
+        "n": 1,
+        "exhibits": [],
+        "source": ""
+      },
+      {
+        "n": 2,
+        "exhibits": [
+          "chart"
+        ],
+        "source": "Quelle: Szenariorechnung Controlling, 02.10.2026; Angebot Anlagenlieferant, 18.09.2026. Verlauf berechnet: −2,4 Mio. € Invest plus Nettobeitrag × Jahre."
+      }
+    ]
+  },
+  "not_measured_here": [
+    "overflow and rendering (not run: use --render; otherwise estimates only)",
+    "optical alignment",
+    "plan comparison (run with --plan)",
+    "spacing scale",
+    "theme fill styles (bgRef idx, fillRef idx), slide-level colour map overrides"
+  ],
+  "summary": {
+    "pass": 31,
+    "fail": 0,
+    "observation": 17,
+    "not_measured": 5,
+    "waived": 0
+  }
+}

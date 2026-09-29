@@ -33,3 +33,30 @@ Danach zeige ich dir zwei bis drei Looks als gerenderte Musterfolien (Titelfolie
 Das ist der Name des Branches, auf den ich pushe. Das Gerüst und meine Fragen von eben liegen dort in `test-runs/b1/transcript.md`. Gebaut habe ich noch nichts.
 
 Meintest du damit etwas Bestimmtes, etwa einen anderen Branch oder ein „Go“? Ein „Go“ lese ich das nicht, weil du meine vier Fragen (Marke, Wirkung, Druck oder Bildschirm, Optionen im Beschluss) noch nicht beantwortet hast. Antworte kurz darauf, oder sag „mach du“, dann wähle ich den Look selbst. Frage 4 bleibt in beiden Fällen offen.
+
+## Turn 3
+
+Go verstanden. Ich habe zwei Looks als echte Folien gebaut (Titelfolie und Folie 7, die Amortisation) und mit dem Check-Skript geprüft (Profil `read`): keine Fehler, nur Beobachtungen. Die Bilder liegen in `test-runs/b1/drafts/` (A-werkstatt-1/2.png, B-jahresbericht-1/2.png, dazu die .pptx).
+
+**A · Werkstatt-Datenblatt.** Weißer Grund, Arial, Graphit und ein einziges Signalorange (C2410C) nur für das, worüber der Titel spricht. Diagramm links, rechts eine Randspalte mit dünner Linie, viel Luft. Risiko: nüchtern bis unscheinbar, Orange auf Grau ist ein häufiger Look.
+
+**B · Jahresbericht in Gelb.** Titelfolie als volle Signalgelb-Fläche (FFC629), Cambria-Titel, Calibri-Text. Inhaltsfolien weiß, Text links auf grauem Feld, Diagramm rechts, Fokus in Schwarz statt Farbe. Risiko: Auf Inhaltsfolien trägt nur Schwarz gegen Grau, die Hervorhebung ist leiser. Gelb funktioniert nur als Fläche, nie als Schrift oder Linie auf Weiß.
+
+**Empfehlung: A.** Der Beirat liest am PDF und entscheidet. Der Akzent zeigt sofort, was der Titel meint, und A lässt sich auf allen acht Folien gleich streng halten. B ist wiedererkennbarer, aber die Diagramm-Hervorhebung ist schwächer. Mischung möglich, etwa B-Layout mit A-Akzent, sag es einfach.
+
+**Gerüst (Titel = Aussage, Muster, Basis):**
+1. Titelfolie: „Linie 2 freigeben, Rahmenschweißen auslagern“ · P01 · gegeben
+2. Zusammenfassung: Nachfrage wächst, Linie 1 ist voll, jede Lieferwoche kostet Aufträge · P03 · gegeben/berechnet
+3. Umsatz wächst um 26 %, der Auftragsbestand mehr als verdoppelt sich (610 → 1.380) · P06 · gegeben/berechnet
+4. Linie 1 läuft mit 97 % Auslastung, die Lieferzeit hat sich auf 12 Wochen verdoppelt · P04 · gegeben
+5. Stornos wegen Lieferzeit haben sich fast verdoppelt (64 → 118): rund 0,39 Mio. € Umsatz im Q3 · P13 · gegeben
+6. Die Marge fiel um 4,3 Punkte, davon 3,5 durch Batteriepreise und Überstunden · P08 · gegeben/berechnet
+7. Linie 2 amortisiert sich in 3,1 Jahren, bei stagnierender Nachfrage in 4,6 · P04 · gegeben/berechnet (Verlauf linear gerechnet)
+8. Beschlussvorschlag: Linie 2 freigeben, Schweißen auslagern (+300 Stück, 54 T€ Mehrkosten je Quartal) · P09 · gegeben/berechnet
+
+**Offen von dir:**
+1. Welcher Look (A, B oder Mischung)?
+2. Frage 4 von vorhin: Soll die Alternative „nur Auslagerung, Linie 2 später“ als Option auf Folie 8 stehen? Ich habe dafür keine Zahlen, sie wäre ohne Zahlen eine reine Aussage. Ohne Antwort bleibt Folie 8 beim Beschluss wie von dir formuliert.
+3. Zur Folie 7: Für die Kurve habe ich einen linearen Verlauf ab Produktionsstart unterstellt (Invest minus Jahresbeitrag mal Jahre). Das ist meine Vereinfachung, sie steht auf der Folie. Ist das für den Beirat vertretbar, oder soll ich nur die beiden Amortisationszeiten als Balken zeigen?
+
+Nach deiner Wahl schreibe ich den Deckplan und baue alle acht Folien.
