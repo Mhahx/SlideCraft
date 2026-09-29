@@ -113,4 +113,6 @@ Moved here from the end of `references/rules-core.md` after 0.24: project histor
 | Intentional placeholders `[[type: label]]` and the brief field `Placeholders:` | Starting value | found by a review run (0.24): "missing data becomes a placeholder" and "a placeholder is always a fail" contradicted each other |
 | Text boxes that overlap while their estimated text does not are an observation, not a fail | Starting value | found by a review run (0.24); estimate is 0.5 em (0.55 bold) per character, as for the line estimate |
 | Basis per title (`sourced \| calculated \| hypothesis \| placeholder`), comparisons name their definition | Practitioner | found by a review run (0.24); a claim title was contradicted by the figures once they were looked up |
+| Pattern fits its profile (plan check P4) | Rule check | the Profiles line of each pattern in `references/patterns.md`; found by test run A (after 0.24), a P07 table in a `pitch` deck |
+| Composition family "rows" (P07, P09, P10), at most two in `talk` and `pitch` | Starting value, observation | found by test run A (after 0.24): three row slides back to back passed the render review because their pattern ids differed |
 | Profile values | Starting value | `references/profiles.md` |

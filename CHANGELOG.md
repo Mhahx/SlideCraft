@@ -18,7 +18,17 @@ Slimming review: what must always be in context (`SKILL.md`), what is loaded on 
 | `rules-core.md` check 4 said optical alignment is measured by script; the method table and the script say it is not | Marked "not measured" together with the 8 pt spacing scale |
 | `rules-core.md` check 7 listed fewer source-line forms than §6; §4 stated "same meaning, same colour" twice | Check 7 points to §6; the duplicate sentence is gone |
 
-Measured with `wc -w`: `SKILL.md` 2,294 → 1,718 words (−25 %). References 13,318 → 13,152 words including the new `tools.md` (346); `rules-core.md` −633, `refuse.md` +168 for the replacement actions. 125 tests green, `tools/package.py` and `agentskills validate` pass.
+**Test run A** (Sonnet 5.5, fresh cloud session on the slimmed skill, prompt "Mach mir 6 Folien, warum unser Team von Excel auf ein BI-Tool wechseln sollte", answer "mach du"). Round 1, the hand-over offer, the three-block contract, `LAYOUT_WIDE`, pattern-named masters and 0 script fails all held. Findings and changes:
+
+| Finding | Change |
+|---|---|
+| Slides 2 to 4 all looked like tables (P10, P09, P07: label column, rows, hairlines); the render review passed them because the pattern ids differ | `patterns.md`: composition family "rows" (P07, P09, P10), at most two slides of it in `talk` and `pitch`; check 13(c) says different pattern ids are not different compositions. `plan.py` reports more than two as an observation |
+| P07 table (a `read`/`update` pattern) in a `pitch` deck, unreported | `plan.py` check P4: every pattern must be meant for the profile (Profiles line of `patterns.md`), fail unless the pattern id is waived |
+| "mach du" was taken to hand over the content too: the model set `Placeholders: not allowed` itself and built a pitch without a single figure, though its plan listed assumptions only the user can decide | `SKILL.md` step 4 and `direction.md` Quick: the hand-over covers the look only; open content questions are asked once, bundled, before the build |
+| The agent tool was available, the fresh review was still a self-check | `SKILL.md` step 7: with an agent or subagent tool the fresh reviewer is mandatory |
+| Self-check against the default looks used the genus "business deck", so the green table look of an Excel deck passed | `direction.md`: the category is the topic as the user named it |
+
+Measured with `wc -w` before the test-run fixes: `SKILL.md` 2,294 → 1,718 words (−25 %). References 13,318 → 13,152 words including the new `tools.md` (346); `rules-core.md` −633, `refuse.md` +168 for the replacement actions. 125 tests green, `tools/package.py` and `agentskills validate` pass.
 
 ## 0.24 (0.24.0)
 

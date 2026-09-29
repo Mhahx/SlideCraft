@@ -22,6 +22,17 @@ BOLD_WORDS = ('bold', 'semibold', 'semi-bold', 'heavy', 'black', 'extrabold', 'd
 REGULAR_WORDS = ('regular', 'normal', 'book', 'light', 'medium', 'roman')
 EMPTY_TITLE = {'', '-', '—', '–', 'n/a', 'n.a.', 'tbd', 'none'}
 CLEAN_NO_RE = re.compile(r'^\**\s*\d+[.)]?\s*\**$')  # a plain ordinal, e.g. "3" or "3."; not "A1" or "P04"
+# the Profiles: line of each pattern in references/patterns.md (change it there first)
+ALL_PROFILES = ('read', 'talk', 'pitch', 'update')
+PATTERN_PROFILES = {
+    1: ALL_PROFILES, 2: ('read', 'update', 'pitch'), 3: ('read', 'update'), 4: ('read', 'update', 'pitch'),
+    5: ('talk', 'pitch', 'read'), 6: ('read', 'update'), 7: ('read', 'update'), 8: ('read', 'update', 'pitch'),
+    9: ('read', 'update', 'pitch'), 10: ('read', 'update', 'pitch'), 11: ALL_PROFILES, 12: ('read', 'pitch', 'talk'),
+    13: ('talk', 'pitch', 'read'), 14: ('talk', 'pitch'),
+}
+ROWS_FAMILY = (7, 9, 10)     # P07 table, P09 before-after, P10 numbered-rows: one composition (patterns.md)
+ROWS_FAMILY_MAX = 2          # in talk and pitch; starting value, reported as an observation
+PATTERN_ID_RE = re.compile(r'\bp\s?0?(\d{1,2})\b', re.I)
 
 
 # ----------------------------------------------------------------- parsing
@@ -258,7 +269,41 @@ def _chk(cid, name, method, status, value=None, limit=None, evidence=None):
 
 # ----------------------------------------------------------------- plan against itself (deck-plan.md consistency checks)
 
-def self_checks(plan, prof, cd):
+def pattern_id(layout):
+    """The pattern number named in a plan's Layout type cell ("P10 numbered-rows", "p07"), or None."""
+    m = PATTERN_ID_RE.search(layout or '')
+    n = int(m.group(1)) if m else None
+    return n if n in PATTERN_PROFILES else None
+
+
+def pattern_checks(plan, profile):
+    """Each slide's pattern is meant for the plan's profile (patterns.md, Profiles: line), and talk/pitch decks
+    use at most two slides of the rows family (P07, P09, P10), which look alike whatever their id. Found by a
+    test run: a 6-slide pitch built P10, P09 and P07 back to back, and passed every other check."""
+    out = []
+    rows = [(s['no'], pattern_id(s['layout'])) for s in plan['slides']]
+    known = [(n, p) for n, p in rows if p is not None]
+    if not profile or not known:
+        return out
+    waivers = (plan.get('waivers') or '').lower()
+    misfit = ['slide %s: P%02d is for %s' % (n, p, ', '.join(PATTERN_PROFILES[p])) for n, p in known
+              if profile not in PATTERN_PROFILES[p] and not re.search(r'\bp\s?0?%d\b' % p, waivers)]
+    out.append(_chk('P4', 'plan: every pattern is meant for the profile (patterns.md, Profiles line)', 'file (plan)',
+                    'fail' if misfit else 'pass', value=len(misfit),
+                    evidence=('; '.join(misfit[:6]) + '; pick the pattern for this job in %s, or name the pattern id in the '
+                              'Waivers line with the user\'s words' % profile) if misfit
+                    else 'all %d pattern rows fit %s' % (len(known), profile)))
+    if profile in ('talk', 'pitch'):
+        fam = [n for n, p in known if p in ROWS_FAMILY]
+        if len(fam) > ROWS_FAMILY_MAX:
+            out.append(_chk('P4', 'plan: at most %d slides of the rows family (P07, P09, P10) in talk or pitch' % ROWS_FAMILY_MAX,
+                            'file (plan)', 'observation', value=len(fam), limit=ROWS_FAMILY_MAX,
+                            evidence='slides %s look alike (label column, rows separated by rules): change the pattern of all '
+                                     'but two (render review, check 13c)' % ', '.join(str(n) for n in fam)))
+    return out
+
+
+def self_checks(plan, prof, cd, profile=None):
     out = []
     dups = plan.get('duplicate_labels') or []
     if dups:
@@ -337,6 +382,7 @@ def self_checks(plan, prof, cd):
                        if not any(t in s['layout'] or s['layout'] in t for t in plan['layout_types'])]
             out.append(_chk('P4', 'plan: every slide row uses a layout type defined in the design system', 'file (plan)',
                             'fail' if unknown else 'pass', evidence='; '.join(unknown[:5]) if unknown else 'all rows match'))
+        out += pattern_checks(plan, profile or plan.get('profile'))
         data_rows = [s for s in plan['slides'] if re.search(r'chart|table|graph|diagram|data|plot', s['exhibit'], re.I)]
         nosrc = ['slide %s' % s['no'] for s in data_rows if len(s['source'].strip(' -—–')) < 3]
         out.append(_chk('P5', 'plan: every data slide row has a source', 'file (plan)', 'fail' if nosrc else 'pass',
@@ -451,7 +497,7 @@ def compare(plan, facts, report, cd):
 def attach(report, plan_text, prof, cd):
     plan = parse_plan(plan_text)
     facts = report['facts']
-    checks = self_checks(plan, prof, cd) + compare(plan, facts, report, cd)
+    checks = self_checks(plan, prof, cd, report['profile']) + compare(plan, facts, report, cd)
     if plan['profile'] and plan['profile'] != report['profile']:
         checks.insert(0, _chk('P1', 'plan profile equals the profile used for the run', 'file (plan)', 'fail',
                               value=plan['profile'], limit=report['profile'], evidence='the plan says %s, the script ran with %s' % (plan['profile'], report['profile'])))
@@ -558,7 +604,7 @@ def main(argv=None):
     if profile is None:
         print('need --profile (or a "Profile:" line in the plan)', file=sys.stderr)
         return 2
-    checks = self_checks(plan, cd.PROFILES[profile], cd)
+    checks = self_checks(plan, cd.PROFILES[profile], cd, profile)
     if a.json:
         print(json.dumps({'profile': profile, 'notes': plan['notes'], 'checks': checks}, indent=2, ensure_ascii=False))
     else:
