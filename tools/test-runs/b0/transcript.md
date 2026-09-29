@@ -28,3 +28,16 @@
 Zum Modell: Für Layout und visuelle Prüfung reicht ein starkes Modell wie ich. Wenn du sehr hohen Wert auf Designfeinschliff legst, wäre Opus die Alternative.
 
 Sag "Go" (gern mit Antworten auf 1 und 2), dann baue ich das PDF.
+
+## Turn 2
+
+Ich habe noch nichts gebaut. Ich warte auf dein Go und auf deine Antworten zu den zwei Fragen.
+
+1. Soll die abgeleitete Zahl (300 Stück × 180 € ≈ 54.000 € pro Quartal) als gekennzeichnete Rechnung auf Folie 6 stehen, ja oder nein?
+2. Soll der Titel von Folie 7 eine klare Empfehlung sein ("Investition trägt sich auch bei stagnierender Nachfrage") oder neutral formuliert?
+
+## Turn 3
+
+Deine Nachricht enthält nur den Branch-Namen `claude/slide-craft-test-b0`. Das ist kein Go und beantwortet keine der beiden Fragen. Auf diesem Branch arbeite ich bereits, dort liegt das Transkript.
+
+Meinst du damit, dass ich loslegen soll? Dann schreib bitte "Go". Ohne Antwort setze ich diese Defaults: 1. ja, die 54.000 € stehen als gekennzeichnete Ableitung auf Folie 6. 2. Der Titel von Folie 7 ist neutral formuliert, die Empfehlung steht auf Folie 1 und 8.
