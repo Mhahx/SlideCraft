@@ -2,7 +2,7 @@
 name: slide-craft
 description: 'Design and quality rules for presentation slides and decks: pitch decks, keynotes, talks, lectures, board and status updates, decision papers (Folien, Präsentation, Vortrag, Deck, Entscheidungsvorlage). Load it first, before asking the user any question about the deck, because it defines that question round (purpose, situation, look). Load when a presentation is created, restructured, reviewed or polished for design, including an existing .pptx whose design should be checked or improved, and even if the user only says make me 10 slides about X (mach mir Folien zu X) or gives no content yet. Do not load for only reading, extracting text from, summarising, counting or converting an existing file. This skill does not create files: also load the file-building tool (pptx skill, slides artifact type, PowerPoint add-in). Sets context profile, design direction, deck plan, story structure, typography, grid, colour, charts and a ban list against generic AI-looking slides.'
 metadata:
-  version: 0.24-draft
+  version: 0.25-draft
   status: draft
 ---
 
@@ -57,6 +57,7 @@ If the skill is called without a deck task ("what can you do?"), answer in five 
 
 - **Comparisons** name their definition on the slide (basis, period, source). Figures with different bases (revenue vs gross profit, EBIT on revenue vs on net revenue) are never compared in one bar or one sentence.
 - **Placeholders** only when the brief allows them (`Placeholders: allowed`), only as `[[type: label]]`, and their slide carries a status mark. Any other placeholder-like text (`[XX]`, `TBD`, `<<..>>`, `___`, `[insert ..]`, "to be added") is a defect, and so is an intentional one when the brief does not allow them.
+- **Pictograms** never on the skill's own initiative: only when the user asks or the brief allows them (`Pictograms: allowed`). Then each one must replace a concrete noun (`talk`, `pitch`) or carry a fact, from one set, taken in this order: the user's set, the building tool's own icon library, an open SVG set, newly drawn only on request (`references/pictograms.md`).
 - **Facts and values** (numbers, names, claims, sources) are never invented and never changed. Wording, shortening and number formatting may change only inside a mode that allows it, and every such change is listed for the user.
 - Every data slide has a source and date. A data slide is any slide showing a chart, a table, or numbers that come from outside the deck.
 - **Refinement preserves, redesign replaces.** Each mode in `commands.md` is labelled. Never mix the two in one pass. Rebuilding masters or changing font families is redesign and needs confirmation.
@@ -76,6 +77,7 @@ Only relevant when building .pptx with the pptx skill.
 - All absolute measures in this skill assume 13.33 x 7.5 in.
 - Fonts: use a safe font so the QA rendering is trustworthy. Safe list: Arial, Calibri, Cambria, Times New Roman, Courier New, Bookman Old Style, Century Schoolbook. Avoid Aptos as default. Segoe UI is trustworthy only where Selawik is installed as its substitute (see the check script's dependencies above); otherwise treat it like any other unlisted font.
 - Set `align: 'left'` in every placeholder definition: pptxgenjs otherwise centres the title. Use real slide layouts/placeholders where the tool allows it, not loose text boxes. Define one slide master per pattern and name it after the pattern (`P04 chart-rail`): placeholder position and size cannot be overridden per slide, and the plan comparison matches layouts by name.
+- Pictograms as SVG: `addImage` with an `.svg` path keeps the vector (an SVG picture with a small PNG fallback); LibreOffice renders it sharply. Rules in `references/pictograms.md`.
 - Give every picture and chart alt text. Set text boxes as text boxes (`isTextBox: true`).
 - Charts stay native (`addChart`), never a rendered image, unless the building tool cannot write the native form (pptxgenjs has no waterfall: build P08 from shapes and say so in the plan).
 - Highlight one bar with one series and one colour per point (`chartColors: [grey, grey, …, accent]`), not with two stacked series: `dataLabelPosition` has no effect on stacked charts.

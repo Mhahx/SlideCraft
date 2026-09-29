@@ -11,7 +11,7 @@ Whatever cannot be parsed is reported as not_measured with the reason, never gue
 """
 import re
 
-LABELS = ['Purpose', 'Audience', 'Situation', 'Duration / length', 'Language', 'Pinned by user', 'Waivers', 'Placeholders', 'Profile',
+LABELS = ['Purpose', 'Audience', 'Situation', 'Duration / length', 'Language', 'Pinned by user', 'Waivers', 'Placeholders', 'Pictograms', 'Profile',
           'Scene sentence', 'Mechanism', 'Mode', 'Chosen direction', 'Drafts shown', 'Alternatives', 'Colour strategy', 'Pattern variants',
           'Direction contract', 'Rationale', 'Self-check', 'Governing message', 'Title strand', 'Arc',
           'Fonts', 'Text roles', 'Palette', 'Grid and spacing', 'Layout types', 'Images and icons', 'Charts']
@@ -147,6 +147,7 @@ def parse_plan(text):
     plan['profile'] = m.group(1).lower() if m else None
     plan['waivers'] = f.get('waivers', '')
     plan['placeholders_allowed'] = placeholders_allowed(f.get('placeholders', ''))
+    plan['pictograms_allowed'], plan['pictograms_source'] = pictograms_field(f.get('pictograms', ''))
 
     roles = []
     for header, rows in _tables(text):
@@ -211,6 +212,21 @@ def placeholders_allowed(value):
     if re.search(r'\bnot\s+allowed\b|\bnicht\b|\bno\b|\bnone\b', v):
         return False
     return bool(re.search(r'\ballowed\b|\berlaubt\b|\byes\b|\bja\b', v))
+
+def pictograms_field(value):
+    """Brief field `Pictograms: none | allowed (source: ...)`. Returns (allowed, source). Anything but a clear
+    "allowed" means none; the source is what stands in the brackets after "source:" (or the whole bracket)."""
+    v = (value or '').strip().splitlines()[0].strip() if (value or '').strip() else ''
+    low = v.lower()
+    if not v or re.search(r'\bnone\b|\bnot\s+allowed\b|\bnicht\b|\bno\b|\bkeine?\b', low.split('(')[0]):
+        return False, ''
+    if not re.search(r'\ballowed\b|\berlaubt\b|\byes\b|\bja\b', low.split('(')[0]):
+        return False, ''
+    m = re.search(r'\(([^)]*)\)', v)
+    src = m.group(1).strip() if m else ''
+    src = re.sub(r'^\s*(source|quelle)\s*:\s*', '', src, flags=re.I).strip()
+    return True, ('' if src in ('...', '-', '—', '?') else src)
+
 
 def _role_kind(name):
     # roles for exempt slide types (title slide, divider, quote) are not bound to the title size range

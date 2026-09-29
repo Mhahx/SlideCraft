@@ -30,6 +30,8 @@ Waivers:            each pinned item and the rule it overrides (for example "bra
 Profile:            read | talk | pitch | update  (values from profiles.md)
 Placeholders:       allowed | not allowed  (allowed only when figures are missing and cannot be
                     shared, with the reason; form [[type: label]], slide carries a status mark)
+Pictograms:         none | allowed (source: user set | tool library | open set + licence | drawn)
+                    (default none; only when the user asks; rules in pictograms.md)
 
 ## 2. Direction  (new deck or redesign; see direction.md)
 Scene sentence:     who sees it, where, on which medium, under what light
@@ -82,7 +84,7 @@ Grid and spacing:   slide size, margins ("margins 48 pt"; read by the script), 1
 Layout types:       the patterns this deck uses, by id from patterns.md (for example
                     P01 cover, P04 chart-rail, P07 table), each with its placeholders;
                     usually 4 to 8 patterns
-Images and icons:   style, crop, icon library and stroke
+Images and icons:   style, crop; for pictograms the set, stroke, size and colour role (see Pictograms)
 Charts:             types used, highlight colour, labelling rule, source line
 
 ## 5. Slide plan

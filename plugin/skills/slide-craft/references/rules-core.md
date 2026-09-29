@@ -46,7 +46,7 @@ All numbers are starting values for 16:9 at 13.33 x 7.5 in (960 x 540 pt) and ar
 
 ## 5. Image and graphics
 - One good image beats many. The image carries a point. Consistent crop. No stock clichés (handshake, light bulb, puzzle pieces).
-- Icons only from one library with uniform stroke and size. No emoji or Unicode symbols as icons.
+- Pictograms only when the user asks or the brief allows them (`Pictograms: allowed`), then from one set with uniform stroke and size, only where they replace a word or carry a fact (`references/pictograms.md`). No emoji or Unicode symbols as icons.
 - Caption or credit where needed. Alt text for every image and chart.
 - Image sources, in this order: the user's own photos; photos the user names; free-licensed photos (for example Wikimedia Commons: check the licence of each file, keep the author and licence as a credit line in the footnote role on the slide, list them in the plan). A photo that does not show the named place or case is labelled as a symbolic image ("Symbolbild") on the slide. Without a suitable photo, use the exhibit itself or pure type, never an illustration built from shapes.
 
@@ -113,6 +113,7 @@ Name evidence for each item (slide number, value, method). A bare "ok" is not ev
 11. The deck holds its direction contract (thesis, own-world), and the look is not guessable from the category alone (see `direction.md`). [judgement; a default-look ground colour is reported by script as an observation]
 12. The deck matches its deck plan: fonts, role sizes, palette, margins and layout types are those of the plan. Every deviation is a finding, or the plan is extended deck-wide. [file]
 13. Render review: open every rendered slide once and answer for each (the script cannot see these; the blind test in 0.17 passed the script with all three): (a) Is anything a picture built from shapes (a tree from an ellipse and a rectangle, a vehicle, a person)? Remove it or replace it with an exhibit, a real photo or type. (b) Does every exhibit show its measure and unit on the slide itself, in a measure line or axis title, not only in the source line? (c) Do more than two slides share the same composition (for example big number left, label right)? Change the pattern or the variant of all but one. (d) Does any picture or shape overlap another (check 3 already finds text-bearing shapes that overlap; this is for pictures and decoration)? (e) Does the title match what the slide actually shows, or does it claim something the exhibit does not support? (f) Does this slide contradict another one (the same figure standing for two different things, two descriptions of one process that disagree) — see check 7's "same number recurs" for the mechanical half of this. [judgement on the render]
+14. Pictograms (only when the deck has any): the plan allows them and names the source; each one replaces a concrete noun (`talk`, `pitch`) or carries a fact (any profile), removing it would lose something; one set, one stroke, one size per role, none in a tile or circle, none used as a bullet. [file for count, sizes and the plan's entry: observation, check 14; the rest is judgement on the render]
 
 ## Provenance of the rules
 
@@ -127,6 +128,7 @@ Every rule group carries a tag. `Practitioner` means a practitioner source, not 
 | Margins, 12 columns, 8 pt spacing, factor 1.25 | Starting value | Calibrate on real decks; footer in the bottom margin measured (`docs/evidence.md`) |
 | `read` words 250, title 20-28 pt, footnote 8 pt, colour roles | Measured (0.14) | nine real decks, `docs/evidence.md`; 250 words is a project decision |
 | Safe fonts, `LAYOUT_WIDE`, native charts, alt text | Cited | pptx skill (read locally) |
+| Pictogram rules (`pictograms.md`): remove-it test, label replacement in `talk`/`pitch`, fact carriers, one set, 36 pt | Transferred / practitioner / starting value | per row in `pictograms.md`; nothing measured on slides yet |
 | Refuse list, calibration against AI looks, direction flow, fresh review | Transferred | Impeccable (`craft-floor.md`, `new-work.md`), untested on slides |
 | Detector rules and their thresholds (equal size within 5 %, tile 20 to 72 pt, big number 40 pt, gaps up to 24 pt) | Transferred, starting value | Impeccable detector (`antipatterns.json`), transferred to OOXML geometry; tested on a synthetic AI-style deck (`tests/fixtures/slop.pptx`) and four example decks only |
 | Placeholder-text detector (`platzhalter`, `todo`, `tbd`, `lorem ipsum`, a bare `xx`, bracketed stand-ins) | Practitioner, starting value | own fixed list; a placeholder is always a fail (0.21) |

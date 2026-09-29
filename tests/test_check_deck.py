@@ -1374,5 +1374,99 @@ class ReviewFindings(unittest.TestCase):
         self.assertIn('[P3] fail', out.getvalue())
 
 
+def _picto(idn, x, y, w, h, name='Icon', descr='Plane'):
+    return ('<p:pic><p:nvPicPr><p:cNvPr id="%d" name="%s" descr="%s"/><p:cNvPicPr/><p:nvPr/></p:nvPicPr>'
+            '<p:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>'
+            '<p:spPr><a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm>'
+            '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic>' % (idn, name, descr, x * PT, y * PT, w * PT, h * PT))
+
+
+class PictogramRules(unittest.TestCase):
+    """0.25: pictograms are a brief decision (default none); the script only reports small pictures, never fails on them."""
+    T = 'Erste Folie erklaert etwas'
+
+    def rep(self, body, profile='talk', plan=None):
+        z = build_pptx([title_sp(self.T) + body])
+        return cd.analyse(cd.Package(z), 'synthetic', profile, set(), 'en', plan)
+
+    def hit(self, rep):
+        return find(rep['deck'], 'small pictures that may be pictograms')
+
+    def test_small_picture_is_reported_as_an_observation_and_never_fails(self):
+        rep = self.rep(_picto(20, 100, 200, 48, 48))
+        (c,) = self.hit(rep)
+        self.assertEqual(c['status'], 'observation')
+        self.assertEqual(c['value'], 1)
+        self.assertIn('does not allow pictograms', c['evidence'])   # default without a plan: none
+        self.assertFalse([c for c in rep['deck'] + rep['slides'][0]['checks'] if c['id'] == '14' and c['status'] == 'fail'])
+
+    def test_what_is_not_a_pictogram_candidate(self):
+        for body in (_picto(20, 100, 200, 300, 200),                       # photo size
+                     _picto(20, 100, 200, 10, 10),                         # speck
+                     _picto(20, 100, 200, 48, 12),                         # a rule, aspect 4:1
+                     _picto(20, 100, 200, 48, 48, name='Logo Kunde'),      # logo by name
+                     _picto(20, 100, 200, 48, 48, descr='Firmenlogo'),     # logo by alt text
+                     box(20, 100, 200, 48, 48, fill='4472C4')):            # not a picture
+            self.assertEqual(self.hit(self.rep(body)), [], body[:60])
+
+    def test_no_pictures_no_entry(self):
+        self.assertEqual(find(self.rep(box(20, 48, 200, 400, 30, text='Text'))['deck'], 'pictogram'), [])
+
+    def test_brief_field_shapes_the_evidence(self):
+        body = _picto(20, 100, 200, 48, 48)
+        allowed = self.hit(self.rep(body, plan='Pictograms: allowed (source: tool library)\nProfile: talk\n'))[0]['evidence']
+        self.assertNotIn('does not allow', allowed)
+        self.assertNotIn('names no source', allowed)
+        nosrc = self.hit(self.rep(body, plan='Pictograms: allowed\nProfile: talk\n'))[0]['evidence']
+        self.assertIn('names no source', nosrc)
+        none = self.hit(self.rep(body, plan='Pictograms: none\nProfile: talk\n'))[0]['evidence']
+        self.assertIn('does not allow', none)
+
+    def test_read_profile_points_to_fact_carriers(self):
+        body = _picto(20, 100, 200, 48, 48)
+        ev = self.hit(self.rep(body, profile='read', plan='Pictograms: allowed (source: user set)\nProfile: read\n'))[0]['evidence']
+        self.assertIn('fact carriers', ev)
+        ev = self.hit(self.rep(body, profile='talk', plan='Pictograms: allowed (source: user set)\nProfile: talk\n'))[0]['evidence']
+        self.assertNotIn('fact carriers', ev)
+
+    def test_sizes_must_agree_within_a_quarter(self):
+        even = self.rep(_picto(20, 100, 200, 48, 48) + _picto(21, 300, 200, 54, 54))
+        self.assertTrue(find(even['deck'], 'share one size', 'pass'))
+        mixed = self.rep(_picto(20, 100, 200, 48, 48) + _picto(21, 300, 200, 90, 90))
+        self.assertTrue(find(mixed['deck'], 'share one size', 'observation'))
+
+    def test_small_size_is_reported_for_talk_and_pitch_only(self):
+        body = _picto(20, 100, 200, 28, 28)
+        for prof in ('talk', 'pitch'):
+            self.assertTrue(find(self.rep(body, profile=prof)['deck'], 'under 36 pt', 'observation'), prof)
+        for prof in ('read', 'update'):
+            self.assertEqual(find(self.rep(body, profile=prof)['deck'], 'under 36 pt'), [], prof)
+        self.assertEqual(find(self.rep(_picto(20, 100, 200, 48, 48))['deck'], 'under 36 pt'), [])
+
+    def test_alt_text_is_still_a_fail(self):
+        rep = self.rep(_picto(20, 100, 200, 48, 48, descr=''))
+        self.assertTrue(find(rep['slides'][0]['checks'], 'alt text', 'fail'))
+        rep = self.rep(_picto(20, 100, 200, 48, 48, descr='Plane'))
+        self.assertTrue(find(rep['slides'][0]['checks'], 'alt text', 'pass'))
+
+    def test_brief_field_parser(self):
+        import plan as planmod
+        for value, expect in (('none', (False, '')), ('', (False, '')), ('not allowed', (False, '')), ('keine', (False, '')),
+                              ('allowed', (True, '')), ('allowed (source: tool library)', (True, 'tool library')),
+                              ('Allowed (source: open set Phosphor, MIT)', (True, 'open set Phosphor, MIT')),
+                              ('allowed (source: ...)', (True, '')),
+                              ('none | allowed (source: user set | tool library | open set + licence | drawn)', (False, ''))):
+            self.assertEqual(planmod.pictograms_field(value), expect, value)
+        parsed = planmod.parse_plan('Purpose: x\nPictograms: allowed (source: user set)\nProfile: talk\n')
+        self.assertEqual((parsed['pictograms_allowed'], parsed['pictograms_source']), (True, 'user set'))
+        self.assertFalse(planmod.parse_plan('Purpose: x\nProfile: talk\n')['pictograms_allowed'])
+
+    def test_the_reference_file_is_named_in_the_skill(self):
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        with open(os.path.join(root, 'plugin/skills/slide-craft/SKILL.md'), encoding='utf-8') as f:
+            self.assertIn('references/pictograms.md', f.read())
+        self.assertTrue(os.path.exists(os.path.join(root, 'plugin/skills/slide-craft/references/pictograms.md')))
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

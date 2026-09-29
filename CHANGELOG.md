@@ -2,6 +2,22 @@
 
 All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` / plugin version in `plugin.json`.
 
+## 0.25 (0.25.0)
+
+Pictograms as a brief decision, firm rules only. 135 tests (10 new), all green. Nothing that existed before changed.
+
+| Change | Why |
+|---|---|
+| New `references/pictograms.md`: none by default; allowed where removing the symbol loses a word (label replacement, `talk` and `pitch`, concrete nouns only) or a fact (status mark, unit symbol, map sign, any profile); one set, one stroke, one size per role, never in a tile, circle or as a bullet | Decided with the project owner: pictograms work in spoken decks because the audience recognises a plane faster than it reads "plane", but only if the symbol is concrete and unambiguous. SlideCraft never adds them on its own initiative |
+| Source order: the user's set, the building tool's own icon library, an open SVG set with its licence in the plan, newly drawn only on request (then one style for the whole set, first row approved by the user) | No own icon library or style is shipped; the earlier plan for a second plugin with a pictogram skill was dropped |
+| New brief field `Pictograms: none \| allowed (source: ...)`, default none (`deck-plan.md`, `plan.py`) | Same pattern as `Placeholders` |
+| New check 14 (deck level): small non-placeholder pictures (both sides 14 to 115 pt, aspect 0.5 to 2, not named or described as a logo) counted against the plan, sizes within 25 %, under 36 pt in `talk` and `pitch`. Always an observation | The script cannot know what a picture means; alt text stays a fail through check 8 |
+| Check list item 14 and a provenance row in `rules-core.md`; `refuse.md`, `SKILL.md` (hard limit, SVG note for pptxgenjs) | Consistency |
+
+**Tested:** a pptxgenjs deck with three SVG symbols reaches check 14 (count, one size, alt text fail on the one without a description); five mutations of the new code each fail a test. **Not tested:** the rules on a real `talk` deck; whether the PowerPoint add-in can insert its own stock icons (open point in `development.md`).
+
+**Research behind it (not shipped):** the common UI sets (Feather, Lucide, Tabler: 24 grid, stroke 2, round caps) all look alike; the consulting decks in `docs/evidence.md` use few pictograms, small, in one dark colour with a hairline stroke; the search results about McKinsey, BCG and Apple keynote icon rules were template-seller blogs, not primary sources, and are not used as evidence.
+
 ## 0.24 (0.24.0)
 
 Findings of a review run on a real 4-slide board deck (a deck built in the same session as the review), checked against the code: everything that could be reproduced was. 125 tests (11 new), all green.

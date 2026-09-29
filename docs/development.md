@@ -20,7 +20,7 @@ tools/package.py                    builds dist/slide-craft/ and dist/slide-craf
 ## Tests
 
 ```
-python3 -m unittest discover -s tests       # 88 tests; 5 render tests skip without LibreOffice Impress
+python3 -m unittest discover -s tests       # 135 tests; 5 render tests skip without LibreOffice Impress
 ```
 
 The test decks in `tests/fixtures/` are committed. To rebuild them (needs Node and pptxgenjs):
@@ -99,11 +99,14 @@ These rules keep the skill honest. They apply to every change, by a person or by
 | Waivers by rule id | a pinned style (Liquid Glass needs shadows) must be possible without switching off the rest of the checks |
 | No builder library in the skill (a `patterns.js` that draws the 14 patterns was proposed and declined, 0.24) | it would run only where Node and pptxgenjs exist, not in the PowerPoint add-in or Claude Design, and it would turn a rulebook into a builder; the patterns stay zones and budgets that any building tool executes |
 | Placeholders are a brief decision, not a default (`Placeholders: allowed`, form `[[type: label]]`) | confidential figures must be buildable without the real values, but an unmarked placeholder on a board slide is a defect |
+| Pictograms are a brief decision, default none; no icon library and no own style shipped (0.25) | a pictogram is allowed where it replaces a word or carries a fact; an own set would be a second product to maintain, and the tool's own or the user's set keeps a deck consistent with its surroundings. A second plugin for pictograms was planned and dropped |
 | Only the skill folder is installed | examples and documents stay out of the user's context |
 
 ## Open points
 
 - **PowerPoint add-in, two tries so far:** the add-in skipped the direction round even though the prompt asked for it, and replaced the existing deck with the new one instead of appending drafts at the end as `direction.md` expects. A second audit adds a likely explanation: it never created pattern-named layouts (`P03 summary`, …) — every slide sat on the generic "Titel und Inhalt" layout. That alone would break the P01/P02 exemption, the recurring-placeholder check, and the plan's "layouts match by name" comparison, all of which key off a layout's name. Whether the add-in's underlying API (Office.js manipulating an already-open presentation) can create or rename slide masters and layouts at all, or the skill just is not asking it to there, cannot be told from outside it. Needs a repeatable test with the exact prompt and a look at what the add-in actually sent the model.
+- **PowerPoint stock icons:** `pictograms.md` names the building tool's own icon library (PowerPoint: Insert > Icons) as source 2, after the user's own set. Whether the add-in can insert them is not verified; in code-built decks (pptxgenjs, python-pptx) the library does not exist, and source 3 (an open SVG set with its licence in the plan) applies. Needs a test in the add-in.
+- Pictogram rules are untested on a real deck: the 36 pt and 25 % values are starting values, the "concrete nouns only" rule rests on one practitioner's experience with spoken decks. A `talk` deck with pictograms built from the rules would test them.
 - Test in the Claude apps: does the skill load, does the check script run, is LibreOffice available in the sandbox?
 - Calibrate `talk`, `pitch` and `update` on real decks of those kinds.
 - Check word budgets per pattern zone and the 8 pt spacing grid in the script.

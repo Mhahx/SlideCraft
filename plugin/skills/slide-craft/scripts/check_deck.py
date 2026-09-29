@@ -54,6 +54,22 @@ LARGE_TEXT_CONTRAST = 3.0
 NONTEXT_CONTRAST = 3.0
 STEP_FACTOR = 1.25
 EMOJI_RE = re.compile('[\U0001F000-\U0001FAFF☀-➿⬀-⯿⌀-⏿️]')
+# pictogram candidates (0.25): a small non-placeholder picture; whether it is a pictogram is a judgement, so it is only reported
+PICTO_MIN_PT, PICTO_MAX_PT = 14, 115
+PICTO_USE_MIN_PT = 36        # starting value for talk and pitch (0.5 in on a 13.33 in wide slide)
+PICTO_SIZE_TOL = 0.25        # sizes of the candidates agree within 25 %
+LOGO_RE = re.compile(r'logo', re.I)
+
+
+def is_pictogram_candidate(s):
+    if s.kind != 'pic' or s.ph or s.bbox is None:
+        return False
+    w, h = s.bbox[2], s.bbox[3]
+    if not (PICTO_MIN_PT <= w <= PICTO_MAX_PT and PICTO_MIN_PT <= h <= PICTO_MAX_PT and 0.5 <= w / h <= 2.0):
+        return False
+    return not LOGO_RE.search((s.name or '') + ' ' + (s.descr or ''))
+
+
 AUTO_ALT_RE = re.compile(r'(\.(png|jpe?g|gif|svg|bmp|tiff?|webp|emf|wmf)$|[\\/]|^(image|picture|graphic|chart|bild|grafik|diagramm|abbildung)\s*\d*$)', re.I)
 SOURCE_RE = re.compile(r'^\s*(sources?|quellen?)\s*[:：]', re.I)
 # an attribution without the Source:/Quelle: prefix, still recognisable as its own line, not running
@@ -1035,6 +1051,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     waivers = ''
     plan_has_roles = False
     plan_placeholders = False   # brief field `Placeholders: allowed`; the argument overrides the plan
+    plan_pict = (False, '')     # brief field `Pictograms: none | allowed (source: ...)`
     plan_other_sizes = set()   # role sizes of a plan role whose kind is not title/body/foot (cover, divider, quote, ...)
     if plan is not None:
         import plan as plan_mod
@@ -1042,6 +1059,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
             _p = plan_mod.parse_plan(plan)
             waivers = _p.get('waivers', '') or ''
             plan_placeholders = bool(_p.get('placeholders_allowed'))
+            plan_pict = (bool(_p.get('pictograms_allowed')), _p.get('pictograms_source') or '')
             plan_roles = [r for r in _p.get('roles', []) if r.get('size')]
             plan_has_roles = bool(plan_roles)
             plan_other_sizes = {round(r['size'], 2) for r in plan_roles if plan_mod._role_kind(r['name']) == 'other'}
@@ -1083,6 +1101,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
     insets = []         # (inset pt, ref) of shapes considered for the margin check
     number_use = {}     # number token (not a bare year) -> set of slide numbers it appears on
     placeholder_hits = {}   # slide number -> count of unintended placeholder hits on that slide
+    pict_hits = []          # pictogram candidates: (slide number, ref, width pt, height pt)
     intended_ph = []        # intentional [[type: label]] placeholders: slide, ref, type, label
     ph_allowed = plan_placeholders if placeholders is None else bool(placeholders)
     chart_sizes = set()
@@ -1451,6 +1470,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
         checks.append(chk('8', 'alt text on pictures and charts', 'file', 'fail' if bad_alt else ('pass' if withimg else 'observation'),
                           value=len(withimg), evidence=('missing or not a description: ' + '; '.join(bad_alt[:5])) if bad_alt else
                           ('all %d have alt text (whether it describes the content is a judgement)' % len(withimg) if withimg else 'no pictures or charts')))
+        pict_hits.extend((i, s.ref, s.bbox[2], s.bbox[3]) for s in shapes if is_pictogram_candidate(s))
         textshapes = [s for s in shapes if s.has_text and not (s.ph and norm_ph_type(s.ph[0]) in ('sldNum', 'ftr', 'dt'))]
         if title is not None and textshapes:
             first = textshapes[0]
@@ -1613,6 +1633,33 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                         (len(intended_ph), len({i['slide'] for i in intended_ph}),
                          '' if ph_allowed else '; the brief does not allow placeholders (Placeholders: allowed)')))
     report['placeholders'] = intended_ph
+    if pict_hits:
+        allowed, source = plan_pict
+        pname = profile_name
+        by_slide = ', '.join('slide %d (%d)' % (n, c) for n, c in sorted(collections.Counter(h[0] for h in pict_hits).items())[:10])
+        notes = []
+        if not allowed:
+            notes.append('the plan does not allow pictograms (Pictograms: none, also the default without a plan)')
+        else:
+            if not source:
+                notes.append('the plan names no source (Pictograms: allowed (source: ...))')
+            if pname in ('read', 'update'):
+                notes.append('profile %s: only fact carriers (status marks, unit symbols, map signs), not label replacements' % pname)
+        deck.append(chk('14', 'small pictures that may be pictograms (heuristic: %d to %d pt, not a logo)' % (PICTO_MIN_PT, PICTO_MAX_PT),
+                        'file (heuristic)', 'observation', value=len(pict_hits),
+                        evidence='%d on %d slide(s): %s. Whether each replaces a word or carries a fact is a judgement (pictograms.md)%s. A photo thumbnail counts too.'
+                        % (len(pict_hits), len({h[0] for h in pict_hits}), by_slide, ('; ' + '; '.join(notes)) if notes else '')))
+        sides = [max(h[2], h[3]) for h in pict_hits]
+        even = max(sides) <= min(sides) * (1 + PICTO_SIZE_TOL)
+        if len(pict_hits) >= 2:
+            deck.append(chk('14', 'pictogram candidates share one size (within %d %%)' % round(PICTO_SIZE_TOL * 100), 'file (heuristic)',
+                            'pass' if even else 'observation', value=[round(min(sides)), round(max(sides))],
+                            evidence='longest side %.0f to %.0f pt%s' % (min(sides), max(sides), '' if even else '; different sizes for one role are a mixed set, different roles may differ deliberately')))
+        if pname in ('talk', 'pitch'):
+            small = [h for h in pict_hits if max(h[2], h[3]) < PICTO_USE_MIN_PT]
+            if small:
+                deck.append(chk('14', 'pictogram candidates under %d pt in %s (starting value)' % (PICTO_USE_MIN_PT, pname), 'file (heuristic)', 'observation',
+                                value=len(small), evidence='; '.join('%s %.0f x %.0f pt' % (h[1], h[2], h[3]) for h in small[:5])))
     if plan is None:
         deck.append(chk('12', 'deck matches its deck plan', 'file', 'not_measured',
                         evidence='no plan given: run with --plan deck-plan.md, or --derive-plan to write one from this deck'))

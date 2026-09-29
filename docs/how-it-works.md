@@ -122,6 +122,7 @@ What it checks:
 | 8 | title set, reading order with the title first, alt text on pictures and charts | file |
 | 9 | banned effects (`gradient`, `shadow`, `glow`, `soft-edge`, `reflection`, `3d`, `emoji`), placeholder text left in the deck, and the detector rules | file |
 | 12 | deck against plan: fonts, role sizes, weights, palette, margins, layouts, titles, slide count | file |
+| 14 | small pictures that may be pictograms (14 to 115 pt, not a logo): count against the plan's `Pictograms:` field, sizes within 25 %, under 36 pt in `talk` and `pitch`. Always an observation: the script cannot know what a picture means | file (heuristic) |
 | 10, 11, 13 | title strand as a story, direction contract (a default-look ground is reported as an observation), render review (also: does the title match the exhibit, does the slide contradict another one) | judgement, listed as open items |
 
 ### Detector rules

@@ -25,6 +25,7 @@ The example decks are fictional and in German; all numbers are sample data. Land
 - **Uses proven layouts.** 14 patterns (chart with interpretation, focus chart, table, waterfall, before/after, timeline, key numbers, statement …), each with zones on a 12-column grid and a word budget, derived from nine public McKinsey, BCG, Bain and Roland Berger decks.
 - **Writes a deck plan first.** One design system (fonts, text roles with sizes, palette with computed contrast, grid) and a slide table, before the first slide exists. The finished deck is checked against it.
 - **Checks the file, not an impression.** A script reads the .pptx and reports pass or fail only for what it can measure: font sizes, contrast (WCAG), words per slide, margins, sources on data slides, alt text, deviations from the plan, banned effects (gradients, shadows, 3D, emoji icons) and 18 detector rules for AI patterns. Everything else is reported as an observation.
+- **Keeps pictograms out unless they earn their place.** None by default; on request only where a symbol replaces a word (`talk`, `pitch`) or carries a fact, one set per deck (`references/pictograms.md`).
 - **Respects what you pin.** A brand font, a template or a style you ask for beats the skill's defaults and is recorded as a waiver in the plan.
 - **Improves existing decks.** Modes `audit`, `critique`, `polish`, `distill`, `typeset`, `layout`, `clarify`, `bolder`, `quieter`.
 
@@ -78,11 +79,11 @@ Exit code 1 means at least one fail. Details: [docs/how-it-works.md](docs/how-it
 
 ## Status and limits
 
-Version **0.20** (draft). What is tested:
+Version **0.25** (draft). What is tested:
 
 - Two full runs with a human user (a `read` decision paper, a `pitch` with a pinned style), one blind run by a fresh agent on a different model with only the installed skill (`talk`), all ending with 0 fails in the check script.
 - Trigger test: the skill loads for 10 of 10 slide requests and stays out of 10 of 10 other tasks (Claude Code, headless). See [tests/trigger/RESULTS.md](tests/trigger/RESULTS.md).
-- 125 unit tests for the check script.
+- 135 unit tests for the check script.
 
 What is not:
 

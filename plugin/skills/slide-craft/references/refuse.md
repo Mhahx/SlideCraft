@@ -45,7 +45,7 @@ Structure:
 
 Surface:
 - Rounded boxes with soft shadows standing in for content.
-- Mixed icon styles (different libraries or stroke widths).
+- Mixed icon styles (different libraries or stroke widths), and any pictogram that neither replaces a word nor carries a fact (`references/pictograms.md`).
 - Monospace as a costume for "technical" instead of code, data or measurements.
 - Geometric shapes (circle, polygon) standing in for a real image cut-out, and decorative illustrations built from simple shapes (a mascot, an ornament, a vehicle riding a progress bar). A graphic that shows the subject matter is not decoration and is welcome: a range ring for a range, a route map for a network, a climb profile for fuel burn (tested in a `talk` deck). Test: does the graphic carry a fact of the slide? Then keep it.
 - Sparklines, progress rings and decorative charts without data behind them.
