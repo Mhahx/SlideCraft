@@ -619,6 +619,7 @@ class Shape:
         self.effects = []
         self.paras = []
         self.autofit = None
+        self.anchor = None       # bodyPr anchor as written on the shape itself (t, ctr, b), None when not stated
         self.fontscale = 1.0
         self.insets = (7.2, 3.6, 7.2, 3.6)
         self.is_source = False
@@ -827,6 +828,7 @@ def parse_slide(ctx):
                             s.autofit = 'spAutoFit'
                         elif bp.find(A + 'noAutofit') is not None:
                             s.autofit = 'noAutofit'
+                        s.anchor = bp.get('anchor')
                         emu = lambda k, d: int(bp.get(k)) / EMU_PT if bp.get(k) else d
                         s.insets = (emu('lIns', 7.2), emu('tIns', 3.6), emu('rIns', 7.2), emu('bIns', 3.6))
                     s.fontscale = fs
@@ -1378,7 +1380,7 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                               'observation', value=len(box_only),
                               evidence='; '.join(box_only[:6]) + '; shrink the boxes to their text so nothing depends on the estimate'))
         bg_graphics = inherited_graphics(ctx)
-        bg_overlaps = []
+        bg_overlaps, bg_box_only = [], []
         for g in bg_graphics:
             gx, gy, gw, gh = g['bbox']
             for a in texty:
@@ -1386,7 +1388,20 @@ def analyse(pkg, path, profile_name, exempt_manual, lang, plan=None, render_opts
                 ox = min(ax + aw, gx + gw) - max(ax, gx)
                 oy = min(ay + ah, gy + gh) - max(ay, gy)
                 if ox > TOL and oy > TOL:
-                    bg_overlaps.append('%s overlaps %s (%.0f x %.0f pt)' % (a.ref, g['ref'], ox, oy))
+                    # 0.25: as for two text shapes, the boxes may overlap while the words do not. The text reaches as far
+                    # as the estimate says (sideways and down from the top); a box anchored at the middle or bottom, or a
+                    # placeholder whose anchor is inherited, keeps the box as the evidence
+                    est = estimate_lines(a)
+                    top_anchored = a.anchor in (None, 't') and not a.ph
+                    words_meet = True
+                    if est is not None and top_anchored:
+                        x0, x1 = text_x_extent(a)
+                        words_meet = (min(x1, gx + gw) - max(x0, gx) > TOL) and (min(ay + est[1], gy + gh) - max(ay, gy) > TOL)
+                    (bg_overlaps if words_meet else bg_box_only).append('%s overlaps %s (%.0f x %.0f pt)' % (a.ref, g['ref'], ox, oy))
+        if bg_box_only:
+            checks.append(chk('3', 'text box overlaps a layout or master graphic but its text does not (estimate)', 'estimate (0.5 em glyph width, not a render)',
+                              'observation', value=len(bg_box_only),
+                              evidence='; '.join(bg_box_only[:6]) + '; shrink the box to its text so nothing depends on the estimate'))
         if bg_graphics:
             checks.append(chk('3', 'text does not overlap a layout or master graphic', 'file', 'fail' if bg_overlaps else 'pass',
                               evidence=('; '.join(bg_overlaps[:6])

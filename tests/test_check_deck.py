@@ -1391,6 +1391,30 @@ class Release025(unittest.TestCase):
     def rep(self, *bodies, profile='read', plan=None):
         return cd.analyse(cd.Package(build_pptx(list(bodies))), 'synthetic', profile, set(), 'en', plan)
 
+    # -- a caption box may touch the master logo while its text does not (found on the real deck: 2 of 3 fails were this)
+    def with_logo(self, body):
+        global LAYOUT
+        saved = LAYOUT
+        try:
+            LAYOUT = saved.replace('</p:spTree>', _logo_pic(888, 470, 40, 40) + '</p:spTree>')
+            return run_on(build_pptx([title_sp('Wir begleiten Nachfolgen erfolgreich') + body]))['slides'][0]['checks']
+        finally:
+            LAYOUT = saved
+
+    def test_short_caption_in_a_wide_box_only_touches_the_logo_with_its_box(self):
+        checks = self.with_logo(box(10, 561, 474, 351, 16, text='Bildunterschrift kurz', sz=9))
+        self.assertFalse(find(checks, 'text does not overlap a layout or master graphic', 'fail'))
+        self.assertTrue(find(checks, 'text box overlaps a layout or master graphic but its text does not', 'observation'))
+
+    def test_caption_text_that_reaches_the_logo_still_fails(self):
+        checks = self.with_logo(box(10, 561, 474, 351, 16, text='Eine sehr lange Bildunterschrift, die bis an den rechten Rand der Box reicht und dort das Logo trifft', sz=9))
+        self.assertTrue(find(checks, 'text does not overlap a layout or master graphic', 'fail'))
+
+    def test_wrapped_text_ending_above_the_logo_is_a_box_overlap_only(self):
+        # box 398-484 pt, two lines of 15 pt end at ~434 pt, the logo starts at 470 pt
+        checks = self.with_logo(box(10, 666, 398, 246, 86, text='Zwei Zeilen Text die in dieser Box umbrechen und weit oberhalb des Logos enden', sz=15))
+        self.assertFalse(find(checks, 'text does not overlap a layout or master graphic', 'fail'))
+
     # -- table height from the file, no render needed
     def test_wrapping_cells_push_a_table_past_the_source_line(self):
         long_text = 'Eine Zelle mit 55 Zeichen, die zweizeilig umbricht.'   # 51 characters: two lines at 12 pt in a 200 pt column
