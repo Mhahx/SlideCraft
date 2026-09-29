@@ -60,3 +60,9 @@ Go verstanden. Ich habe zwei Looks als echte Folien gebaut (Titelfolie und Folie
 3. Zur Folie 7: Für die Kurve habe ich einen linearen Verlauf ab Produktionsstart unterstellt (Invest minus Jahresbeitrag mal Jahre). Das ist meine Vereinfachung, sie steht auf der Folie. Ist das für den Beirat vertretbar, oder soll ich nur die beiden Amortisationszeiten als Balken zeigen?
 
 Nach deiner Wahl schreibe ich den Deckplan und baue alle acht Folien.
+
+## Turn 4
+
+Look A ist umgesetzt, die acht Folien stehen. Ein frischer Prüfer ohne Bauverlauf hat das Deck geprüft (Urteil: „fix“), ich habe alle wesentlichen Punkte korrigiert. Das Urteil zu den Korrekturen steht noch aus, ich melde mich damit gleich. Bis dahin gilt: Das Check-Skript meldet keine Fehler, die Rechnung ist nachgeprüft.
+
+Dateien in `test-runs/b1/deck/`: `kessler-beiratsvorlage-q3-2026.pptx` (Deck), `kessler-beiratsvorlage-q3-2026.pdf` (PDF-Vorabversion), `deck-plan.md`, `check.json`, Vorschaubilder `s-1.png` bis `s-8.png`.
