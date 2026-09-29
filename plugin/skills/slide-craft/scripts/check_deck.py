@@ -11,7 +11,7 @@ patterns (scripts/detect.py). Every value carries its origin
 Usage:
   check_deck.py deck.pptx --profile read|talk|pitch|update [--plan deck-plan.md] [--render] [--render-dir DIR] [--exempt 1,9] [--lang auto|en|de]
                           [--placeholders allowed|not-allowed]
-                          [--out report.json] [--compact]
+                          [--out report.json] [--compact] [--issues-only]
   check_deck.py deck.pptx --profile read --derive-plan      (print a plan derived from the deck)
 Exit code: 0 = no fail, 1 = at least one fail, 2 = input error.
 """
@@ -1726,6 +1726,25 @@ def format_summary(rep):
     return '\n'.join(lines)
 
 
+OPEN_STATUSES = ('fail', 'observation', 'not_measured', 'waived')
+
+
+def issues_only(rep):
+    """The report reduced to what a reviewer acts on: every fail, observation, not_measured and waived item, per
+    slide and deck-wide, plus the title strand, placeholders, render fonts and the summary. Passed checks, the
+    per-shape list and the deck facts are left out (on a real 8-slide deck they were about 87 % of the report)."""
+    keep = lambda checks: [c for c in checks if c.get('status') in OPEN_STATUSES]
+    out = {k: rep[k] for k in ('file', 'profile', 'summary', 'title_strand', 'placeholders', 'render', 'notes',
+                               'not_measured_here') if k in rep}
+    out['slides'] = [{'n': s['n'], 'layout': s.get('layout'), 'title': s.get('title'), 'checks': keep(s['checks'])}
+                     for s in rep['slides']]
+    out['deck'] = keep(rep['deck'])
+    if rep.get('plan'):
+        out['plan'] = {'checks': keep(rep['plan'].get('checks', []))}
+    out['omitted'] = 'passed checks, per-shape list and deck facts (--issues-only); run without it for the full report'
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('deck')
@@ -1740,6 +1759,8 @@ def main():
                     help='intentional [[type: label]] placeholders: observation when allowed, fail otherwise (default: the plan\'s Placeholders line, else not allowed)')
     ap.add_argument('--out')
     ap.add_argument('--compact', action='store_true', help='omit the per-shape list')
+    ap.add_argument('--issues-only', action='store_true',
+                    help='keep only fail, observation, not_measured and waived items (the input for the fresh reviewer)')
     a = ap.parse_args()
     try:
         pkg = Package(a.deck)
@@ -1773,7 +1794,7 @@ def main():
         for s in rep['slides']:
             s.pop('shapes', None)
         rep['facts'].pop('runs', None)
-    text = json.dumps(rep, indent=2, ensure_ascii=False)
+    text = json.dumps(issues_only(rep) if a.issues_only else rep, indent=2, ensure_ascii=False)
     if a.out:
         with open(a.out, 'w', encoding='utf-8') as f:
             f.write(text)
