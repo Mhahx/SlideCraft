@@ -12,3 +12,26 @@
 5. **Grenzen:** Was muss unangetastet bleiben (Firmenname, Kennzahlen, bestimmter Tonfall)?
 
 Wenn du keine Lust auf die Runde hast: Sag „mach du“, dann wähle ich den Look selbst und baue direkt. Das Ergebnis wird dann aber generischer.
+
+## Turn 2
+
+Das Deck ist fertig: `test-runs/a/deck.pptx` (6 Folien, Deutsch). Der Plan liegt in `test-runs/a/deck-plan.md`, die Renders in `test-runs/a/render/`.
+
+**Story (Titel allein tragen das Argument):**
+1. Von Excel zum BI-Tool: Warum wir wechseln sollten
+2. Excel kostet uns Zeit und Vertrauen in Zahlen
+3. Ein BI-Tool schafft eine gemeinsame Datenbasis
+4. Excel bleibt für Ad-hoc-Analysen, BI übernimmt Standardreports
+5. Ein kleiner Pilot senkt das Wechselrisiko
+6. Wir starten mit einem Pilot auf einem Report
+
+**Look:** Weil du "mach du" gesagt hast, habe ich ohne Entwürfe einen Look festgelegt. Er ist ruhig wie ein Kontenblatt: weißer Grund, Haarlinien zwischen den Zeilen, ein tiefes Petrol-Grün als einzige Akzentfarbe, Cambria für Titel und Calibri für den Inhalt. Cover und Schlussfolie stehen auf einem Farbfeld. Es gibt keine Karten und keine Icons. Falls dir der Look nicht gefällt, sag es. Dann zeige ich dir zwei Alternativen als Bilder.
+
+**Wo das Deck schwach ist:**
+- **Keine Zahlen.** Du hast keine geliefert, und ich erfinde keine. Die Folien 2 bis 5 tragen deshalb die Marke "Ohne Belege". Das Deck überzeugt erst richtig, wenn ihr eure echten Schmerzpunkte einsetzt (Stunden pro Monat, konkrete Fehlerfälle).
+- **Meine Annahmen:** Ziel ist die Freigabe eines Piloten, das Publikum ist euer Team, und ihr präsentiert live. Die vier Schmerzpunkte auf Folie 2 und die Aufgabenverteilung auf Folie 4 sind Vermutungen.
+- **Bewusste Gegenposition:** Folie 4 sagt, dass Excel bleibt, und Folie 5 nennt einheitliche Kennzahlen-Definitionen als Voraussetzung. Ohne beides würde das Deck nach Tool-Werbung klingen, und ein Tool behebt schlechte Daten nicht.
+
+**Prüfung:** Das Check-Skript meldet 0 Fehler. Alle 6 Folien habe ich gerendert und angesehen, dabei einen Pfeil auf Folie 3 korrigiert. Ein unabhängiger Reviewer hat nicht geprüft. Die Schriften wurden im Render durch metrisch gleiche Ersatzschriften dargestellt.
+
+Welche Zahlen oder Beispiele aus eurem Alltag kann ich einbauen?
