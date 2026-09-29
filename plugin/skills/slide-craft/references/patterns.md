@@ -214,7 +214,7 @@ Rules that hold in every pattern (seen in all nine decks):
 - **Rules:** start and end bars neutral dark, increases and decreases in two fixed colours (the signal colour for the negative), every step labelled with its value.
 
 ## P09 before-after
-**Use:** today versus target, or two options, along the same rows. **Profiles:** read, update, pitch. **Evidence:** BCG-NYCHA p35 (row labels left, current state and future state, chevron between), MCK-USPS p20 (upside and downside as two panels).
+**Use:** today versus target, or two options, along the same rows. **Profiles:** read, update, pitch, talk (budget above). **Evidence:** BCG-NYCHA p35 (row labels left, current state and future state, chevron between), MCK-USPS p20 (upside and downside as two panels).
 ```
 ┌──────────────────────────────────────────┐
 │ Title (claim about the change)           │

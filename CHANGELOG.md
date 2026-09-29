@@ -28,6 +28,13 @@ Slimming review: what must always be in context (`SKILL.md`), what is loaded on 
 | The agent tool was available, the fresh review was still a self-check | `SKILL.md` step 7: with an agent or subagent tool the fresh reviewer is mandatory |
 | Self-check against the default looks used the genus "business deck", so the green table look of an Excel deck passed | `direction.md`: the category is the topic as the user named it |
 
+**Test run A2** (same prompt, fresh Sonnet 5.5 session on the fixes above). The user's answers differed from the script (among them a request to make up figures), which made the run harder, not easier. All five fixes held: content questions stayed with the user after the hand-over, the made-up figures were refused in favour of `[[Zahl: Std./Bericht]]` with a draft mark, one slide of the rows family, a fresh reviewer subagent (disposition `fix`, five of seven findings applied), a self-check against the topic, 0 script fails. The session also carried the user's personal preferences (announce, wait for "go", guiding questions), so A's "builds only after your go" was the preference, not the skill.
+
+| Finding | Change |
+|---|---|
+| P09 had a `talk` budget in `patterns.md` but no `talk` in its Profiles line; the new plan check enforced the Profiles line, so the model waived P09 to use it | P09's Profiles line and `plan.py` include `talk` |
+| The waiver line quoted "mach du" as the user's words for P09 | `direction.md` Quick: the hand-over is not a waiver; a waiver quotes what the user said about that very item |
+
 Measured with `wc -w` before the test-run fixes: `SKILL.md` 2,294 → 1,718 words (−25 %). References 13,318 → 13,152 words including the new `tools.md` (346); `rules-core.md` −633, `refuse.md` +168 for the replacement actions. 125 tests green, `tools/package.py` and `agentskills validate` pass.
 
 ## 0.24 (0.24.0)

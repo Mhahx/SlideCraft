@@ -1162,6 +1162,9 @@ class PlanAuditFindings(unittest.TestCase):
         self.assertEqual(read[fit]['status'], 'fail')
         self.assertIn('slide 6: P14', read[fit]['evidence'])
         self.assertNotIn(fam, read)                     # the family limit applies to talk and pitch only
+        talk = p4('talk')                               # test run A2: P09 has a talk budget, so it fits talk
+        self.assertNotIn('slide 3: P09', talk[fit]['evidence'])
+        self.assertIn('slide 2: P10', talk[fit]['evidence'])
         self.assertEqual(planmod.pattern_id('p07'), 7)
         self.assertIsNone(planmod.pattern_id('main'))
 

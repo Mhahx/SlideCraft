@@ -27,7 +27,7 @@ ALL_PROFILES = ('read', 'talk', 'pitch', 'update')
 PATTERN_PROFILES = {
     1: ALL_PROFILES, 2: ('read', 'update', 'pitch'), 3: ('read', 'update'), 4: ('read', 'update', 'pitch'),
     5: ('talk', 'pitch', 'read'), 6: ('read', 'update'), 7: ('read', 'update'), 8: ('read', 'update', 'pitch'),
-    9: ('read', 'update', 'pitch'), 10: ('read', 'update', 'pitch'), 11: ALL_PROFILES, 12: ('read', 'pitch', 'talk'),
+    9: ('read', 'update', 'pitch', 'talk'), 10: ('read', 'update', 'pitch'), 11: ALL_PROFILES, 12: ('read', 'pitch', 'talk'),
     13: ('talk', 'pitch', 'read'), 14: ('talk', 'pitch'),
 }
 ROWS_FAMILY = (7, 9, 10)     # P07 table, P09 before-after, P10 numbered-rows: one composition (patterns.md)
