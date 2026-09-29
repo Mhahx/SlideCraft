@@ -1472,6 +1472,16 @@ class MeasurableJudgements(unittest.TestCase):
         on_white = _runs_sp(10, 48, 160, 600, 60, [[('Secondary note on white', False)]], color='595959')
         self.assertNotIn('grey-on-colour', self.rules(on_white))
 
+    def test_issues_only_keeps_every_open_item_and_drops_passes(self):
+        rep = cd.analyse(cd.Package(os.path.join(FIX, 'bad.pptx')), 'bad', 'read', set(), 'auto')
+        small = cd.issues_only(rep)
+        open_items = lambda checks: [c for c in checks if c['status'] in cd.OPEN_STATUSES]
+        self.assertEqual(sum(len(s['checks']) for s in small['slides']) + len(small['deck']),
+                         sum(len(open_items(s['checks'])) for s in rep['slides']) + len(open_items(rep['deck'])))
+        self.assertFalse([c for s in small['slides'] for c in s['checks'] if c['status'] == 'pass'])
+        self.assertEqual(small['summary'], rep['summary'])
+        self.assertNotIn('facts', small)
+
     def test_no_new_rule_fires_on_the_good_fixture(self):
         new = {'thank-you-slide', 'bold-colon-list', 'photo-count', 'heading-spacing', 'grey-on-colour'}
         rep = cd.analyse(cd.Package(os.path.join(FIX, 'good.pptx')), 'good', 'read', set(), 'auto')

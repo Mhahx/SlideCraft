@@ -4,6 +4,10 @@ All versions are drafts (`metadata.status: draft`). Skill version in `SKILL.md` 
 
 ## 0.25 (0.25.0)
 
+### Leaner fresh review
+
+The fresh reviewer got the full check report: on the 8-slide deck of test run B1 that was 130 KB, about 87 % of it passed checks and the per-shape list. `check_deck.py --issues-only` keeps only fails, observations, not-measured and waived items, plus the title strand, placeholders, render fonts and the summary (26 KB on the same deck, all 66 open items kept). `direction.md` (Finish): the reviewer gets that output and judges what the script cannot (check list items 10, 11 and 13, title against exhibit, figure against source, comparison against definition, objections raised against the slides); it does not re-measure passed values and names a script result only when a render contradicts it. The verdict pass after "fix" is unchanged. 134 tests (1 new).
+
 ### Test run B: with and without the skill
 
 Same board-paper brief with complete figures, Sonnet 5.5, once with the skill (B1) and once without it (B0b: repository checked out without `.claude/`, so the skill was not loaded; the pptx skill was present in both). One run each: a direction, not evidence.
