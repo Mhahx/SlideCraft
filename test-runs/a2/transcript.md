@@ -13,3 +13,29 @@
 Zur Modellwahl: Für die reine Textarbeit reicht dieses Modell. Für die visuelle Endkontrolle könnte ein stärkeres Modell (Opus) sinnvoll sein.
 
 Sag mir mit deinen Antworten „go“, dann starte ich mit dem Story-Gerüst.
+
+## Turn 2
+
+Du hast „Go“ gesagt, aber die vier Fragen noch nicht beantwortet. Ich starte deshalb wie angekündigt mit dem Story-Gerüst und markiere, was ich annehme. Gebaut wird noch nichts.
+
+**Annahmen (bitte korrigieren):** Profil `talk` (du präsentierst live vor dem Team), Ziel: Zustimmung zu einem Pilot. Keine Zahlen von dir, also ist alles unten `hypothesis`. Ich erfinde keine.
+
+**Governing Message:** Excel reicht für unsere Standardberichte nicht mehr; ein BI-Tool übernimmt sie, Excel bleibt für Ad-hoc-Analysen, und ein Pilot klärt das Risiko vor dem Rollout.
+
+| # | Muster | Titel (Aussage) | Basis |
+|---|---|---|---|
+| 1 | P01 cover | Von Excel zu BI: Vorschlag für einen Pilot | hypothesis |
+| 2 | P03 summary | Standardberichte gehören in ein BI-Tool, Ad-hoc-Analysen bleiben in Excel | hypothesis |
+| 3 | P10 numbered-rows | Excel kostet uns heute Zeit, Verlässlichkeit und Überblick | hypothesis (braucht eure Vorfälle) |
+| 4 | P09 before-after | Im BI-Tool entsteht der Bericht aus einer Datenquelle statt aus Kopieren und Einfügen | hypothesis |
+| 5 | P07 table | Excel und BI ergänzen sich: jedes Werkzeug bekommt die Aufgaben, die es am besten kann | hypothesis |
+| 6 | P11 timeline | Ein begrenzter Pilot zeigt vor dem Rollout, ob sich der Wechsel lohnt | hypothesis |
+
+Gelesen nur als Titelfolge trägt das Argument: Problem (3), Lösung (4), Einwand „Excel verschwindet“ (5), kleiner nächster Schritt (6). Folie 5 ist bewusst da, weil die häufigste Gegenwehr „ihr nehmt uns Excel weg“ ist.
+
+**Was ich für den nächsten Schritt von dir brauche** (Look-Entwürfe und Bau hängen daran):
+1. **Zahlen/Vorfälle:** Habt ihr echte Werte für Folie 3 und 4 (z. B. Stunden pro Bericht, konkrete Fehlerfälle)? Wenn nein: Sind Platzhalter erlaubt? Sie wären als `[[Zahl: …]]` markiert, und die Folien trügen den Vermerk „Entwurf“.
+2. **Publikum und Ziel:** Stimmt „Team, live, Ziel Pilot“? Wie skeptisch ist das Publikum?
+3. **Look:** Template, Marke oder Schrift? Sonst: Wie soll es wirken, und was auf keinen Fall? Oder „mach du“ für den Look.
+
+Frage zum Nachdenken: Welcher Einwand deines Teams gegen den Wechsel wiegt am schwersten? Davon hängt ab, ob Folie 5 oder Folie 3 das Deck tragen muss.
